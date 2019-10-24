@@ -10,7 +10,11 @@ int main() {
     myPosSystem->getPosition();
 
     MotionCapture* myMoCap = new OptiTrack();
-    myMoCap->getAttitude();
-
+    myMoCap->getAttitudeHeading();
+    myMoCap->getPosition();
+    Quaternion* quat = new Quaternion();
+    myMoCap->getEulerfromQuaternion(*quat);
+    Vector3D* euler = new Vector3D();
+    myMoCap->getQuaternionfromEuler(*euler);
 
 }

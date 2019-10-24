@@ -2,14 +2,14 @@
 #include <iostream>
 
 OptiTrack::OptiTrack() {
-
+    Quaternion _bodyAtt;
 }
 
 OptiTrack::~OptiTrack() {
 
 }
 
-Quaternion OptiTrack::getAttitude(){
+Quaternion OptiTrack::getAttitudeHeading(){
 
     std::cout << "Hello, I'm OptiTrack Attitude!\n";
     Quaternion quat;

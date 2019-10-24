@@ -8,7 +8,7 @@ class OptiTrack : public MotionCapture {
         Quaternion _bodyAtt;
 
     public:
-        Quaternion getAttitude();
+        Quaternion getAttitudeHeading();
         Vector3D getPosition();
 
         OptiTrack();
