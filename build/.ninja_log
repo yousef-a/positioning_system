@@ -1,0 +1,4 @@
+# ninja log v5
+1	762	0	build.ninja	5c0ccfd8ff95b240
+0	2043	0	CMakeFiles/talker.dir/src/talker.cpp.o	354260030857bb45
+2044	2210	0	devel/lib/positioning_system/talker	a66ff4dcf91ba577
