@@ -66,6 +66,9 @@
 			"set": "cpp",
 			"string": "cpp"
 		},
-		"terminal.integrated.shell.windows": "cmd.exe"
+		"terminal.integrated.shell.windows": "cmd.exe",
+		"python.autoComplete.extraPaths": [
+			"/opt/ros/kinetic/lib/python2.7/dist-packages"
+		]
 	}
 }

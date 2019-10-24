@@ -3,7 +3,7 @@
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
 
-int main() {
+int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
 
     PositioningSystem* myPosSystem = new UM8E();
