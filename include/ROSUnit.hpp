@@ -7,8 +7,8 @@
 class ROSUnit{
 
 public:
-    void init(int argc, char **argv, std::string topic_name);
-    void spin();
+    //void init(int argc, char **argv, std::string topic_name);
+    //void spin();
     ROSUnit();
     ~ROSUnit();
 };

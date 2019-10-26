@@ -7,7 +7,7 @@ ROSUnit::ROSUnit() {
 ROSUnit::~ROSUnit() {
 
 }
-
+/*
 void ROSUnit::init(int argc, char **argv, std::string node_name){
 
     ros::init(argc, argv, node_name);
@@ -32,3 +32,4 @@ void ROSUnit::spin(){
         ros::spin();
     }
 }
+*/
