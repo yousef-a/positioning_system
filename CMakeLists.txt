@@ -116,6 +116,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
 # include
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -204,6 +205,9 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(talker src/talker.cpp)
-target_link_libraries(talker ${catkin_LIBRARIES})
-add_dependencies(talker positioning_system_generate_messages_cpp)
+FILE(GLOB SOURCE_FILES *.hpp *.cpp
+	      ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+        )
+
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})

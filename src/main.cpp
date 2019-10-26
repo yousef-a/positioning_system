@@ -2,9 +2,13 @@
 #include "../include/PositioningSystem.hpp"
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
+#include "../include/ROSUnit.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
+
+    ROSUnit* myROS = new ROSUnit();
+    myROS->init(argc, argv, "testando");
 
     PositioningSystem* myPosSystem = new UM8E();
     myPosSystem->getPosition();

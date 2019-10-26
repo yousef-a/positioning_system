@@ -1,8 +1,86 @@
 [
 {
   "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
-  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/talker.dir/src/talker.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/talker.cpp",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/talker.dir/src/talker.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/talker.cpp",
   "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/talker.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/Quaternion.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/Quaternion.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/Quaternion.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/OptiTrack.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/OptiTrack.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/OptiTrack.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/AttitudeHeadingProvider.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/AttitudeHeadingProvider.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/AttitudeHeadingProvider.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/MotionCapture.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/MotionCapture.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/Vector3D.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/Vector3D.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/Vector3D.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/main.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/main.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/main.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/ROSUnit.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/ROSUnit.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/talker.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/talker.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/talker.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/UM8E.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/UM8E.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/UM8E.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/PositioningSystem.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/PositioningSystem.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/AttitudeProvider.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/AttitudeProvider.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/AttitudeProvider.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/HeadingProvider.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/HeadingProvider.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/HeadingProvider.cpp"
+},
+
+{
+  "directory": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build",
+  "command": "/usr/bin/g++-7   -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"positioning_system\\\" -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/positioning_system.dir/src/GPS.cpp.o -c /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/GPS.cpp",
+  "file": "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/GPS.cpp"
 },
 
 {

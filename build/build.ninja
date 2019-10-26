@@ -75,9 +75,14 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 build edit_cache: phony CMakeFiles/edit_cache.util
 
 #############################################
-# Utility command for roscpp_generate_messages_py
+# Utility command for install/local
 
-build roscpp_generate_messages_py: phony
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+build install/local: phony CMakeFiles/install/local.util
 
 #############################################
 # Utility command for rosgraph_msgs_generate_messages_eus
@@ -130,7 +135,7 @@ build CMakeFiles/talker.dir/src/talker.cpp.o: CXX_COMPILER__talker ../src/talker
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/talker.dir/src/talker.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/talker.dir
   OBJECT_FILE_DIR = CMakeFiles/talker.dir/src
 
@@ -191,6 +196,121 @@ build rosgraph_msgs_generate_messages_py: phony
 build std_msgs_generate_messages_py: phony
 
 #############################################
+# Utility command for roscpp_generate_messages_py
+
+build roscpp_generate_messages_py: phony
+# =============================================================================
+# Object build statements for EXECUTABLE target positioning_system
+
+build CMakeFiles/positioning_system.dir/src/Quaternion.cpp.o: CXX_COMPILER__positioning_system ../src/Quaternion.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/Quaternion.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/OptiTrack.cpp.o: CXX_COMPILER__positioning_system ../src/OptiTrack.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/OptiTrack.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/AttitudeHeadingProvider.cpp.o: CXX_COMPILER__positioning_system ../src/AttitudeHeadingProvider.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/AttitudeHeadingProvider.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o: CXX_COMPILER__positioning_system ../src/MotionCapture.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/Vector3D.cpp.o: CXX_COMPILER__positioning_system ../src/Vector3D.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/Vector3D.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/main.cpp.o: CXX_COMPILER__positioning_system ../src/main.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/main.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o: CXX_COMPILER__positioning_system ../src/ROSUnit.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/talker.cpp.o: CXX_COMPILER__positioning_system ../src/talker.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/talker.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/UM8E.cpp.o: CXX_COMPILER__positioning_system ../src/UM8E.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/UM8E.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o: CXX_COMPILER__positioning_system ../src/PositioningSystem.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/AttitudeProvider.cpp.o: CXX_COMPILER__positioning_system ../src/AttitudeProvider.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/AttitudeProvider.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/HeadingProvider.cpp.o: CXX_COMPILER__positioning_system ../src/HeadingProvider.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/HeadingProvider.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+build CMakeFiles/positioning_system.dir/src/GPS.cpp.o: CXX_COMPILER__positioning_system ../src/GPS.cpp
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
+  DEP_FILE = CMakeFiles/positioning_system.dir/src/GPS.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
+
+# =============================================================================
+# Link build statements for EXECUTABLE target positioning_system
+
+
+#############################################
+# Link the executable devel/lib/positioning_system/positioning_system
+
+build devel/lib/positioning_system/positioning_system: CXX_EXECUTABLE_LINKER__positioning_system CMakeFiles/positioning_system.dir/src/Quaternion.cpp.o CMakeFiles/positioning_system.dir/src/OptiTrack.cpp.o CMakeFiles/positioning_system.dir/src/AttitudeHeadingProvider.cpp.o CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o CMakeFiles/positioning_system.dir/src/Vector3D.cpp.o CMakeFiles/positioning_system.dir/src/main.cpp.o CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o CMakeFiles/positioning_system.dir/src/talker.cpp.o CMakeFiles/positioning_system.dir/src/UM8E.cpp.o CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o CMakeFiles/positioning_system.dir/src/AttitudeProvider.cpp.o CMakeFiles/positioning_system.dir/src/HeadingProvider.cpp.o CMakeFiles/positioning_system.dir/src/GPS.cpp.o | /opt/ros/kinetic/lib/libroscpp.so /usr/lib/x86_64-linux-gnu/libboost_filesystem.so /usr/lib/x86_64-linux-gnu/libboost_signals.so /opt/ros/kinetic/lib/librosconsole.so /opt/ros/kinetic/lib/librosconsole_log4cxx.so /opt/ros/kinetic/lib/librosconsole_backend_interface.so /usr/lib/x86_64-linux-gnu/liblog4cxx.so /usr/lib/x86_64-linux-gnu/libboost_regex.so /opt/ros/kinetic/lib/libxmlrpcpp.so /opt/ros/kinetic/lib/libroscpp_serialization.so /opt/ros/kinetic/lib/librostime.so /opt/ros/kinetic/lib/libcpp_common.so /usr/lib/x86_64-linux-gnu/libboost_system.so /usr/lib/x86_64-linux-gnu/libboost_thread.so /usr/lib/x86_64-linux-gnu/libboost_chrono.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so /usr/lib/x86_64-linux-gnu/libboost_atomic.so /usr/lib/x86_64-linux-gnu/libpthread.so /usr/lib/x86_64-linux-gnu/libconsole_bridge.so
+  FLAGS = -g
+  LINK_LIBRARIES = -rdynamic /opt/ros/kinetic/lib/libroscpp.so -lboost_filesystem -lboost_signals /opt/ros/kinetic/lib/librosconsole.so /opt/ros/kinetic/lib/librosconsole_log4cxx.so /opt/ros/kinetic/lib/librosconsole_backend_interface.so -llog4cxx -lboost_regex /opt/ros/kinetic/lib/libxmlrpcpp.so /opt/ros/kinetic/lib/libroscpp_serialization.so /opt/ros/kinetic/lib/librostime.so /opt/ros/kinetic/lib/libcpp_common.so -lboost_system -lboost_thread -lboost_chrono -lboost_date_time -lboost_atomic -lpthread -lconsole_bridge -Wl,-rpath,/opt/ros/kinetic/lib
+  OBJECT_DIR = CMakeFiles/positioning_system.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = devel/lib/positioning_system/positioning_system
+  TARGET_PDB = positioning_system.dbg
+
+#############################################
 # Utility command for roscpp_generate_messages_lisp
 
 build roscpp_generate_messages_lisp: phony
@@ -209,16 +329,6 @@ build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
   pool = console
   restat = 1
 build install/strip: phony CMakeFiles/install/strip.util
-
-#############################################
-# Utility command for install/local
-
-build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-build install/local: phony CMakeFiles/install/local.util
 
 #############################################
 # Custom command for CMakeFiles/clean_test_results
@@ -386,6 +496,7 @@ build libgmock.so: phony gtest/libgmock.so
 build libgmock_main.so: phony gtest/libgmock_main.so
 build libgtest.so: phony gtest/gtest/libgtest.so
 build libgtest_main.so: phony gtest/gtest/libgtest_main.so
+build positioning_system: phony devel/lib/positioning_system/positioning_system
 build talker: phony devel/lib/positioning_system/talker
 # =============================================================================
 # Unknown Build Time Dependencies.
@@ -399,7 +510,7 @@ build talker: phony devel/lib/positioning_system/talker
 #############################################
 # The main all target.
 
-build all: phony devel/lib/positioning_system/talker
+build all: phony devel/lib/positioning_system/talker devel/lib/positioning_system/positioning_system
 
 #############################################
 # Make the all target the default.

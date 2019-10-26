@@ -1,10 +1,12 @@
 #pragma once
 #include "ros/ros.h"
+#include <iostream>
+#include <string>
 
 class ROSUnit{
 
 public:
-    //void init(ros::NodeHandle&);
+    ros::NodeHandle init(int argc, char **argv, std::string topic_name);
     ROSUnit();
     ~ROSUnit();
 };
