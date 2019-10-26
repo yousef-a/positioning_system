@@ -7,8 +7,16 @@
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
 
+
+
     ROSUnit* myROS = new ROSUnit();
-    myROS->init(argc, argv, "testando");
+    //myROS->init(argc, argv, "testando");
+    //myROS->spin();
+    ros::init(argc, argv, node_name);
+
+    ros::NodeHandle n;
+
+
 
     PositioningSystem* myPosSystem = new UM8E();
     myPosSystem->getPosition();
@@ -20,5 +28,7 @@ int main(int argc, char** argv) {
     myMoCap->getEulerfromQuaternion(*quat);
     Vector3D* euler = new Vector3D();
     myMoCap->getQuaternionfromEuler(*euler);
+
+    return 0;
 
 }

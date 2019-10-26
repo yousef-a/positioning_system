@@ -8,14 +8,27 @@ ROSUnit::~ROSUnit() {
 
 }
 
-ros::NodeHandle ROSUnit::init(int argc, char **argv, std::string topic_name){
+void ROSUnit::init(int argc, char **argv, std::string node_name){
 
-    ros::init(argc, argv, topic_name);
+    ros::init(argc, argv, node_name);
 
     ros::NodeHandle n;
 
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+
+    ros::Rate loop_rate(10);
+
+
     std::cout << "Initializing ROS Node" << std::endl;
 
-    return n; 
+}
 
+void ROSUnit::spin(){
+
+    while(ros::ok()){
+
+        std::cout << "Node Running... \n";
+
+        ros::spin();
+    }
 }
