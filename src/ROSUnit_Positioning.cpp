@@ -18,7 +18,6 @@ ROSUnit_Positioning::~ROSUnit_Positioning(){
 
 void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& msg){
 
-    std::cout << "CALLBACK POSITION\n";
-
+    std::cout << msg;
 }
 

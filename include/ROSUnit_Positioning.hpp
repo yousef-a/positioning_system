@@ -1,9 +1,9 @@
 #pragma once
 #include "ros/ros.h"
 #include <geometry_msgs/PoseStamped.h>
+#include "ROSUnit.hpp"
 
-
-class ROSUnit_Positioning {
+class ROSUnit_Positioning : public ROSUnit{
 
     private:
         ros::NodeHandle main_handler;
