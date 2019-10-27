@@ -11,7 +11,7 @@ class ROSUnit{
         
     public:
         ros::NodeHandle getNodeHandle();
-        virtual void setSubscribers();
+        virtual void setSubscribers() = 0;
         
         ROSUnit(ros::NodeHandle& _main_handler);
         ROSUnit();
