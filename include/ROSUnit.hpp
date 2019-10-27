@@ -6,13 +6,14 @@
 
 class ROSUnit{
 
-private:
-    ros::NodeHandle main_handler;
-    
-
-public:
-    ros::NodeHandle getNodeHandle();
-    ROSUnit(ros::NodeHandle& _main_handler);
-    ROSUnit();
-    ~ROSUnit();
+    private:
+        ros::NodeHandle main_handler;
+        
+    public:
+        ros::NodeHandle getNodeHandle();
+        virtual void setSubscribers();
+        
+        ROSUnit(ros::NodeHandle& _main_handler);
+        ROSUnit();
+        ~ROSUnit();
 };

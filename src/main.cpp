@@ -14,9 +14,9 @@ int main(int argc, char** argv) {
 
     ros::NodeHandle nh;
 
-    ROSUnit_Positioning* myROS = new ROSUnit_Positioning(nh);
+    ROSUnit* myROSPositioning = new ROSUnit_Positioning(nh);
 
-    myROS->setSubscribers();
+    myROSPositioning->setSubscribers();
 
     ros::spin();
 
