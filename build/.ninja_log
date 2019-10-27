@@ -17,3 +17,13 @@
 1	2277	0	CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o	9c08fc5d0259fef8
 1	2358	0	CMakeFiles/positioning_system.dir/src/talker.cpp.o	98ac1da31fa2531e
 0	2555	0	CMakeFiles/talker.dir/src/talker.cpp.o	3f18c0c6788bbf9f
+0	752	0	build.ninja	5c0ccfd8ff95b240
+0	2099	0	CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o	9c08fc5d0259fef8
+0	2273	0	CMakeFiles/positioning_system.dir/src/main.cpp.o	84be175b5f394455
+0	2610	0	CMakeFiles/positioning_system.dir/src/ROSUnit_Positioning.cpp.o	a6d57ae5777d2c2
+2610	2789	0	devel/lib/positioning_system/positioning_system	f7a8c4230777ab08
+1	2043	0	CMakeFiles/positioning_system.dir/src/main.cpp.o	84be175b5f394455
+1	2295	0	CMakeFiles/positioning_system.dir/src/main.cpp.o	84be175b5f394455
+0	2062	0	CMakeFiles/positioning_system.dir/src/main.cpp.o	84be175b5f394455
+0	2348	0	CMakeFiles/positioning_system.dir/src/ROSUnit_Positioning.cpp.o	a6d57ae5777d2c2
+2348	2541	0	devel/lib/positioning_system/positioning_system	f7a8c4230777ab08

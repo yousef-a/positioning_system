@@ -64,7 +64,10 @@
 			"memory_resource": "cpp",
 			"random": "cpp",
 			"set": "cpp",
-			"string": "cpp"
+			"string": "cpp",
+			"unordered_set": "cpp",
+			"hash_map": "cpp",
+			"hash_set": "cpp"
 		},
 		"terminal.integrated.shell.windows": "cmd.exe",
 		"python.autoComplete.extraPaths": [

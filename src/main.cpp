@@ -8,14 +8,15 @@
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
 
-
-    //myROS->init(argc, argv, "testando");
+    //myROS->init(argc, argv, "testing_node");
     //myROS->spin();
-    ros::init(argc, argv, "testando");
+    ros::init(argc, argv, "testing_node");
 
-    ros::NodeHandle n;
+    ros::NodeHandle nh;
 
-    ROSUnit_Positioning* myROS = new ROSUnit_Positioning();
+    ROSUnit_Positioning* myROS = new ROSUnit_Positioning(nh);
+
+    ros::spin();
 
     PositioningSystem* myPosSystem = new UM8E();
     myPosSystem->getPosition();
