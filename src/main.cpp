@@ -4,6 +4,8 @@
 #include "../include/OptiTrack.hpp"
 #include "../include/ROSUnit.hpp"
 #include "../include/ROSUnit_Positioning.hpp"
+#include "../include/msg_receiver.hpp"
+#include "../include/msg_emitter.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -18,8 +20,6 @@ int main(int argc, char** argv) {
 
     myROSPositioning->setSubscribers();
 
-    ros::spin();
-
     PositioningSystem* myPosSystem = new UM8E();
     myPosSystem->getPosition();
 
@@ -30,6 +30,10 @@ int main(int argc, char** argv) {
     myMoCap->getEulerfromQuaternion(*quat);
     Vector3D* euler = new Vector3D();
     myMoCap->getQuaternionfromEuler(*euler);
+
+    myROSPositioning->add_callback_msg_receiver((msg_receiver*)myMoCap);
+
+    ros::spin();
 
     return 0;
 
