@@ -1,6 +1,7 @@
 #ifndef COMMON_TYPES_H
 #define COMMON_TYPES_H
-#include <cstdint>
+#include <stdint.h>
+
 const struct tPacketProp{
 	uint8_t pad_len = 3;
 	uint8_t hdr_len = 2;
