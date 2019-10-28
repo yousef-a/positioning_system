@@ -19,3 +19,9 @@ Vector3D UM8E::getPosition(){
     return data;
 
 }
+
+void UM8E::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
+
+    //TODO
+
+}

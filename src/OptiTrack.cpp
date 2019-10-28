@@ -31,3 +31,8 @@ Vector3D OptiTrack::getPosition(){
     
     return data;
 }
+
+void OptiTrack::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
+
+    
+}
