@@ -2,6 +2,8 @@
 #include "ros/ros.h"
 #include <geometry_msgs/PoseStamped.h>
 #include "ROSUnit.hpp"
+#include "Vector3D.hpp"
+#include "common_types.hpp"
 
 class ROSUnit_Positioning : public ROSUnit{
 
