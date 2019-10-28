@@ -22,3 +22,7 @@ void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& 
     std::cout << msg;
 }
 
+void ROSUnit_Positioning::receive_msg_data(uint8_t data[], std::size_t len, msg_type _msg_type){
+
+    
+}

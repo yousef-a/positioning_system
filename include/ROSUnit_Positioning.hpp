@@ -12,7 +12,7 @@ class ROSUnit_Positioning : public ROSUnit{
         ros::NodeHandle main_handler;
         ros::Subscriber sub_positioning;
         static void callbackPositioning(const geometry_msgs::PoseStamped& msg);
-        
+        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
 
         ROSUnit_Positioning();
         ~ROSUnit_Positioning();
