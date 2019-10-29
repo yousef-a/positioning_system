@@ -10,6 +10,7 @@
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
 
+
     //myROS->init(argc, argv, "testing_node");
     //myROS->spin();
     ros::init(argc, argv, "testing_node");

@@ -1,5 +1,6 @@
 #include "ROSUnit_Positioning.hpp"
 #include <iostream>
+ROSUnit_Positioning* ROSUnit_Positioning::instance_ptr=NULL;
 
 ROSUnit_Positioning::ROSUnit_Positioning() {
     
@@ -21,7 +22,8 @@ void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& 
 
     //std::cout << msg;
     Vector3D _posXYZ;
-    
+    //_msg_type = msg_type::position;
+
     double tmp_float = msg.pose.position.x;
     uint8_t* data_ptr=(uint8_t*)&tmp_float;
     uint8_t payload[3];
@@ -31,7 +33,8 @@ void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& 
 
     std::cout << payload <<std::endl;
 
-    //emit_message(payload, 3, msg_type::position);
+    //Workaround for accessing msg_type inside a static function
+    instance_ptr->emit_message(payload, 3, msg_type::position);
 }
 
 void ROSUnit_Positioning::receive_msg_data(uint8_t data[], std::size_t len, msg_type _msg_type){

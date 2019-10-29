@@ -1,5 +1,4 @@
-#ifndef COMMON_TYPES_H
-#define COMMON_TYPES_H
+#pragma once
 #include <stdint.h>
 
 const struct tPacketProp{
@@ -13,4 +12,3 @@ const struct tPacketProp{
 enum class msg_type {position, raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };
 enum class ack_msg_type { raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };
 enum class ros_msg_type {ros_obstacle_distance,ros_aircraft_attitude};
-#endif
