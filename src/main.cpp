@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "testing_node");
 
     ros::NodeHandle nh;
+    ros::Rate rate(120);
 
     ROSUnit* myROSPositioning = new ROSUnit_Positioning(nh);
 
@@ -37,6 +38,7 @@ int main(int argc, char** argv) {
     while(ros::ok()){
         myMoCap->getPosition();
         ros::spinOnce();
+        rate.sleep();
     }
 
     return 0;
