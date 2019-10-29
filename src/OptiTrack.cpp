@@ -3,6 +3,8 @@
 
 OptiTrack::OptiTrack() {
     Quaternion _bodyAtt;
+    Vector3D _bodyPos;
+
 }
 
 OptiTrack::~OptiTrack() {
@@ -33,6 +35,16 @@ Vector3D OptiTrack::getPosition(){
 }
 
 void OptiTrack::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
+    
+    //double _position[3];
+    //uint8_t* tmp_ptr = (uint8_t*) &data[0];
 
+    //for(int i = 0; i < len/sizeof(double); i++){
+    //    _position[i] = *((double *) tmp_ptr[i]);
+    //}
+    std::cout << "Receive Data Pos\n"; 
+    //_bodyPos.x = _position[0];
+    //_bodyPos.y = _position[1];
+    //_bodyPos.z = _position[2];
     
 }

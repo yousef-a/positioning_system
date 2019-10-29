@@ -34,7 +34,10 @@ int main(int argc, char** argv) {
 
     myROSPositioning->add_callback_msg_receiver((msg_receiver*)myMoCap);
 
-    ros::spin();
+    while(ros::ok()){
+        myMoCap->getPosition();
+        ros::spinOnce();
+    }
 
     return 0;
 

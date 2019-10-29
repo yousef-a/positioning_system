@@ -7,7 +7,7 @@ void msg_emitter::add_callback_msg_receiver(msg_receiver* _callback_msg_receiver
 
 void msg_emitter::emit_message(uint8_t _msg[],size_t len, msg_type _msg_type){
     std::list<msg_receiver*>::iterator it;
-    //std::cout<<"msg_emitter::emit_message, msg_type: "<<(int)_msg_type<<std::endl;
+    std::cout<<"msg_emitter::emit_message, msg_type: "<<(int)_msg_type<<std::endl;
     for (it = _list_of_msg_receivers.begin(); it != _list_of_msg_receivers.end(); ++it){
         //std::cout<<"msg_emitter::emit_message, msg size: "<<len<<std::endl;
         (*it)->receive_msg_data(_msg,len,_msg_type);
