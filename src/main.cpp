@@ -4,6 +4,7 @@
 #include "../include/OptiTrack.hpp"
 #include "../include/ROSUnit.hpp"
 #include "../include/ROSUnit_Positioning.hpp"
+#include "../include/ROSUnit_Attitude.hpp"
 #include "../include/msg_receiver.hpp"
 #include "../include/msg_emitter.hpp"
 
@@ -19,6 +20,7 @@ int main(int argc, char** argv) {
     ros::Rate rate(120);
 
     ROSUnit* myROSPositioning = new ROSUnit_Positioning(nh);
+    ROSUnit* myROSAttitude = new ROSUnit_Attitude(nh);
 
     //myROSPositioning->setSubscribers();
 
@@ -34,9 +36,11 @@ int main(int argc, char** argv) {
     myMoCap->getQuaternionfromEuler(*euler);
 
     myROSPositioning->add_callback_msg_receiver((msg_receiver*)myMoCap);
+    myROSAttitude->add_callback_msg_receiver((msg_receiver*)myMoCap);
 
     while(ros::ok()){
         myMoCap->getPosition();
+        myMoCap->getAttitudeHeading();
         ros::spinOnce();
         rate.sleep();
     }
