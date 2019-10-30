@@ -25,9 +25,9 @@ Quaternion OptiTrack::getAttitudeHeading(){
 
 Vector3D OptiTrack::getPosition(){
 
-    //std::cout << "x: " << _bodyPos.x << std::endl;
-    //std::cout << "y: " << _bodyPos.y << std::endl;
-    //std::cout << "z: " << _bodyPos.z << std::endl;
+    std::cout << "x: " << _bodyPos.x << std::endl;
+    std::cout << "y: " << _bodyPos.y << std::endl;
+    std::cout << "z: " << _bodyPos.z << std::endl;
     
     return _bodyPos;
 }

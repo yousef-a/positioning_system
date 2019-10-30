@@ -24,7 +24,7 @@ void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& 
     tmp_double[0] = msg.pose.position.x;
     tmp_double[1] = msg.pose.position.y;
     tmp_double[2] = msg.pose.position.z;
-
+/*
     uint8_t* data_ptr=(uint8_t*)&tmp_double[0];
     uint8_t payload[sizeof(double) * 3];
 
@@ -32,7 +32,11 @@ void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& 
     for(int i = 0; i < sizeof(double) * 3; i++){
         payload[i]=*((uint8_t*)data_ptr++);
     }
-    
+ */   
+    uint8_t payload[24];
+
+    instance_ptr->serializeData(tmp_double, 3, payload);
+
     //Workaround for accessing msg_type inside a static function
     instance_ptr->emit_message(payload, 24, msg_type::position);    
 }

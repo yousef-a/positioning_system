@@ -169,105 +169,105 @@ build roscpp_generate_messages_py: phony
 build CMakeFiles/positioning_system.dir/src/ROSUnit_Positioning.cpp.o: CXX_COMPILER__positioning_system ../src/ROSUnit_Positioning.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/ROSUnit_Positioning.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/Quaternion.cpp.o: CXX_COMPILER__positioning_system ../src/Quaternion.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/Quaternion.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/msg_receiver.cpp.o: CXX_COMPILER__positioning_system ../src/msg_receiver.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/msg_receiver.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/OptiTrack.cpp.o: CXX_COMPILER__positioning_system ../src/OptiTrack.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/OptiTrack.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/AttitudeHeadingProvider.cpp.o: CXX_COMPILER__positioning_system ../src/AttitudeHeadingProvider.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/AttitudeHeadingProvider.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o: CXX_COMPILER__positioning_system ../src/MotionCapture.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/Vector3D.cpp.o: CXX_COMPILER__positioning_system ../src/Vector3D.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/Vector3D.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/main.cpp.o: CXX_COMPILER__positioning_system ../src/main.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/main.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/msg_emitter.cpp.o: CXX_COMPILER__positioning_system ../src/msg_emitter.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/msg_emitter.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o: CXX_COMPILER__positioning_system ../src/ROSUnit.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/UM8E.cpp.o: CXX_COMPILER__positioning_system ../src/UM8E.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/UM8E.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o: CXX_COMPILER__positioning_system ../src/PositioningSystem.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/AttitudeProvider.cpp.o: CXX_COMPILER__positioning_system ../src/AttitudeProvider.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/AttitudeProvider.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/HeadingProvider.cpp.o: CXX_COMPILER__positioning_system ../src/HeadingProvider.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/HeadingProvider.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
 build CMakeFiles/positioning_system.dir/src/GPS.cpp.o: CXX_COMPILER__positioning_system ../src/GPS.cpp
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"positioning_system\"
   DEP_FILE = CMakeFiles/positioning_system.dir/src/GPS.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g   -std=c++11
   INCLUDES = -I../include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/positioning_system.dir
   OBJECT_FILE_DIR = CMakeFiles/positioning_system.dir/src
@@ -334,21 +334,21 @@ build CMakeFiles/clean_test_results: CUSTOM_COMMAND
 build gtest/CMakeFiles/gmock_main.dir/usr/src/gtest/src/gtest-all.cc.o: CXX_COMPILER__gmock_main /usr/src/gtest/src/gtest-all.cc
   DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS
   DEP_FILE = gtest/CMakeFiles/gmock_main.dir/usr/src/gtest/src/gtest-all.cc.o.d
-  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11
   INCLUDES = -I/usr/src/gmock/include -I/usr/src/gmock -I/usr/src/gtest/include -I/usr/src/gtest
   OBJECT_DIR = gtest/CMakeFiles/gmock_main.dir
   OBJECT_FILE_DIR = gtest/CMakeFiles/gmock_main.dir/usr/src/gtest/src
 build gtest/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o: CXX_COMPILER__gmock_main /usr/src/gmock/src/gmock-all.cc
   DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS
   DEP_FILE = gtest/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o.d
-  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11
   INCLUDES = -I/usr/src/gmock/include -I/usr/src/gmock -I/usr/src/gtest/include -I/usr/src/gtest
   OBJECT_DIR = gtest/CMakeFiles/gmock_main.dir
   OBJECT_FILE_DIR = gtest/CMakeFiles/gmock_main.dir/src
 build gtest/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: CXX_COMPILER__gmock_main /usr/src/gmock/src/gmock_main.cc
   DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS
   DEP_FILE = gtest/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o.d
-  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11
   INCLUDES = -I/usr/src/gmock/include -I/usr/src/gmock -I/usr/src/gtest/include -I/usr/src/gtest
   OBJECT_DIR = gtest/CMakeFiles/gmock_main.dir
   OBJECT_FILE_DIR = gtest/CMakeFiles/gmock_main.dir/src
@@ -376,14 +376,14 @@ build gtest/libgmock_main.so: CXX_SHARED_LIBRARY_LINKER__gmock_main gtest/CMakeF
 build gtest/CMakeFiles/gmock.dir/usr/src/gtest/src/gtest-all.cc.o: CXX_COMPILER__gmock /usr/src/gtest/src/gtest-all.cc
   DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_EXPORTS
   DEP_FILE = gtest/CMakeFiles/gmock.dir/usr/src/gtest/src/gtest-all.cc.o.d
-  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11
   INCLUDES = -I/usr/src/gmock/include -I/usr/src/gmock -I/usr/src/gtest/include -I/usr/src/gtest
   OBJECT_DIR = gtest/CMakeFiles/gmock.dir
   OBJECT_FILE_DIR = gtest/CMakeFiles/gmock.dir/usr/src/gtest/src
 build gtest/CMakeFiles/gmock.dir/src/gmock-all.cc.o: CXX_COMPILER__gmock /usr/src/gmock/src/gmock-all.cc
   DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_EXPORTS
   DEP_FILE = gtest/CMakeFiles/gmock.dir/src/gmock-all.cc.o.d
-  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11
   INCLUDES = -I/usr/src/gmock/include -I/usr/src/gmock -I/usr/src/gtest/include -I/usr/src/gtest
   OBJECT_DIR = gtest/CMakeFiles/gmock.dir
   OBJECT_FILE_DIR = gtest/CMakeFiles/gmock.dir/src
@@ -421,7 +421,7 @@ build cmake_order_depends_target_gtest_main: phony || gtest/gtest/libgtest.so
 build gtest/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: CXX_COMPILER__gtest_main /usr/src/gtest/src/gtest_main.cc || cmake_order_depends_target_gtest_main
   DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_main_EXPORTS
   DEP_FILE = gtest/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o.d
-  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11
   INCLUDES = -I/usr/src/gtest/include -I/usr/src/gtest
   OBJECT_DIR = gtest/gtest/CMakeFiles/gtest_main.dir
   OBJECT_FILE_DIR = gtest/gtest/CMakeFiles/gtest_main.dir/src
@@ -450,7 +450,7 @@ build gtest/gtest/libgtest_main.so: CXX_SHARED_LIBRARY_LINKER__gtest_main gtest/
 build gtest/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: CXX_COMPILER__gtest /usr/src/gtest/src/gtest-all.cc
   DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_EXPORTS
   DEP_FILE = gtest/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o.d
-  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  FLAGS = -g -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11
   INCLUDES = -I/usr/src/gtest/include -I/usr/src/gtest
   OBJECT_DIR = gtest/gtest/CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = gtest/gtest/CMakeFiles/gtest.dir/src
