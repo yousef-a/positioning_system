@@ -19,14 +19,12 @@ ros::NodeHandle ROSUnit::getNodeHandle(){
 }
 
 //template<typename T>
-void ROSUnit::serializeData(double data[], int numVariables, uint8_t wtv[]){
+void ROSUnit::serializeData(double data[], int numVariables, uint8_t serializedData[]){
 
+    //std::cout << sizeof(data) << std::endl;
     uint8_t* data_ptr=(uint8_t*)&data[0];
-    //uint8_t serializedData[sizeof(data)];
     
     for(int i = 0; i < numVariables * sizeof(double); i++){
-        wtv[i]=*((uint8_t*)data_ptr++);
+        serializedData[i]=*((uint8_t*)data_ptr++);
     }
-    //std::cout << sizeof(data) << std::endl;
-    //wtv = serializedData;
 }
