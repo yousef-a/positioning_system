@@ -19,7 +19,7 @@ ros::NodeHandle ROSUnit::getNodeHandle(){
 }
 
 //template<typename T>
-void ROSUnit::serializeData(double data[], int numVariables, uint8_t serializedData[]){
+void ROSUnit::serializeData(double data[], int numVariables, uint8_t serializedData[]){ //TODO return serializedData, not pass by reference
 
     //std::cout << sizeof(data) << std::endl;
     uint8_t* data_ptr=(uint8_t*)&data[0];

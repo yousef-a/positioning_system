@@ -11,18 +11,24 @@ AttitudeHeadingProvider::~AttitudeHeadingProvider() {
 
 }
 
-//TODO Remove these from here and send to the specific sensors
-Vector3D AttitudeHeadingProvider::getAttitude(){
-    return _euler;
-}
-double AttitudeHeadingProvider::getHeading(){
-    return 0;
-}
-//------------------------------------------------------------
+Vector3D AttitudeHeadingProvider::getEulerfromQuaternion(Quaternion q){
 
-Vector3D AttitudeHeadingProvider::getEulerfromQuaternion(Quaternion data){
+    // roll (x-axis rotation)
+    double sinr_cosp = +2.0 * (q.w * q.x + q.y * q.z);
+    double cosr_cosp = +1.0 - 2.0 * (q.x * q.x + q.y * q.y);
+    _euler.x = atan2(sinr_cosp, cosr_cosp);
 
-    std::cout << "Receive Quaternion and return Euler\n";
+    // pitch (y-axis rotation)
+    double sinp = +2.0 * (q.w * q.y - q.z * q.x);
+    if (fabs(sinp) >= 1)
+        _euler.y = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+    else
+        _euler.y = asin(sinp);
+
+    // yaw (z-axis rotation)
+    double siny_cosp = +2.0 * (q.w * q.z + q.x * q.y);
+    double cosy_cosp = +1.0 - 2.0 * (q.y * q.y + q.z * q.z);  
+    _euler.z = atan2(siny_cosp, cosy_cosp);
 
     return _euler;
 }

@@ -21,7 +21,7 @@ void ROSUnit_Attitude::callbackAttitude(const geometry_msgs::PoseStamped& msg){
     data[2] = msg.pose.orientation.z;
     data[3] = msg.pose.orientation.w;
 
-    uint8_t serializedData[sizeof(data)];
+    uint8_t serializedData[sizeof(data)]; //TODO send msg_type_optitrack::attitude as the first byte of the serialiazedData
     const int numVariables = sizeof(data) / sizeof(data[0]);
     //instance_ptr is a workaround for accessing non-static function inside static
     instance_ptr->serializeData(data, numVariables, serializedData);

@@ -41,6 +41,8 @@ int main(int argc, char** argv) {
     while(ros::ok()){
         myMoCap->getPosition();
         myMoCap->getAttitudeHeading();
+        myMoCap->getAttitude();
+        myMoCap->getHeading();
         ros::spinOnce();
         rate.sleep();
     }

@@ -2,6 +2,7 @@
 #include "AttitudeProvider.hpp"
 #include "HeadingProvider.hpp"
 #include "Quaternion.hpp"
+#include <math.h>
 
 class AttitudeHeadingProvider : public AttitudeProvider, public HeadingProvider{
 
@@ -10,8 +11,8 @@ class AttitudeHeadingProvider : public AttitudeProvider, public HeadingProvider{
         Vector3D _euler;
 
     public:
-        Vector3D getAttitude(); //TODO This implementation has to go to the IMU later (make it virtual here)
-        double getHeading(); //TODO This implementation has to go to the GPS later (make it virtual here)
+        virtual Vector3D getAttitude() = 0; //TODO This implementation has to go to the IMU later 
+        virtual double getHeading() = 0; //TODO This implementation has to go to the GPS later
         virtual Quaternion getAttitudeHeading() = 0;
 
         Vector3D getEulerfromQuaternion(Quaternion);
