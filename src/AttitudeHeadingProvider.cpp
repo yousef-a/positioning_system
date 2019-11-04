@@ -33,9 +33,23 @@ Vector3D AttitudeHeadingProvider::getEulerfromQuaternion(Quaternion q){
     return _euler;
 }
 
-Quaternion AttitudeHeadingProvider::getQuaternionfromEuler(Vector3D data){
+Quaternion AttitudeHeadingProvider::getQuaternionfromEuler(Vector3D euler){
+    
+    double roll = euler.x;
+    double pitch = euler.y;
+    double yaw = euler.z;
 
-    std::cout << "Receive Euler and return Quaternion\n";
+    double cy = cos(yaw * 0.5);
+    double sy = sin(yaw * 0.5);
+    double cp = cos(pitch * 0.5);
+    double sp = sin(pitch * 0.5);
+    double cr = cos(roll * 0.5);
+    double sr = sin(roll * 0.5);
 
+    _quat.w = cy * cp * cr + sy * sp * sr;
+    _quat.x = cy * cp * sr - sy * sp * cr;
+    _quat.y = sy * cp * sr + cy * sp * cr;
+    _quat.z = sy * cp * cr - cy * sp * sr;
+    
     return _quat;
 }
