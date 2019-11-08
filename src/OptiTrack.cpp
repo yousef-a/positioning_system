@@ -60,13 +60,13 @@ Vector3D OptiTrack::getPosition(){
 void OptiTrack::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
     //TODO check if it's msg_type::optitrack first. Then check the type position or attitude.
     if(_msg_type == msg_type::optitrack){
-        if(_msg_type == msg_type::optitrack){
+        if(_msg_type == msg_type::position){
             double _position[3];
             double* tmp_ptr[3];
             _bodyPos.x = *((double *) &data[sizeof(double)*0]);
             _bodyPos.y = *((double *) &data[sizeof(double)*1]);
             _bodyPos.z = *((double *) &data[sizeof(double)*2]);
-        }else if (_msg_type == msg_type::attitude){
+        }else if (_msg_type == msg_type::optitrack){
             double _position[4];
             double* tmp_ptr[4];
             _bodyAtt.x = *((double *) &data[sizeof(double)*0]);

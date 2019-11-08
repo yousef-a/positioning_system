@@ -26,7 +26,7 @@ void ROSUnit_Attitude::callbackAttitude(const geometry_msgs::PoseStamped& msg){
     //instance_ptr is a workaround for accessing non-static function inside static
     //instance_ptr->serializeData(data, numVariables, serializedData);
 
-    //std::cout << sizeof(data) << std::endl;
+    std::cout << "Size of msg ATTITUDE: " << sizeof(msg_type_optitrack::attitude) << std::endl;
     uint8_t* data_ptr=(uint8_t*)&data[0];
     
     for(int i = 0; i < numVariables * sizeof(double); i++){
