@@ -24,8 +24,8 @@ void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& 
     const int numVariables = sizeof(data) / sizeof(data[0]);
 
     //instance_ptr is a workaround for accessing non-static function inside static
-    instance_ptr->serializeData(data, numVariables, serializedData); //TODO remove serializedData and make it specific 
-    instance_ptr->emit_message(serializedData, sizeof(data), msg_type::optitrack);    
+    //instance_ptr->serializeData(data, numVariables, serializedData); //TODO remove serializedData and make it specific 
+    //instance_ptr->emit_message(serializedData, sizeof(data), msg_type::optitrack);    
 }
 
 void ROSUnit_Positioning::receive_msg_data(uint8_t data[], std::size_t len, msg_type _msg_type){
