@@ -73,14 +73,10 @@ void OptiTrack::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_t
             std::cout << "INSIDE MSG_TYPE_OPTITRACK POSITION" << std::endl;
 
         }else if (_msg_type_optitrack == msg_type_optitrack::attitude){
-            double _position[4];
-            double* tmp_ptr[4];
             _bodyAtt.x = *((double *) &data[sizeof(double)*0 + 4]);
             _bodyAtt.y = *((double *) &data[sizeof(double)*1 + 4]);
             _bodyAtt.z = *((double *) &data[sizeof(double)*2 + 4]);
             _bodyAtt.w = *((double *) &data[sizeof(double)*3 + 4]);
-            std::cout << "INSIDE MSG_TYPE_OPTITRACK ATTITUDE" << std::endl;
-
 
         }
     }
