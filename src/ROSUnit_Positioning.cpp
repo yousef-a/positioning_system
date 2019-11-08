@@ -19,13 +19,22 @@ void ROSUnit_Positioning::callbackPositioning(const geometry_msgs::PoseStamped& 
     data[0] = msg.pose.position.x;
     data[1] = msg.pose.position.y;
     data[2] = msg.pose.position.z;
-    //std::cout << sizeof(data) << std::endl;
-    uint8_t serializedData[sizeof(data)];  //TODO send msg_type_optitrack::position as the first byte of the serialiazedData
-    const int numVariables = sizeof(data) / sizeof(data[0]);
+    uint8_t* data_ptr=(uint8_t*)&data[0];
+    msg_type_optitrack _msg_type_optitrack = msg_type_optitrack::position;
+    uint8_t* msg_ptr=(uint8_t*)&_msg_type_optitrack;
+    int len_data = 28; //4 bytes for msg_type + 24 bytes for 3 double variables
+    uint8_t serializedData[len_data];    
 
-    //instance_ptr is a workaround for accessing non-static function inside static
-    //instance_ptr->serializeData(data, numVariables, serializedData); //TODO remove serializedData and make it specific 
-    //instance_ptr->emit_message(serializedData, sizeof(data), msg_type::optitrack);    
+    serializedData[0] = *msg_ptr++;
+    serializedData[1] = *msg_ptr++;
+    serializedData[2] = *msg_ptr++;
+    serializedData[3] = *msg_ptr++;
+
+    for(int i = 4; i < len_data; i++){
+        serializedData[i]=*((uint8_t*)data_ptr++);
+    }
+
+    instance_ptr->emit_message(serializedData, len_data, msg_type::optitrack);   
 }
 
 void ROSUnit_Positioning::receive_msg_data(uint8_t data[], std::size_t len, msg_type _msg_type){

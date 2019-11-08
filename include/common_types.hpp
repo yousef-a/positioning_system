@@ -10,6 +10,6 @@ const struct tPacketProp{
 	uint8_t pad_EOP = 0xFF;
 }PacketProp;
 enum class msg_type {optitrack, position, attitude, raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };
-enum class msg_type_optitrack {empty, position, attitude};
+enum class msg_type_optitrack {position, attitude};
 enum class ack_msg_type { raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };
 enum class ros_msg_type {ros_obstacle_distance,ros_aircraft_attitude};
