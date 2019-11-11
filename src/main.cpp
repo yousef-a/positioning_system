@@ -3,8 +3,6 @@
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
 #include "../include/ROSUnit.hpp"
-#include "../include/ROSUnit_Positioning.hpp"
-#include "../include/ROSUnit_Attitude.hpp"
 #include "../include/ROSUnit_Optitrack.hpp"
 #include "../include/msg_receiver.hpp"
 #include "../include/msg_emitter.hpp"
