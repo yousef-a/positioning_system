@@ -9,6 +9,7 @@
 #include "../include/msg_emitter.hpp"
 #include "../include/Controller.hpp"
 #include "../include/PID_Controller.hpp"
+#include "../include/Reference.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -41,6 +42,7 @@ int main(int argc, char** argv) {
     myROSAttitude->add_callback_msg_receiver((msg_receiver*)myMoCap);
     
     Block* myController = new PID_Controller();
+    Block* myReference = new Reference();
 /*
     while(ros::ok()){
         myMoCap->getPosition();
