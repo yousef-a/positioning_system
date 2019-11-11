@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     ROSUnit* myROSPositioning = new ROSUnit_Positioning(nh);
     ROSUnit* myROSAttitude = new ROSUnit_Attitude(nh);
 
-    //myROSPositioning->setSubscribers();
+    //myROSPositioning->setsubscribers();
 
     PositioningSystem* myPosSystem = new UM8E();
     myPosSystem->getPosition();
