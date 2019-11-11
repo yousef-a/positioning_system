@@ -12,10 +12,6 @@ Controller::~Controller() {
 
 }
 
-block_type Controller::getType() {
-    return _type;
-}
-
 void Controller::switchIn(){
     _status = true;
 }

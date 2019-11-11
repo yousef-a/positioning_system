@@ -1,5 +1,6 @@
 #pragma once
 #include "common_types.hpp"
+#include <iostream>
 
 class Block {
 
@@ -9,10 +10,11 @@ protected:
 
 public:
     
-    virtual block_type getType() = 0;
+    block_type getType();
     virtual void switchIn() = 0;
     virtual void switchOut() = 0;
-    
+    bool getStatus();
+
     Block(block_type);
     ~Block();
 };

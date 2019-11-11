@@ -9,14 +9,18 @@ Switcher::~Switcher() {
 }
 
 void Switcher::addBlock(Block* b){
-
+    
+    _blocks.push_back(b);
 }
 
-void Switcher::status(){
+void Switcher::getStatus(){
 
-    
+    for(_it=_blocks.begin(); _it!=_blocks.end(); ++_it){
+        (*_it)->getStatus();
+    }
 }
 
 void Switcher::switchBlock(Block* from, Block* to){
-
+    from->switchOut();
+    to->switchIn();
 }
