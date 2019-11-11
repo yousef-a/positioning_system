@@ -17,13 +17,11 @@ block_type Controller::getType() {
 }
 
 void Controller::switchIn(){
-
-
+    _status = true;
 }
 
 void Controller::switchOut(){
-
-
+    _status = false;
 }   
 
 void Controller::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){

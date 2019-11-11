@@ -3,7 +3,10 @@
 
 class PID_Controller : public Controller{
 
-public:
-    PID_Controller();
-    ~PID_Controller();
+    private:
+        string _name;
+        
+    public:
+        PID_Controller();
+        ~PID_Controller();
 };
