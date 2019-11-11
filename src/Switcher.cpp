@@ -21,6 +21,7 @@ void Switcher::getStatus(){
 }
 
 void Switcher::switchBlock(Block* from, Block* to){
+    
     from->switchOut();
     to->switchIn();
 }
