@@ -7,8 +7,8 @@
 class Controller : public msg_emitter, public msg_receiver, public Block {
 
 private:
-    double[] _states;
-    double[] _error;
+    double _states[];
+    double _error[];
 
 public:
     block_type getType();
