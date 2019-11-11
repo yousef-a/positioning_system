@@ -5,20 +5,20 @@
 #include "Vector3D.hpp"
 #include "common_types.hpp"
 
-class ROSUnit_Attitude : public ROSUnit{
+class ROSUnit_Optitrack : public ROSUnit{
 
     //Inherit the constructors
     using ROSUnit::ROSUnit;
 
     private:
-        static ROSUnit_Attitude* instance_ptr;
+        static ROSUnit_Optitrack* _instance_ptr;
         ros::NodeHandle _main_handler;
         ros::Subscriber _sub_attitude;
-        static void callbackAttitude(const geometry_msgs::PoseStamped& msg);
+        static void callbackOptitrack(const geometry_msgs::PoseStamped& msg);
         void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);  
         
     public:
-        ROSUnit_Attitude(ros::NodeHandle&);
-        ~ROSUnit_Attitude();
-        
+        ROSUnit_Optitrack(ros::NodeHandle&);
+        ~ROSUnit_Optitrack();
+
 };

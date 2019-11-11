@@ -60,19 +60,13 @@ Vector3D OptiTrack::getPosition(){
 void OptiTrack::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
     if(_msg_type == msg_type::optitrack){
 
-        msg_type_optitrack _msg_type_optitrack = *((msg_type_optitrack*)&data[0]);
+        _bodyPos.x = *((double *) &data[sizeof(double)*0]);
+        _bodyPos.y = *((double *) &data[sizeof(double)*1]);
+        _bodyPos.z = *((double *) &data[sizeof(double)*2]);
+        _bodyAtt.x = *((double *) &data[sizeof(double)*3]);
+        _bodyAtt.y = *((double *) &data[sizeof(double)*4]);
+        _bodyAtt.z = *((double *) &data[sizeof(double)*5]);
+        _bodyAtt.w = *((double *) &data[sizeof(double)*6]);
 
-        if(_msg_type_optitrack == msg_type_optitrack::position){
-            _bodyPos.x = *((double *) &data[sizeof(double)*0 + 4]);
-            _bodyPos.y = *((double *) &data[sizeof(double)*1 + 4]);
-            _bodyPos.z = *((double *) &data[sizeof(double)*2 + 4]);
-
-        }else if (_msg_type_optitrack == msg_type_optitrack::attitude){
-            _bodyAtt.x = *((double *) &data[sizeof(double)*0 + 4]);
-            _bodyAtt.y = *((double *) &data[sizeof(double)*1 + 4]);
-            _bodyAtt.z = *((double *) &data[sizeof(double)*2 + 4]);
-            _bodyAtt.w = *((double *) &data[sizeof(double)*3 + 4]);
-
-        }
     }
 }

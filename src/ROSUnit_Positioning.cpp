@@ -4,7 +4,7 @@ ROSUnit_Positioning* ROSUnit_Positioning::instance_ptr = NULL;
 
 ROSUnit_Positioning::ROSUnit_Positioning(ros::NodeHandle&) {
 
-    sub_positioning = main_handler.subscribe("/Robot_1/pose", 10, callbackPositioning);
+    sub_positioning = _main_handler.subscribe("/Robot_1/pose", 10, callbackPositioning);
     instance_ptr = this;
 }
 

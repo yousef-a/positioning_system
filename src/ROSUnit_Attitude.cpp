@@ -4,7 +4,7 @@ ROSUnit_Attitude* ROSUnit_Attitude::instance_ptr = NULL;
 
 ROSUnit_Attitude::ROSUnit_Attitude(ros::NodeHandle&) {
 
-    _sub_attitude = main_handler.subscribe("/Robot_1/pose", 10, callbackAttitude);
+    _sub_attitude = _main_handler.subscribe("/Robot_1/pose", 10, callbackAttitude);
     instance_ptr = this;
 }
 
