@@ -3,11 +3,14 @@
 
 class Block {
 
+protected: 
+    block_type _type;
+
 public:
     
     virtual block_type getType() = 0;
     virtual void switchIn() = 0;
-    virtual void swtichOut() = 0;
+    virtual void switchOut() = 0;
 
     Block();
     ~Block();
