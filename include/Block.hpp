@@ -12,6 +12,6 @@ public:
     virtual void switchIn() = 0;
     virtual void switchOut() = 0;
 
-    Block();
+    Block(block_type);
     ~Block();
 };

@@ -7,6 +7,8 @@
 #include "../include/ROSUnit_Attitude.hpp"
 #include "../include/msg_receiver.hpp"
 #include "../include/msg_emitter.hpp"
+#include "../include/Controller.hpp"
+#include "../include/PID_Controller.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -37,7 +39,9 @@ int main(int argc, char** argv) {
 
     myROSPositioning->add_callback_msg_receiver((msg_receiver*)myMoCap);
     myROSAttitude->add_callback_msg_receiver((msg_receiver*)myMoCap);
-
+    
+    Block* myController = new PID_Controller();
+/*
     while(ros::ok()){
         myMoCap->getPosition();
         myMoCap->getAttitudeHeading();
@@ -46,7 +50,7 @@ int main(int argc, char** argv) {
         ros::spinOnce();
         rate.sleep();
     }
-
+*/
     return 0;
 
 }

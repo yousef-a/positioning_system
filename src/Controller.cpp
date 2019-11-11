@@ -1,7 +1,11 @@
 #include "Controller.hpp"
 
-Controller::Controller() {
-    _type = block_type::controller;
+Controller::Controller() : Block(block_type::controller){
+    if(_type == block_type::controller)
+        std::cout << "This is a Controller block" << std::endl; 
+    else
+        std::cout << "NOT WHATEVER" << std::endl;
+    //while(1);        
 }
 
 Controller::~Controller() {

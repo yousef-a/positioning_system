@@ -6,7 +6,7 @@
 
 class Controller : public msg_emitter, public msg_receiver, public Block {
 
-private:
+protected:
     double _states[];
     double _error[];
 

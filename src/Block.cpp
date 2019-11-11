@@ -1,7 +1,7 @@
 #include "Block.hpp"
 
-Block::Block() {
-
+Block::Block(block_type tmp) {
+    _type = tmp;
 }
 
 Block::~Block() {
