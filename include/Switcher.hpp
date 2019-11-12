@@ -1,7 +1,7 @@
 #pragma once
 #include "Block.hpp"
 #include <list>
-
+//TODO inherit msg tx and rx
 class Switcher{
 
     private:

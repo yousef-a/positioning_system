@@ -2,10 +2,10 @@
 #include "common_types.hpp"
 #include <iostream>
 
-class Block {
+class Block { //TODO inherit msg_rx and msg_tx
 
 protected: 
-    block_type _type;
+    block_type _type; //TODO remove type from here and add _name to the block
     bool _status;
 
 public:

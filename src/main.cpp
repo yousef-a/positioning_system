@@ -50,8 +50,8 @@ int main(int argc, char** argv) {
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
     myControlSystem->getReferenceSwitcher()->addBlock(myReference);
-    myControlSystem->getStatus();
-    myControlSystem->getControllerSwitcher()->setStatus(myPIDController1, true);
+    myControlSystem->getStatus(); //TODO delete getStatus, just for testing
+    myControlSystem->getControllerSwitcher()->setStatus(myPIDController1, true); //TODO switchIn to activate controller
     myControlSystem->getStatus();
     myControlSystem->getControllerSwitcher()->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
