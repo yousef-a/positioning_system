@@ -20,6 +20,11 @@ void Switcher::getStatus(){
     }
 }
 
+void Switcher::setStatus(Block* b, bool status){
+
+    b->setStatus(status);
+}
+
 void Switcher::switchBlock(Block* from, Block* to){
     
     from->switchOut();
