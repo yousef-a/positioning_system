@@ -5,7 +5,8 @@ Reference::Reference() : Block(block_type::reference){
         std::cout << "This is a Reference block" << std::endl; 
     else
         std::cout << "NOT WHATEVER" << std::endl;
-    //while(1);    
+    //while(1);   
+    _status = false; 
 }
 
 Reference::~Reference() {
@@ -17,12 +18,12 @@ block_type Reference::getType() {
 }
 
 void Reference::switchIn(){
-
+    _status = true;
 
 }
 
 void Reference::switchOut(){
-
+    _status = false;
 
 }   
 

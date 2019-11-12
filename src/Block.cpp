@@ -19,3 +19,8 @@ block_type Block::getType(){
     std::cout << "Block Type: " << std::endl;
     return _type;
 }
+
+void Block::setStatus(bool status){
+
+    _status = status;
+}

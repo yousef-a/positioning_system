@@ -14,6 +14,7 @@ public:
     virtual void switchIn() = 0;
     virtual void switchOut() = 0;
     bool getStatus();
+    void setStatus(bool);
 
     Block(block_type);
     ~Block();
