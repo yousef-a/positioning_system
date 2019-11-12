@@ -10,6 +10,7 @@
 #include "../include/Controller.hpp"
 #include "../include/PID_Controller.hpp"
 #include "../include/Reference.hpp"
+#include "../include/ControlSystem.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -41,8 +42,20 @@ int main(int argc, char** argv) {
     myROSPositioning->add_callback_msg_receiver((msg_receiver*)myMoCap);
     myROSAttitude->add_callback_msg_receiver((msg_receiver*)myMoCap);
     
-    Block* myController = new PID_Controller();
+    Block* myPIDController1 = new PID_Controller();
+    Block* myPIDController2 = new PID_Controller();
     Block* myReference = new Reference();
+
+    ControlSystem* myControlSystem = new ControlSystem();
+    myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
+    myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
+    myControlSystem->getReferenceSwitcher()->addBlock(myReference);
+    myControlSystem->getStatus();
+    myControlSystem->getControllerSwitcher()->setStatus(myPIDController1, true);
+    myControlSystem->getStatus();
+    myControlSystem->getControllerSwitcher()->switchBlock(myPIDController1, myPIDController2);
+    myControlSystem->getStatus();
+
 /*
     while(ros::ok()){
         myMoCap->getPosition();
