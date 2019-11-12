@@ -1,9 +1,9 @@
 #pragma once
-#include "PositioningSystem.hpp"
+#include "PositioningProvider.hpp"
 #include "Quaternion.hpp"
 #include "AttitudeHeadingProvider.hpp"
 
-class MotionCapture : public PositioningSystem, public AttitudeHeadingProvider{
+class MotionCapture : public PositioningProvider, public AttitudeHeadingProvider{
 
     public:
         virtual Vector3D getPosition() = 0;

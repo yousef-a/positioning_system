@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/PositioningSystem.hpp"
+#include "../include/PositioningProvider.hpp"
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
 #include "../include/ROSUnit.hpp"
@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 
     //myROSPositioning->setsubscribers();
 
-    PositioningSystem* myPosSystem = new UM8E();
+    PositioningProvider* myPosSystem = new UM8E();
     myPosSystem->getPosition();
 
     MotionCapture* myMoCap = new OptiTrack();
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
     myControlSystem->getControllerSwitcher()->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
 
-/*
+
     while(ros::ok()){
         myMoCap->getPosition();
         myMoCap->getAttitudeHeading();
@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
         ros::spinOnce();
         rate.sleep();
     }
-*/
+
     return 0;
 
 }

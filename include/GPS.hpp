@@ -1,8 +1,8 @@
 #pragma once
-#include "PositioningSystem.hpp"
+#include "PositioningProvider.hpp"
 #include <string>
 
-class GPS : public PositioningSystem {
+class GPS : public PositioningProvider {
 
     public:
 

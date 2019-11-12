@@ -8,7 +8,7 @@
 1	58	0	CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o	3ecd16720c7c44b3
 52	150	0	CMakeFiles/positioning_system.dir/src/AttitudeProvider.cpp.o	5342288bb1676d46
 58	151	0	CMakeFiles/positioning_system.dir/src/HeadingProvider.cpp.o	d8bd96f1a527dd17
-41	178	0	CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o	bb6a7e30bd99af37
+41	178	0	CMakeFiles/positioning_system.dir/src/PositioningProvider.cpp.o	bb6a7e30bd99af37
 1	443	0	CMakeFiles/positioning_system.dir/src/UM8E.cpp.o	98e7ef3ed9ccd89a
 0	458	0	CMakeFiles/positioning_system.dir/src/AttitudeHeadingProvider.cpp.o	e9f46190b5b120e0
 150	492	0	CMakeFiles/positioning_system.dir/src/GPS.cpp.o	6adf1050bb6e9f49
@@ -50,7 +50,7 @@
 1	552	0	CMakeFiles/positioning_system.dir/src/msg_emitter.cpp.o	ccc36f268ed32b8c
 1	587	0	CMakeFiles/positioning_system.dir/src/UM8E.cpp.o	98e7ef3ed9ccd89a
 1	589	0	CMakeFiles/positioning_system.dir/src/MotionCapture.cpp.o	3ecd16720c7c44b3
-1	613	0	CMakeFiles/positioning_system.dir/src/PositioningSystem.cpp.o	bb6a7e30bd99af37
+1	613	0	CMakeFiles/positioning_system.dir/src/PositioningProvider.cpp.o	bb6a7e30bd99af37
 1	2332	0	CMakeFiles/positioning_system.dir/src/ROSUnit.cpp.o	9c08fc5d0259fef8
 1	2432	0	CMakeFiles/positioning_system.dir/src/main.cpp.o	84be175b5f394455
 0	2680	0	CMakeFiles/positioning_system.dir/src/ROSUnit_Positioning.cpp.o	a6d57ae5777d2c2

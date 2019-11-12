@@ -2,7 +2,7 @@
 #include "Vector3D.hpp"
 #include "msg_receiver.hpp"
 
-class PositioningSystem : public msg_receiver{
+class PositioningProvider : public msg_receiver{
 
     private:
         Vector3D _homePos;
@@ -13,5 +13,5 @@ class PositioningSystem : public msg_receiver{
 
         Vector3D getRelativePosition();
         
-        PositioningSystem();
+        PositioningProvider();
 };
