@@ -1,12 +1,11 @@
 #include "Reference.hpp"
 
-Reference::Reference() : Block(block_type::reference){
+Reference::Reference(string name, block_type type){
     if(_type == block_type::reference)
         std::cout << "This is a Reference block" << std::endl; 
     else
         std::cout << "NOT WHATEVER" << std::endl;
-    //while(1);   
-    _status = false; 
+
 }
 
 Reference::~Reference() {

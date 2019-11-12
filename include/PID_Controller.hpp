@@ -1,12 +1,18 @@
 #pragma once
-#include "Controller.hpp"
+#include "Block.hpp"
 
-class PID_Controller : public Controller{
+class PID_Controller : public Block{
+
+    using Block::Block; 
 
     private:
-        string _name; //TODO remove _name from here and add type
         
     public:
-        PID_Controller();
+
+        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
+        void switchIn();
+        void switchOut();
+
+        PID_Controller(string name, block_type type);
         ~PID_Controller();
 };

@@ -7,7 +7,6 @@
 #include "../include/ROSUnit_Attitude.hpp"
 #include "../include/msg_receiver.hpp"
 #include "../include/msg_emitter.hpp"
-#include "../include/Controller.hpp"
 #include "../include/PID_Controller.hpp"
 #include "../include/Reference.hpp"
 #include "../include/ControlSystem.hpp"
@@ -42,9 +41,9 @@ int main(int argc, char** argv) {
     myROSPositioning->add_callback_msg_receiver((msg_receiver*)myMoCap);
     myROSAttitude->add_callback_msg_receiver((msg_receiver*)myMoCap);
     
-    Block* myPIDController1 = new PID_Controller();
-    Block* myPIDController2 = new PID_Controller();
-    Block* myReference = new Reference();
+    Block* myPIDController1 = new PID_Controller("PID1", block_type::controller);
+    Block* myPIDController2 = new PID_Controller("PID2", block_type::controller);
+    Block* myReference = new Reference("Ref", block_type::reference);
 
     ControlSystem* myControlSystem = new ControlSystem();
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);

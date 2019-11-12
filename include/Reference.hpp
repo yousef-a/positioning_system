@@ -1,10 +1,10 @@
 #pragma once
 #include "common_types.hpp"
-#include "msg_emitter.hpp"
-#include "msg_receiver.hpp"
 #include "Block.hpp"
 
-class Reference : public msg_emitter, public msg_receiver, public Block {
+class Reference : public Block {
+
+    using Block::Block;
 
     public:
         block_type getType();
@@ -12,6 +12,6 @@ class Reference : public msg_emitter, public msg_receiver, public Block {
         void switchOut();
         void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
 
-        Reference();
+        Reference(string name, block_type type);
         ~Reference();
 };

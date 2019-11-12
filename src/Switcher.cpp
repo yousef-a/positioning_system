@@ -30,3 +30,7 @@ void Switcher::switchBlock(Block* from, Block* to){
     from->switchOut();
     to->switchIn();
 }
+
+void Switcher::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
+    
+}
