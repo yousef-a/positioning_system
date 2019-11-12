@@ -20,9 +20,9 @@ void Switcher::getStatus(){
     }
 }
 
-void Switcher::setStatus(Block* b, bool status){
+void Switcher::setInitialCondition(Block* b, bool status){
 
-    b->setStatus(status);
+    b->switchIn();
 }
 
 void Switcher::switchBlock(Block* from, Block* to){

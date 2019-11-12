@@ -4,24 +4,18 @@
 #include "msg_emitter.hpp"
 #include "msg_receiver.hpp"
 
-class Block : public msg_emitter, public msg_receiver{ 
+class Block : public msg_emitter, public msg_receiver{   
 
-protected: 
-    string _name; 
-    bool _status;
-    block_type _type;
+    public:
+        
+        virtual string getName() = 0;
+        virtual block_type getType() = 0;
+        virtual bool getStatus() = 0;
+        virtual void switchIn() = 0;
+        virtual void switchOut() = 0;
+        virtual void setStatus(bool) = 0;
+        virtual void receive_msg_data(uint8_t data[], std::size_t len, msg_type _msg_type) = 0;
 
-public:
-    
-    string getName();
-    block_type getType();
-    virtual void switchIn() = 0;
-    virtual void switchOut() = 0;
-    bool getStatus();
-    void setStatus(bool);
-    void receive_msg_data(uint8_t data[], std::size_t len, msg_type _msg_type);
-
-    Block(string name, block_type type);
-    Block();
-    ~Block();
+        Block();
+        ~Block();
 };

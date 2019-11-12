@@ -3,15 +3,19 @@
 
 class PID_Controller : public Block{
 
-    using Block::Block; 
-
     private:
-        
-    public:
+        string _name; 
+        bool _status;
+        block_type _type;
 
+    public:
         void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
         void switchIn();
         void switchOut();
+        string getName();
+        block_type getType();
+        bool getStatus();
+        void setStatus(bool);
 
         PID_Controller(string name, block_type type);
         ~PID_Controller();
