@@ -22,13 +22,15 @@ void Switcher::getStatus(){
 
 void Switcher::setInitialCondition(Block* b, bool status){
 
-    b->switchIn();
+    DataMessage* msg;
+    b->switchIn(msg);
 }
 
 void Switcher::switchBlock(Block* from, Block* to){
     
+    DataMessage* msg;    
     from->switchOut();
-    to->switchIn();
+    to->switchIn(msg);
 }
 
 void Switcher::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){

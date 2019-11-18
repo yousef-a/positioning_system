@@ -20,15 +20,17 @@ block_type Reference::getType() {
     return _type;
 }
 
-void Reference::switchIn(){
+void Reference::switchIn(DataMessage* data){
     _status = true;
-
 }
 
-void Reference::switchOut(){
+DataMessage* Reference::switchOut(){
+    
     _status = false;
-
-}   
+    DataMessage* msg;
+    
+    return msg;
+}    
 
 void Reference::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
 

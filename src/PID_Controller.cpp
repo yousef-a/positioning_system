@@ -20,12 +20,16 @@ void PID_Controller::receive_msg_data(uint8_t data[],std::size_t len, msg_type _
 
 }
 
-void PID_Controller::switchIn(){
+void PID_Controller::switchIn(DataMessage* data){
     _status = true;
 }
 
-void PID_Controller::switchOut(){
+DataMessage* PID_Controller::switchOut(){
+    
     _status = false;
+    DataMessage* msg;
+    
+    return msg;
 }   
 
 

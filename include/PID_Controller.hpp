@@ -10,8 +10,8 @@ class PID_Controller : public Block{
 
     public:
         void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
-        void switchIn();
-        void switchOut();
+        void switchIn(DataMessage*);
+        DataMessage* switchOut();
         string getName();
         block_type getType();
         bool getStatus();

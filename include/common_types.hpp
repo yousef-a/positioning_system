@@ -11,6 +11,7 @@ const struct tPacketProp{
 }PacketProp;
 enum class msg_type {optitrack, position, attitude, raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };
 enum class msg_type_optitrack {position, attitude};
-enum class block_type {controller, observer, reference};
+enum class block_type {controller, provider, reference};
+enum class switcher_msg_type {controller, provider, reference};
 enum class ack_msg_type { raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };
 enum class ros_msg_type {ros_obstacle_distance,ros_aircraft_attitude};

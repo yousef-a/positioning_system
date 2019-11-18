@@ -11,8 +11,8 @@ class Reference : public Block {
 
     public:
         block_type getType();
-        void switchIn();
-        void switchOut();
+        void switchIn(DataMessage*);
+        DataMessage* switchOut();
         void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
         string getName();
         bool getStatus();

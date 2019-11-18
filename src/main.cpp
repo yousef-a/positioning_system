@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
     myControlSystem->getControllerSwitcher()->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
 
-
+/*
     while(ros::ok()){
         myMoCap->getPosition();
         myMoCap->getAttitudeHeading();
@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
         ros::spinOnce();
         rate.sleep();
     }
-
+*/
     return 0;
 
 }
