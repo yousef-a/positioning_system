@@ -13,28 +13,27 @@ ROSUnit_Optitrack::~ROSUnit_Optitrack() {
 
 void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg){
 
+
     double pos_data[3];
     pos_data[0] = msg.pose.position.x;
     pos_data[1] = msg.pose.position.y;
     pos_data[2] = msg.pose.position.z;
-    
     uint8_t* pos_data_ptr=(uint8_t*)&pos_data[0];
+    msg_type_optitrack _msg_type_optitrack = msg_type_optitrack::position;
+    uint8_t* pos_msg_ptr=(uint8_t*)&_msg_type_optitrack;
+    int pos_len_data = 28; //4 bytes for msg_type + 24 bytes for 3 double variables
+    uint8_t serializedDataPos[pos_len_data];    
 
-    msg_type_optitrack _msg_type_position = msg_type_optitrack::position;
-    uint8_t* msg_ptr_pos=(uint8_t*)&_msg_type_position;
+    serializedDataPos[0] = *pos_msg_ptr++;
+    serializedDataPos[1] = *pos_msg_ptr++;
+    serializedDataPos[2] = *pos_msg_ptr++;
+    serializedDataPos[3] = *pos_msg_ptr++;
 
-    int pos_data_len = 28; //4 bytes for msg_type + 24 bytes for 3 double variables
-    uint8_t serializedDataPos[pos_data_len];    
-
-    serializedDataPos[0] = *msg_ptr_pos++;
-    serializedDataPos[1] = *msg_ptr_pos++;
-    serializedDataPos[2] = *msg_ptr_pos++;
-    serializedDataPos[3] = *msg_ptr_pos++;
-    for(int i = 4; i < pos_data_len; i++){
-        serializedDataPos[i]=*((uint8_t*)msg_ptr_pos++);
+    for(int i = 4; i < pos_len_data; i++){
+        serializedDataPos[i]=*((uint8_t*)pos_data_ptr++);
     }
 
-    _instance_ptr->emit_message(serializedDataPos, pos_data_len, msg_type::optitrack); 
+    _instance_ptr->emit_message(serializedDataPos, pos_len_data, msg_type::optitrack);   
 
     double att_data[4];
     att_data[0] = msg.pose.orientation.x;
@@ -54,7 +53,7 @@ void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg)
     serializedDataAtt[2] = *msg_ptr_att++;
     serializedDataAtt[3] = *msg_ptr_att++;
     for(int i = 4; i < att_data_len; i++){
-        serializedDataAtt[i]=*((uint8_t*)msg_ptr_att++);
+        serializedDataAtt[i]=*((uint8_t*)att_data_ptr++);
     }
 
     _instance_ptr->emit_message(serializedDataAtt, att_data_len, msg_type::optitrack); 
