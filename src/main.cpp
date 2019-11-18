@@ -36,8 +36,7 @@ int main(int argc, char** argv) {
     Vector3D* euler = new Vector3D();
     myMoCap->getQuaternionfromEuler(*euler);
 
-    myROSPositioning->add_callback_msg_receiver((msg_receiver*)myMoCap);
-    myROSAttitude->add_callback_msg_receiver((msg_receiver*)myMoCap);
+    myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myMoCap);
     
     Block* myPIDController1 = new PID_Controller("PID1", block_type::controller);
     Block* myPIDController2 = new PID_Controller("PID2", block_type::controller);
