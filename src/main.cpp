@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     Block* myPIDController1 = new PID_Controller("PID1", block_type::controller);
     Block* myPIDController2 = new PID_Controller("PID2", block_type::controller);
     Block* myReference = new Reference("Ref", block_type::reference);
-
+/*
     ControlSystem* myControlSystem = new ControlSystem();
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
@@ -52,8 +52,8 @@ int main(int argc, char** argv) {
     myControlSystem->getStatus();
     myControlSystem->getControllerSwitcher()->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
+*/
 
-/*
     while(ros::ok()){
         myMoCap->getPosition();
         myMoCap->getAttitudeHeading();
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
         ros::spinOnce();
         rate.sleep();
     }
-*/
+
     return 0;
 
 }
