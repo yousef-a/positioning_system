@@ -3,8 +3,7 @@
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
 #include "../include/ROSUnit.hpp"
-#include "../include/ROSUnit_Positioning.hpp"
-#include "../include/ROSUnit_Attitude.hpp"
+#include "../include/ROSUnit_Optitrack.hpp"
 #include "../include/msg_receiver.hpp"
 #include "../include/msg_emitter.hpp"
 #include "../include/PID_Controller.hpp"
@@ -22,8 +21,7 @@ int main(int argc, char** argv) {
     ros::NodeHandle nh;
     ros::Rate rate(120);
 
-    ROSUnit* myROSPositioning = new ROSUnit_Positioning(nh);
-    ROSUnit* myROSAttitude = new ROSUnit_Attitude(nh);
+    ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
 
     //myROSPositioning->setsubscribers();
 
