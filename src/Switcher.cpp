@@ -14,11 +14,8 @@ void Switcher::addBlock(Block* b){
 }
 
 void Switcher::getStatus(){
-    std::cout << "CONTROL SYSTEM 4.1.1" << std::endl;
     for(_it=_blocks.begin(); _it!=_blocks.end(); ++_it){
-        std::cout << "CONTROL SYSTEM 4.1.2" << std::endl;
         (*_it)->getStatus();
-        std::cout << "CONTROL SYSTEM 4.1.3" << std::endl;
     }
 }
 
@@ -40,7 +37,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         SwitchMessage* switch_msg = (SwitchMessage*)t_msg;
         Block* switch_from_block = switch_msg->getFromBlock();
         Block* switch_to_block = switch_msg->getToBlock();
-
+        std::cout << "HERE" << std::endl;
         if(switch_from_block->getType() == switch_to_block->getType()){
             switch_to_block->switchIn(switch_from_block->switchOut());
         }

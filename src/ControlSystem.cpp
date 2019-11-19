@@ -2,10 +2,6 @@
 #include "../include/Switcher.hpp"
 
 ControlSystem::ControlSystem() {
-    controllerSwitcher = new Switcher();
-    referenceSwitcher = new Switcher();
-    providerSwitcher = new Switcher();
-
     this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
@@ -23,10 +19,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
 void ControlSystem::getStatus(){
     for(Switcher* s : _switchers){
-        std::cout << "CONTROL SYSTEM 4.1" << std::endl;
         s->getStatus();
-            std::cout << "CONTROL SYSTEM 4.2" << std::endl;
-
     }
 }
 

@@ -43,26 +43,16 @@ int main(int argc, char** argv) {
     Block* myReference = new Reference("Ref", block_type::reference);
 
     ControlSystem* myControlSystem = new ControlSystem();
-        std::cout << "CONTROL SYSTEM 1" << std::endl;
-
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
-        std::cout << "CONTROL SYSTEM 2" << std::endl;
-
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
-        std::cout << "CONTROL SYSTEM 3" << std::endl;
-
     myControlSystem->getReferenceSwitcher()->addBlock(myReference);
-        std::cout << "CONTROL SYSTEM 4" << std::endl;
-
-    //myControlSystem->getStatus(); //TODO delete getStatus, just for testing
-        std::cout << "CONTROL SYSTEM 5" << std::endl;
-
+    myControlSystem->getStatus(); //TODO delete getStatus, just for testing
     myControlSystem->getControllerSwitcher()->setInitialCondition(myPIDController1, true); //TODO switchIn to activate controller
-    //myControlSystem->getStatus();
+    myControlSystem->getStatus();
     myControlSystem->switchAtControllerBlock(myPIDController1, myPIDController2);
-    //myControlSystem->getStatus();
-    std::cout << "CONTROL SYSTEM 5.1" << std::endl;
-
+    myControlSystem->getStatus();
+    myControlSystem->switchAtControllerBlock(myReference, myPIDController1);
+    myControlSystem->getStatus();
     // while(ros::ok()){
     //     myMoCap->getPosition();
     //     myMoCap->getAttitudeHeading();
