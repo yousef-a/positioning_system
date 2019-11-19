@@ -3,6 +3,7 @@
 #include <list>
 #include "msg_receiver.hpp"
 #include "msg_emitter.hpp"
+#include "SwitchMessage.hpp"
 
 class Switcher : public msg_receiver, public msg_emitter{
 

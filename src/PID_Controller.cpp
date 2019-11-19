@@ -22,13 +22,14 @@ void PID_Controller::receive_msg_data(DataMessage* t_msg){
 
 void PID_Controller::switchIn(DataMessage* data){
     _status = true;
+    this->emit_message(data);
 }
 
 DataMessage* PID_Controller::switchOut(){
     
     _status = false;
     DataMessage* msg;
-    
+    //TODO implement a SwitchMessage to alter the flow of communication
     return msg;
 }   
 
