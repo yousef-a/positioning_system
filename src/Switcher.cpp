@@ -37,7 +37,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         SwitchMessage* switch_msg = (SwitchMessage*)t_msg;
         Block* switch_from_block = switch_msg->getFromBlock();
         Block* switch_to_block = switch_msg->getToBlock();
-        std::cout << "HERE" << std::endl;
+
         if(switch_from_block->getType() == switch_to_block->getType()){
             switch_to_block->switchIn(switch_from_block->switchOut());
         }

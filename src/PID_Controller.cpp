@@ -41,8 +41,6 @@ bool PID_Controller::getStatus(){
 }
 
 block_type PID_Controller::getType(){
-
-    std::cout << "Block Type: " << std::endl;
     return _type;
 }
 
@@ -53,6 +51,6 @@ void PID_Controller::setStatus(bool status){
 
 string PID_Controller::getName(){
 
-    std::cout << "Block Type: " << std::endl;
+    std::cout << "Block Name: " << std::endl;
     return _name;
 }

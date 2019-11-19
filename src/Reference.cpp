@@ -9,7 +9,7 @@ Reference::Reference(string name, block_type type){
     else
         std::cout << "NOT WHATEVER" << std::endl;
 
-    _status = true;
+    _status = false;
 }
 
 Reference::~Reference() {

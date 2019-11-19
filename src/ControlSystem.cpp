@@ -35,18 +35,8 @@ Switcher* ControlSystem::getProviderSwitcher(){
     return providerSwitcher;
 }
 
-void ControlSystem::switchAtControllerBlock(Block* t_from, Block* t_to){
-    SwitchMessage* switch_msg = new SwitchMessage(switcher_msg_type::controller, t_from, t_to);
-
-    this->emit_message((DataMessage*)switch_msg);
-}
-void ControlSystem::switchAtReferenceBlock(Block* t_from, Block* t_to){
-    SwitchMessage* switch_msg = new SwitchMessage(switcher_msg_type::reference, t_from, t_to);
-
-    this->emit_message((DataMessage*)switch_msg);
-}
-void ControlSystem::switchAtProviderBlock(Block* t_from, Block* t_to){
-    SwitchMessage* switch_msg = new SwitchMessage(switcher_msg_type::provider, t_from, t_to);
+void ControlSystem::switchBlock(Block* t_from, Block* t_to){
+    SwitchMessage* switch_msg = new SwitchMessage(t_from, t_to);
 
     this->emit_message((DataMessage*)switch_msg);
 }
