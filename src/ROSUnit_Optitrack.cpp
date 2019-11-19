@@ -12,8 +12,7 @@ ROSUnit_Optitrack::~ROSUnit_Optitrack() {
 }
 
 void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg){
-
-
+    
     double pos_data[3];
     pos_data[0] = msg.pose.position.x;
     pos_data[1] = msg.pose.position.y;

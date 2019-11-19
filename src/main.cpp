@@ -41,17 +41,17 @@ int main(int argc, char** argv) {
     Block* myPIDController1 = new PID_Controller("PID1", block_type::controller);
     Block* myPIDController2 = new PID_Controller("PID2", block_type::controller);
     Block* myReference = new Reference("Ref", block_type::reference);
-/*
-    ControlSystem* myControlSystem = new ControlSystem();
-    myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
-    myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
-    myControlSystem->getReferenceSwitcher()->addBlock(myReference);
-    myControlSystem->getStatus(); //TODO delete getStatus, just for testing
-    myControlSystem->getControllerSwitcher()->setInitialCondition(myPIDController1, true); //TODO switchIn to activate controller
-    myControlSystem->getStatus();
-    myControlSystem->getControllerSwitcher()->switchBlock(myPIDController1, myPIDController2);
-    myControlSystem->getStatus();
-*/
+
+    // ControlSystem* myControlSystem = new ControlSystem();
+    // myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
+    // myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
+    // myControlSystem->getReferenceSwitcher()->addBlock(myReference);
+    // myControlSystem->getStatus(); //TODO delete getStatus, just for testing
+    // myControlSystem->getControllerSwitcher()->setInitialCondition(myPIDController1, true); //TODO switchIn to activate controller
+    // myControlSystem->getStatus();
+    // myControlSystem->getControllerSwitcher()->switchBlock(myPIDController1, myPIDController2);
+    // myControlSystem->getStatus();
+
 
     while(ros::ok()){
         myMoCap->getPosition();

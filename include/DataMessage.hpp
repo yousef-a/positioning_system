@@ -5,8 +5,8 @@
 class DataMessage {
 
 public:
-    std::list<uint8_t> data;
-    switcher_msg_type msg_type;
+    
+    virtual msg_type getType() = 0;
 
     DataMessage();
     ~DataMessage();
