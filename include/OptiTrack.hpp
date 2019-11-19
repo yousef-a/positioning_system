@@ -1,6 +1,7 @@
 #pragma once
 #include "MotionCapture.hpp"
 #include "Quaternion.hpp"
+#include "OptitrackMessage.hpp"
 
 class OptiTrack : public MotionCapture {
 

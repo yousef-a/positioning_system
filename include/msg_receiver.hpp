@@ -3,6 +3,8 @@
 #define msg_receiver_H
 #include <iostream>
 #include "common_types.hpp"
+#include "DataMessage.hpp"
+
 class msg_receiver {
     private:
     msg_type _msg_type;

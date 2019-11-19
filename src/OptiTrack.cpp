@@ -58,22 +58,12 @@ Vector3D OptiTrack::getPosition(){
 }
 
 void OptiTrack::receive_msg_data(DataMessage* t_msg){
-    
-    if(_msg_type == msg_type::optitrack){
 
-        msg_type_optitrack _msg_type_optitrack = *((msg_type_optitrack*)&data[0]);
+    if(t_msg->getType() == msg_type::optitrack){
 
-        if(_msg_type_optitrack == msg_type_optitrack::position){
-            _bodyPos.x = *((double *) &data[sizeof(double)*0 + 4]);
-            _bodyPos.y = *((double *) &data[sizeof(double)*1 + 4]);
-            _bodyPos.z = *((double *) &data[sizeof(double)*2 + 4]);
-
-        }else if (_msg_type_optitrack == msg_type_optitrack::attitude){
-            _bodyAtt.x = *((double *) &data[sizeof(double)*0 + 4]);
-            _bodyAtt.y = *((double *) &data[sizeof(double)*1 + 4]);
-            _bodyAtt.z = *((double *) &data[sizeof(double)*2 + 4]);
-            _bodyAtt.w = *((double *) &data[sizeof(double)*3 + 4]);
-
-        }
+        OptitrackMessage* opti_msg = (OptitrackMessage*)t_msg;
+        
+        _bodyPos = opti_msg->getPosition();
+        _bodyAtt = opti_msg->getAttitudeHeading();
     }
 }
