@@ -1,3 +1,7 @@
+// Version: 1.0
+// Author: Pedro Henrique R. P. B. Silva
+// Date: 19 November 2019
+
 #include "msg_emitter.hpp"
 
 void msg_emitter::add_callback_msg_receiver(msg_receiver* _callback_msg_receiver){

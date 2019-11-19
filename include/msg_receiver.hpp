@@ -1,4 +1,7 @@
-//msg_receiver.hpp
+// Version: 1.0
+// Author: Pedro Henrique R. P. B. Silva
+// Date: 19 November 2019
+
 #ifndef msg_receiver_H
 #define msg_receiver_H
 #include <iostream>

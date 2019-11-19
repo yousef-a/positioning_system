@@ -1,4 +1,7 @@
-//msg_emitter.hpp
+// Version: 1.0
+// Author: Pedro Henrique R. P. B. Silva
+// Date: 19 November 2019
+
 #ifndef msg_emitter_H
 #define msg_emitter_H
 #include <list> 
