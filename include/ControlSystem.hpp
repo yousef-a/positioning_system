@@ -13,7 +13,7 @@ class ControlSystem : public msg_emitter, public msg_receiver{
         std::vector<Switcher*> _switchers{controllerSwitcher, referenceSwitcher, observerSwitcher};
 
     public:
-        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
+        void receive_msg_data(DataMessage* t_msg);
         void getStatus();
         Switcher* getControllerSwitcher();
         Switcher* getReferenceSwitcher();

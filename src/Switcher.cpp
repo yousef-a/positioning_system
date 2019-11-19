@@ -33,6 +33,6 @@ void Switcher::switchBlock(Block* from, Block* to){
     to->switchIn(msg);
 }
 
-void Switcher::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
+void Switcher::receive_msg_data(DataMessage* t_msg){
     
 }

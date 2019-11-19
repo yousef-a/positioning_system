@@ -13,7 +13,7 @@ class OptiTrack : public MotionCapture {
         Vector3D getPosition();
         Vector3D getAttitude(); 
         double getHeading(); 
-        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
+        void receive_msg_data(DataMessage* t_msg);
 
         OptiTrack();
         ~OptiTrack();

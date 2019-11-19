@@ -16,7 +16,7 @@ PID_Controller::~PID_Controller() {
 
 }
 
-void PID_Controller::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
+void PID_Controller::receive_msg_data(DataMessage* t_msg){
 
 }
 

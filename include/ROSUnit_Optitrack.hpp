@@ -15,7 +15,7 @@ class ROSUnit_Optitrack : public ROSUnit{
         ros::NodeHandle _main_handler;
         ros::Subscriber _sub_attitude;
         static void callbackOptitrack(const geometry_msgs::PoseStamped& msg);
-        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);  
+        void receive_msg_data(DataMessage* t_msg);  
         
     public:
         ROSUnit_Optitrack(ros::NodeHandle&);

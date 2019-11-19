@@ -13,7 +13,7 @@ class Reference : public Block {
         block_type getType();
         void switchIn(DataMessage*);
         DataMessage* switchOut();
-        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
+        void receive_msg_data(DataMessage* t_msg);
         string getName();
         bool getStatus();
         void setStatus(bool);

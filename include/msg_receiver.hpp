@@ -10,6 +10,6 @@ class msg_receiver {
     msg_receiver();
     void assign_message_type_ID(msg_type i);
     msg_type get_message_type_ID();
-    virtual void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type)=0;
+    virtual void receive_msg_data(DataMessage* t_msg)=0;
 };
 #endif

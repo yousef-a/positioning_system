@@ -32,7 +32,7 @@ DataMessage* Reference::switchOut(){
     return msg;
 }    
 
-void Reference::receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type){
+void Reference::receive_msg_data(DataMessage* t_msg){
 
 
 }

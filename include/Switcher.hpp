@@ -15,7 +15,7 @@ class Switcher : public msg_receiver, public msg_emitter{
         void getStatus();
         void switchBlock(Block* from, Block* to);
         void setInitialCondition(Block* b, bool status);
-        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
+        void receive_msg_data(DataMessage* t_msg);
         
         Switcher();
         ~Switcher();

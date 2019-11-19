@@ -8,7 +8,7 @@ class GPS : public PositioningProvider {
 
         virtual Vector3D getPosition() = 0;
         void parseNMEA(std::string);
-        virtual void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type) = 0;
+        virtual void receive_msg_data(DataMessage* t_msg) = 0;
 
         GPS();
         ~GPS();

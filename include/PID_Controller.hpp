@@ -9,7 +9,7 @@ class PID_Controller : public Block{
         block_type _type;
 
     public:
-        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
+        void receive_msg_data(DataMessage* t_msg);
         void switchIn(DataMessage*);
         DataMessage* switchOut();
         string getName();

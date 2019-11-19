@@ -9,7 +9,7 @@ class PositioningProvider : public msg_receiver{
     public:
         virtual Vector3D getPosition() = 0;
         void setHomePosition(Vector3D);
-        virtual void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type) = 0;
+        virtual void receive_msg_data(DataMessage* t_msg) = 0;
 
         Vector3D getRelativePosition();
         

@@ -6,7 +6,7 @@ class UM8E : public GPS {
 
     public:
         Vector3D getPosition();
-        void receive_msg_data(uint8_t data[],std::size_t len, msg_type _msg_type);
+        void receive_msg_data(DataMessage* t_msg);
 
         UM8E();
         ~UM8E();
