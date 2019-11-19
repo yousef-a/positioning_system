@@ -4,6 +4,7 @@
 #include "ROSUnit.hpp"
 #include "Vector3D.hpp"
 #include "common_types.hpp"
+#include "OptitrackMessage.hpp"
 
 class ROSUnit_Optitrack : public ROSUnit{
 

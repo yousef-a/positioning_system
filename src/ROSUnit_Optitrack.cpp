@@ -13,6 +13,7 @@ ROSUnit_Optitrack::~ROSUnit_Optitrack() {
 
 void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg){
     
+
     double pos_data[3];
     pos_data[0] = msg.pose.position.x;
     pos_data[1] = msg.pose.position.y;
@@ -32,7 +33,7 @@ void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg)
         serializedDataPos[i]=*((uint8_t*)pos_data_ptr++);
     }
 
-    _instance_ptr->emit_message(serializedDataPos, pos_len_data, msg_type::optitrack);   
+    _instance_ptr->emit_message((DataMessage*) data);   
 
     double att_data[4];
     att_data[0] = msg.pose.orientation.x;

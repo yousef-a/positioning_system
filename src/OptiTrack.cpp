@@ -58,6 +58,7 @@ Vector3D OptiTrack::getPosition(){
 }
 
 void OptiTrack::receive_msg_data(DataMessage* t_msg){
+    
     if(_msg_type == msg_type::optitrack){
 
         msg_type_optitrack _msg_type_optitrack = *((msg_type_optitrack*)&data[0]);
