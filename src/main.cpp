@@ -13,17 +13,12 @@
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
 
-
-    //myROS->init(argc, argv, "testing_node");
-    //myROS->spin();
     ros::init(argc, argv, "testing_node");
 
     ros::NodeHandle nh;
     ros::Rate rate(120);
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
-
-    //myROSPositioning->setsubscribers();
 
     PositioningProvider* myPosSystem = new UM8E();
     myPosSystem->getPosition();
@@ -44,10 +39,10 @@ int main(int argc, char** argv) {
     Block* myReference2 = new Reference("Ref2", block_type::reference);
     
     ControlSystem* myControlSystem = new ControlSystem();
-    myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
-    myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
-    myControlSystem->getReferenceSwitcher()->addBlock(myReference1);
-    myControlSystem->getReferenceSwitcher()->addBlock(myReference2);
+    myControlSystem->addBlock(myPIDController1);
+    myControlSystem->addBlock(myPIDController2);
+    myControlSystem->addBlock(myReference1);
+    myControlSystem->addBlock(myReference2);
     myControlSystem->getStatus(); //TODO delete getStatus, just for testing
     myControlSystem->switchBlock(nullptr, myPIDController1); 
     myControlSystem->switchBlock(nullptr, myReference1);

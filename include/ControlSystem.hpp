@@ -8,15 +8,17 @@
 class ControlSystem : public msg_emitter, public msg_receiver{
 
     private:
-        Switcher* controllerSwitcher = controllerSwitcher = new Switcher();
-        Switcher* referenceSwitcher = referenceSwitcher = new Switcher();
-        Switcher* providerSwitcher = providerSwitcher = new Switcher();
-        std::vector<Switcher*> _switchers{controllerSwitcher, referenceSwitcher};
+        Switcher* controllerSwitcher = new Switcher(switcher_type::controller);
+        Switcher* referenceSwitcher = new Switcher(switcher_type::reference);
+        Switcher* providerSwitcher = new Switcher(switcher_type::provider);
+        std::vector<Switcher*> _switchers{controllerSwitcher, referenceSwitcher, providerSwitcher};
+
 
     public:
         void receive_msg_data(DataMessage* t_msg);
         void getStatus();
         void switchBlock(Block* t_from, Block* t_to);
+        void addBlock(Block* t_block);
 
         Switcher* getControllerSwitcher();
         Switcher* getReferenceSwitcher();
