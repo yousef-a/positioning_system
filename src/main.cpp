@@ -47,12 +47,14 @@ int main(int argc, char** argv) {
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController1);
     myControlSystem->getControllerSwitcher()->addBlock(myPIDController2);
     myControlSystem->getReferenceSwitcher()->addBlock(myReference1);
+    myControlSystem->getReferenceSwitcher()->addBlock(myReference2);
     myControlSystem->getStatus(); //TODO delete getStatus, just for testing
-    myControlSystem->getControllerSwitcher()->setInitialCondition(myPIDController1, true); //TODO switchIn to activate controller
+    myControlSystem->switchBlock(nullptr, myPIDController1); 
+    myControlSystem->switchBlock(nullptr, myReference1);
     myControlSystem->getStatus();
     myControlSystem->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
-    myControlSystem->switchBlock(myReference, myPIDController1);
+    myControlSystem->switchBlock(myReference1, myPIDController1);
     myControlSystem->getStatus();
 
     // while(ros::ok()){

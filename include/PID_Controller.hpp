@@ -11,6 +11,7 @@ class PID_Controller : public Block{
     public:
         void receive_msg_data(DataMessage* t_msg);
         void switchIn(DataMessage*);
+        void switchIn();
         DataMessage* switchOut();
         string getName();
         block_type getType();

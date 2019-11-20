@@ -22,6 +22,11 @@ block_type Reference::getType() {
 
 void Reference::switchIn(DataMessage* data){
     _status = true;
+    this->emit_message(data);
+}
+
+void Reference::switchIn(){
+    _status = true;
 }
 
 DataMessage* Reference::switchOut(){
@@ -39,7 +44,7 @@ void Reference::receive_msg_data(DataMessage* t_msg){
 
 bool Reference::getStatus(){
 
-    std::cout << "Block Status: " << _status << std::endl;
+    std::cout << "Block " << _name << " Status: " << _status << std::endl;
     return _status;
 }
 

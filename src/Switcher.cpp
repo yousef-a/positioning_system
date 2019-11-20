@@ -38,9 +38,11 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         Block* switch_from_block = switch_msg->getFromBlock();
         Block* switch_to_block = switch_msg->getToBlock();
 
-        if(switch_from_block->getType() == switch_to_block->getType()){
+        if(switch_from_block == nullptr){
+            switch_to_block->switchIn();
+        }
+        else if(switch_from_block->getType() == switch_to_block->getType()){
             switch_to_block->switchIn(switch_from_block->switchOut());
         }
-
     }
 }

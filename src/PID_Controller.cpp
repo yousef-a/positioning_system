@@ -25,6 +25,10 @@ void PID_Controller::switchIn(DataMessage* data){
     this->emit_message(data);
 }
 
+void PID_Controller::switchIn(){
+    _status = true;
+}
+
 DataMessage* PID_Controller::switchOut(){
     
     _status = false;
@@ -36,7 +40,7 @@ DataMessage* PID_Controller::switchOut(){
 
 bool PID_Controller::getStatus(){
 
-    std::cout << "Block Status: " << _status << std::endl;
+    std::cout << "Block " << _name << " Status: " << _status << std::endl;
     return _status;
 }
 

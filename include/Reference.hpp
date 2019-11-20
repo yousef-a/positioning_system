@@ -12,6 +12,7 @@ class Reference : public Block {
     public:
         block_type getType();
         void switchIn(DataMessage*);
+        void switchIn();
         DataMessage* switchOut();
         void receive_msg_data(DataMessage* t_msg);
         string getName();
