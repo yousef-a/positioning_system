@@ -23,17 +23,15 @@ switcher_type Switcher::getType(){
     return _type;
 }
 
-void Switcher::setInitialCondition(Block* b, bool status){
-
-    DataMessage* msg;
-    b->switchIn(msg);
-}
-
 void Switcher::switchBlock(Block* from, Block* to){
     
     DataMessage* msg;    
     from->switchOut();
     to->switchIn(msg);
+}
+
+void Switcher::setActiveBlock(Block* t_block){
+    _active_block = t_block;
 }
 
 void Switcher::receive_msg_data(DataMessage* t_msg){

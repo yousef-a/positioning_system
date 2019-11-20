@@ -11,13 +11,14 @@ class Switcher : public msg_receiver, public msg_emitter{
         std::list<Block*> _blocks;
         std::list<Block*>::iterator _it;
         switcher_type _type;
+        Block* _active_block;
 
     public:
         void addBlock(Block* b);
         void getStatus();
         switcher_type getType();
+        void setActiveBlock(Block*);
         void switchBlock(Block* from, Block* to);
-        void setInitialCondition(Block* b, bool status);
         void receive_msg_data(DataMessage* t_msg);
         
         Switcher(switcher_type t_type);
