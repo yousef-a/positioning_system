@@ -19,7 +19,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
 void ControlSystem::getStatus(){
     for(Switcher* s : _switchers){
-        s->getStatus();
+        // s->getStatus();
     }
 }
 

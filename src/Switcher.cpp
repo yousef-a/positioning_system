@@ -2,6 +2,7 @@
 
 Switcher::Switcher(switcher_type t_type) {
     _type = t_type;
+    _active_block = nullptr;
 }
 
 Switcher::~Switcher() {
@@ -13,11 +14,6 @@ void Switcher::addBlock(Block* b){
     _blocks.push_back(b);
 }
 
-void Switcher::getStatus(){
-    for(_it=_blocks.begin(); _it!=_blocks.end(); ++_it){
-        (*_it)->getStatus();
-    }
-}
 
 switcher_type Switcher::getType(){
     return _type;
@@ -30,8 +26,8 @@ void Switcher::switchBlock(Block* from, Block* to){
     to->switchIn(msg);
 }
 
-void Switcher::setActiveBlock(Block* t_block){
-    _active_block = t_block;
+Block* Switcher::getActiveBlock(){
+    return _active_block;
 }
 
 void Switcher::receive_msg_data(DataMessage* t_msg){
@@ -44,10 +40,11 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             Block* switch_to_block = switch_msg->getToBlock();
 
             if(switch_from_block == nullptr){
-                switch_to_block->switchIn();
+                _active_block = switch_to_block;
             }
             else if(switch_from_block->getType() == switch_to_block->getType()){
                 switch_to_block->switchIn(switch_from_block->switchOut());
+                _active_block = switch_to_block;
             }
 
         } else if (switch_msg->getControlSystemMsgType() == control_system_msg_type::add_block){

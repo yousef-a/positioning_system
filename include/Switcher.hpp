@@ -15,9 +15,8 @@ class Switcher : public msg_receiver, public msg_emitter{
 
     public:
         void addBlock(Block* b);
-        void getStatus();
         switcher_type getType();
-        void setActiveBlock(Block*);
+        Block* getActiveBlock();
         void switchBlock(Block* from, Block* to);
         void receive_msg_data(DataMessage* t_msg);
         

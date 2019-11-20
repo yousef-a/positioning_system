@@ -8,8 +8,6 @@ Reference::Reference(string name, block_type type){
         std::cout << "This is a "<< _name <<" block" << std::endl;  
     else
         std::cout << "NOT WHATEVER" << std::endl;
-
-    _status = false;
 }
 
 Reference::~Reference() {
@@ -21,17 +19,12 @@ block_type Reference::getType() {
 }
 
 void Reference::switchIn(DataMessage* data){
-    _status = true;
     this->emit_message(data);
 }
 
-void Reference::switchIn(){
-    _status = true;
-}
 
 DataMessage* Reference::switchOut(){
     
-    _status = false;
     DataMessage* msg;
     
     return msg;
@@ -40,17 +33,6 @@ DataMessage* Reference::switchOut(){
 void Reference::receive_msg_data(DataMessage* t_msg){
 
 
-}
-
-bool Reference::getStatus(){
-
-    std::cout << "Block " << _name << " Status: " << _status << std::endl;
-    return _status;
-}
-
-void Reference::setStatus(bool status){
-
-    _status = status;
 }
 
 string Reference::getName(){
