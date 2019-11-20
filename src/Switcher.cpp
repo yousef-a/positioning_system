@@ -39,7 +39,7 @@ void Switcher::switchBlock(Block* from, Block* to){
 void Switcher::receive_msg_data(DataMessage* t_msg){
     if(t_msg->getType() == msg_type::control_system){
         
-        SwitchMessage* switch_msg = (SwitchMessage*)t_msg;
+        ControlSystemMessage* switch_msg = (ControlSystemMessage*)t_msg;
         
         if(switch_msg->getControlSystemMsgType() == control_system_msg_type::switch_in_out){
             Block* switch_from_block = switch_msg->getFromBlock();
@@ -51,7 +51,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             else if(switch_from_block->getType() == switch_to_block->getType()){
                 switch_to_block->switchIn(switch_from_block->switchOut());
             }
-            
+
         } else if (switch_msg->getControlSystemMsgType() == control_system_msg_type::add_block){
             Block* block_to_add = switch_msg->getBlockToAdd();
 

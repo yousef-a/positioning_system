@@ -2,7 +2,7 @@
 #include "DataMessage.hpp"
 #include "Block.hpp"
 
-class SwitchMessage : public DataMessage{
+class ControlSystemMessage : public DataMessage{
 
 private:
     Block* _from;
@@ -18,7 +18,7 @@ public:
     Block* getBlockToAdd();
     control_system_msg_type getControlSystemMsgType();
 
-    SwitchMessage(control_system_msg_type t_type, Block* t_from, Block* t_to);
-    SwitchMessage(control_system_msg_type t_type, Block* t_block);
-    ~SwitchMessage();
+    ControlSystemMessage(control_system_msg_type t_type, Block* t_from, Block* t_to);
+    ControlSystemMessage(control_system_msg_type t_type, Block* t_block);
+    ~ControlSystemMessage();
 };

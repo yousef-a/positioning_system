@@ -3,7 +3,7 @@
 #include "msg_emitter.hpp"
 #include "msg_receiver.hpp"
 #include <vector>
-#include "SwitchMessage.hpp"
+#include "ControlSystemMessage.hpp"
 
 class ControlSystem : public msg_emitter, public msg_receiver{
 

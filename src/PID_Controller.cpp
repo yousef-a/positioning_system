@@ -33,7 +33,7 @@ DataMessage* PID_Controller::switchOut(){
     
     _status = false;
     DataMessage* msg;
-    //TODO implement a SwitchMessage to alter the flow of communication
+    //TODO implement a ControlSystemMessage to alter the flow of communication
     return msg;
 }   
 
