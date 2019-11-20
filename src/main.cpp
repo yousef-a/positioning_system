@@ -6,7 +6,7 @@
 #include "../include/ROSUnit_Optitrack.hpp"
 #include "../include/msg_receiver.hpp"
 #include "../include/msg_emitter.hpp"
-#include "../include/PID_Controller.hpp"
+#include "../include/PIDController.hpp"
 #include "../include/Reference.hpp"
 #include "../include/ControlSystem.hpp"
 
@@ -33,8 +33,8 @@ int main(int argc, char** argv) {
 
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myMoCap);
     
-    Block* myPIDController1 = new PID_Controller("PID1", block_type::controller);
-    Block* myPIDController2 = new PID_Controller("PID2", block_type::controller);
+    Block* myPIDController1 = new PIDController("PID1", block_type::controller);
+    Block* myPIDController2 = new PIDController("PID2", block_type::controller);
     Block* myReference1 = new Reference("Ref1", block_type::reference);
     Block* myReference2 = new Reference("Ref2", block_type::reference);
     

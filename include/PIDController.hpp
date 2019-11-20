@@ -1,7 +1,7 @@
 #pragma once
 #include "Block.hpp"
 
-class PID_Controller : public Block{
+class PIDController : public Block{
 
     private:
         string _name; 
@@ -18,6 +18,6 @@ class PID_Controller : public Block{
         bool getStatus();
         void setStatus(bool);
 
-        PID_Controller(string name, block_type type);
-        ~PID_Controller();
+        PIDController(string name, block_type type);
+        ~PIDController();
 };
