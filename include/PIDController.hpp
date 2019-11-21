@@ -1,6 +1,8 @@
 #pragma once
 #include "Block.hpp"
 #include <math.h>
+#include "ControllerMessage.hpp"
+#include "PID_parameters.hpp"
 #define dt_manual 0.01f
 
 class PIDController : public Block{
@@ -9,13 +11,10 @@ class PIDController : public Block{
         string _name; 
         block_type _type;
         //Chehadeh's code
+        PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster
 	    bool en_pv_derivation = true, en_anti_windup = false;
-        struct pid_para{
-            float kp, ki, kd,kdd, anti_windup;
-            uint8_t en_pv_derivation;
-        }parameters;
-        void set_internal_sw(pid_para pid_para_x);
+        void set_internal_sw(PID_parameters pid_para_x);
         //---------------
         
     public:

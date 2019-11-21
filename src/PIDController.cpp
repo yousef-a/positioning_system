@@ -15,7 +15,16 @@ PIDController::~PIDController() {
 }
 
 void PIDController::receive_msg_data(DataMessage* t_msg){
+    if(t_msg->getType() == msg_type::controller){
+        ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
 
+        if(controller_msg->getControllerMsgType() == controller_msg_type::data){
+
+        }else if(controller_msg->getControllerMsgType() == controller_msg_type::change_settings){
+
+        }
+
+    }
 }
 
 void PIDController::switchIn(DataMessage* data){
@@ -37,7 +46,7 @@ string PIDController::getName(){
     return _name;
 }
 
-void PIDController::set_internal_sw(pid_para pid_para_x){ //This checks input parameters. If Kd or Ki<0 it means we do not use them
+void PIDController::set_internal_sw(PID_parameters pid_para_x){ //This checks input parameters. If Kd or Ki<0 it means we do not use them
 		i_term = !(pid_para_x.ki <= 0);
 		d_term = !(pid_para_x.kd <= 0);
 		dd_term= !(pid_para_x.kdd <= 0);
@@ -46,7 +55,7 @@ void PIDController::set_internal_sw(pid_para pid_para_x){ //This checks input pa
 	}
     
 void PIDController::initialize(void* para){ //Refer to example 1 on how to initialize
-		parameters = *((pid_para*)para); //TODO: Revise parameters scope
+		parameters = *((PID_parameters*)para); //TODO: Revise parameters scope
 		set_internal_sw(parameters);
 		accum_u = 0; //This is important as it resets NaN condition
 		accum_I = 0;
