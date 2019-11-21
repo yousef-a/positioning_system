@@ -42,9 +42,10 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
         Block* block_to_add = control_system_msg->getBlockToAdd();
         
-        if(static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){
-           
-            if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::switch_in_out){
+        //Considering the message is sent to all the Switchers, this checks if the block being altered belongs to that switcher
+        
+        if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::switch_in_out
+            && std::find(_blocks.begin(), _blocks.end(), block_to_add) != _blocks.end()){
 
                 Block* block_to_remove = control_system_msg->getBlockToRemove();                
                
@@ -58,12 +59,13 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                     _active_block = block_to_add;          
                 }
 
-            } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::add_block){
+        } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::add_block
+                    && static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){
                 
                 Block* block_to_add = control_system_msg->getBlockToAdd();
                 this->addBlock(block_to_add);
                 
             }
-        }
+        
     }
 }
