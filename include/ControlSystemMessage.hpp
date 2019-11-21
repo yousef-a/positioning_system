@@ -5,20 +5,18 @@
 class ControlSystemMessage : public DataMessage{
 
 private:
-    Block* _from;
-    Block* _to;
-    Block* _block_to_add;
+    Block* _to_remove;
+    Block* _to_add;
     msg_type _type;
     control_system_msg_type _control_system_msg_type;
 
 public:
     msg_type getType();
-    Block* getFromBlock();
-    Block* getToBlock();
+    Block* getBlockToRemove();
     Block* getBlockToAdd();
     control_system_msg_type getControlSystemMsgType();
 
-    ControlSystemMessage(control_system_msg_type t_type, Block* t_from, Block* t_to);
-    ControlSystemMessage(control_system_msg_type t_type, Block* t_block);
+    ControlSystemMessage(control_system_msg_type, Block*, Block*);
+    ControlSystemMessage(control_system_msg_type, Block*);
     ~ControlSystemMessage();
 };

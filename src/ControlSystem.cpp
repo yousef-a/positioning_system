@@ -18,8 +18,11 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 }
 
 void ControlSystem::getStatus(){
+    
     for(Switcher* s : _switchers){
-        // s->getStatus();
+        if(s->getActiveBlock() != nullptr){
+            std::cout << "For switcher " << s->getName() << " the active block is " << s->getActiveBlock()->getName() << std::endl;
+        }     
     }
 }
 
@@ -37,7 +40,7 @@ Switcher* ControlSystem::getProviderSwitcher(){
 
 void ControlSystem::switchBlock(Block* t_from, Block* t_to){
     ControlSystemMessage* switch_msg = new ControlSystemMessage(control_system_msg_type::switch_in_out, t_from, t_to);
-
+    
     this->emit_message((DataMessage*)switch_msg);
 }
 

@@ -36,7 +36,5 @@ void Reference::receive_msg_data(DataMessage* t_msg){
 }
 
 string Reference::getName(){
-
-    std::cout << "Block Type: " << std::endl;
     return _name;
 }

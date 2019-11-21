@@ -49,7 +49,9 @@ int main(int argc, char** argv) {
     myControlSystem->getStatus();
     myControlSystem->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
-    myControlSystem->switchBlock(myReference1, myPIDController1);
+    myControlSystem->switchBlock(myReference1, myReference2);
+    myControlSystem->getStatus();
+    myControlSystem->switchBlock(myReference2, myPIDController1);
     myControlSystem->getStatus();
 
     // while(ros::ok()){

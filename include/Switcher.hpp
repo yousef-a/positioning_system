@@ -4,6 +4,7 @@
 #include "msg_receiver.hpp"
 #include "msg_emitter.hpp"
 #include "ControlSystemMessage.hpp"
+#include <algorithm>
 
 class Switcher : public msg_receiver, public msg_emitter{
 
@@ -12,14 +13,16 @@ class Switcher : public msg_receiver, public msg_emitter{
         std::list<Block*>::iterator _it;
         switcher_type _type;
         Block* _active_block;
+        string _name;
 
     public:
         void addBlock(Block* b);
         switcher_type getType();
         Block* getActiveBlock();
+        string getName();
         void switchBlock(Block* from, Block* to);
         void receive_msg_data(DataMessage* t_msg);
         
-        Switcher(switcher_type t_type);
+        Switcher(string t_name, switcher_type t_type);
         ~Switcher();
 };

@@ -1,7 +1,8 @@
 #include "Switcher.hpp"
 
-Switcher::Switcher(switcher_type t_type) {
+Switcher::Switcher(string t_name, switcher_type t_type) {
     _type = t_type;
+    _name = t_name;
     _active_block = nullptr;
 }
 
@@ -30,34 +31,39 @@ Block* Switcher::getActiveBlock(){
     return _active_block;
 }
 
+string Switcher::getName(){
+    return _name;
+}
+
 void Switcher::receive_msg_data(DataMessage* t_msg){
+    
     if(t_msg->getType() == msg_type::control_system){
+
+        ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
+        Block* block_to_add = control_system_msg->getBlockToAdd();
         
-        ControlSystemMessage* switch_msg = (ControlSystemMessage*)t_msg;
-        
-        if(switch_msg->getControlSystemMsgType() == control_system_msg_type::switch_in_out){
-            Block* switch_from_block = switch_msg->getFromBlock();
-            Block* switch_to_block = switch_msg->getToBlock();
+        if(static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){
+           
+            if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::switch_in_out){
 
-            if(switch_from_block == nullptr){
-                _active_block = switch_to_block;
-            }
-            else if(switch_from_block->getType() == switch_to_block->getType()){
-                switch_to_block->switchIn(switch_from_block->switchOut());
-                _active_block = switch_to_block;
-            }
+                Block* block_to_remove = control_system_msg->getBlockToRemove();                
+               
+                //For initial condition setting
+                if(block_to_remove == nullptr){
+                    _active_block = block_to_add;
+                }
+                //For block switch in and out
+                else if(block_to_remove->getType() == block_to_add->getType()){
+                    block_to_add->switchIn(block_to_remove->switchOut());
+                    _active_block = block_to_add;          
+                }
 
-        } else if (switch_msg->getControlSystemMsgType() == control_system_msg_type::add_block){
-            Block* block_to_add = switch_msg->getBlockToAdd();
-
-            if(this->getType() == switcher_type::controller && block_to_add->getType() == block_type::controller){
+            } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::add_block){
+                
+                Block* block_to_add = control_system_msg->getBlockToAdd();
                 this->addBlock(block_to_add);
-            }else if(this->getType() == switcher_type::reference && block_to_add->getType() == block_type::reference){
-                this->addBlock(block_to_add);
-            }else if(this->getType() == switcher_type::provider && block_to_add->getType() == block_type::provider){
-                this->addBlock(block_to_add);
+                
             }
         }
-        
     }
 }

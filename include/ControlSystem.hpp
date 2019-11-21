@@ -8,9 +8,9 @@
 class ControlSystem : public msg_emitter, public msg_receiver{
 
     private:
-        Switcher* controllerSwitcher = new Switcher(switcher_type::controller);
-        Switcher* referenceSwitcher = new Switcher(switcher_type::reference);
-        Switcher* providerSwitcher = new Switcher(switcher_type::provider);
+        Switcher* controllerSwitcher = new Switcher("ControlSwitcher", switcher_type::controller);
+        Switcher* referenceSwitcher = new Switcher("ReferenceSwitcher", switcher_type::reference);
+        Switcher* providerSwitcher = new Switcher("ProviderSwitcher", switcher_type::provider);
         std::vector<Switcher*> _switchers{controllerSwitcher, referenceSwitcher, providerSwitcher};
 
 

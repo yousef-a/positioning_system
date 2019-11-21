@@ -34,7 +34,5 @@ block_type PIDController::getType(){
 }
 
 string PIDController::getName(){
-
-    std::cout << "Block Name: " << std::endl;
     return _name;
 }
