@@ -39,6 +39,6 @@ std::string Reference::getName(){
     return _name;
 }
 
-DataMessage* Reference::receive_msg_internal(){
+DataMessage* Reference::receive_msg_internal(DataMessage* t_msg){
     
 }

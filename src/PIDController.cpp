@@ -14,25 +14,17 @@ PIDController::~PIDController() {
 
 }
 
-void PIDController::receive_msg_data(DataMessage* t_msg){
-    if(t_msg->getType() == msg_type::controller){
-        ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
+DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
+        
+	ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
 
-        if(controller_msg->getControllerMsgType() == controller_msg_type::data){
-            PID_data* data = controller_msg->getData();
+    PID_data* data = controller_msg->getData();
             
-            float command = pid_direct(data->err, data->pv_first, data->pv_second);
-            FloatMessage* output_msg = new FloatMessage(command);
-            //TODO send a message to the Switcher
-            // this->emit_message((DataMessage*)output_msg);
-            std::cout << "SENDING DATA" << std::endl;
+    float command = pid_direct(data->err, data->pv_first, data->pv_second);
+    FloatMessage* output_msg = new FloatMessage(command);
 
-        }else if(controller_msg->getControllerMsgType() == controller_msg_type::change_settings){
-            this->initialize(controller_msg->getSettings());
-            std::cout << "CHANGING PARAMETERS" << std::endl;
-        }
-
-    }
+    std::cout << "SENDING DATA" << std::endl;
+	return (DataMessage*)output_msg;
 }
 
 void PIDController::switchIn(DataMessage* data){
@@ -54,9 +46,6 @@ std::string PIDController::getName(){
     return _name;
 }
 
-DataMessage* PIDController::receive_msg_internal(){
-	
-}
 
 void PIDController::set_internal_sw(PID_parameters pid_para_x){ //This checks input parameters. If Kd or Ki<0 it means we do not use them
 		i_term = !(pid_para_x.ki <= 0);

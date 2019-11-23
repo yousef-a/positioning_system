@@ -4,6 +4,9 @@
 #include "msg_receiver.hpp"
 #include "msg_emitter.hpp"
 #include "ControlSystemMessage.hpp"
+#include "SwitcherMessage.hpp"
+#include "Vector3DMessage.hpp"
+#include "PIDController.hpp"
 #include <algorithm>
 
 class Switcher : public msg_receiver, public msg_emitter{

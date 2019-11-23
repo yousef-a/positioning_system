@@ -31,7 +31,7 @@ class PIDController : public Block{
         DataMessage* switchOut();
         std::string getName();
         block_type getType();
-        DataMessage* receive_msg_internal();
+        DataMessage* receive_msg_internal(DataMessage*);
         //TODO Send a message to Switcher
         //TODO Receive a message from Switcher
 

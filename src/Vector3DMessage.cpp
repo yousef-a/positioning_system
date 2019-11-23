@@ -1,7 +1,7 @@
 #include "Vector3DMessage.hpp"
 
 Vector3DMessage::Vector3DMessage(Vector3D t_data) {
-    _type = msg_type::float_msg;
+    _type = msg_type::vector3D_msg;
     _data = t_data;
 }
 
