@@ -35,6 +35,16 @@ string Switcher::getName(){
     return _name;
 }
 
+void Switcher::loopInternal(){
+    if(this->getType() == switcher_type::provider){
+        // DataMessage* provider_msg = _active_block->receive_msg_internal();
+        // SwitcherMessage* switcher_msg = (SwitcherMessage*)provider_msg;
+
+        // this->emit_message((DataMessage*)switcher_msg);
+    }
+
+}
+
 void Switcher::receive_msg_data(DataMessage* t_msg){
     
     if(t_msg->getType() == msg_type::control_system){

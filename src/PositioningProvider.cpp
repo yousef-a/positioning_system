@@ -37,3 +37,11 @@ DataMessage* PositioningProvider::switchOut(){
 
     return (DataMessage*)pos_msg;
 }
+
+DataMessage* PositioningProvider::receive_msg_internal(){
+    std::cout << "Received request from Switcher."<< std::endl;
+    Vector3DMessage* pos_msg = new Vector3DMessage(this->getPosition());
+    std::cout << "Sending it back"<< std::endl;
+
+    return (DataMessage*)pos_msg;
+}

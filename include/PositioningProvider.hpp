@@ -21,6 +21,7 @@ class PositioningProvider : public msg_receiver, public Block{
         block_type getType();
         void switchIn(DataMessage*);
         DataMessage* switchOut();
+        DataMessage* receive_msg_internal();
 
         PositioningProvider(std::string, block_type);
 };

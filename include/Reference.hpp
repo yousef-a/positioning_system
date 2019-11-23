@@ -14,6 +14,7 @@ class Reference : public Block {
         DataMessage* switchOut();
         void receive_msg_data(DataMessage* t_msg);
         std::string getName();
+        DataMessage* receive_msg_internal();
 
         Reference(std::string name, block_type type);
         ~Reference();

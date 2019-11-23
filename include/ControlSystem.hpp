@@ -19,7 +19,7 @@ class ControlSystem : public msg_emitter, public msg_receiver{
         void getStatus();
         void switchBlock(Block* t_from, Block* t_to);
         void addBlock(Block* t_block);
-
+        
         Switcher* getControllerSwitcher();
         Switcher* getReferenceSwitcher();
         Switcher* getProviderSwitcher();
