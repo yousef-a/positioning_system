@@ -52,3 +52,10 @@ void ControlSystem::addBlock(Block* t_block){
 
 }
 
+void ControlSystem::changePIDSettings(PID_parameters* t_pid_para){
+
+    ControlSystemMessage* change_PID_msg = new ControlSystemMessage(control_system_msg_type::change_PID_settings, t_pid_para);
+
+    this->emit_message((DataMessage*)change_PID_msg);
+
+}
