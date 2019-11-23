@@ -3,7 +3,7 @@
 PIDController::PIDController(std::string name, block_type type){
     _name = name;
     _type = type;
-    
+    _controller_type = controller_type::pid;
     if(_type == block_type::controller)
         std::cout << "This is a "<< _name <<" block" << std::endl; 
     else
@@ -25,6 +25,10 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 
     std::cout << "SENDING DATA" << std::endl;
 	return (DataMessage*)output_msg;
+}
+
+controller_type PIDController::getControllerType(){
+	return _controller_type;
 }
 
 void PIDController::switchIn(DataMessage* data){

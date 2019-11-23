@@ -35,6 +35,6 @@ Block* ControlSystemMessage::getBlockToAdd(){
 control_system_msg_type ControlSystemMessage::getControlSystemMsgType(){
     return _control_system_msg_type;
 }
-PID_parameters* ControlSystemMessage::getSettings(){
+PID_parameters* ControlSystemMessage::getPIDSettings(){
     return _pid_para;
 }

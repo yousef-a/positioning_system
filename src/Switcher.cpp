@@ -78,14 +78,15 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             Block* block_to_add = control_system_msg->getBlockToAdd();
             this->addBlock(block_to_add);
                 
-        } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_controller_settings
+        } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings
                      && this->getType() == switcher_type::controller){
-
-            //if(_active_block->getType())
-            PIDController* pid_block = (PIDController*)_active_block;
-            pid_block->initialize(control_system_msg->getSettings());
-            std::cout << "CHANGING PARAMETERS" << std::endl;
             
+            PIDController* pid_block = (PIDController*)_active_block;
+            if(pid_block->getControllerType() == controller_type::pid){
+                pid_block->initialize(control_system_msg->getPIDSettings());
+                std::cout << "CHANGING PID PARAMETERS" << std::endl;
+            }
+              
         }
         
     }else if(t_msg->getType() == msg_type::switcher){
@@ -93,7 +94,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
         if(switcher_msg->getInternalType() == internal_switcher_type::position_provider){
             PID_data* pid_data;
-            pid_data->err = 0.0;
+            pid_data->err = 0.0; //TODO calculate the error
             pid_data->pv_first = 0.0;
             pid_data->pv_second = 0.0;
 

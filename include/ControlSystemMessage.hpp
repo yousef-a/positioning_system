@@ -17,7 +17,7 @@ public:
     Block* getBlockToRemove();
     Block* getBlockToAdd();
     control_system_msg_type getControlSystemMsgType();
-    PID_parameters* getSettings();
+    PID_parameters* getPIDSettings();
 
     ControlSystemMessage(control_system_msg_type, Block*, Block*);
     ControlSystemMessage(control_system_msg_type, Block*);

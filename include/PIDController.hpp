@@ -11,6 +11,7 @@ class PIDController : public Block{
     private:
         std::string _name; 
         block_type _type;
+        controller_type _controller_type;
         //Chehadeh's code
         PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster
@@ -32,6 +33,7 @@ class PIDController : public Block{
         std::string getName();
         block_type getType();
         DataMessage* receive_msg_internal(DataMessage*);
+        controller_type getControllerType();
         //TODO Send a message to Switcher
         //TODO Receive a message from Switcher
 
