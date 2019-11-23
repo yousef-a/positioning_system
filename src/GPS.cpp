@@ -8,7 +8,7 @@ GPS::~GPS() {
 
 }
 
-void GPS::parseNMEA(std::string data){
+// void GPS::parseNMEA(std::string data){
 
 
-}
+// }

@@ -2,13 +2,14 @@
 #include "PositioningProvider.hpp"
 #include <string>
 
-class GPS : public PositioningProvider {
+class GPS //: public PositioningProvider 
+{
 
     public:
 
-        virtual Vector3D getPosition() = 0;
-        void parseNMEA(std::string);
-        virtual void receive_msg_data(DataMessage* t_msg) = 0;
+        // virtual Vector3D getPosition() = 0;
+        // void parseNMEA(std::string);
+        // virtual void receive_msg_data(DataMessage* t_msg) = 0;
 
         GPS();
         ~GPS();

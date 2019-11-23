@@ -12,6 +12,6 @@ class MotionCapture : public PositioningProvider, public AttitudeHeadingProvider
         virtual double getHeading() = 0; 
         virtual void receive_msg_data(DataMessage* t_msg) = 0;
 
-        MotionCapture();
+        MotionCapture(std::string, block_type);
         ~MotionCapture();
 };

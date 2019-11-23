@@ -20,10 +20,12 @@ int main(int argc, char** argv) {
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
 
-    PositioningProvider* myPosSystem = new UM8E();
-    myPosSystem->getPosition();
+    //PositioningProvider* myPosSystem = new UM8E();
+    //myPosSystem->getPosition();
+    //Block* myPosSystem = new OptiTrack();
 
-    MotionCapture* myMoCap = new OptiTrack();
+    Block* myPositioningSystem = new OptiTrack("OptiTrack", block_type::provider);
+    MotionCapture* myMoCap = (MotionCapture*)myPositioningSystem;
     myMoCap->getAttitudeHeading();
     myMoCap->getPosition();
     Quaternion* quat = new Quaternion();
@@ -54,14 +56,14 @@ int main(int argc, char** argv) {
     myControlSystem->switchBlock(myReference2, myPIDController1);
     myControlSystem->getStatus();
 
-    // while(ros::ok()){
-    //     myMoCap->getPosition();
-    //     myMoCap->getAttitudeHeading();
-    //     myMoCap->getAttitude();
-    //     myMoCap->getHeading();
-    //     ros::spinOnce();
-    //     rate.sleep();
-    // }
+    while(ros::ok()){
+        myMoCap->getPosition();
+        myMoCap->getAttitudeHeading();
+        myMoCap->getAttitude();
+        myMoCap->getHeading();
+        ros::spinOnce();
+        rate.sleep();
+    }
 
     return 0;
 

@@ -16,6 +16,6 @@ class OptiTrack : public MotionCapture {
         double getHeading(); 
         void receive_msg_data(DataMessage* t_msg);
 
-        OptiTrack();
+        OptiTrack(std::string, block_type);
         ~OptiTrack();
 };
