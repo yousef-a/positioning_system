@@ -1,9 +1,9 @@
 #include "ControllerMessage.hpp"
 
-ControllerMessage::ControllerMessage(controller_msg_type t_type, std::vector<double> t_data) {
+ControllerMessage::ControllerMessage(controller_msg_type t_type, PID_data* t_data) {
     _type = msg_type::controller;
     _controller_msg_type = t_type;
-    _data = t_data;
+    _pid_data = t_data;
 }
 
 ControllerMessage::ControllerMessage(controller_msg_type t_type, PID_parameters* t_pid_para) {
@@ -16,8 +16,8 @@ ControllerMessage::~ControllerMessage() {
 
 }
 
-std::vector<double> ControllerMessage::getData(){
-    return _data;
+PID_data* ControllerMessage::getData(){
+    return _pid_data;
 }
 PID_parameters* ControllerMessage::getSettings(){
     return _pid_para;

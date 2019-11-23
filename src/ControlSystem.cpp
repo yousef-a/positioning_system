@@ -5,7 +5,7 @@ ControlSystem::ControlSystem() {
     this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
-
+    //TODO add the connections between the Switchers
 }
 
 ControlSystem::~ControlSystem() {

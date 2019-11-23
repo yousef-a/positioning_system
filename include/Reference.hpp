@@ -5,7 +5,7 @@
 class Reference : public Block {
 
     private:
-        string _name; 
+        std::string _name; 
         block_type _type;
 
     public:
@@ -13,8 +13,8 @@ class Reference : public Block {
         void switchIn(DataMessage*);
         DataMessage* switchOut();
         void receive_msg_data(DataMessage* t_msg);
-        string getName();
+        std::string getName();
 
-        Reference(string name, block_type type);
+        Reference(std::string name, block_type type);
         ~Reference();
 };

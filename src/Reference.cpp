@@ -1,6 +1,6 @@
 #include "Reference.hpp"
 
-Reference::Reference(string name, block_type type){
+Reference::Reference(std::string name, block_type type){
     _name = name;
     _type = type;
     
@@ -19,7 +19,7 @@ block_type Reference::getType() {
 }
 
 void Reference::switchIn(DataMessage* data){
-    this->emit_message(data);
+    //this->emit_message(data);
 }
 
 
@@ -35,6 +35,6 @@ void Reference::receive_msg_data(DataMessage* t_msg){
 
 }
 
-string Reference::getName(){
+std::string Reference::getName(){
     return _name;
 }

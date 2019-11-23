@@ -2,13 +2,14 @@
 #include "Block.hpp"
 #include <math.h>
 #include "ControllerMessage.hpp"
-#include "PID_parameters.hpp"
+#include "PID_values.hpp"
+#include "FloatMessage.hpp"
 #define dt_manual 0.01f
 
 class PIDController : public Block{
 
     private:
-        string _name; 
+        std::string _name; 
         block_type _type;
         //Chehadeh's code
         PID_parameters parameters;
@@ -28,9 +29,11 @@ class PIDController : public Block{
         void receive_msg_data(DataMessage* t_msg);
         void switchIn(DataMessage*);
         DataMessage* switchOut();
-        string getName();
+        std::string getName();
         block_type getType();
+        //TODO Send a message to Switcher
+        //TODO Receive a message from Switcher
 
-        PIDController(string name, block_type type);
+        PIDController(std::string name, block_type type);
         ~PIDController();
 };

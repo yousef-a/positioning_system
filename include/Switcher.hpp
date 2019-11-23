@@ -22,7 +22,8 @@ class Switcher : public msg_receiver, public msg_emitter{
         string getName();
         void switchBlock(Block* from, Block* to);
         void receive_msg_data(DataMessage* t_msg);
-        
+        //TODO Send a message to Block
+        //TODO Receive a message from Block
         Switcher(string t_name, switcher_type t_type);
         ~Switcher();
 };

@@ -9,3 +9,11 @@ public:
 	uint8_t en_pv_derivation;
 	   
 };
+
+class PID_data {
+
+public:
+
+	float err, pv_first, pv_second;
+	   
+};

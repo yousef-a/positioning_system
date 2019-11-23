@@ -1,6 +1,6 @@
 #include "PIDController.hpp"
 
-PIDController::PIDController(string name, block_type type){
+PIDController::PIDController(std::string name, block_type type){
     _name = name;
     _type = type;
     
@@ -19,16 +19,24 @@ void PIDController::receive_msg_data(DataMessage* t_msg){
         ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
 
         if(controller_msg->getControllerMsgType() == controller_msg_type::data){
+            PID_data* data = controller_msg->getData();
+            
+            float command = pid_direct(data->err, data->pv_first, data->pv_second);
+            FloatMessage* output_msg = new FloatMessage(command);
+            //TODO send a message to the Switcher
+            // this->emit_message((DataMessage*)output_msg);
+            std::cout << "SENDING DATA" << std::endl;
 
         }else if(controller_msg->getControllerMsgType() == controller_msg_type::change_settings){
-
+            this->initialize(controller_msg->getSettings());
+            std::cout << "CHANGING PARAMETERS" << std::endl;
         }
 
     }
 }
 
 void PIDController::switchIn(DataMessage* data){
-    this->emit_message(data);
+    //this->emit_message(data);
 }
 
 
@@ -42,7 +50,7 @@ block_type PIDController::getType(){
     return _type;
 }
 
-string PIDController::getName(){
+std::string PIDController::getName(){
     return _name;
 }
 
