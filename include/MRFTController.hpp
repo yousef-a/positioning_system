@@ -52,9 +52,3 @@ public:
     MRFTController(std::string name, block_type type);
     ~MRFTController();
 };
-
-class mrft{
-
-public:
-	
-};
