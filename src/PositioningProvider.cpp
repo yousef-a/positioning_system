@@ -42,7 +42,7 @@ DataMessage* PositioningProvider::switchOut(){
 }
 //TODO remove the need of argument
 DataMessage* PositioningProvider::receive_msg_internal(DataMessage* t_msg){
-    std::cout << "3.1" << std::endl;
+    std::cout << "POSITIONING PROVIDER BLOCK" << std::endl;
     std::cout << "Received request from Switcher."<< std::endl;
     Vector3DMessage* pos_msg = new Vector3DMessage(this->getPosition());
     std::cout << "Sending it back"<< std::endl;

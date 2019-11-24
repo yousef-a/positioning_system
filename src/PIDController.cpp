@@ -83,6 +83,7 @@ void PIDController::initialize(void* para){ //Refer to example 1 on how to initi
 
 float PIDController::pid_direct(float err, float pv_first, float pv_second) { //Arbitrary large default value for pv_rate
 	float u = 0;
+	std::cout << "Init PID calc" << std::endl;
 	// ************************** P-term ***************************
 	u = err *parameters.kp;
 	// ************************** I-term ***************************
@@ -121,6 +122,7 @@ float PIDController::pid_direct(float err, float pv_first, float pv_second) { //
 		u+= parameters.kdd*(-pv_second);
 	}
 	prev_err = err;
+	std::cout << "End PID calc" << std::endl;
 	return u;
 }
 

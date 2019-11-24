@@ -68,10 +68,16 @@ int main(int argc, char** argv) {
     pid_para_test->en_pv_derivation = 1;
     myControlSystem->changePIDSettings(pid_para_test);
 
-    std::cout << "1" << std::endl;    
-    
     myControlSystem->getProviderSwitcher()->loopInternal();
     std::cout << "DONE" << std::endl;
+
+    while(ros::ok()){
+        myControlSystem->getProviderSwitcher()->loopInternal();
+        std::cout << "DONE" << std::endl;
+        ros::spinOnce();
+        rate.sleep();
+    }
+    
     // while(ros::ok()){
     //     myMoCap->getPosition();
     //     myMoCap->getAttitudeHeading();
