@@ -1,8 +1,8 @@
 #include "Reference.hpp"
 
-Reference::Reference(std::string name, block_type type){
-    _name = name;
-    _type = type;
+Reference::Reference(std::string t_name, block_type t_type){
+    _name = t_name;
+    _type = t_type;
     
     if(_type == block_type::reference)
         std::cout << "This is a "<< _name <<" block" << std::endl;  

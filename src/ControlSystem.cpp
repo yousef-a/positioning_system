@@ -9,6 +9,15 @@ ControlSystem::ControlSystem() {
     providerSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
 }
 
+ControlSystem::ControlSystem(control_system t_control_system) {
+    _control_system = t_control_system;
+    this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+    this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
+    this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
+    referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+    providerSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+}
+
 ControlSystem::~ControlSystem() {
 
 }
@@ -52,7 +61,7 @@ void ControlSystem::addBlock(Block* t_block){
 
 }
 
-void ControlSystem::changePIDSettings(PID_parameters* t_pid_para){
+void ControlSystem::changePIDSettings(PID_parameters* t_pid_para){ //TODO refactor through receive_msg, a remote msg should change the pid
 
     ControlSystemMessage* change_PID_msg = new ControlSystemMessage(control_system_msg_type::change_PID_settings, t_pid_para);
 

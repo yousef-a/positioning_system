@@ -13,7 +13,8 @@ class ControlSystem : public msg_emitter, public msg_receiver{
         Switcher* referenceSwitcher = new Switcher("ReferenceSwitcher", switcher_type::reference);
         Switcher* providerSwitcher = new Switcher("ProviderSwitcher", switcher_type::provider);
         std::vector<Switcher*> _switchers{controllerSwitcher, referenceSwitcher, providerSwitcher};
-
+        control_system _control_system;
+        ControlSystem();
 
     public:
         void receive_msg_data(DataMessage* t_msg);
@@ -27,8 +28,8 @@ class ControlSystem : public msg_emitter, public msg_receiver{
         Switcher* getReferenceSwitcher();
         Switcher* getProviderSwitcher();
 
-        ControlSystem();
-        ~ControlSystem();
+        ControlSystem(control_system);
+        ~ControlSystem(); //TODO prevent automatic storage
 
     
 };

@@ -10,6 +10,7 @@
 #include "../include/Reference.hpp"
 #include "../include/ControlSystem.hpp"
 #include "../include/PID_values.hpp"
+#include "../include/ProcessVariableReference.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -38,14 +39,14 @@ int main(int argc, char** argv) {
     
     Block* myPIDController1 = new PIDController("PID1", block_type::controller);
     Block* myPIDController2 = new PIDController("PID2", block_type::controller);
-    Block* myReference1 = new Reference("Ref1", block_type::reference);
-    Block* myReference2 = new Reference("Ref2", block_type::reference);
+    Block* myReference1 = new ProcessVariableReference("Ref1", block_type::reference);
     
-    ControlSystem* myControlSystem = new ControlSystem();
+    
+    ControlSystem* myControlSystem = new ControlSystem(control_system::roll);
     myControlSystem->addBlock(myPIDController1);
     myControlSystem->addBlock(myPIDController2);
     myControlSystem->addBlock(myReference1);
-    myControlSystem->addBlock(myReference2);
+    //myControlSystem->addBlock(myReference2);
     myControlSystem->addBlock(myPositioningSystem);
     myControlSystem->getStatus(); //TODO delete getStatus, just for testing
     myControlSystem->switchBlock(nullptr, myPIDController1); 
@@ -54,10 +55,10 @@ int main(int argc, char** argv) {
     myControlSystem->getStatus();
     myControlSystem->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
-    myControlSystem->switchBlock(myReference1, myReference2);
-    myControlSystem->getStatus();
-    myControlSystem->switchBlock(myReference2, myPIDController1);
-    myControlSystem->getStatus();
+    // myControlSystem->switchBlock(myReference1, myReference2);
+    // myControlSystem->getStatus();
+    // myControlSystem->switchBlock(myReference2, myPIDController1);
+    // myControlSystem->getStatus();
 
     PID_parameters* pid_para_test = new PID_parameters;
     pid_para_test->kp = 1.0;
@@ -71,12 +72,16 @@ int main(int argc, char** argv) {
     myControlSystem->getProviderSwitcher()->loopInternal();
     std::cout << "DONE" << std::endl;
 
-    while(ros::ok()){
-        myControlSystem->getProviderSwitcher()->loopInternal();
-        std::cout << "DONE" << std::endl;
-        ros::spinOnce();
-        rate.sleep();
-    }
+    //TODO add Controller class between Block and the controllers
+    //TODO add a Reference class between Block and the references 
+    //TODO add a Provider class between Block and the providers
+
+    // while(ros::ok()){
+    //     myControlSystem->getProviderSwitcher()->loopInternal();
+    //     std::cout << "DONE" << std::endl;
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
     
     // while(ros::ok()){
     //     myMoCap->getPosition();
