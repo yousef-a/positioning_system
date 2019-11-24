@@ -12,3 +12,11 @@ ProcessVariableReference::~ProcessVariableReference() {
 reference_type ProcessVariableReference::getReferenceType(){
     return _reference_type;
 }
+
+DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
+    std::cout << " I AM HEREEEEEEE RECEIVE MSG FROM REFERENCE" << std::endl;
+}
+
+DataMessage* ProcessVariableReference::receive_msg_internal(){
+    
+}

@@ -105,15 +105,18 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         if(switcher_msg->getInternalType() == internal_switcher_type::position_provider
             && switcher_msg->getSource() == switcher_type::provider
             && switcher_msg->getDestination() == this->getType()){
-            
-                //TODO get internal message from the Reference block
-                SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, internal_switcher_type::reference, 3.0f);
+        
+                Vector3DMessage* pos_provided = new Vector3DMessage(switcher_msg->getVector3DData());
+                DataMessage* output_from_receiver = _active_block->receive_msg_internal((DataMessage*)pos_provided);
+
+                FloatMessage* error = (FloatMessage*)output_from_receiver;
+
+                SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, internal_switcher_type::reference, error->getData());
+                
                 std::cout << "REFERENCE SWITCHER" << std::endl;
                 std::cout << "Sending to Controller Switcher" << std::endl;
                 this->emit_message((DataMessage*)reference_msg);
                 
-            
-
         }else if(switcher_msg->getInternalType() == internal_switcher_type::reference
             && switcher_msg->getSource() == switcher_type::reference
             && switcher_msg->getDestination() == this->getType()){
