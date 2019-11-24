@@ -2,12 +2,12 @@
 #include "../include/Switcher.hpp"
 
 ControlSystem::ControlSystem() {
-    this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
-    this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
-    this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
-    providerSwitcher->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
-    referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
-    controllerSwitcher->add_callback_msg_receiver((msg_receiver*)this);
+    // this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+    // this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
+    // this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
+    // providerSwitcher->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
+    // referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+    // controllerSwitcher->add_callback_msg_receiver((msg_receiver*)this);
     
 }
 

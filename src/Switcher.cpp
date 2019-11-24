@@ -45,8 +45,8 @@ void Switcher::loopInternal(){
         if(provider_msg->getType() == msg_type::vector3D_msg){
             std::cout << "Message of type vector3D received" << std::endl;
             Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
-            SwitcherMessage* switcher_msg = new SwitcherMessage(internal_switcher_type::position_provider, vector3D_msg->getData());
-            std::cout << "SENDING MESSAGE TO CONTROLLER SWITCHER" << std::endl;
+            SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, internal_switcher_type::position_provider, vector3D_msg->getData());
+            std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
             this->emit_message((DataMessage*)switcher_msg);
 
         }
@@ -102,7 +102,22 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
 
-        if(switcher_msg->getInternalType() == internal_switcher_type::position_provider){
+        if(switcher_msg->getInternalType() == internal_switcher_type::position_provider
+            && switcher_msg->getSource() == switcher_type::provider
+            && switcher_msg->getDestination() == this->getType()){
+            
+                //TODO get internal message from the Reference block
+                SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, internal_switcher_type::reference, 3.0f);
+                std::cout << "REFERENCE SWITCHER" << std::endl;
+                std::cout << "Sending to Controller Switcher" << std::endl;
+                this->emit_message((DataMessage*)reference_msg);
+                
+            
+
+        }else if(switcher_msg->getInternalType() == internal_switcher_type::reference
+            && switcher_msg->getSource() == switcher_type::reference
+            && switcher_msg->getDestination() == this->getType()){
+            
             Controller* controller_block = (Controller*)_active_block;
 
             if(controller_block->getControllerType() == controller_type::pid){
@@ -117,10 +132,9 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data);
                 DataMessage* output = _active_block->receive_msg_internal((DataMessage*)pos_control_msg);
                 FloatMessage* float_command = (FloatMessage*)output;
-
-                std::cout << "Output of switcher controller" << std::endl;
+       
+                std::cout << "Output of switcher controller" << std::endl;       
             }
-            //TODO emit the output from PID to someplace.
         }
     }
 
