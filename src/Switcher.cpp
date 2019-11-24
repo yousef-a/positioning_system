@@ -40,7 +40,7 @@ void Switcher::loopInternal(){
     if(this->getType() == switcher_type::provider){
         std::cout << "PROVIDER SWITCHER" << std::endl;
         std::cout << "Request for active block data" << std::endl;
-        DataMessage* provider_msg = _active_block->receive_msg_internal(); //TODO remove the dumb argument
+        DataMessage* provider_msg = _active_block->receive_msg_internal(); 
         
         if(provider_msg->getType() == msg_type::vector3D_msg){
             std::cout << "Message of type vector3D received" << std::endl;
