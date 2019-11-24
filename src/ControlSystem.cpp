@@ -5,8 +5,10 @@ ControlSystem::ControlSystem() {
     this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
+    providerSwitcher->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
-    providerSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+    controllerSwitcher->add_callback_msg_receiver((msg_receiver*)this);
+    
 }
 
 ControlSystem::ControlSystem(control_system t_control_system) {

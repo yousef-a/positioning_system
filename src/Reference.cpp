@@ -42,3 +42,7 @@ std::string Reference::getName(){
 DataMessage* Reference::receive_msg_internal(DataMessage* t_msg){
     
 }
+
+DataMessage* Reference::receive_msg_internal(){
+    
+}

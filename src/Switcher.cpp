@@ -39,9 +39,8 @@ void Switcher::loopInternal(){
 
     if(this->getType() == switcher_type::provider){
         std::cout << "PROVIDER SWITCHER" << std::endl;
-        FloatMessage* a = new FloatMessage(3.0);
         std::cout << "Request for active block data" << std::endl;
-        DataMessage* provider_msg = _active_block->receive_msg_internal((DataMessage*)a); //TODO remove the dumb argument
+        DataMessage* provider_msg = _active_block->receive_msg_internal(); //TODO remove the dumb argument
         
         if(provider_msg->getType() == msg_type::vector3D_msg){
             std::cout << "Message of type vector3D received" << std::endl;
@@ -117,6 +116,8 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 std::cout << "Sending calculated data to active block" << std::endl;
                 ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data);
                 DataMessage* output = _active_block->receive_msg_internal((DataMessage*)pos_control_msg);
+                FloatMessage* float_command = (FloatMessage*)output;
+
                 std::cout << "Output of switcher controller" << std::endl;
             }
             //TODO emit the output from PID to someplace.

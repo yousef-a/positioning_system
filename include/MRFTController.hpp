@@ -40,6 +40,7 @@ public:
     //---------------
 
     DataMessage* receive_msg_internal(DataMessage*);
+    DataMessage* receive_msg_internal();
     controller_type getControllerType();
 
     MRFTController(std::string name, block_type type);

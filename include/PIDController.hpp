@@ -26,6 +26,7 @@ class PIDController : public Controller{
         void set_I_term(float);
         //---------------
         DataMessage* receive_msg_internal(DataMessage*);
+        DataMessage* receive_msg_internal();
         controller_type getControllerType();
         //TODO Send a message to Switcher
         //TODO Receive a message from Switcher

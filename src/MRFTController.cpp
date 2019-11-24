@@ -8,6 +8,10 @@ MRFTController::~MRFTController() {
 
 }
 
+DataMessage* MRFTController::receive_msg_internal(){
+	
+}
+
 DataMessage* MRFTController::receive_msg_internal(DataMessage* t_msg){
         
 	// ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
