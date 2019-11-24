@@ -4,13 +4,11 @@
 #include "ControllerMessage.hpp"
 #include "PID_values.hpp"
 #include "FloatMessage.hpp"
-#define dt_manual 0.01f
+#include "Controller.hpp"
 
-class PIDController : public Block{
+class PIDController : public Controller{
 
     private:
-        std::string _name; 
-        block_type _type;
         controller_type _controller_type;
         //Chehadeh's code
         PID_parameters parameters;
@@ -27,15 +25,11 @@ class PIDController : public Block{
         float pid_direct(float err, float pv_first,float pv_second=-1);
         void set_I_term(float);
         //---------------
-        void switchIn(DataMessage*);
-        DataMessage* switchOut();
-        std::string getName();
-        block_type getType();
         DataMessage* receive_msg_internal(DataMessage*);
         controller_type getControllerType();
         //TODO Send a message to Switcher
         //TODO Receive a message from Switcher
 
-        PIDController(std::string name, block_type type);
+        PIDController(std::string t_name, block_type t_type);
         ~PIDController();
 };

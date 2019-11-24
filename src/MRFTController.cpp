@@ -1,13 +1,7 @@
 #include "MRFTController.hpp"
 
-MRFTController::MRFTController(std::string name, block_type type) {
-    _name = name;
-    _type = type;
+MRFTController::MRFTController(std::string t_name, block_type t_type) : Controller(t_name, t_type) {  
     _controller_type = controller_type::mrft;
-    if(_type == block_type::controller)
-        std::cout << "This is a "<< _name <<" block" << std::endl; 
-    else
-        std::cout << "NOT WHATEVER" << std::endl;
 }
 
 MRFTController::~MRFTController() {
@@ -32,26 +26,6 @@ DataMessage* MRFTController::receive_msg_internal(DataMessage* t_msg){
 
 controller_type MRFTController::getControllerType(){
 	return _controller_type;
-}
-
-void MRFTController::switchIn(DataMessage* data){
-    //this->emit_message(data);
-    //TODO implement
-}
-
-
-DataMessage* MRFTController::switchOut(){
-    //TODO implement
-    DataMessage* msg;
-    return msg;
-}   
-
-block_type MRFTController::getType(){
-    return _type;
-}
-
-std::string MRFTController::getName(){
-    return _name;
 }
 
 // Start of Chehadeh's Code

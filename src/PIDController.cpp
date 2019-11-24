@@ -1,13 +1,7 @@
 #include "PIDController.hpp"
 
-PIDController::PIDController(std::string name, block_type type){
-    _name = name;
-    _type = type;
+PIDController::PIDController(std::string t_name, block_type t_type) : Controller(t_name, t_type){
     _controller_type = controller_type::pid;
-    if(_type == block_type::controller)
-        std::cout << "This is a "<< _name <<" block" << std::endl; 
-    else
-        std::cout << "NOT WHATEVER" << std::endl;
 }
 
 PIDController::~PIDController() {
@@ -34,24 +28,6 @@ controller_type PIDController::getControllerType(){
 	return _controller_type;
 }
 
-void PIDController::switchIn(DataMessage* data){
-    //this->emit_message(data);
-}
-
-
-DataMessage* PIDController::switchOut(){
-    
-    DataMessage* msg;
-    return msg;
-}   
-
-block_type PIDController::getType(){
-    return _type;
-}
-
-std::string PIDController::getName(){
-    return _name;
-}
 
 // Start of Chehadeh's Code
 void PIDController::set_internal_sw(PID_parameters pid_para_x){ //This checks input parameters. If Kd or Ki<0 it means we do not use them

@@ -89,10 +89,11 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings
                      && this->getType() == switcher_type::controller){
             
-            PIDController* pid_block = (PIDController*)_active_block; //TODO refactor
-            if(pid_block->getControllerType() == controller_type::pid){
+            Controller* controller_block = (Controller*)_active_block; //TODO refactor
+            if(controller_block->getControllerType() == controller_type::pid){
+                PIDController* pid_block = (PIDController*)controller_block;
                 pid_block->initialize(control_system_msg->getPIDSettings());
-                std::cout << "Active Block: " << pid_block->getName() << std::endl;
+                std::cout << "Active Block: " << controller_block->getName() << std::endl;
                 std::cout << "CHANGING PID PARAMETERS" << std::endl;
             }
               
@@ -103,9 +104,9 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
 
         if(switcher_msg->getInternalType() == internal_switcher_type::position_provider){
-            PIDController* pid_block = (PIDController*)_active_block;
+            Controller* controller_block = (Controller*)_active_block;
 
-            if(pid_block->getControllerType() == controller_type::pid){
+            if(controller_block->getControllerType() == controller_type::pid){
                 std::cout << "CONTROLLER SWITCHER" << std::endl;
                 std::cout << "Calculating PID input data" << std::endl;
                 PID_data* pid_data = new PID_data;

@@ -11,6 +11,7 @@
 #include "../include/ControlSystem.hpp"
 #include "../include/PID_values.hpp"
 #include "../include/ProcessVariableReference.hpp"
+#include "../include/Controller.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -76,12 +77,12 @@ int main(int argc, char** argv) {
     //TODO add a Reference class between Block and the references 
     //TODO add a Provider class between Block and the providers
 
-    // while(ros::ok()){
-    //     myControlSystem->getProviderSwitcher()->loopInternal();
-    //     std::cout << "DONE" << std::endl;
-    //     ros::spinOnce();
-    //     rate.sleep();
-    // }
+    while(ros::ok()){
+        myControlSystem->getProviderSwitcher()->loopInternal();
+        std::cout << "DONE" << std::endl;
+        ros::spinOnce();
+        rate.sleep();
+    }
     
     // while(ros::ok()){
     //     myMoCap->getPosition();

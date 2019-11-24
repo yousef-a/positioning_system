@@ -1,21 +1,18 @@
 #pragma once
-#include "Block.hpp"
 #include <math.h>
 #include "ControllerMessage.hpp"
 #include "FloatMessage.hpp"
 #include "MRFT_values.hpp"
-#define dt_manual 0.01f
+#include "Controller.hpp"
 
 struct mrft_bag{
         float amplitude;
         uint32_t duration;
     };
 
-class MRFTController {
+class MRFTController : public Controller{
 
 private:
-    std::string _name; 
-    block_type _type;
     controller_type _controller_type;
     //Chehadeh's code
 	const uint8_t iterations_lock_count = 5;
@@ -42,10 +39,6 @@ public:
 	float mrft_with_antilock(float,bool&, mrft_bag&);
     //---------------
 
-    void switchIn(DataMessage*);
-    DataMessage* switchOut();
-    std::string getName();
-    block_type getType();
     DataMessage* receive_msg_internal(DataMessage*);
     controller_type getControllerType();
 
