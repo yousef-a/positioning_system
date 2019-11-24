@@ -27,7 +27,6 @@ class PIDController : public Block{
         float pid_direct(float err, float pv_first,float pv_second=-1);
         void set_I_term(float);
         //---------------
-        void receive_msg_data(DataMessage* t_msg);
         void switchIn(DataMessage*);
         DataMessage* switchOut();
         std::string getName();

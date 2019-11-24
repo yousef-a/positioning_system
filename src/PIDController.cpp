@@ -53,7 +53,7 @@ std::string PIDController::getName(){
     return _name;
 }
 
-
+// Start of Chehadeh's Code
 void PIDController::set_internal_sw(PID_parameters pid_para_x){ //This checks input parameters. If Kd or Ki<0 it means we do not use them
 		i_term = !(pid_para_x.ki <= 0);
 		d_term = !(pid_para_x.kd <= 0);
