@@ -4,7 +4,10 @@ PositioningProvider::PositioningProvider(std::string t_name, block_type t_type){
     _name = t_name;
     _type = t_type;
     Vector3D _homePos;
-    std::cout << "Position constructor" << std::endl;
+    if(_type == block_type::provider)
+        std::cout << "This is a "<< _name <<" block" << std::endl; 
+    else
+        std::cout << "NOT WHATEVER" << std::endl;
 }
 
 void PositioningProvider::setHomePosition(Vector3D data){
@@ -37,8 +40,9 @@ DataMessage* PositioningProvider::switchOut(){
 
     return (DataMessage*)pos_msg;
 }
-
+//TODO remove the need of argument
 DataMessage* PositioningProvider::receive_msg_internal(DataMessage* t_msg){
+    std::cout << "3.1" << std::endl;
     std::cout << "Received request from Switcher."<< std::endl;
     Vector3DMessage* pos_msg = new Vector3DMessage(this->getPosition());
     std::cout << "Sending it back"<< std::endl;

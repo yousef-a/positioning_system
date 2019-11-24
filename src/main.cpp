@@ -9,6 +9,7 @@
 #include "../include/PIDController.hpp"
 #include "../include/Reference.hpp"
 #include "../include/ControlSystem.hpp"
+#include "../include/PID_values.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -45,9 +46,11 @@ int main(int argc, char** argv) {
     myControlSystem->addBlock(myPIDController2);
     myControlSystem->addBlock(myReference1);
     myControlSystem->addBlock(myReference2);
+    myControlSystem->addBlock(myPositioningSystem);
     myControlSystem->getStatus(); //TODO delete getStatus, just for testing
     myControlSystem->switchBlock(nullptr, myPIDController1); 
     myControlSystem->switchBlock(nullptr, myReference1);
+    myControlSystem->switchBlock(nullptr, myPositioningSystem);
     myControlSystem->getStatus();
     myControlSystem->switchBlock(myPIDController1, myPIDController2);
     myControlSystem->getStatus();
@@ -56,14 +59,29 @@ int main(int argc, char** argv) {
     myControlSystem->switchBlock(myReference2, myPIDController1);
     myControlSystem->getStatus();
 
-    while(ros::ok()){
-        myMoCap->getPosition();
-        myMoCap->getAttitudeHeading();
-        myMoCap->getAttitude();
-        myMoCap->getHeading();
-        ros::spinOnce();
-        rate.sleep();
-    }
+    PID_parameters* pid_para_test = new PID_parameters;
+    pid_para_test->kp = 1.0;
+    pid_para_test->ki = 2.0;
+    pid_para_test->kd = 3.0;
+    pid_para_test->kdd = 4.0;
+    pid_para_test->anti_windup = 0.5;
+    pid_para_test->en_pv_derivation = 1;
+    myControlSystem->changePIDSettings(pid_para_test);
+
+    std::cout << "1" << std::endl;    
+    
+    myControlSystem->getProviderSwitcher()->loopInternal();
+    std::cout << "DONE" << std::endl;
+    // while(ros::ok()){
+    //     myMoCap->getPosition();
+    //     myMoCap->getAttitudeHeading();
+    //     myMoCap->getAttitude();
+    //     myMoCap->getHeading();
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
+
+    //TODO add tests for implementation of message flow through the control system
 
     return 0;
 

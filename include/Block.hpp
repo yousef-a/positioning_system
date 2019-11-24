@@ -12,7 +12,7 @@ class Block{
         virtual void switchIn(DataMessage*) = 0;
         virtual DataMessage* switchOut() = 0;
         virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
-    
+        
         Block();
         ~Block();
 };

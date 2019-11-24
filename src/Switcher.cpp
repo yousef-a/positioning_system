@@ -36,18 +36,25 @@ string Switcher::getName(){
 }
 
 void Switcher::loopInternal(){
+    std::cout << "2" << std::endl;
     if(this->getType() == switcher_type::provider){
-        DataMessage* provider_msg = _active_block->receive_msg_internal(nullptr);
+        std::cout << "3" << std::endl;
+        FloatMessage* a = new FloatMessage(3.0);
+        DataMessage* provider_msg = _active_block->receive_msg_internal((DataMessage*)a);
+        std::cout << "3.5" << std::endl;
         if(provider_msg->getType() == msg_type::vector3D_msg){
+            std::cout << "4" << std::endl;
             Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
             SwitcherMessage* switcher_msg = new SwitcherMessage(internal_switcher_type::position_provider, vector3D_msg->getData());
+            std::cout << "5" << std::endl;
             this->emit_message((DataMessage*)switcher_msg);
+            std::cout << "6" << std::endl;
         }
          
     }
 
 }
-
+//TODO add reference block so the error can be calculated
 void Switcher::receive_msg_data(DataMessage* t_msg){
     
     if(t_msg->getType() == msg_type::control_system){
@@ -84,23 +91,27 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             PIDController* pid_block = (PIDController*)_active_block;
             if(pid_block->getControllerType() == controller_type::pid){
                 pid_block->initialize(control_system_msg->getPIDSettings());
+                std::cout << "Active Block: " << pid_block->getName() << std::endl;
                 std::cout << "CHANGING PID PARAMETERS" << std::endl;
             }
               
         }
         
     }else if(t_msg->getType() == msg_type::switcher){
-
+        std::cout << "5.1" << std::endl;
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
+        std::cout << "5.2" << std::endl;
         if(switcher_msg->getInternalType() == internal_switcher_type::position_provider){
-            PID_data* pid_data;
+            std::cout << "5.3" << std::endl;
+            PID_data* pid_data = new PID_data;
             pid_data->err = 0.0; //TODO calculate the error
             pid_data->pv_first = 0.0;
             pid_data->pv_second = 0.0;
-
+            std::cout << "5.4" << std::endl;
+            std::cout << "INSIDE SWITCHER MSG RECEIVE" << std::endl;
             ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data);
             DataMessage* output = _active_block->receive_msg_internal((DataMessage*)pos_control_msg);
-
+            std::cout << "output of switcher controller" << std::endl;
             //TODO emit the output from PID to someplace.
         }
     }
