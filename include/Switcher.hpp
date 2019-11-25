@@ -7,6 +7,7 @@
 #include "SwitcherMessage.hpp"
 #include "Vector3DMessage.hpp"
 #include "PIDController.hpp"
+#include "ProcessVariableReference.hpp"
 #include <algorithm>
 
 class Switcher : public msg_receiver, public msg_emitter{
@@ -17,6 +18,7 @@ class Switcher : public msg_receiver, public msg_emitter{
         switcher_type _type;
         Block* _active_block;
         string _name;
+        control_system _parent;
 
     public:
         void addBlock(Block* b);
@@ -28,6 +30,6 @@ class Switcher : public msg_receiver, public msg_emitter{
         void loopInternal();
         //TODO Send a message to Block
         //TODO Receive a message from Block
-        Switcher(string t_name, switcher_type t_type);
+        Switcher(string t_name, switcher_type t_type, control_system t_parent);
         ~Switcher();
 };

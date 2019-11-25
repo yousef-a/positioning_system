@@ -13,6 +13,12 @@ ControlSystem::ControlSystem() {
 
 ControlSystem::ControlSystem(control_system t_control_system) {
     _control_system = t_control_system;
+    
+    controllerSwitcher = new Switcher("ControlSwitcher", switcher_type::controller, _control_system);
+    referenceSwitcher = new Switcher("ReferenceSwitcher", switcher_type::reference, _control_system);
+    providerSwitcher = new Switcher("ProviderSwitcher", switcher_type::provider, _control_system);
+    _switchers = {controllerSwitcher, referenceSwitcher, providerSwitcher};
+    
     this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
@@ -27,12 +33,29 @@ ControlSystem::~ControlSystem() {
 
 void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
-    if(t_msg->getType() == msg_type::control_system){
+    if(t_msg->getType() == msg_type::user){
 
-        ControlSystemMessage* control_msg = (ControlSystemMessage*)t_msg;
+        UserMessage* user_msg = (UserMessage*)t_msg;
+        //TODO add mask to ignore msgs
+        if(this->getControlSystemType() == control_system::x){
+            FloatMessage* user_data_x = new FloatMessage(user_msg->getX());
+            std::cout << "Msg received from User. Sendind to X CS" << std::endl;
+            this->emit_message((DataMessage*)user_data_x);
+
+        }else if(this->getControlSystemType() == control_system::y){
+            
+        }else if(this->getControlSystemType() == control_system::z){
+
+        }else if(this->getControlSystemType() == control_system::yaw){
+
+        }
 
     }
 
+}
+
+control_system ControlSystem::getControlSystemType(){
+    return _control_system;
 }
 
 void ControlSystem::getStatus(){

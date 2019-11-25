@@ -1,8 +1,9 @@
 #include "Switcher.hpp"
 
-Switcher::Switcher(string t_name, switcher_type t_type) {
+Switcher::Switcher(string t_name, switcher_type t_type, control_system t_parent) {
     _type = t_type;
     _name = t_name;
+    _parent = t_parent;
     _active_block = nullptr;
 }
 
@@ -43,6 +44,7 @@ void Switcher::loopInternal(){
         DataMessage* provider_msg = _active_block->receive_msg_internal(); 
         
         if(provider_msg->getType() == msg_type::vector3D_msg){
+
             std::cout << "Message of type vector3D received" << std::endl;
             Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
             SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, internal_switcher_type::position_provider, vector3D_msg->getData());
@@ -139,6 +141,21 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 std::cout << "Output of switcher controller" << std::endl;       
             }
         }
+    }else if(t_msg->getType() == msg_type::float_msg){
+
+        FloatMessage* user_data = (FloatMessage*)t_msg;
+
+        if(this->getType() == switcher_type::reference){
+            Reference* reference_block = (Reference*)_active_block;
+            if(reference_block->getReferenceType() == reference_type::process_variable_ref){
+                ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
+                pv_ref_block->setProcessVariable(user_data->getData());
+
+                //HERE
+            }
+           
+        }
+
     }
 
 }
