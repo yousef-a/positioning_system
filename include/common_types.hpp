@@ -14,11 +14,11 @@ enum class msg_type {optitrack, position, attitude, control_system, user, contro
 enum class msg_type_optitrack {position, attitude};
 enum class control_system {roll, pitch, yaw, x, y, z};
 enum class block_type {controller, provider, reference};
-enum class switcher_type {controller, provider, reference};
+enum class switcher_type {controller, provider, reference, null_type};
 enum class controller_type {pid, mrft};
 enum class reference_type {process_variable_ref, restricted_process_variable_ref};
 enum class provider_type {position, attitude, heading, optitrack};
-enum class internal_switcher_type {position_provider, attitude_provider, reference};
+enum class internal_switcher_type {position_provider, attitude_provider, reference, controller};
 enum class controller_msg_type {data, change_settings, command};
 enum class control_system_msg_type {switch_in_out, add_block, change_PID_settings, to_control_system, to_actuation_system};
 enum class ack_msg_type { raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };

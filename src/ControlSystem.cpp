@@ -50,6 +50,38 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
         }
 
+    }else if(t_msg->getType() == msg_type::switcher){
+
+        SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
+
+        if(switcher_msg->getSource() == switcher_type::controller
+            && switcher_msg->getDestination() == switcher_type::null_type
+            && switcher_msg->getInternalType() == internal_switcher_type::controller){
+                
+                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::pitch, 
+                                                                        control_system_msg_type::to_control_system, switcher_msg->getFloatData());
+
+                std::cout << "Message from Controller Switcher to X" << std::endl;
+
+                this->emit_message((DataMessage*)output);
+
+            }
+    }else if(t_msg->getType() == msg_type::control_system){
+
+        ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
+
+        if(control_system_msg->getSource() == control_system::x
+            && control_system_msg->getDestination() == this->getControlSystemType()
+            && control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_control_system){
+            
+            FloatMessage* output_from_x_to_pitch = new FloatMessage(control_system_msg->getData());
+
+            std::cout << "Message from X to Pitch" << std::endl;
+            
+            this->emit_message((DataMessage*)output_from_x_to_pitch);
+
+        }
+
     }
 
 }

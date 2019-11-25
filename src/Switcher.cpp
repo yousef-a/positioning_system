@@ -176,17 +176,24 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 std::cout << "CONTROLLER SWITCHER" << std::endl;
                 std::cout << "Calculating PID input data" << std::endl;
                 
+                PIDController* pid_block = (PIDController*)controller_block;
+
                 PID_data* pid_data = new PID_data;
                 pid_data->err = switcher_msg->getVector3DData().x;
                 pid_data->pv_first = switcher_msg->getVector3DData().y;
                 pid_data->pv_second = switcher_msg->getVector3DData().z;
             
                 std::cout << "Sending calculated data to active block" << std::endl;
-                ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data);
-                DataMessage* output = _active_block->receive_msg_internal((DataMessage*)pos_control_msg);
+                ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data); //TODO Refactor Controller Message
+                DataMessage* output = pid_block->receive_msg_internal((DataMessage*)pos_control_msg);
                 FloatMessage* float_command = (FloatMessage*)output;
-       
-                std::cout << "Output of switcher controller" << std::endl;       
+
+                SwitcherMessage* controller_msg = new SwitcherMessage(this->getType(), switcher_type::null_type, 
+                                                                        internal_switcher_type::controller, float_command->getData());
+
+                std::cout << "Output of switcher controller" << std::endl; 
+                this->emit_message((DataMessage*)controller_msg);
+ 
             }//TODO add MRFT else if
         }
     }else if(t_msg->getType() == msg_type::float_msg){
