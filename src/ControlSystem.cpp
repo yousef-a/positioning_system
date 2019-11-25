@@ -54,7 +54,8 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
 
-        if(switcher_msg->getSource() == switcher_type::controller
+        if(this->getControlSystemType() == control_system::x 
+            && switcher_msg->getSource() == switcher_type::controller
             && switcher_msg->getDestination() == switcher_type::null_type
             && switcher_msg->getInternalType() == internal_switcher_type::controller){
                 
@@ -65,7 +66,34 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
                 this->emit_message((DataMessage*)output);
 
-            }
+        } else if (this->getControlSystemType() == control_system::pitch 
+                    && switcher_msg->getSource() == switcher_type::controller
+                    && switcher_msg->getDestination() == switcher_type::null_type
+                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
+
+                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::null_type, 
+                                                                        control_system_msg_type::to_actuation_system, switcher_msg->getFloatData());
+
+                std::cout << "Message from Controller Switcher to Pitch" << std::endl;
+
+                this->emit_message((DataMessage*)output);
+
+        } else if(this->getControlSystemType() == control_system::y 
+                    && switcher_msg->getSource() == switcher_type::controller
+                    && switcher_msg->getDestination() == switcher_type::null_type
+                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
+                
+                //TODO Implement
+
+        } else if (this->getControlSystemType() == control_system::roll 
+                    && switcher_msg->getSource() == switcher_type::controller
+                    && switcher_msg->getDestination() == switcher_type::null_type
+                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
+
+                //TODO Implement
+
+        }
+
     }else if(t_msg->getType() == msg_type::control_system){
 
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
@@ -76,7 +104,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
             
             FloatMessage* output_from_x_to_pitch = new FloatMessage(control_system_msg->getData());
 
-            std::cout << "Message from X to Pitch" << std::endl;
+            std::cout << "Message from Pitch to receivers" << std::endl;
             
             this->emit_message((DataMessage*)output_from_x_to_pitch);
 

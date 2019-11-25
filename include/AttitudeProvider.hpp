@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector3D.hpp"
 
-class AttitudeProvider {
+class AttitudeProvider{
 
     public:
 
