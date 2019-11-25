@@ -27,6 +27,11 @@ ControlSystem::~ControlSystem() {
 
 void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
+    if(t_msg->getType() == msg_type::control_system){
+
+        ControlSystemMessage* control_msg = (ControlSystemMessage*)t_msg;
+
+    }
 
 }
 
