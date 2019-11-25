@@ -8,6 +8,7 @@
 #include "Vector3DMessage.hpp"
 #include "PIDController.hpp"
 #include "ProcessVariableReference.hpp"
+#include "PositioningProvider.hpp"
 #include <algorithm>
 
 class Switcher : public msg_receiver, public msg_emitter{

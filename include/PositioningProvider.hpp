@@ -10,6 +10,7 @@ class PositioningProvider : public msg_receiver, public Block{
         Vector3D _homePos;
         std::string _name; 
         block_type _type;
+        provider_type _provider_type;
 
     public:
         virtual Vector3D getPosition() = 0;
@@ -23,6 +24,7 @@ class PositioningProvider : public msg_receiver, public Block{
         DataMessage* switchOut();
         DataMessage* receive_msg_internal(DataMessage*);
         DataMessage* receive_msg_internal();
+        provider_type getProviderType();
         
         PositioningProvider(std::string, block_type);
 };

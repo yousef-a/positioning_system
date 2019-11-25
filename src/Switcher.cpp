@@ -41,7 +41,10 @@ void Switcher::loopInternal(){
     if(this->getType() == switcher_type::provider){
         std::cout << "PROVIDER SWITCHER" << std::endl;
         std::cout << "Request for active block data" << std::endl;
-        DataMessage* provider_msg = _active_block->receive_msg_internal(); 
+        
+        //TODO create the Provider class to check between types of providers
+        PositioningProvider* pos_provider = (PositioningProvider*)_active_block;
+        DataMessage* provider_msg = pos_provider->receive_msg_internal(); 
         
         if(provider_msg->getType() == msg_type::vector3D_msg){
             std::cout << "Message of type vector3D received" << std::endl;
@@ -51,8 +54,13 @@ void Switcher::loopInternal(){
             {
                 case control_system::x:
                 {
-                    FloatMessage* x_measure = new FloatMessage(vector3D_msg->getData().x);
-                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, internal_switcher_type::position_provider, x_measure->getData());
+                    Vector3D X_data;
+                    X_data.x = vector3D_msg->getData().x;
+                    X_data.y = 0.0; //TODO velocity in X
+                    X_data.z = 0.0; //TODO acceleration in X
+
+                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
+                                                                        internal_switcher_type::position_provider, X_data);
                     std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
                     this->emit_message((DataMessage*)switcher_msg);
                     break;
@@ -129,17 +137,34 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             && switcher_msg->getSource() == switcher_type::provider
             && switcher_msg->getDestination() == this->getType()){
         
-                FloatMessage* data_provided = new FloatMessage(switcher_msg->getFloatData());
-                DataMessage* output_from_receiver = _active_block->receive_msg_internal((DataMessage*)data_provided);
+                Vector3DMessage* data_provided = new Vector3DMessage(switcher_msg->getVector3DData());
 
-                FloatMessage* error = (FloatMessage*)output_from_receiver;
+                Reference* reference_block = (Reference*)_active_block;
 
-                SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, 
-                                                                     internal_switcher_type::reference, error->getData());
+                if(reference_block->getReferenceType() == reference_type::process_variable_ref){
+                    ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
+
+                    FloatMessage* process_variable = new FloatMessage(data_provided->getData().x);
+
+                    DataMessage* output_from_reference = pv_ref_block->receive_msg_internal((DataMessage*)process_variable);
+
+                    FloatMessage* error = (FloatMessage*)output_from_reference;
+
+                    Vector3D data_to_controller;
+                    data_to_controller.x = error->getData();
+                    data_to_controller.y = data_provided->getData().y;
+                    data_to_controller.z = data_provided->getData().z;
+                    
+                    SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, 
+                                                                        internal_switcher_type::reference, data_to_controller);
+                    
+                    std::cout << "REFERENCE SWITCHER" << std::endl;
+                    std::cout << "Sending to Controller Switcher" << std::endl;
+                    this->emit_message((DataMessage*)reference_msg);
+
+                }//TODO add other references as else if
+
                 
-                std::cout << "REFERENCE SWITCHER" << std::endl;
-                std::cout << "Sending to Controller Switcher" << std::endl;
-                this->emit_message((DataMessage*)reference_msg);
                 
         }else if(switcher_msg->getInternalType() == internal_switcher_type::reference
             && switcher_msg->getSource() == switcher_type::reference
@@ -150,10 +175,11 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             if(controller_block->getControllerType() == controller_type::pid){
                 std::cout << "CONTROLLER SWITCHER" << std::endl;
                 std::cout << "Calculating PID input data" << std::endl;
+                
                 PID_data* pid_data = new PID_data;
-                pid_data->err = 0.0; //TODO calculate the error
-                pid_data->pv_first = 0.0;
-                pid_data->pv_second = 0.0;
+                pid_data->err = switcher_msg->getVector3DData().x;
+                pid_data->pv_first = switcher_msg->getVector3DData().y;
+                pid_data->pv_second = switcher_msg->getVector3DData().z;
             
                 std::cout << "Sending calculated data to active block" << std::endl;
                 ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data);
@@ -161,17 +187,17 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 FloatMessage* float_command = (FloatMessage*)output;
        
                 std::cout << "Output of switcher controller" << std::endl;       
-            }
+            }//TODO add MRFT else if
         }
     }else if(t_msg->getType() == msg_type::float_msg){
 
-        FloatMessage* user_data = (FloatMessage*)t_msg;
+        FloatMessage* float_data = (FloatMessage*)t_msg;
 
         if(this->getType() == switcher_type::reference){
             Reference* reference_block = (Reference*)_active_block;
             if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                 ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
-                pv_ref_block->setProcessVariable(user_data->getData());
+                pv_ref_block->setProcessVariable(float_data->getData());
 
                 //HERE
             }

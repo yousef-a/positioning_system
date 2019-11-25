@@ -3,7 +3,9 @@
 PositioningProvider::PositioningProvider(std::string t_name, block_type t_type){
     _name = t_name;
     _type = t_type;
+    _provider_type = provider_type::position;
     Vector3D _homePos;
+
     if(_type == block_type::provider)
         std::cout << "This is a "<< _name <<" block" << std::endl; 
     else
@@ -15,11 +17,12 @@ void PositioningProvider::setHomePosition(Vector3D data){
 
 }
 
+provider_type PositioningProvider::getProviderType(){
+    return _provider_type;
+}
 Vector3D PositioningProvider::getRelativePosition(){
-
     return _homePos;
 }
-
 std::string PositioningProvider::getName(){
     return _name;
 }
