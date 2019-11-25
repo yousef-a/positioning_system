@@ -34,6 +34,7 @@ void ControlSystem::getStatus(){
     
     for(Switcher* s : _switchers){
         if(s->getActiveBlock() != nullptr){
+            std::cout << "For Control System " << static_cast<int>(_control_system) << std::endl;
             std::cout << "For switcher " << s->getName() << " the active block is " << s->getActiveBlock()->getName() << std::endl;
         }     
     }

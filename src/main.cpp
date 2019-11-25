@@ -27,8 +27,8 @@ int main(int argc, char** argv) {
     //myPosSystem->getPosition();
     //Block* myPosSystem = new OptiTrack();
 
-    Block* myPositioningSystem = new OptiTrack("OptiTrack", block_type::provider);
-    MotionCapture* myMoCap = (MotionCapture*)myPositioningSystem;
+    Block* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
+    MotionCapture* myMoCap = (MotionCapture*)myOptitrackSystem;
     myMoCap->getAttitudeHeading();
     myMoCap->getPosition();
     Quaternion* quat = new Quaternion();
@@ -38,15 +38,34 @@ int main(int argc, char** argv) {
 
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myMoCap);
     
-    Block* myPIDController1 = new PIDController("PID1", block_type::controller);
-    Block* myPIDController2 = new PIDController("PID2", block_type::controller);
-    Block* myReference1 = new ProcessVariableReference("Ref1", block_type::reference);
+    Block* PID_x = new PIDController("PID_x", block_type::controller);
+    Block* PID_pitch = new PIDController("PID_pitch", block_type::controller);
+    Block* PV_Ref_x = new ProcessVariableReference("Ref_x", block_type::reference);
+    Block* PV_Ref_pitch = new ProcessVariableReference("Ref_pitch", block_type::reference);
     
-    
-    ControlSystem* myControlSystem = new ControlSystem(control_system::roll);
-    // myControlSystem->addBlock(myPIDController1);
-    // myControlSystem->addBlock(myPIDController2);
-    // myControlSystem->addBlock(myReference1);
+
+    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x);
+    X_ControlSystem->addBlock(PID_x);
+    X_ControlSystem->addBlock(PV_Ref_x);
+    X_ControlSystem->addBlock(myOptitrackSystem);
+    X_ControlSystem->switchBlock(nullptr, PID_x);   //TODO Refactor so that the first block becomes the _active_block automatically
+    X_ControlSystem->switchBlock(nullptr, PV_Ref_x);
+    X_ControlSystem->switchBlock(nullptr, myOptitrackSystem);
+    X_ControlSystem->getStatus();
+    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch);
+    Pitch_ControlSystem->addBlock(PID_pitch);
+    Pitch_ControlSystem->addBlock(PV_Ref_pitch);
+    Pitch_ControlSystem->addBlock(myOptitrackSystem);
+    Pitch_ControlSystem->switchBlock(nullptr, PID_pitch);   //TODO Refactor so that the first block becomes the _active_block automatically
+    Pitch_ControlSystem->switchBlock(nullptr, PV_Ref_pitch);
+    Pitch_ControlSystem->switchBlock(nullptr, myOptitrackSystem);
+    Pitch_ControlSystem->getStatus();
+
+    msg_emitter* User = new msg_emitter();
+
+    User->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
+    X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
+
     // //myControlSystem->addBlock(myReference2);
     // myControlSystem->addBlock(myPositioningSystem);
     // myControlSystem->getStatus(); //TODO delete getStatus, just for testing
@@ -61,28 +80,26 @@ int main(int argc, char** argv) {
     // myControlSystem->switchBlock(myReference2, myPIDController1);
     // myControlSystem->getStatus();
 
-    PID_parameters* pid_para_test = new PID_parameters;
-    pid_para_test->kp = 1.0;
-    pid_para_test->ki = 2.0;
-    pid_para_test->kd = 3.0;
-    pid_para_test->kdd = 4.0;
-    pid_para_test->anti_windup = 0.5;
-    pid_para_test->en_pv_derivation = 1;
-    myControlSystem->changePIDSettings(pid_para_test);
+    // PID_parameters* pid_para_test = new PID_parameters;
+    // pid_para_test->kp = 1.0;
+    // pid_para_test->ki = 2.0;
+    // pid_para_test->kd = 3.0;
+    // pid_para_test->kdd = 4.0;
+    // pid_para_test->anti_windup = 0.5;
+    // pid_para_test->en_pv_derivation = 1;
+    // myControlSystem->changePIDSettings(pid_para_test);
 
-    myControlSystem->getProviderSwitcher()->loopInternal();
-    std::cout << "DONE" << std::endl;
+    // myControlSystem->getProviderSwitcher()->loopInternal(); // TODO refactor to send through msg
+    // std::cout << "DONE" << std::endl;
 
-    //TODO add Controller class between Block and the controllers
-    //TODO add a Reference class between Block and the references 
-    //TODO add a Provider class between Block and the providers
+    // //TODO add a Provider class between Block and the providers
 
-    while(ros::ok()){
-        myControlSystem->getProviderSwitcher()->loopInternal();
-        std::cout << "DONE" << std::endl;
-        ros::spinOnce();
-        rate.sleep();
-    }
+    // while(ros::ok()){
+    //     myControlSystem->getProviderSwitcher()->loopInternal();
+    //     std::cout << "DONE" << std::endl;
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
     
     // while(ros::ok()){
     //     myMoCap->getPosition();
