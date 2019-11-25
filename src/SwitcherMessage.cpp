@@ -8,10 +8,10 @@ SwitcherMessage::SwitcherMessage(switcher_type t_source, switcher_type t_destina
     _destination = t_destination;
 }
 
-SwitcherMessage::SwitcherMessage(switcher_type t_source, switcher_type t_destination, internal_switcher_type t_internal_type, float t_reference){
+SwitcherMessage::SwitcherMessage(switcher_type t_source, switcher_type t_destination, internal_switcher_type t_internal_type, float t_float_data){
     _type = msg_type::switcher;
     _internal_type = t_internal_type;
-    _reference = t_reference;
+    _float_data = t_float_data;
     _source = t_source;
     _destination = t_destination;
 }
@@ -30,6 +30,10 @@ internal_switcher_type SwitcherMessage::getInternalType(){
 
 Vector3D SwitcherMessage::getVector3DData(){
     return _v3D_data;
+}
+
+float SwitcherMessage::getFloatData(){
+    return _float_data;
 }
 
 switcher_type SwitcherMessage::getSource(){

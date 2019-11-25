@@ -44,12 +44,33 @@ void Switcher::loopInternal(){
         DataMessage* provider_msg = _active_block->receive_msg_internal(); 
         
         if(provider_msg->getType() == msg_type::vector3D_msg){
-
             std::cout << "Message of type vector3D received" << std::endl;
             Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
-            SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, internal_switcher_type::position_provider, vector3D_msg->getData());
-            std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
-            this->emit_message((DataMessage*)switcher_msg);
+            
+            switch (_parent) 
+            {
+                case control_system::x:
+                {
+                    FloatMessage* x_measure = new FloatMessage(vector3D_msg->getData().x);
+                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, internal_switcher_type::position_provider, x_measure->getData());
+                    std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
+                    this->emit_message((DataMessage*)switcher_msg);
+                    break;
+                }
+                case control_system::y:
+                {
+                    /* code */
+                    break;
+                }
+                case control_system::z:
+                {   /* code */
+                    break;           
+                }
+                default:
+                    break;
+            }
+            
+            
 
         }
          
@@ -108,12 +129,13 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             && switcher_msg->getSource() == switcher_type::provider
             && switcher_msg->getDestination() == this->getType()){
         
-                Vector3DMessage* pos_provided = new Vector3DMessage(switcher_msg->getVector3DData());
-                DataMessage* output_from_receiver = _active_block->receive_msg_internal((DataMessage*)pos_provided);
+                FloatMessage* data_provided = new FloatMessage(switcher_msg->getFloatData());
+                DataMessage* output_from_receiver = _active_block->receive_msg_internal((DataMessage*)data_provided);
 
                 FloatMessage* error = (FloatMessage*)output_from_receiver;
 
-                SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, internal_switcher_type::reference, error->getData());
+                SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, 
+                                                                     internal_switcher_type::reference, error->getData());
                 
                 std::cout << "REFERENCE SWITCHER" << std::endl;
                 std::cout << "Sending to Controller Switcher" << std::endl;
