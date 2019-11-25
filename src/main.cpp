@@ -12,6 +12,7 @@
 #include "../include/PID_values.hpp"
 #include "../include/ProcessVariableReference.hpp"
 #include "../include/Controller.hpp"
+#include "../include/ActuationSystem.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -61,10 +62,12 @@ int main(int argc, char** argv) {
     Pitch_ControlSystem->switchBlock(nullptr, myOptitrackSystem);
     Pitch_ControlSystem->getStatus();
 
+    ActuationSystem* myActuationSystem = new ActuationSystem();
     msg_emitter* User = new msg_emitter();
 
     User->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
     X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
+    Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
     // //myControlSystem->addBlock(myReference2);
     // myControlSystem->addBlock(myPositioningSystem);
