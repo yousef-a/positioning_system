@@ -44,18 +44,18 @@ int main(int argc, char** argv) {
     
     
     ControlSystem* myControlSystem = new ControlSystem(control_system::roll);
-    myControlSystem->addBlock(myPIDController1);
-    myControlSystem->addBlock(myPIDController2);
-    myControlSystem->addBlock(myReference1);
-    //myControlSystem->addBlock(myReference2);
-    myControlSystem->addBlock(myPositioningSystem);
-    myControlSystem->getStatus(); //TODO delete getStatus, just for testing
-    myControlSystem->switchBlock(nullptr, myPIDController1); 
-    myControlSystem->switchBlock(nullptr, myReference1);
-    myControlSystem->switchBlock(nullptr, myPositioningSystem);
-    myControlSystem->getStatus();
-    myControlSystem->switchBlock(myPIDController1, myPIDController2);
-    myControlSystem->getStatus();
+    // myControlSystem->addBlock(myPIDController1);
+    // myControlSystem->addBlock(myPIDController2);
+    // myControlSystem->addBlock(myReference1);
+    // //myControlSystem->addBlock(myReference2);
+    // myControlSystem->addBlock(myPositioningSystem);
+    // myControlSystem->getStatus(); //TODO delete getStatus, just for testing
+    // myControlSystem->switchBlock(nullptr, myPIDController1); 
+    // myControlSystem->switchBlock(nullptr, myReference1);
+    // myControlSystem->switchBlock(nullptr, myPositioningSystem);
+    // myControlSystem->getStatus();
+    // myControlSystem->switchBlock(myPIDController1, myPIDController2);
+    // myControlSystem->getStatus();
     // myControlSystem->switchBlock(myReference1, myReference2);
     // myControlSystem->getStatus();
     // myControlSystem->switchBlock(myReference2, myPIDController1);

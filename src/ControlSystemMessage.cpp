@@ -19,6 +19,14 @@ ControlSystemMessage::ControlSystemMessage(control_system_msg_type t_type, PID_p
     _type = msg_type::control_system;
 }
 
+ControlSystemMessage::ControlSystemMessage(control_system t_source, control_system t_destination, control_system_msg_type t_type, float t_data){
+    _type = msg_type::control_system;
+    _source = t_source;
+    _destination = t_destination;
+    _control_system_msg_type = t_type;
+    _data = t_data;
+}
+
 ControlSystemMessage::~ControlSystemMessage() {
 
 }
@@ -37,4 +45,13 @@ control_system_msg_type ControlSystemMessage::getControlSystemMsgType(){
 }
 PID_parameters* ControlSystemMessage::getPIDSettings(){
     return _pid_para;
+}
+control_system ControlSystemMessage::getSource(){
+    return _source;
+}
+control_system ControlSystemMessage::getDestination(){
+    return _destination;
+}
+float ControlSystemMessage::getData(){
+    return _data;
 }
