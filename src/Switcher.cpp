@@ -65,9 +65,19 @@ void Switcher::loopInternal(){
                     this->emit_message((DataMessage*)switcher_msg);
                     break;
                 }
-                case control_system::y:
+                case control_system::pitch:
                 {
-                    /* code */
+                    std::cout << "INSIDE PITCH CONTROL SYSTEM. WHAT TO DO?" << std::endl;
+                    Vector3D X_data;
+                    X_data.x = vector3D_msg->getData().x;
+                    X_data.y = 0.0; //TODO velocity in X
+                    X_data.z = 0.0; //TODO acceleration in X
+
+                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
+                                                                        internal_switcher_type::position_provider, X_data);
+                    std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
+                    this->emit_message((DataMessage*)switcher_msg);
+ 
                     break;
                 }
                 case control_system::z:
@@ -202,10 +212,11 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
         if(this->getType() == switcher_type::reference){
             Reference* reference_block = (Reference*)_active_block;
+            
             if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                 ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
                 pv_ref_block->setProcessVariable(float_data->getData());
-
+                std::cout << "Setting Process variable" << std::endl;
                 //HERE
             }
            

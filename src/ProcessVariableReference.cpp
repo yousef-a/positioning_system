@@ -17,10 +17,21 @@ reference_type ProcessVariableReference::getReferenceType(){
 DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
     std::cout << " I AM HEREEEEEEE RECEIVE MSG FROM REFERENCE" << std::endl;
     std::cout << " My current Process Variable Value: " << _process_variable << std::endl;
+    //TODO Calculate the error HERE
+
+    float error = 0.0;
+
     if(t_msg->getType() == msg_type::float_msg){
         FloatMessage* pos_msg = (FloatMessage*)t_msg;
         std::cout << "Data received: " << pos_msg->getData() << std::endl;
+
+        error = pos_msg->getData() - _process_variable;
+
     }
+
+    FloatMessage* error_msg = new FloatMessage(error);
+
+    return (DataMessage*)error_msg;
 }
 
 DataMessage* ProcessVariableReference::receive_msg_internal(){

@@ -39,7 +39,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
             FloatMessage* user_data_x = new FloatMessage(user_msg->getX());
-            std::cout << "Msg received from User. Sendind to X CS" << std::endl;
+            std::cout << "Msg received from User. Sending to X Control System" << std::endl;
             this->emit_message((DataMessage*)user_data_x);
 
         }else if(this->getControlSystemType() == control_system::y){

@@ -69,6 +69,23 @@ int main(int argc, char** argv) {
     X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
     Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
+    UserMessage* test_user = new UserMessage(1.0, 2.0, 3.0, 0.0);
+
+
+    PID_parameters* pid_para_test = new PID_parameters;
+    pid_para_test->kp = 5.0;
+    pid_para_test->ki = 2.0;
+    pid_para_test->kd = 3.0;
+    pid_para_test->kdd = 4.0;
+    pid_para_test->anti_windup = 0.5;
+    pid_para_test->en_pv_derivation = 1;
+    X_ControlSystem->changePIDSettings(pid_para_test);
+    Pitch_ControlSystem->changePIDSettings(pid_para_test);
+
+    User->emit_message((DataMessage*)test_user);
+    X_ControlSystem->getProviderSwitcher()->loopInternal();
+    Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
+
     // //myControlSystem->addBlock(myReference2);
     // myControlSystem->addBlock(myPositioningSystem);
     // myControlSystem->getStatus(); //TODO delete getStatus, just for testing
@@ -83,15 +100,7 @@ int main(int argc, char** argv) {
     // myControlSystem->switchBlock(myReference2, myPIDController1);
     // myControlSystem->getStatus();
 
-    // PID_parameters* pid_para_test = new PID_parameters;
-    // pid_para_test->kp = 1.0;
-    // pid_para_test->ki = 2.0;
-    // pid_para_test->kd = 3.0;
-    // pid_para_test->kdd = 4.0;
-    // pid_para_test->anti_windup = 0.5;
-    // pid_para_test->en_pv_derivation = 1;
-    // myControlSystem->changePIDSettings(pid_para_test);
-
+    
     // myControlSystem->getProviderSwitcher()->loopInternal(); // TODO refactor to send through msg
     // std::cout << "DONE" << std::endl;
 
