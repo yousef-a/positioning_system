@@ -19,7 +19,8 @@ public:
     block_type getType();
     virtual controller_type getControllerType() = 0;
     virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
-
+    virtual DataMessage* receive_msg_internal() = 0;
+    
     Controller(std::string t_name, block_type t_type);
     ~Controller();
 };

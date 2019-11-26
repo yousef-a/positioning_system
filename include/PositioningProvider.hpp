@@ -3,13 +3,12 @@
 #include "msg_receiver.hpp"
 #include "Block.hpp"
 #include "Vector3DMessage.hpp"
+#include "Provider.hpp"
 
-class PositioningProvider : public msg_receiver, public Block{
+class PositioningProvider : public Provider{
 
     private:
         Vector3D _homePos;
-        std::string _name; 
-        block_type _type;
         provider_type _provider_type;
 
     public:
@@ -18,13 +17,11 @@ class PositioningProvider : public msg_receiver, public Block{
         virtual void receive_msg_data(DataMessage* t_msg) = 0;
         Vector3D getRelativePosition();
         
-        std::string getName();
-        block_type getType();
-        void switchIn(DataMessage*);
-        DataMessage* switchOut();
         DataMessage* receive_msg_internal(DataMessage*);
         DataMessage* receive_msg_internal();
         provider_type getProviderType();
         
         PositioningProvider(std::string, block_type);
+        ~PositioningProvider();
+        
 };

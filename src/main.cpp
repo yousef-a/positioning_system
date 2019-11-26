@@ -113,14 +113,14 @@ int main(int argc, char** argv) {
     //     rate.sleep();
     // }
     
-    // while(ros::ok()){
-    //     myMoCap->getPosition();
-    //     myMoCap->getAttitudeHeading();
-    //     myMoCap->getAttitude();
-    //     myMoCap->getHeading();
-    //     ros::spinOnce();
-    //     rate.sleep();
-    // }
+    while(ros::ok()){
+        myMoCap->getPosition();
+        myMoCap->getAttitudeHeading();
+        myMoCap->getAttitude();
+        myMoCap->getHeading();
+        ros::spinOnce();
+        rate.sleep();
+    }
 
     //TODO add tests for implementation of message flow through the control system
 
