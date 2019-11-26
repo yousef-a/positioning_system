@@ -3,7 +3,7 @@
 #include "Quaternion.hpp"
 #include "AttitudeHeadingProvider.hpp"
 
-class MotionCapture : public PositioningProvider, public AttitudeHeadingProvider{
+class MotionCapture : public PositioningProvider, public AttitudeProvider, public HeadingProvider{
 
     public:
         virtual Vector3D getPosition() = 0;

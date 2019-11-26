@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     //myPosSystem->getPosition();
     //Block* myPosSystem = new OptiTrack();
 
-    Block* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
+    PositioningProvider* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
     MotionCapture* myMoCap = (MotionCapture*)myOptitrackSystem;
     myMoCap->getAttitudeHeading();
     myMoCap->getPosition();
