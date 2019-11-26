@@ -86,6 +86,14 @@ int main(int argc, char** argv) {
     X_ControlSystem->getProviderSwitcher()->loopInternal();
     Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
 
+    while(ros::ok()){
+        X_ControlSystem->getProviderSwitcher()->loopInternal();
+        Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
+        std::cout << "DONE" << std::endl;
+        ros::spinOnce();
+        rate.sleep();
+    }
+    
     std::cout << "DONE" << std::endl;
     // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
     // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();

@@ -9,16 +9,16 @@ AttitudeProvider::~AttitudeProvider() {
 }
 
 DataMessage* AttitudeProvider::receive_msg_internal(DataMessage*){
-    std::cout << ".......................Inside ATTITUDE PROVIDER" << std::endl;
+    
+}
+
+DataMessage* AttitudeProvider::receive_msg_internal(){
+    std::cout << ".......................Inside ATTITUDE PROVIDER BLOCK" << std::endl;
     std::cout << "Received request from Switcher."<< std::endl;
     Vector3DMessage* att_msg = new Vector3DMessage(this->getAttitude(), _provider_type);
     std::cout << "Sending it back"<< std::endl;
 
     return (DataMessage*)att_msg;
-}
-
-DataMessage* AttitudeProvider::receive_msg_internal(){
-
 }
 
 provider_type AttitudeProvider::getProviderType(){

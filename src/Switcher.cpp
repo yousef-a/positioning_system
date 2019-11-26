@@ -80,8 +80,9 @@ void Switcher::loopInternal(){
 
         }else if(provider_block->getProviderType() == provider_type::attitude){
             AttitudeProvider* att_provider = (AttitudeProvider*)provider_block;
-            
+            std::cout << "TRYING TO ENTER ATT PROVIDER BLOCK .................?" << std::endl;
             DataMessage* provider_msg = att_provider->receive_msg_internal();
+            std::cout << "EXITING ATT PROVIDER BLOCK" << std::endl;
             Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
 
             switch (_parent) 
@@ -89,13 +90,13 @@ void Switcher::loopInternal(){
                 case control_system::pitch:
                 {
                     std::cout << "INSIDE PITCH CONTROL SYSTEM. WHAT TO DO?" << std::endl;
-                    Vector3D X_data;
-                    X_data.x = vector3D_msg->getData().y;
-                    X_data.y = 0.0; //TODO pitch_dot
-                    X_data.z = 0.0; //TODO pitch_dot_dot
+                    Vector3D Pitch_data;
+                    Pitch_data.x = vector3D_msg->getData().y;
+                    Pitch_data.y = 0.0; //TODO pitch_dot
+                    Pitch_data.z = 0.0; //TODO pitch_dot_dot
 
                     SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
-                                                                        internal_switcher_type::position_provider, X_data);
+                                                                        internal_switcher_type::position_provider, Pitch_data);
                     std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
                     this->emit_message((DataMessage*)switcher_msg);
 
