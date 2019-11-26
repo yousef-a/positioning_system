@@ -32,12 +32,12 @@ int main(int argc, char** argv) {
     MotionCapture* myMoCap = (MotionCapture*)myOptitrackSystem;
     myMoCap->getAttitudeHeading();
     myMoCap->getPosition();
-    Quaternion* quat = new Quaternion();
-    myMoCap->getEulerfromQuaternion(*quat);
-    Vector3D* euler = new Vector3D();
-    myMoCap->getQuaternionfromEuler(*euler);
+    // Quaternion* quat = new Quaternion();
+    // myMoCap->getEulerfromQuaternion(*quat);
+    // Vector3D* euler = new Vector3D();
+    // myMoCap->getQuaternionfromEuler(*euler);
 
-    myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myMoCap);
+    myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
     
     Block* PID_x = new PIDController("PID_x", block_type::controller);
     Block* PID_pitch = new PIDController("PID_pitch", block_type::controller);

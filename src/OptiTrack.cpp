@@ -12,28 +12,28 @@ OptiTrack::~OptiTrack() {
 }
 
 Vector3D OptiTrack::getAttitude(){
-    Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
-    rpy.z = 0.0;
+    // Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
+    // rpy.z = 0.0;
 
-    std::cout << "getAttitude"<< std::endl;
-    std::cout << "roll: " << rpy.x << std::endl;
-    std::cout << "pitch: " << rpy.y << std::endl;
-    std::cout << "yaw: " << rpy.z << std::endl;
+    // std::cout << "getAttitude"<< std::endl;
+    // std::cout << "roll: " << rpy.x << std::endl;
+    // std::cout << "pitch: " << rpy.y << std::endl;
+    // std::cout << "yaw: " << rpy.z << std::endl;
 
-    return rpy;
+    // return rpy;
 }
 
 double OptiTrack::getHeading(){
-    Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
-    rpy.x = 0.0;
-    rpy.y = 0.0; 
+    // Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
+    // rpy.x = 0.0;
+    // rpy.y = 0.0; 
 
-    std::cout << "getHeading"<< std::endl;
-    std::cout << "roll: " << rpy.x << std::endl;
-    std::cout << "pitch: " << rpy.y << std::endl;
-    std::cout << "yaw: " << rpy.z << std::endl;
+    // std::cout << "getHeading"<< std::endl;
+    // std::cout << "roll: " << rpy.x << std::endl;
+    // std::cout << "pitch: " << rpy.y << std::endl;
+    // std::cout << "yaw: " << rpy.z << std::endl;
 
-    return rpy.z;
+    // return rpy.z;
 }
 
 Quaternion OptiTrack::getAttitudeHeading(){

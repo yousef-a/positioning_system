@@ -2,6 +2,8 @@
 #include "PositioningProvider.hpp"
 #include "Quaternion.hpp"
 #include "AttitudeHeadingProvider.hpp"
+#include "AttitudeProvider.hpp"
+#include "HeadingProvider.hpp"
 
 class MotionCapture : public PositioningProvider, public AttitudeProvider, public HeadingProvider{
 

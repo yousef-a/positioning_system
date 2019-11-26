@@ -5,7 +5,7 @@
 #include "Vector3DMessage.hpp"
 #include "Provider.hpp"
 
-class PositioningProvider : public msg_receiver, public Provider{
+class PositioningProvider : public Provider{
 
     private:
         Vector3D _homePos;

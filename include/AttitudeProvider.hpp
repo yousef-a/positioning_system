@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3D.hpp"
 #include "Provider.hpp"
+#include "Quaternion.hpp"
 
 class AttitudeProvider : public Provider{
 
