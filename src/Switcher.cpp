@@ -39,11 +39,8 @@ string Switcher::getName(){
 void Switcher::loopInternal(){
 
     if(this->getType() == switcher_type::provider){
-        std::cout << "PROVIDER SWITCHER" << std::endl;
-        std::cout << "Request for active block data" << std::endl;
         
         Provider* provider_block = (Provider*)_active_block;
-        std::cout<< "..................................." << (int) provider_block->getProviderType() << std::endl;
         if(provider_block->getProviderType() == provider_type::position){
             PositioningProvider* pos_provider = (PositioningProvider*)provider_block;
 
@@ -61,13 +58,20 @@ void Switcher::loopInternal(){
 
                     SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
                                                                         internal_switcher_type::position_provider, X_data);
-                    std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
                     this->emit_message((DataMessage*)switcher_msg);
                     break;
                 }
                 case control_system::y:
-                {   /* code */
-                    break;           
+                {  
+                    Vector3D Y_data;
+                    Y_data.x = vector3D_msg->getData().y;
+                    Y_data.y = 0.0; //TODO velocity in X
+                    Y_data.z = 0.0; //TODO acceleration in X
+
+                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
+                                                                        internal_switcher_type::position_provider, Y_data);
+                    this->emit_message((DataMessage*)switcher_msg);
+                    break;          
                 }
                 case control_system::z:
                 {   /* code */
@@ -80,16 +84,13 @@ void Switcher::loopInternal(){
 
         }else if(provider_block->getProviderType() == provider_type::attitude){
             AttitudeProvider* att_provider = (AttitudeProvider*)provider_block;
-            std::cout << "TRYING TO ENTER ATT PROVIDER BLOCK .................?" << std::endl;
             DataMessage* provider_msg = att_provider->receive_msg_internal();
-            std::cout << "EXITING ATT PROVIDER BLOCK" << std::endl;
             Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
 
             switch (_parent) 
             {
                 case control_system::pitch:
                 {
-                    std::cout << "INSIDE PITCH CONTROL SYSTEM. WHAT TO DO?" << std::endl;
                     Vector3D Pitch_data;
                     Pitch_data.x = vector3D_msg->getData().y;
                     Pitch_data.y = 0.0; //TODO pitch_dot
@@ -97,14 +98,22 @@ void Switcher::loopInternal(){
 
                     SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
                                                                         internal_switcher_type::position_provider, Pitch_data);
-                    std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
                     this->emit_message((DataMessage*)switcher_msg);
 
                     break;
                 }
                 case control_system::roll:
-                {   /* code */
-                    break;           
+                {   
+                    Vector3D Roll_data;
+                    Roll_data.x = vector3D_msg->getData().x;
+                    Roll_data.y = 0.0; //TODO roll_dot
+                    Roll_data.z = 0.0; //TODO roll_dot_dot
+
+                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
+                                                                        internal_switcher_type::position_provider, Roll_data);
+                    this->emit_message((DataMessage*)switcher_msg);
+
+                    break;          
                 }
                 case control_system::yaw:
                 {   /* code */
@@ -190,8 +199,6 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                     SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, 
                                                                         internal_switcher_type::reference, data_to_controller);
                     
-                    std::cout << "REFERENCE SWITCHER" << std::endl;
-                    std::cout << "Sending to Controller Switcher" << std::endl;
                     this->emit_message((DataMessage*)reference_msg);
 
                 }//TODO add other references as else if
@@ -205,8 +212,6 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             Controller* controller_block = (Controller*)_active_block;
 
             if(controller_block->getControllerType() == controller_type::pid){
-                std::cout << "CONTROLLER SWITCHER" << std::endl;
-                std::cout << "Calculating PID input data" << std::endl;
                 
                 PIDController* pid_block = (PIDController*)controller_block;
 
@@ -215,7 +220,6 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 pid_data->pv_first = switcher_msg->getVector3DData().y;
                 pid_data->pv_second = switcher_msg->getVector3DData().z;
             
-                std::cout << "Sending calculated data to active block" << std::endl;
                 ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data); //TODO Refactor Controller Message
                 DataMessage* output = pid_block->receive_msg_internal((DataMessage*)pos_control_msg);
                 FloatMessage* float_command = (FloatMessage*)output;
@@ -223,7 +227,6 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 SwitcherMessage* controller_msg = new SwitcherMessage(this->getType(), switcher_type::null_type, 
                                                                         internal_switcher_type::controller, float_command->getData());
 
-                std::cout << "Output of switcher controller" << std::endl; 
                 this->emit_message((DataMessage*)controller_msg);
  
             }//TODO add MRFT else if
@@ -238,8 +241,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                 ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
                 pv_ref_block->setProcessVariable(float_data->getData());
-                std::cout << "Setting Process variable" << std::endl;
-                //HERE
+                std::cout << "........................Setting Process variable" << std::endl;
             }
            
         }

@@ -15,7 +15,6 @@ reference_type ProcessVariableReference::getReferenceType(){
 }
 
 DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
-    std::cout << " I AM HEREEEEEEE RECEIVE MSG FROM REFERENCE" << std::endl;
     std::cout << " My current Process Variable Value: " << _process_variable << std::endl;
     //TODO Calculate the error HERE
 

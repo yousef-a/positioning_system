@@ -17,7 +17,7 @@ void ActuationSystem::receive_msg_data(DataMessage* t_msg){
             && control_system_msg->getDestination() == control_system::null_type
             && control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_actuation_system){
               
-                 std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE" << std::endl;
+                 std::cout << "..................ACTUATION SYSTEM RECEIVED THE MESSAGE" << std::endl;
         }
        
     }

@@ -43,7 +43,9 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
             this->emit_message((DataMessage*)user_data_x);
 
         }else if(this->getControlSystemType() == control_system::y){
-            
+            FloatMessage* user_data_y = new FloatMessage(user_msg->getY());
+            std::cout << "Msg received from User. Sending to Y Control System" << std::endl;
+            this->emit_message((DataMessage*)user_data_y);
         }else if(this->getControlSystemType() == control_system::z){
 
         }else if(this->getControlSystemType() == control_system::yaw){
@@ -109,6 +111,8 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
             this->emit_message((DataMessage*)output_from_x_to_pitch);
 
         }
+
+        //TODO EXPAND 
 
     }
 

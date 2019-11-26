@@ -17,14 +17,12 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 	ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
 
     PID_data* data = controller_msg->getData();
-    std::cout << "pid block receives msg: " << std::endl;
 	std::cout << "error: " << data->err << std::endl;
 	std::cout << "pv_first: " << data->pv_first << std::endl;
 	std::cout << "pv_second: " << data->pv_second << std::endl;
     float command = pid_direct(data->err, data->pv_first, data->pv_second);
     FloatMessage* output_msg = new FloatMessage(command);
 
-    std::cout << "SENDING COMMAND" << std::endl;
 	return (DataMessage*)output_msg;
 }
 
@@ -51,19 +49,18 @@ void PIDController::initialize(void* para){ //Refer to example 1 on how to initi
 		prev2_err = 0;
 		prev_pv_rate = 0;
 
-		std::cout << "PID SETTINGS: " << std::endl;
-		std::cout << "Kp Term: " << parameters.kp << std::endl;
-		std::cout << "Ki Term: " << parameters.ki << std::endl;
-		std::cout << "Kd Term: " << parameters.kd << std::endl;
-		std::cout << "Kdd Term: " << parameters.kdd << std::endl;
-		std::cout << "Anti Windup Term: " << parameters.anti_windup << std::endl;
-		std::cout << "en_pv_derivation Term: " << static_cast<int>(parameters.en_pv_derivation) << std::endl;
+		// std::cout << "PID SETTINGS: " << std::endl;
+		// std::cout << "Kp Term: " << parameters.kp << std::endl;
+		// std::cout << "Ki Term: " << parameters.ki << std::endl;
+		// std::cout << "Kd Term: " << parameters.kd << std::endl;
+		// std::cout << "Kdd Term: " << parameters.kdd << std::endl;
+		// std::cout << "Anti Windup Term: " << parameters.anti_windup << std::endl;
+		// std::cout << "en_pv_derivation Term: " << static_cast<int>(parameters.en_pv_derivation) << std::endl;
 
 	}
 
 float PIDController::pid_direct(float err, float pv_first, float pv_second) { //Arbitrary large default value for pv_rate
 	float u = 0;
-	std::cout << "Init PID calc" << std::endl;
 	// ************************** P-term ***************************
 	u = err *parameters.kp;
 	// ************************** I-term ***************************
@@ -102,7 +99,6 @@ float PIDController::pid_direct(float err, float pv_first, float pv_second) { //
 		u+= parameters.kdd*(-pv_second);
 	}
 	prev_err = err;
-	std::cout << "End PID calc" << std::endl;
 	return u;
 }
 
