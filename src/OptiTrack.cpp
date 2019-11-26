@@ -12,28 +12,28 @@ OptiTrack::~OptiTrack() {
 }
 
 Vector3D OptiTrack::getAttitude(){
-    // Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
-    // rpy.z = 0.0;
+    Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
+    rpy.z = 0.0;
 
-    // std::cout << "getAttitude"<< std::endl;
-    // std::cout << "roll: " << rpy.x << std::endl;
-    // std::cout << "pitch: " << rpy.y << std::endl;
-    // std::cout << "yaw: " << rpy.z << std::endl;
+    std::cout << "getAttitude"<< std::endl;
+    std::cout << "roll: " << rpy.x << std::endl;
+    std::cout << "pitch: " << rpy.y << std::endl;
+    std::cout << "yaw: " << rpy.z << std::endl;
 
-    // return rpy;
+    return rpy;
 }
 
 double OptiTrack::getHeading(){
-    // Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
-    // rpy.x = 0.0;
-    // rpy.y = 0.0; 
+    Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
+    rpy.x = 0.0;
+    rpy.y = 0.0; 
 
-    // std::cout << "getHeading"<< std::endl;
-    // std::cout << "roll: " << rpy.x << std::endl;
-    // std::cout << "pitch: " << rpy.y << std::endl;
-    // std::cout << "yaw: " << rpy.z << std::endl;
+    std::cout << "getHeading"<< std::endl;
+    std::cout << "roll: " << rpy.x << std::endl;
+    std::cout << "pitch: " << rpy.y << std::endl;
+    std::cout << "yaw: " << rpy.z << std::endl;
 
-    // return rpy.z;
+    return rpy.z;
 }
 
 Quaternion OptiTrack::getAttitudeHeading(){
@@ -66,4 +66,47 @@ void OptiTrack::receive_msg_data(DataMessage* t_msg){
         _bodyPos = opti_msg->getPosition();
         _bodyAtt = opti_msg->getAttitudeHeading();
     }
+}
+
+Vector3D OptiTrack::getEulerfromQuaternion(Quaternion q){
+
+    // roll (x-axis rotation)
+    double sinr_cosp = +2.0 * (q.w * q.x + q.y * q.z);
+    double cosr_cosp = +1.0 - 2.0 * (q.x * q.x + q.y * q.y);
+    _euler.x = atan2(sinr_cosp, cosr_cosp);
+
+    // pitch (y-axis rotation)
+    double sinp = +2.0 * (q.w * q.y - q.z * q.x);
+    if (fabs(sinp) >= 1)
+        _euler.y = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+    else
+        _euler.y = asin(sinp);
+
+    // yaw (z-axis rotation)
+    double siny_cosp = +2.0 * (q.w * q.z + q.x * q.y);
+    double cosy_cosp = +1.0 - 2.0 * (q.y * q.y + q.z * q.z);  
+    _euler.z = atan2(siny_cosp, cosy_cosp);
+
+    return _euler;
+}
+
+Quaternion OptiTrack::getQuaternionfromEuler(Vector3D euler){
+    
+    double roll = euler.x;
+    double pitch = euler.y;
+    double yaw = euler.z;
+
+    double cy = cos(yaw * 0.5);
+    double sy = sin(yaw * 0.5);
+    double cp = cos(pitch * 0.5);
+    double sp = sin(pitch * 0.5);
+    double cr = cos(roll * 0.5);
+    double sr = sin(roll * 0.5);
+
+    _quat.w = cy * cp * cr + sy * sp * sr;
+    _quat.x = cy * cp * sr - sy * sp * cr;
+    _quat.y = sy * cp * sr + cy * sp * cr;
+    _quat.z = sy * cp * cr - cy * sp * sr;
+    
+    return _quat;
 }

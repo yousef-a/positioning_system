@@ -1,7 +1,6 @@
 #pragma once
 #include "PositioningProvider.hpp"
 #include "Quaternion.hpp"
-#include "AttitudeHeadingProvider.hpp"
 #include "AttitudeProvider.hpp"
 #include "HeadingProvider.hpp"
 
