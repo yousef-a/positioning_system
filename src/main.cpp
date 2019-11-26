@@ -71,7 +71,6 @@ int main(int argc, char** argv) {
 
     UserMessage* test_user = new UserMessage(1.0, 2.0, 3.0, 0.0);
 
-
     PID_parameters* pid_para_test = new PID_parameters;
     pid_para_test->kp = 5.0;
     pid_para_test->ki = 2.0;
@@ -85,7 +84,8 @@ int main(int argc, char** argv) {
     User->emit_message((DataMessage*)test_user);
     X_ControlSystem->getProviderSwitcher()->loopInternal();
     Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
-
+    // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
+    // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
     // //myControlSystem->addBlock(myReference2);
     // myControlSystem->addBlock(myPositioningSystem);
     // myControlSystem->getStatus(); //TODO delete getStatus, just for testing
@@ -113,14 +113,14 @@ int main(int argc, char** argv) {
     //     rate.sleep();
     // }
     
-    while(ros::ok()){
-        myMoCap->getPosition();
-        myMoCap->getAttitudeHeading();
-        myMoCap->getAttitude();
-        myMoCap->getHeading();
-        ros::spinOnce();
-        rate.sleep();
-    }
+    // while(ros::ok()){
+    //     myMoCap->getPosition();
+    //     myMoCap->getAttitudeHeading();
+    //     myMoCap->getAttitude();
+    //     myMoCap->getHeading();
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
 
     //TODO add tests for implementation of message flow through the control system
 
