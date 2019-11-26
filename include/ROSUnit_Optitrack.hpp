@@ -8,8 +8,8 @@
 
 class ROSUnit_Optitrack : public ROSUnit{
 
-    //Inherit the constructors
-    using ROSUnit::ROSUnit;
+     //Inherit the constructors
+     using ROSUnit::ROSUnit;
 
     private:
         static ROSUnit_Optitrack* _instance_ptr;

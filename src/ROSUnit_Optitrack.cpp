@@ -24,7 +24,6 @@ void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg)
     att_data.w = msg.pose.orientation.w;
 
     OptitrackMessage* optitrack_msg = new OptitrackMessage(pos_data, att_data);
-
     _instance_ptr->emit_message((DataMessage*) optitrack_msg);   
 }
 
