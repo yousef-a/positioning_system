@@ -2,6 +2,7 @@
 #include "Vector3D.hpp"
 #include "Provider.hpp"
 #include "Quaternion.hpp"
+#include "Vector3DMessage.hpp"
 
 class AttitudeProvider : public Provider{
 

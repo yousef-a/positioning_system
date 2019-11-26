@@ -2,7 +2,7 @@
 #include "Block.hpp"
 #include "msg_receiver.hpp"
 
-class Provider : public Block, public msg_receiver{
+class Provider : public Block{
 
 private:
     std::string _name; 

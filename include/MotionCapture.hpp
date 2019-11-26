@@ -4,7 +4,7 @@
 #include "AttitudeProvider.hpp"
 #include "HeadingProvider.hpp"
 
-class MotionCapture : public PositioningProvider, public AttitudeProvider, public HeadingProvider{
+class MotionCapture : public msg_receiver, public PositioningProvider, public AttitudeProvider, public HeadingProvider{
 
     public:
         virtual Vector3D getPosition() = 0;

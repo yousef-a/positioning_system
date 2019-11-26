@@ -28,10 +28,11 @@ int main(int argc, char** argv) {
     //myPosSystem->getPosition();
     //Block* myPosSystem = new OptiTrack();
 
-    PositioningProvider* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
-    MotionCapture* myMoCap = (MotionCapture*)myOptitrackSystem;
-    myMoCap->getAttitudeHeading();
-    myMoCap->getPosition();
+    MotionCapture* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
+    PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
+    AttitudeProvider* myAttProvider = (AttitudeProvider*)myOptitrackSystem;
+    //myMoCap->getAttitudeHeading();
+    //myMoCap->getPosition();
     // Quaternion* quat = new Quaternion();
     // myMoCap->getEulerfromQuaternion(*quat);
     // Vector3D* euler = new Vector3D();
@@ -48,18 +49,18 @@ int main(int argc, char** argv) {
     ControlSystem* X_ControlSystem = new ControlSystem(control_system::x);
     X_ControlSystem->addBlock(PID_x);
     X_ControlSystem->addBlock(PV_Ref_x);
-    X_ControlSystem->addBlock(myOptitrackSystem);
+    X_ControlSystem->addBlock(myPosProvider);
     X_ControlSystem->switchBlock(nullptr, PID_x);   //TODO Refactor so that the first block becomes the _active_block automatically
     X_ControlSystem->switchBlock(nullptr, PV_Ref_x);
-    X_ControlSystem->switchBlock(nullptr, myOptitrackSystem);
+    X_ControlSystem->switchBlock(nullptr, myPosProvider);
     X_ControlSystem->getStatus();
     ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch);
     Pitch_ControlSystem->addBlock(PID_pitch);
     Pitch_ControlSystem->addBlock(PV_Ref_pitch);
-    Pitch_ControlSystem->addBlock(myOptitrackSystem);
+    Pitch_ControlSystem->addBlock(myAttProvider);
     Pitch_ControlSystem->switchBlock(nullptr, PID_pitch);   //TODO Refactor so that the first block becomes the _active_block automatically
     Pitch_ControlSystem->switchBlock(nullptr, PV_Ref_pitch);
-    Pitch_ControlSystem->switchBlock(nullptr, myOptitrackSystem);
+    Pitch_ControlSystem->switchBlock(nullptr, myAttProvider);
     Pitch_ControlSystem->getStatus();
 
     ActuationSystem* myActuationSystem = new ActuationSystem();
@@ -84,6 +85,8 @@ int main(int argc, char** argv) {
     User->emit_message((DataMessage*)test_user);
     X_ControlSystem->getProviderSwitcher()->loopInternal();
     Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
+
+    std::cout << "DONE" << std::endl;
     // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
     // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
     // //myControlSystem->addBlock(myReference2);
@@ -113,14 +116,14 @@ int main(int argc, char** argv) {
     //     rate.sleep();
     // }
     
-    while(ros::ok()){
-        myMoCap->getPosition();
-        myMoCap->getAttitudeHeading();
-        myMoCap->getAttitude();
-        myMoCap->getHeading();
-        ros::spinOnce();
-        rate.sleep();
-    }
+    // while(ros::ok()){
+    //     myOptitrackSystem->getPosition();
+    //     myOptitrackSystem->getAttitudeHeading();
+    //     myOptitrackSystem->getAttitude();
+    //     myOptitrackSystem->getHeading();
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
 
     //TODO add tests for implementation of message flow through the control system
 

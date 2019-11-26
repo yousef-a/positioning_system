@@ -42,14 +42,14 @@ void Switcher::loopInternal(){
         std::cout << "PROVIDER SWITCHER" << std::endl;
         std::cout << "Request for active block data" << std::endl;
         
-        //TODO create the Provider class to check between types of providers
-        PositioningProvider* pos_provider = (PositioningProvider*)_active_block;
-        DataMessage* provider_msg = pos_provider->receive_msg_internal(); 
-        
-        if(provider_msg->getType() == msg_type::vector3D_msg){
-            std::cout << "Message of type vector3D received" << std::endl;
+        Provider* provider_block = (Provider*)_active_block;
+        std::cout<< "..................................." << (int) provider_block->getProviderType() << std::endl;
+        if(provider_block->getProviderType() == provider_type::position){
+            PositioningProvider* pos_provider = (PositioningProvider*)provider_block;
+
+            DataMessage* provider_msg = pos_provider->receive_msg_internal();
             Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
-            
+
             switch (_parent) 
             {
                 case control_system::x:
@@ -65,20 +65,9 @@ void Switcher::loopInternal(){
                     this->emit_message((DataMessage*)switcher_msg);
                     break;
                 }
-                case control_system::pitch:
-                {
-                    std::cout << "INSIDE PITCH CONTROL SYSTEM. WHAT TO DO?" << std::endl;
-                    Vector3D X_data;
-                    X_data.x = vector3D_msg->getData().x;
-                    X_data.y = 0.0; //TODO velocity in X
-                    X_data.z = 0.0; //TODO acceleration in X
-
-                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
-                                                                        internal_switcher_type::position_provider, X_data);
-                    std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
-                    this->emit_message((DataMessage*)switcher_msg);
- 
-                    break;
+                case control_system::y:
+                {   /* code */
+                    break;           
                 }
                 case control_system::z:
                 {   /* code */
@@ -86,12 +75,44 @@ void Switcher::loopInternal(){
                 }
                 default:
                     break;
-            }
-            
-            
+            } 
 
-        }
-         
+
+        }else if(provider_block->getProviderType() == provider_type::attitude){
+            AttitudeProvider* att_provider = (AttitudeProvider*)provider_block;
+            
+            DataMessage* provider_msg = att_provider->receive_msg_internal();
+            Vector3DMessage* vector3D_msg = (Vector3DMessage*)provider_msg;
+
+            switch (_parent) 
+            {
+                case control_system::pitch:
+                {
+                    std::cout << "INSIDE PITCH CONTROL SYSTEM. WHAT TO DO?" << std::endl;
+                    Vector3D X_data;
+                    X_data.x = vector3D_msg->getData().y;
+                    X_data.y = 0.0; //TODO pitch_dot
+                    X_data.z = 0.0; //TODO pitch_dot_dot
+
+                    SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
+                                                                        internal_switcher_type::position_provider, X_data);
+                    std::cout << "SENDING MESSAGE TO REFERENCE SWITCHER" << std::endl;
+                    this->emit_message((DataMessage*)switcher_msg);
+
+                    break;
+                }
+                case control_system::roll:
+                {   /* code */
+                    break;           
+                }
+                case control_system::yaw:
+                {   /* code */
+                    break;           
+                }
+                default:
+                    break;
+            } 
+        }  
     }
 
 }

@@ -10,6 +10,7 @@
 #include "ProcessVariableReference.hpp"
 #include "PositioningProvider.hpp"
 #include <algorithm>
+#include "AttitudeProvider.hpp"
 
 class Switcher : public msg_receiver, public msg_emitter{
 
