@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     Block* PV_Ref_z = new ProcessVariableReference("Ref_z", block_type::reference);
     Block* PV_Ref_yaw = new ProcessVariableReference("Ref_yaw", block_type::reference);
 
-    //***********************SETTING CONTROL SYSTEMS****************************
+    //***********************SETTING CONTROL SYSTEMS***************************
 
     //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
     ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, my_general_state_provider);
