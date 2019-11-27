@@ -18,32 +18,22 @@ void ActuationSystem::receive_msg_data(DataMessage* t_msg){
             {
             case control_system::pitch:
             {
-                std::cout << "..................ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH" << std::endl; 
+                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
                 break;
             }
             case control_system::roll:
             {
-                std::cout << "..................ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL" << std::endl; 
+                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
                 break;
             }
             case control_system::yaw:
             {
-                std::cout << "..................ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW" << std::endl; 
-                break;
-            }
-            case control_system::x:
-            {
-                std::cout << "..................ACTUATION SYSTEM RECEIVED THE MESSAGE FROM X" << std::endl; 
-                break;
-            }
-            case control_system::y:
-            {
-                std::cout << "..................ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Y" << std::endl; 
+                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
                 break;
             }
             case control_system::z:
             {
-                std::cout << "..................ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z" << std::endl; 
+                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
                 break;
             }
             default:
