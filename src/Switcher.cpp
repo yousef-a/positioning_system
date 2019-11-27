@@ -142,12 +142,12 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
             Block* block_to_remove = control_system_msg->getBlockToRemove();                
                
-            //For initial condition setting
-            if(block_to_remove == nullptr){
-                _active_block = block_to_add;
-            }
+            // //For initial condition setting
+            // if(block_to_remove == nullptr){
+            //     _active_block = block_to_add;
+            // }
             //For block switch in and out
-            else if(block_to_remove->getType() == block_to_add->getType()){
+            if(block_to_remove->getType() == block_to_add->getType()){
                 block_to_add->switchIn(block_to_remove->switchOut());
                 _active_block = block_to_add;          
             }
@@ -156,6 +156,9 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                     && static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){ //TODO Refactor
                 
             Block* block_to_add = control_system_msg->getBlockToAdd();
+            if(this->_blocks.empty()){
+                _active_block = block_to_add;
+            }
             this->addBlock(block_to_add);
                 
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings){ //TODO Refactor to change_Controller_sett
@@ -208,9 +211,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
     }else if(t_msg->getType() == msg_type::reference){ //TODO User message
 
         ReferenceMessage* reference = (ReferenceMessage*)t_msg;
-        
-        std::cout << "REFERENCE DATA: " << reference->getData() << std::endl;
-
+    
         if(_active_block->getType() == block_type::reference){
             Reference* reference_block = (Reference*)_active_block;
             
