@@ -7,6 +7,7 @@
 #include "PID_values.hpp"
 #include "UserMessage.hpp"
 #include "GeneralStateProvider.hpp"
+#include "ReferenceMessage.hpp"
 
 class ControlSystem : public msg_emitter, public msg_receiver{
 

@@ -119,7 +119,9 @@ int main(int argc, char** argv) {
 
     User->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
     User->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
-    
+    User->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
+    User->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
+
     X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
     Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     
@@ -143,10 +145,10 @@ int main(int argc, char** argv) {
     while(ros::ok()){
         X_ControlSystem->loopInternal();
         Pitch_ControlSystem->loopInternal();
-        // Y_ControlSystem->loopInternal();
-        // Roll_ControlSystem->loopInternal();
-        // Z_ControlSystem->loopInternal();
-        // Yaw_ControlSystem->loopInternal();
+        Y_ControlSystem->loopInternal();
+        Roll_ControlSystem->loopInternal();
+        Z_ControlSystem->loopInternal();
+        Yaw_ControlSystem->loopInternal();
         ros::spinOnce();
         rate.sleep();
     }

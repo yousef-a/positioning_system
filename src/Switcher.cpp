@@ -205,27 +205,18 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
         this->emit_message((DataMessage*)out_switcher_msg);
         
-    }else if(t_msg->getType() == msg_type::vector3D_msg || t_msg->getType() == msg_type::float_msg){ //TODO User message
+    }else if(t_msg->getType() == msg_type::reference){ //TODO User message
 
-        float reference = 0.0;
-
-        if(t_msg->getType() == msg_type::vector3D_msg){
-            Vector3DMessage* v3d_data = (Vector3DMessage*)t_msg;
-            std::cout << " vector3d message received: " << v3d_data->getData().x  << std::endl;
-            reference = v3d_data->getData().x;
-        }else if(t_msg->getType() == msg_type::float_msg){
-            FloatMessage* float_data = (FloatMessage*)t_msg;
-            std::cout << " float message received: " << float_data->getData()  << std::endl;
-            reference = float_data->getData();
-        }
+        ReferenceMessage* reference = (ReferenceMessage*)t_msg;
         
+        std::cout << "REFERENCE DATA: " << reference->getData() << std::endl;
 
         if(_active_block->getType() == block_type::reference){
             Reference* reference_block = (Reference*)_active_block;
             
             if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                 ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
-                pv_ref_block->setReferenceValue(reference);
+                pv_ref_block->setReferenceValue(reference->getData());
                 std::cout << "........................Setting Process variable" << std::endl;
             }
            

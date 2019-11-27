@@ -36,17 +36,24 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
         UserMessage* user_msg = (UserMessage*)t_msg;
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
-            FloatMessage* user_data_x = new FloatMessage(user_msg->getX());
+            ReferenceMessage* user_data_x = new ReferenceMessage(user_msg->getX());
             std::cout << "Msg received from User. Sending to X Control System" << std::endl;
             this->emit_message((DataMessage*)user_data_x);
 
         }else if(this->getControlSystemType() == control_system::y){
-            FloatMessage* user_data_y = new FloatMessage(user_msg->getY());
+            ReferenceMessage* user_data_y = new ReferenceMessage(user_msg->getY());
             std::cout << "Msg received from User. Sending to Y Control System" << std::endl;
             this->emit_message((DataMessage*)user_data_y);
+
         }else if(this->getControlSystemType() == control_system::z){
+            ReferenceMessage* user_data_z = new ReferenceMessage(user_msg->getZ());
+            std::cout << "Msg received from User. Sending to Z Control System" << std::endl;
+            this->emit_message((DataMessage*)user_data_z);
 
         }else if(this->getControlSystemType() == control_system::yaw){
+            ReferenceMessage* user_data_yaw = new ReferenceMessage(user_msg->getYaw());
+            std::cout << "Msg received from User. Sending to Yaw Control System" << std::endl;
+            this->emit_message((DataMessage*)user_data_yaw);
 
         }
     // (2)
@@ -64,9 +71,13 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
 
-        Vector3DMessage* output = new Vector3DMessage(control_system_msg->getV3DData());
-
-        this->emit_message((DataMessage*)output);
+        if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_system){
+            
+            ReferenceMessage* output = new ReferenceMessage(control_system_msg->getV3DData());
+            
+            this->emit_message((DataMessage*)output);
+        }
+        
 
     }
 
