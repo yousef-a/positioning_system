@@ -141,12 +141,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             && std::find(_blocks.begin(), _blocks.end(), block_to_add) != _blocks.end()){
 
             Block* block_to_remove = control_system_msg->getBlockToRemove();                
-               
-            // //For initial condition setting
-            // if(block_to_remove == nullptr){
-            //     _active_block = block_to_add;
-            // }
-            //For block switch in and out
+            
             if(block_to_remove->getType() == block_to_add->getType()){
                 block_to_add->switchIn(block_to_remove->switchOut());
                 _active_block = block_to_add;          

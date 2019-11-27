@@ -14,6 +14,7 @@
 #include "../include/Controller.hpp"
 #include "../include/ActuationSystem.hpp"
 #include "../include/GeneralStateProvider.hpp"
+#include "../include/looper.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -132,6 +133,12 @@ int main(int argc, char** argv) {
  
     //******************************LOOP***********************************
     
+    pthread_t loop1khz_func_id,loop100hz_func_id; 
+  
+    // Creating a new thread 
+    pthread_create(&loop1khz_func_id, NULL, &Loop1KHz, NULL);
+    pthread_create(&loop100hz_func_id, NULL, &Loop100Hz, NULL); 
+
     while(ros::ok()){
         X_ControlSystem->loopInternal();
         Pitch_ControlSystem->loopInternal();

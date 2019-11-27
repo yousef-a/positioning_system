@@ -32,7 +32,7 @@ ControlSystem::~ControlSystem() {
 void ControlSystem::receive_msg_data(DataMessage* t_msg){
     // (1)
     if(t_msg->getType() == msg_type::user){
-
+        //TODO if the control_system is equal to the user message getchannel
         UserMessage* user_msg = (UserMessage*)t_msg;
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
