@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     Block* PID_roll = new PIDController("PID_roll", block_type::controller);
     Block* PV_Ref_y = new ProcessVariableReference("Ref_y", block_type::reference);
     Block* PV_Ref_roll = new ProcessVariableReference("Ref_roll", block_type::reference);
-
+    //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
     ControlSystem* X_ControlSystem = new ControlSystem(control_system::x);
     X_ControlSystem->addBlock(PID_x);
     X_ControlSystem->addBlock(PV_Ref_x);
@@ -110,7 +110,8 @@ int main(int argc, char** argv) {
     User->emit_message((DataMessage*)test_user);
     //X_ControlSystem->getProviderSwitcher()->loopInternal();
     //Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
-    Y_ControlSystem->getProviderSwitcher()->loopInternal();
+    Y_ControlSystem->getProviderSwitcher()->loopInternal(); // TODO Y_ControlSystem->loopInternal();
+                                                            // Inside LoopInternal{ GeneralStateProvider.getPV()}
     Roll_ControlSystem->getProviderSwitcher()->loopInternal();
 
     // while(ros::ok()){

@@ -97,7 +97,7 @@ void Switcher::loopInternal(){
                     Pitch_data.z = 0.0; //TODO pitch_dot_dot
 
                     SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
-                                                                        internal_switcher_type::position_provider, Pitch_data);
+                                                                        internal_switcher_type::attitude_provider, Pitch_data);
                     this->emit_message((DataMessage*)switcher_msg);
 
                     break;
@@ -110,7 +110,7 @@ void Switcher::loopInternal(){
                     Roll_data.z = 0.0; //TODO roll_dot_dot
 
                     SwitcherMessage* switcher_msg = new SwitcherMessage(this->getType(), switcher_type::reference, 
-                                                                        internal_switcher_type::position_provider, Roll_data);
+                                                                        internal_switcher_type::attitude_provider, Roll_data);
                     this->emit_message((DataMessage*)switcher_msg);
 
                     break;          
@@ -152,13 +152,13 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             }
 
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::add_block
-                    && static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){
+                    && static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){ //TODO Refactor
                 
             Block* block_to_add = control_system_msg->getBlockToAdd();
             this->addBlock(block_to_add);
                 
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings
-                     && this->getType() == switcher_type::controller){
+                     && this->getType() == switcher_type::controller){ //TODO checking swithcer type
             
             Controller* controller_block = (Controller*)_active_block; //TODO refactor
             if(controller_block->getControllerType() == controller_type::pid){
@@ -173,8 +173,9 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
     }else if(t_msg->getType() == msg_type::switcher){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
-
-        if(switcher_msg->getInternalType() == internal_switcher_type::position_provider
+        //
+        if((switcher_msg->getInternalType() == internal_switcher_type::position_provider || 
+            switcher_msg->getInternalType() == internal_switcher_type::attitude_provider)
             && switcher_msg->getSource() == switcher_type::provider
             && switcher_msg->getDestination() == this->getType()){
         

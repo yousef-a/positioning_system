@@ -32,7 +32,7 @@ ControlSystem::~ControlSystem() {
 }
 
 void ControlSystem::receive_msg_data(DataMessage* t_msg){
-
+    // (1)
     if(t_msg->getType() == msg_type::user){
 
         UserMessage* user_msg = (UserMessage*)t_msg;
@@ -51,7 +51,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
         }else if(this->getControlSystemType() == control_system::yaw){
 
         }
-
+    // (2)
     }else if(t_msg->getType() == msg_type::switcher){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
@@ -85,17 +85,41 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
                     && switcher_msg->getDestination() == switcher_type::null_type
                     && switcher_msg->getInternalType() == internal_switcher_type::controller){
                 
-                //TODO Implement
+                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::roll, 
+                                                                        control_system_msg_type::to_control_system, switcher_msg->getFloatData());
+
+                std::cout << "Message from Controller Switcher to Y" << std::endl;
+
+                this->emit_message((DataMessage*)output);
 
         } else if (this->getControlSystemType() == control_system::roll 
                     && switcher_msg->getSource() == switcher_type::controller
                     && switcher_msg->getDestination() == switcher_type::null_type
                     && switcher_msg->getInternalType() == internal_switcher_type::controller){
 
-                //TODO Implement
+                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::null_type, 
+                                                                        control_system_msg_type::to_actuation_system, switcher_msg->getFloatData());
 
-        }
+                std::cout << "Message from Controller Switcher to Roll" << std::endl;
 
+                this->emit_message((DataMessage*)output);
+
+        } else if (this->getControlSystemType() == control_system::yaw 
+                    && switcher_msg->getSource() == switcher_type::controller
+                    && switcher_msg->getDestination() == switcher_type::null_type
+                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
+
+                //TODO implement
+
+        } else if (this->getControlSystemType() == control_system::z 
+                    && switcher_msg->getSource() == switcher_type::controller
+                    && switcher_msg->getDestination() == switcher_type::null_type
+                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
+
+                //TODO implement
+
+        } 
+    // (3)
     }else if(t_msg->getType() == msg_type::control_system){
 
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
@@ -110,9 +134,17 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
             
             this->emit_message((DataMessage*)output_from_x_to_pitch);
 
-        }
+        } else if(control_system_msg->getSource() == control_system::y
+            && control_system_msg->getDestination() == this->getControlSystemType()
+            && control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_control_system){
+            
+            FloatMessage* output_from_y_to_roll = new FloatMessage(control_system_msg->getData());
 
-        //TODO EXPAND 
+            std::cout << "Message from Roll to receivers" << std::endl;
+            
+            this->emit_message((DataMessage*)output_from_y_to_roll);
+
+        }
 
     }
 
