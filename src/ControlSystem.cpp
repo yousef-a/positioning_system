@@ -11,18 +11,16 @@ ControlSystem::ControlSystem() {
     
 }
 
-ControlSystem::ControlSystem(control_system t_control_system) {
+ControlSystem::ControlSystem(control_system t_control_system, GeneralStateProvider* t_g_s_provider) {
     _control_system = t_control_system;
     
     controllerSwitcher = new Switcher("ControlSwitcher", switcher_type::controller, _control_system);
     referenceSwitcher = new Switcher("ReferenceSwitcher", switcher_type::reference, _control_system);
-    providerSwitcher = new Switcher("ProviderSwitcher", switcher_type::provider, _control_system);
-    _switchers = {controllerSwitcher, referenceSwitcher, providerSwitcher};
+    _providerProcessVariable = t_g_s_provider;
+    _switchers = {controllerSwitcher, referenceSwitcher};
     
     this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
-    this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
-    providerSwitcher->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     controllerSwitcher->add_callback_msg_receiver((msg_receiver*)this);
 }
@@ -56,95 +54,19 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
 
-        if(this->getControlSystemType() == control_system::x 
-            && switcher_msg->getSource() == switcher_type::controller
-            && switcher_msg->getDestination() == switcher_type::null_type
-            && switcher_msg->getInternalType() == internal_switcher_type::controller){
-                
-                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::pitch, 
-                                                                        control_system_msg_type::to_control_system, switcher_msg->getFloatData());
+        ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system_msg_type::to_system, 
+                                                                switcher_msg->getVector3DData());
 
-                std::cout << "Message from Controller Switcher to X" << std::endl;
-
-                this->emit_message((DataMessage*)output);
-
-        } else if (this->getControlSystemType() == control_system::pitch 
-                    && switcher_msg->getSource() == switcher_type::controller
-                    && switcher_msg->getDestination() == switcher_type::null_type
-                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
-
-                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::null_type, 
-                                                                        control_system_msg_type::to_actuation_system, switcher_msg->getFloatData());
-
-                std::cout << "Message from Controller Switcher to Pitch" << std::endl;
-
-                this->emit_message((DataMessage*)output);
-
-        } else if(this->getControlSystemType() == control_system::y 
-                    && switcher_msg->getSource() == switcher_type::controller
-                    && switcher_msg->getDestination() == switcher_type::null_type
-                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
-                
-                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::roll, 
-                                                                        control_system_msg_type::to_control_system, switcher_msg->getFloatData());
-
-                std::cout << "Message from Controller Switcher to Y" << std::endl;
-
-                this->emit_message((DataMessage*)output);
-
-        } else if (this->getControlSystemType() == control_system::roll 
-                    && switcher_msg->getSource() == switcher_type::controller
-                    && switcher_msg->getDestination() == switcher_type::null_type
-                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
-
-                ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system::null_type, 
-                                                                        control_system_msg_type::to_actuation_system, switcher_msg->getFloatData());
-
-                std::cout << "Message from Controller Switcher to Roll" << std::endl;
-
-                this->emit_message((DataMessage*)output);
-
-        } else if (this->getControlSystemType() == control_system::yaw 
-                    && switcher_msg->getSource() == switcher_type::controller
-                    && switcher_msg->getDestination() == switcher_type::null_type
-                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
-
-                //TODO implement
-
-        } else if (this->getControlSystemType() == control_system::z 
-                    && switcher_msg->getSource() == switcher_type::controller
-                    && switcher_msg->getDestination() == switcher_type::null_type
-                    && switcher_msg->getInternalType() == internal_switcher_type::controller){
-
-                //TODO implement
-
-        } 
+        this->emit_message((DataMessage*)output);
+            
     // (3)
     }else if(t_msg->getType() == msg_type::control_system){
 
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
 
-        if(control_system_msg->getSource() == control_system::x
-            && control_system_msg->getDestination() == this->getControlSystemType()
-            && control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_control_system){
-            
-            FloatMessage* output_from_x_to_pitch = new FloatMessage(control_system_msg->getData());
+        Vector3DMessage* output = new Vector3DMessage(control_system_msg->getV3DData());
 
-            std::cout << "Message from Pitch to receivers" << std::endl;
-            
-            this->emit_message((DataMessage*)output_from_x_to_pitch);
-
-        } else if(control_system_msg->getSource() == control_system::y
-            && control_system_msg->getDestination() == this->getControlSystemType()
-            && control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_control_system){
-            
-            FloatMessage* output_from_y_to_roll = new FloatMessage(control_system_msg->getData());
-
-            std::cout << "Message from Roll to receivers" << std::endl;
-            
-            this->emit_message((DataMessage*)output_from_y_to_roll);
-
-        }
+        this->emit_message((DataMessage*)output);
 
     }
 
@@ -172,8 +94,11 @@ Switcher* ControlSystem::getReferenceSwitcher(){
     return referenceSwitcher;
 }
 
-Switcher* ControlSystem::getProviderSwitcher(){
-    return providerSwitcher;
+void ControlSystem::loopInternal(){
+    Vector3D data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
+    ControlSystemMessage* provider_data_msg = new ControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
+
+    this->emit_message((DataMessage*)provider_data_msg);
 }
 
 void ControlSystem::switchBlock(Block* t_from, Block* t_to){

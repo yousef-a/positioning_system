@@ -23,5 +23,6 @@ public:
 
     SwitcherMessage(switcher_type, switcher_type, internal_switcher_type, Vector3D);
     SwitcherMessage(switcher_type, switcher_type, internal_switcher_type, float);
+    SwitcherMessage(Vector3D);
     ~SwitcherMessage();
 };

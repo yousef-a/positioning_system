@@ -126,6 +126,7 @@ void Switcher::loopInternal(){
     }
 
 }
+
 //TODO add reference block so the error can be calculated
 void Switcher::receive_msg_data(DataMessage* t_msg){
     
@@ -157,86 +158,58 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             Block* block_to_add = control_system_msg->getBlockToAdd();
             this->addBlock(block_to_add);
                 
-        } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings
-                     && this->getType() == switcher_type::controller){ //TODO checking swithcer type
+        } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings){ //TODO Refactor to change_Controller_sett
             
-            Controller* controller_block = (Controller*)_active_block; //TODO refactor
-            if(controller_block->getControllerType() == controller_type::pid){
-                PIDController* pid_block = (PIDController*)controller_block;
-                pid_block->initialize(control_system_msg->getPIDSettings());
-                std::cout << "Active Block: " << controller_block->getName() << std::endl;
-                std::cout << "CHANGING PID PARAMETERS" << std::endl;
-            }
-              
-        }
-        
-    }else if(t_msg->getType() == msg_type::switcher){
-
-        SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
-        //
-        if((switcher_msg->getInternalType() == internal_switcher_type::position_provider || 
-            switcher_msg->getInternalType() == internal_switcher_type::attitude_provider)
-            && switcher_msg->getSource() == switcher_type::provider
-            && switcher_msg->getDestination() == this->getType()){
-        
-                Vector3DMessage* data_provided = new Vector3DMessage(switcher_msg->getVector3DData());
-
+            if(_active_block->getType() == block_type::controller){
+                Controller* controller_block = (Controller*)_active_block; //TODO refactor
+                if(controller_block->getControllerType() == controller_type::pid){
+                    PIDController* pid_block = (PIDController*)controller_block;
+                    pid_block->initialize(control_system_msg->getPIDSettings());
+                    std::cout << "Active Block: " << controller_block->getName() << std::endl;
+                    std::cout << "CHANGING PID PARAMETERS" << std::endl;
+                } //TODO else if MRFT
+            } 
+        } else if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::provider_data){
+            
+            Vector3D data_provided = control_system_msg->getV3DData();
+            
+            if(_active_block->getType() == block_type::reference){
                 Reference* reference_block = (Reference*)_active_block;
 
                 if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                     ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
 
-                    FloatMessage* process_variable = new FloatMessage(data_provided->getData().x);
+                    Vector3DMessage* process_variable = new Vector3DMessage(data_provided);
 
                     DataMessage* output_from_reference = pv_ref_block->receive_msg_internal((DataMessage*)process_variable);
 
-                    FloatMessage* error = (FloatMessage*)output_from_reference;
+                    process_variable = (Vector3DMessage*)output_from_reference;
 
-                    Vector3D data_to_controller;
-                    data_to_controller.x = error->getData();
-                    data_to_controller.y = data_provided->getData().y;
-                    data_to_controller.z = data_provided->getData().z;
-                    
-                    SwitcherMessage* reference_msg = new SwitcherMessage(this->getType(), switcher_type::controller, 
-                                                                        internal_switcher_type::reference, data_to_controller);
+                    SwitcherMessage* reference_msg = new SwitcherMessage(process_variable->getData());
                     
                     this->emit_message((DataMessage*)reference_msg);
 
                 }//TODO add other references as else if
 
-                
-                
-        }else if(switcher_msg->getInternalType() == internal_switcher_type::reference
-            && switcher_msg->getSource() == switcher_type::reference
-            && switcher_msg->getDestination() == this->getType()){
-            
-            Controller* controller_block = (Controller*)_active_block;
-
-            if(controller_block->getControllerType() == controller_type::pid){
-                
-                PIDController* pid_block = (PIDController*)controller_block;
-
-                PID_data* pid_data = new PID_data;
-                pid_data->err = switcher_msg->getVector3DData().x;
-                pid_data->pv_first = switcher_msg->getVector3DData().y;
-                pid_data->pv_second = switcher_msg->getVector3DData().z;
-            
-                ControllerMessage* pos_control_msg = new ControllerMessage(controller_msg_type::data, pid_data); //TODO Refactor Controller Message
-                DataMessage* output = pid_block->receive_msg_internal((DataMessage*)pos_control_msg);
-                FloatMessage* float_command = (FloatMessage*)output;
-
-                SwitcherMessage* controller_msg = new SwitcherMessage(this->getType(), switcher_type::null_type, 
-                                                                        internal_switcher_type::controller, float_command->getData());
-
-                this->emit_message((DataMessage*)controller_msg);
- 
-            }//TODO add MRFT else if
+            }
         }
-    }else if(t_msg->getType() == msg_type::float_msg){
+        
+    }else if(t_msg->getType() == msg_type::switcher){
+
+        SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
+                      
+        DataMessage* output = _active_block->receive_msg_internal((DataMessage*)switcher_msg);
+
+        Vector3DMessage* data = (Vector3DMessage*)output;
+        SwitcherMessage* out_switcher_msg = new SwitcherMessage(data->getData());
+
+        this->emit_message((DataMessage*)out_switcher_msg);
+        
+    }else if(t_msg->getType() == msg_type::float_msg){ //TODO User message
 
         FloatMessage* float_data = (FloatMessage*)t_msg;
 
-        if(this->getType() == switcher_type::reference){
+        if(_active_block->getType() == block_type::reference){
             Reference* reference_block = (Reference*)_active_block;
             
             if(reference_block->getReferenceType() == reference_type::process_variable_ref){

@@ -13,6 +13,7 @@
 #include "../include/ProcessVariableReference.hpp"
 #include "../include/Controller.hpp"
 #include "../include/ActuationSystem.hpp"
+#include "../include/GeneralStateProvider.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -31,12 +32,14 @@ int main(int argc, char** argv) {
     MotionCapture* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
     PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
     AttitudeProvider* myAttProvider = (AttitudeProvider*)myOptitrackSystem;
+    HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
     //myMoCap->getAttitudeHeading();
     //myMoCap->getPosition();
     // Quaternion* quat = new Quaternion();
     // myMoCap->getEulerfromQuaternion(*quat);
     // Vector3D* euler = new Vector3D();
     // myMoCap->getQuaternionfromEuler(*euler);
+    GeneralStateProvider* my_general_state_provider = new GeneralStateProvider(myAttProvider, myPosProvider, myHeadProvider);
 
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
     
@@ -49,38 +52,30 @@ int main(int argc, char** argv) {
     Block* PV_Ref_y = new ProcessVariableReference("Ref_y", block_type::reference);
     Block* PV_Ref_roll = new ProcessVariableReference("Ref_roll", block_type::reference);
     //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
-    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x);
+    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, my_general_state_provider);
     X_ControlSystem->addBlock(PID_x);
     X_ControlSystem->addBlock(PV_Ref_x);
-    X_ControlSystem->addBlock(myPosProvider);
     X_ControlSystem->switchBlock(nullptr, PID_x);   //TODO Refactor so that the first block becomes the _active_block automatically
     X_ControlSystem->switchBlock(nullptr, PV_Ref_x);
-    X_ControlSystem->switchBlock(nullptr, myPosProvider);
     X_ControlSystem->getStatus();
-    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch);
+    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, my_general_state_provider);
     Pitch_ControlSystem->addBlock(PID_pitch);
     Pitch_ControlSystem->addBlock(PV_Ref_pitch);
-    Pitch_ControlSystem->addBlock(myAttProvider);
     Pitch_ControlSystem->switchBlock(nullptr, PID_pitch);   //TODO Refactor so that the first block becomes the _active_block automatically
     Pitch_ControlSystem->switchBlock(nullptr, PV_Ref_pitch);
-    Pitch_ControlSystem->switchBlock(nullptr, myAttProvider);
     Pitch_ControlSystem->getStatus();
 
-    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y);
+    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, my_general_state_provider);
     Y_ControlSystem->addBlock(PID_y);
     Y_ControlSystem->addBlock(PV_Ref_y);
-    Y_ControlSystem->addBlock(myPosProvider);
     Y_ControlSystem->switchBlock(nullptr, PID_y);   //TODO Refactor so that the first block becomes the _active_block automatically
     Y_ControlSystem->switchBlock(nullptr, PV_Ref_y);
-    Y_ControlSystem->switchBlock(nullptr, myPosProvider);
     Y_ControlSystem->getStatus();
-    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll);
+    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, my_general_state_provider);
     Roll_ControlSystem->addBlock(PID_roll);
     Roll_ControlSystem->addBlock(PV_Ref_roll);
-    Roll_ControlSystem->addBlock(myAttProvider);
     Roll_ControlSystem->switchBlock(nullptr, PID_roll);   //TODO Refactor so that the first block becomes the _active_block automatically
     Roll_ControlSystem->switchBlock(nullptr, PV_Ref_roll);
-    Roll_ControlSystem->switchBlock(nullptr, myAttProvider);
     Roll_ControlSystem->getStatus();
 
     ActuationSystem* myActuationSystem = new ActuationSystem();
@@ -88,8 +83,10 @@ int main(int argc, char** argv) {
 
     User->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
     User->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
+    
     X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
     Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
+    
     Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
     Roll_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
@@ -107,21 +104,22 @@ int main(int argc, char** argv) {
     Y_ControlSystem->changePIDSettings(pid_para_test);
     Roll_ControlSystem->changePIDSettings(pid_para_test);
 
+    std::cout << "==============================================" <<std::endl;
     User->emit_message((DataMessage*)test_user);
-    //X_ControlSystem->getProviderSwitcher()->loopInternal();
-    //Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
-    Y_ControlSystem->getProviderSwitcher()->loopInternal(); // TODO Y_ControlSystem->loopInternal();
+    X_ControlSystem->loopInternal();
+    Pitch_ControlSystem->loopInternal();
+    //Y_ControlSystem->loopInternal(); // TODO Y_ControlSystem->loopInternal();
                                                             // Inside LoopInternal{ GeneralStateProvider.getPV()}
-    Roll_ControlSystem->getProviderSwitcher()->loopInternal();
+    //Roll_ControlSystem->loopInternal();
 
-    // while(ros::ok()){
-    //     X_ControlSystem->getProviderSwitcher()->loopInternal();
-    //     Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
-    //     Y_ControlSystem->getProviderSwitcher()->loopInternal();
-    //     Roll_ControlSystem->getProviderSwitcher()->loopInternal();
-    //     ros::spinOnce();
-    //     rate.sleep();
-    // }
+    while(ros::ok()){
+        X_ControlSystem->loopInternal();
+        Pitch_ControlSystem->loopInternal();
+        // Y_ControlSystem->getProviderSwitcher()->loopInternal();
+        // Roll_ControlSystem->getProviderSwitcher()->loopInternal();
+        ros::spinOnce();
+        rate.sleep();
+    }
     
     std::cout << "DONE" << std::endl;
     // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();

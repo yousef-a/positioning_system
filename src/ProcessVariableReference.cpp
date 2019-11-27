@@ -18,17 +18,15 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
     std::cout << " My current Process Variable Value: " << _process_variable << std::endl;
     //TODO Calculate the error HERE
 
-    float error = 0.0;
+    Vector3DMessage* pos_msg = (Vector3DMessage*)t_msg;
+    std::cout << "Data received: " << pos_msg->getData().x << std::endl;
+    Vector3D error;
 
-    if(t_msg->getType() == msg_type::float_msg){
-        FloatMessage* pos_msg = (FloatMessage*)t_msg;
-        std::cout << "Data received: " << pos_msg->getData() << std::endl;
+    error.x = _process_variable - pos_msg->getData().x;
+    error.y = 0.0 - pos_msg->getData().y ;
+    error.z = 0.0 - pos_msg->getData().z;
 
-        error = pos_msg->getData() - _process_variable;
-
-    }
-
-    FloatMessage* error_msg = new FloatMessage(error);
+    Vector3DMessage* error_msg = new Vector3DMessage(error);
 
     return (DataMessage*)error_msg;
 }

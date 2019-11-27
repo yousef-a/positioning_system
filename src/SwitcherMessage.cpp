@@ -16,6 +16,11 @@ SwitcherMessage::SwitcherMessage(switcher_type t_source, switcher_type t_destina
     _destination = t_destination;
 }
 
+SwitcherMessage::SwitcherMessage(Vector3D t_vector3Ddata){
+    _type = msg_type::switcher;
+    _v3D_data = t_vector3Ddata;
+}
+
 SwitcherMessage::~SwitcherMessage() {
 
 }

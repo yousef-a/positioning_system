@@ -1,6 +1,8 @@
 #pragma once
 #include "Reference.hpp"
 #include "FloatMessage.hpp"
+#include "Vector3D.hpp"
+#include "Vector3DMessage.hpp"
 
 class ProcessVariableReference : public Reference{
 

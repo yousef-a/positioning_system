@@ -5,6 +5,8 @@
 #include "PID_values.hpp"
 #include "FloatMessage.hpp"
 #include "Controller.hpp"
+#include "SwitcherMessage.hpp"
+#include "Vector3DMessage.hpp"
 
 class PIDController : public Controller{
 

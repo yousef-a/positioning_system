@@ -2,6 +2,7 @@
 #include "DataMessage.hpp"
 #include "Block.hpp"
 #include "PID_values.hpp"
+#include "Vector3D.hpp"
 
 class ControlSystemMessage : public DataMessage{
 
@@ -13,6 +14,7 @@ private:
     PID_parameters* _pid_para;
     control_system _source;
     control_system _destination;
+    Vector3D _v3d_data;
     float _data;
 
 public:
@@ -24,11 +26,13 @@ public:
     control_system getSource();
     control_system getDestination();
     float getData();
+    Vector3D getV3DData();
 
     ControlSystemMessage(control_system_msg_type, Block*, Block*);
     ControlSystemMessage(control_system_msg_type, Block*);
     ControlSystemMessage(control_system_msg_type, PID_parameters*);
     ControlSystemMessage(control_system, control_system, control_system_msg_type, float);
-    
+    ControlSystemMessage(control_system, control_system_msg_type, Vector3D);
+
     ~ControlSystemMessage();
 };

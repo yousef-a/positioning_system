@@ -14,14 +14,17 @@ DataMessage* PIDController::receive_msg_internal(){
 
 DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
         
-	ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
+	SwitcherMessage* controller_msg = (SwitcherMessage*)t_msg;
 
-    PID_data* data = controller_msg->getData();
-	std::cout << "error: " << data->err << std::endl;
-	std::cout << "pv_first: " << data->pv_first << std::endl;
-	std::cout << "pv_second: " << data->pv_second << std::endl;
-    float command = pid_direct(data->err, data->pv_first, data->pv_second);
-    FloatMessage* output_msg = new FloatMessage(command);
+    Vector3D data = controller_msg->getVector3DData();
+	std::cout << "error: " << data.x << std::endl;
+	std::cout << "pv_first: " << data.y << std::endl;
+	std::cout << "pv_second: " << data.z << std::endl;
+    Vector3D command;
+	command.x = pid_direct(data.x, data.y, data.z);
+	command.y = 0.0;
+	command.z = 0.0;
+    Vector3DMessage* output_msg = new Vector3DMessage(command);
 
 	return (DataMessage*)output_msg;
 }
