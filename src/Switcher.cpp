@@ -205,7 +205,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
         this->emit_message((DataMessage*)out_switcher_msg);
         
-    }else if(t_msg->getType() == msg_type::float_msg){ //TODO User message
+    }else if(t_msg->getType() == msg_type::set_reference){ //TODO User message
 
         FloatMessage* float_data = (FloatMessage*)t_msg;
 
@@ -214,7 +214,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             
             if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                 ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
-                pv_ref_block->setProcessVariable(float_data->getData());
+                pv_ref_block->setReferenceValue(float_data->getData());
                 std::cout << "........................Setting Process variable" << std::endl;
             }
            

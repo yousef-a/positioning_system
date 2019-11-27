@@ -55,7 +55,7 @@ Vector3D GeneralStateProvider::getProcessVariable(control_system t_control_syste
     }
     case control_system::yaw:
     {
-        process_variable.x = _attitude_provider->getAttitude().z;
+        process_variable.x = _heading_provider->getHeading();
         process_variable.y = 0.0; //TODO yaw_dot
         process_variable.z = 0.0; //TODO yaw_dot_dot
         break;

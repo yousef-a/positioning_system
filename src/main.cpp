@@ -51,6 +51,11 @@ int main(int argc, char** argv) {
     Block* PID_roll = new PIDController("PID_roll", block_type::controller);
     Block* PV_Ref_y = new ProcessVariableReference("Ref_y", block_type::reference);
     Block* PV_Ref_roll = new ProcessVariableReference("Ref_roll", block_type::reference);
+    Block* PID_z = new PIDController("PID_z", block_type::controller);
+    Block* PID_yaw = new PIDController("PID_yaw", block_type::controller);
+    Block* PV_Ref_z = new ProcessVariableReference("Ref_z", block_type::reference);
+    Block* PV_Ref_yaw = new ProcessVariableReference("Ref_yaw", block_type::reference);
+
     //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
     ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, my_general_state_provider);
     X_ControlSystem->addBlock(PID_x);
@@ -78,8 +83,39 @@ int main(int argc, char** argv) {
     Roll_ControlSystem->switchBlock(nullptr, PV_Ref_roll);
     Roll_ControlSystem->getStatus();
 
+    ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, my_general_state_provider);
+    Z_ControlSystem->addBlock(PID_z);
+    Z_ControlSystem->addBlock(PV_Ref_z);
+    Z_ControlSystem->switchBlock(nullptr, PID_z);   //TODO Refactor so that the first block becomes the _active_block automatically
+    Z_ControlSystem->switchBlock(nullptr, PV_Ref_z);
+    Z_ControlSystem->getStatus();
+    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, my_general_state_provider);
+    Yaw_ControlSystem->addBlock(PID_yaw);
+    Yaw_ControlSystem->addBlock(PV_Ref_yaw);
+    Yaw_ControlSystem->switchBlock(nullptr, PID_yaw);   //TODO Refactor so that the first block becomes the _active_block automatically
+    Yaw_ControlSystem->switchBlock(nullptr, PV_Ref_yaw);
+    Yaw_ControlSystem->getStatus();
+
     ActuationSystem* myActuationSystem = new ActuationSystem();
     msg_emitter* User = new msg_emitter();
+
+
+    UserMessage* test_user = new UserMessage(123.0, 234.0, 345.0, 1.1234);
+
+    PID_parameters* pid_para_test = new PID_parameters;
+    pid_para_test->kp = 5.0;
+    pid_para_test->ki = 2.0;
+    pid_para_test->kd = 3.0;
+    pid_para_test->kdd = 4.0;
+    pid_para_test->anti_windup = 0.5;
+    pid_para_test->en_pv_derivation = 1;// ActuationSystem* myActuationSystem = new ActuationSystem();
+    X_ControlSystem->changePIDSettings(pid_para_test);
+    Pitch_ControlSystem->changePIDSettings(pid_para_test);
+    Y_ControlSystem->changePIDSettings(pid_para_test);
+    Roll_ControlSystem->changePIDSettings(pid_para_test);
+    Z_ControlSystem->changePIDSettings(pid_para_test);
+    Yaw_ControlSystem->changePIDSettings(pid_para_test);
+
 
     User->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
     User->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
@@ -90,38 +126,32 @@ int main(int argc, char** argv) {
     Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
     Roll_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
-    UserMessage* test_user = new UserMessage(123.0, 234.0, 345.0, 1.1234);
+    Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
+    Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
-    PID_parameters* pid_para_test = new PID_parameters;
-    pid_para_test->kp = 5.0;
-    pid_para_test->ki = 2.0;
-    pid_para_test->kd = 3.0;
-    pid_para_test->kdd = 4.0;
-    pid_para_test->anti_windup = 0.5;
-    pid_para_test->en_pv_derivation = 1;
-    X_ControlSystem->changePIDSettings(pid_para_test);
-    Pitch_ControlSystem->changePIDSettings(pid_para_test);
-    Y_ControlSystem->changePIDSettings(pid_para_test);
-    Roll_ControlSystem->changePIDSettings(pid_para_test);
-
+    
     std::cout << "==============================================" <<std::endl;
     User->emit_message((DataMessage*)test_user);
+ 
     X_ControlSystem->loopInternal();
     Pitch_ControlSystem->loopInternal();
-    //Y_ControlSystem->loopInternal(); // TODO Y_ControlSystem->loopInternal();
-                                                            // Inside LoopInternal{ GeneralStateProvider.getPV()}
-    //Roll_ControlSystem->loopInternal();
+    Y_ControlSystem->loopInternal();
+    Roll_ControlSystem->loopInternal();
+    Z_ControlSystem->loopInternal();
+    Yaw_ControlSystem->loopInternal();
 
     while(ros::ok()){
         X_ControlSystem->loopInternal();
         Pitch_ControlSystem->loopInternal();
-        // Y_ControlSystem->getProviderSwitcher()->loopInternal();
-        // Roll_ControlSystem->getProviderSwitcher()->loopInternal();
+        Y_ControlSystem->loopInternal();
+        Roll_ControlSystem->loopInternal();
+        Z_ControlSystem->loopInternal();
+        Yaw_ControlSystem->loopInternal();
         ros::spinOnce();
         rate.sleep();
     }
     
-    std::cout << "DONE" << std::endl;
+     std::cout << "DONE" << std::endl;
     // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
     // Pitch_ControlSystem->getProviderSwitcher()->loopInternal();
     // //myControlSystem->addBlock(myReference2);
