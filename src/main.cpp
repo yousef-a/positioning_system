@@ -143,10 +143,10 @@ int main(int argc, char** argv) {
     while(ros::ok()){
         X_ControlSystem->loopInternal();
         Pitch_ControlSystem->loopInternal();
-        Y_ControlSystem->loopInternal();
-        Roll_ControlSystem->loopInternal();
-        Z_ControlSystem->loopInternal();
-        Yaw_ControlSystem->loopInternal();
+        // Y_ControlSystem->loopInternal();
+        // Roll_ControlSystem->loopInternal();
+        // Z_ControlSystem->loopInternal();
+        // Yaw_ControlSystem->loopInternal();
         ros::spinOnce();
         rate.sleep();
     }
