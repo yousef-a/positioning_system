@@ -1,5 +1,9 @@
 #include "looper.hpp"
     
+Looper::Looper(){
+
+}
+
 void* Looper::Loop1KHz(void *vargp) 
 { 
     Timer* _loop_timer = new Timer();
@@ -32,3 +36,11 @@ void* Looper::Loop100Hz(void *vargp)
         }
     }
 } 
+
+void Looper::addTimedBlock100Hz(ControlSystem* t_cs){
+    _control_systems_100hz.push_back(t_cs);
+}
+
+void Looper::addTimedBlock1KHz(ControlSystem* t_cs){
+    _control_systems_1khz.push_back(t_cs);
+}
