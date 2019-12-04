@@ -133,22 +133,23 @@ int main(int argc, char** argv) {
  
     //******************************LOOP***********************************
     
-    pthread_t loop1khz_func_id,loop100hz_func_id; 
-  
+    pthread_t loop1khz_func_id, loop100hz_func_id; 
+    
     // Creating a new thread 
-    pthread_create(&loop1khz_func_id, NULL, &Loop1KHz, NULL);
-    pthread_create(&loop100hz_func_id, NULL, &Loop100Hz, NULL); 
+    pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
+    pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
-    while(ros::ok()){
-        X_ControlSystem->loopInternal();
-        Pitch_ControlSystem->loopInternal();
-        Y_ControlSystem->loopInternal();
-        Roll_ControlSystem->loopInternal();
-        Z_ControlSystem->loopInternal();
-        Yaw_ControlSystem->loopInternal();
-        ros::spinOnce();
-        rate.sleep();
-    }
+
+    // while(ros::ok()){
+    //     X_ControlSystem->loopInternal();
+    //     Pitch_ControlSystem->loopInternal();
+    //     Y_ControlSystem->loopInternal();
+    //     Roll_ControlSystem->loopInternal();
+    //     Z_ControlSystem->loopInternal();
+    //     Yaw_ControlSystem->loopInternal();
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
     
      std::cout << "DONE" << std::endl;
 
