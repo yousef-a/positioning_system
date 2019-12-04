@@ -12,7 +12,7 @@ void* Looper::Loop1KHz(void *vargp)
     
     while(1){
         _loop_timer->tick();
-        std::cout << "@@@@@@@@@@@@@@@@@@1000 Hz LOOP@@@@@@@@@@@@@@@@@@" << std::endl;
+
         for (ControlSystem* const& i : _instance_ptr->_control_systems_1khz){
             i->loopInternal();
         }
@@ -33,7 +33,7 @@ void* Looper::Loop100Hz(void *vargp)
     Timer* _loop_timer = new Timer();
     while(1){
         _loop_timer->tick();
-        std::cout << "###################100 Hz LOOP###################" << std::endl;
+
         for (ControlSystem* const& j : _instance_ptr->_control_systems_100hz){
             j->loopInternal();
         }

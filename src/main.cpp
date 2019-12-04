@@ -135,10 +135,6 @@ int main(int argc, char** argv) {
     std::cout << "==============================================" <<std::endl;
     User->emit_message((DataMessage*)test_user);
  
-    
-    
-    
-
     //******************************LOOP***********************************
     
     pthread_t loop1khz_func_id, loop100hz_func_id; 
