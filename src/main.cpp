@@ -58,32 +58,32 @@ int main(int argc, char** argv) {
     //***********************SETTING CONTROL SYSTEMS***************************
 
     //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
-    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, my_general_state_provider);
+    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, my_general_state_provider, block_frequency::hz100);
     X_ControlSystem->addBlock(PID_x);
     X_ControlSystem->addBlock(PV_Ref_x);
     X_ControlSystem->getStatus();
 
-    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, my_general_state_provider);
+    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, my_general_state_provider, block_frequency::hz1000);
     Pitch_ControlSystem->addBlock(PID_pitch);
     Pitch_ControlSystem->addBlock(PV_Ref_pitch);
     Pitch_ControlSystem->getStatus();
 
-    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, my_general_state_provider);
+    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, my_general_state_provider, block_frequency::hz100);
     Y_ControlSystem->addBlock(PID_y);
     Y_ControlSystem->addBlock(PV_Ref_y);
     Y_ControlSystem->getStatus();
 
-    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, my_general_state_provider);
+    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, my_general_state_provider, block_frequency::hz1000);
     Roll_ControlSystem->addBlock(PID_roll);
     Roll_ControlSystem->addBlock(PV_Ref_roll);
     Roll_ControlSystem->getStatus();
 
-    ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, my_general_state_provider);
+    ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, my_general_state_provider, block_frequency::hz100);
     Z_ControlSystem->addBlock(PID_z);
     Z_ControlSystem->addBlock(PV_Ref_z);
     Z_ControlSystem->getStatus();
 
-    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, my_general_state_provider);
+    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, my_general_state_provider, block_frequency::hz1000);
     Yaw_ControlSystem->addBlock(PID_yaw);
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
     Yaw_ControlSystem->getStatus();
@@ -103,7 +103,7 @@ int main(int argc, char** argv) {
     pid_para_test->kd = 3.0;
     pid_para_test->kdd = 4.0;
     pid_para_test->anti_windup = 0.5;
-    pid_para_test->en_pv_derivation = 1;// ActuationSystem* myActuationSystem = new ActuationSystem();
+    pid_para_test->en_pv_derivation = 1;
     X_ControlSystem->changePIDSettings(pid_para_test);
     Pitch_ControlSystem->changePIDSettings(pid_para_test);
     Y_ControlSystem->changePIDSettings(pid_para_test);
@@ -131,20 +131,18 @@ int main(int argc, char** argv) {
     Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
-    
-    std::cout << "==============================================" <<std::endl;
     User->emit_message((DataMessage*)test_user);
  
     //******************************LOOP***********************************
     
     pthread_t loop1khz_func_id, loop100hz_func_id; 
     Looper* myLoop = new Looper();
-    myLoop->addTimedBlock100Hz(X_ControlSystem);
-    myLoop->addTimedBlock100Hz(Y_ControlSystem);
-    myLoop->addTimedBlock100Hz(Z_ControlSystem);
-    myLoop->addTimedBlock1KHz(Roll_ControlSystem);
-    myLoop->addTimedBlock1KHz(Pitch_ControlSystem);
-    myLoop->addTimedBlock1KHz(Yaw_ControlSystem);
+    myLoop->addTimedBlock((TimedBlock*)X_ControlSystem);
+    myLoop->addTimedBlock((TimedBlock*)Y_ControlSystem);
+    myLoop->addTimedBlock((TimedBlock*)Z_ControlSystem);
+    myLoop->addTimedBlock((TimedBlock*)Roll_ControlSystem);
+    myLoop->addTimedBlock((TimedBlock*)Pitch_ControlSystem);
+    myLoop->addTimedBlock((TimedBlock*)Yaw_ControlSystem);
 
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);

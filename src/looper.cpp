@@ -13,8 +13,10 @@ void* Looper::Loop1KHz(void *vargp)
     while(1){
         _loop_timer->tick();
 
-        for (ControlSystem* const& i : _instance_ptr->_control_systems_1khz){
-            i->loopInternal();
+        for (TimedBlock* const& i : _instance_ptr->_timed_blocks){
+            if(i->getLoopTime() == block_frequency::hz1000){
+                i->loopInternal();
+            }
         }
         
         int consumed_time =_loop_timer->tockMicroSeconds();
@@ -34,8 +36,10 @@ void* Looper::Loop100Hz(void *vargp)
     while(1){
         _loop_timer->tick();
 
-        for (ControlSystem* const& j : _instance_ptr->_control_systems_100hz){
-            j->loopInternal();
+        for (TimedBlock* const& j : _instance_ptr->_timed_blocks){
+            if(j->getLoopTime() == block_frequency::hz100){
+                j->loopInternal();
+            }
         }
         
         int consumed_time =_loop_timer->tockMicroSeconds();
@@ -49,10 +53,6 @@ void* Looper::Loop100Hz(void *vargp)
     }
 } 
 
-void Looper::addTimedBlock100Hz(ControlSystem* t_cs){
-    _control_systems_100hz.push_back(t_cs);
-}
-
-void Looper::addTimedBlock1KHz(ControlSystem* t_cs){
-    _control_systems_1khz.push_back(t_cs);
+void Looper::addTimedBlock(TimedBlock* t_cs){
+    _timed_blocks.push_back(t_cs);
 }

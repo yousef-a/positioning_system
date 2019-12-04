@@ -8,8 +8,9 @@
 #include "UserMessage.hpp"
 #include "GeneralStateProvider.hpp"
 #include "ReferenceMessage.hpp"
+#include "TimedBlock.hpp"
 
-class ControlSystem : public msg_emitter, public msg_receiver{
+class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver{
 
     private:
         control_system _control_system;
@@ -17,7 +18,7 @@ class ControlSystem : public msg_emitter, public msg_receiver{
         Switcher* referenceSwitcher;
         GeneralStateProvider* _providerProcessVariable;
         std::vector<Switcher*> _switchers;
-        ControlSystem();
+        // ControlSystem();
 
     public:
         void receive_msg_data(DataMessage* t_msg);
@@ -32,7 +33,7 @@ class ControlSystem : public msg_emitter, public msg_receiver{
         Switcher* getReferenceSwitcher();
         // Switcher* getProviderSwitcher();
 
-        ControlSystem(control_system, GeneralStateProvider*);
+        ControlSystem(control_system, GeneralStateProvider*, block_frequency);
         ~ControlSystem(); //TODO prevent automatic storage
 
     

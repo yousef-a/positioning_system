@@ -1,17 +1,17 @@
 #include "ControlSystem.hpp"
 #include "../include/Switcher.hpp"
 
-ControlSystem::ControlSystem() {
-    // this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
-    // this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
-    // this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
-    // providerSwitcher->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
-    // referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
-    // controllerSwitcher->add_callback_msg_receiver((msg_receiver*)this);
+// ControlSystem::ControlSystem() : TimedBlock(t_bf) {
+//     // this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+//     // this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
+//     // this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
+//     // providerSwitcher->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
+//     // referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
+//     // controllerSwitcher->add_callback_msg_receiver((msg_receiver*)this);
     
-}
+// }
 
-ControlSystem::ControlSystem(control_system t_control_system, GeneralStateProvider* t_g_s_provider) {
+ControlSystem::ControlSystem(control_system t_control_system, GeneralStateProvider* t_g_s_provider, block_frequency t_bf) : TimedBlock(t_bf) {
     _control_system = t_control_system;
     
     controllerSwitcher = new Switcher("ControlSwitcher", switcher_type::controller, _control_system);
