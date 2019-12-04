@@ -15,6 +15,7 @@ class Looper {
         std::list<ControlSystem*> _control_systems_100hz;
         std::list<ControlSystem*> _control_systems_1khz;
         std::list<ControlSystem*>::iterator _it;
+        static Looper* _instance_ptr;
 
     public:
         static void* Loop1KHz(void *vargp);

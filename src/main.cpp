@@ -15,6 +15,7 @@
 #include "../include/ActuationSystem.hpp"
 #include "../include/GeneralStateProvider.hpp"
 #include "../include/looper.hpp"
+#include "../include/std_logger.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -25,6 +26,9 @@ int main(int argc, char** argv) {
     ros::Rate rate(120);
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
+
+    //*****************************LOGGER**********************************
+    Logger::assignLogger(new StdLogger());
 
     //***********************SETTING PROVIDERS**********************************
     MotionCapture* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
@@ -131,28 +135,31 @@ int main(int argc, char** argv) {
     std::cout << "==============================================" <<std::endl;
     User->emit_message((DataMessage*)test_user);
  
+    
+    
+    
+
     //******************************LOOP***********************************
     
     pthread_t loop1khz_func_id, loop100hz_func_id; 
-    
+    Looper* myLoop = new Looper();
+    myLoop->addTimedBlock100Hz(X_ControlSystem);
+    myLoop->addTimedBlock100Hz(Y_ControlSystem);
+    myLoop->addTimedBlock100Hz(Z_ControlSystem);
+    myLoop->addTimedBlock1KHz(Roll_ControlSystem);
+    myLoop->addTimedBlock1KHz(Pitch_ControlSystem);
+    myLoop->addTimedBlock1KHz(Yaw_ControlSystem);
+
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
 
-    // while(ros::ok()){
-    //     X_ControlSystem->loopInternal();
-    //     Pitch_ControlSystem->loopInternal();
-    //     Y_ControlSystem->loopInternal();
-    //     Roll_ControlSystem->loopInternal();
-    //     Z_ControlSystem->loopInternal();
-    //     Yaw_ControlSystem->loopInternal();
-    //     ros::spinOnce();
-    //     rate.sleep();
-    // }
+    while(ros::ok()){
+        ros::spinOnce();
+        rate.sleep();
+    }
     
-     std::cout << "DONE" << std::endl;
-
     return 0;
 
 }

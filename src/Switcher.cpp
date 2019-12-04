@@ -200,9 +200,9 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
         Vector3DMessage* data = (Vector3DMessage*)output;
         SwitcherMessage* out_switcher_msg = new SwitcherMessage(data->getData());
-
-        this->emit_message((DataMessage*)out_switcher_msg);
         
+        this->emit_message((DataMessage*)out_switcher_msg);
+
     }else if(t_msg->getType() == msg_type::reference){ //TODO User message
 
         ReferenceMessage* reference = (ReferenceMessage*)t_msg;
