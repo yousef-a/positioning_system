@@ -10,4 +10,6 @@ class  Actuator {
     public:
         virtual bool initialize() = 0;
         virtual bool applyCommand(int command) = 0;
+
+        Actuator() {};
 };

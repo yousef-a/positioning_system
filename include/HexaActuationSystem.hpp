@@ -4,10 +4,13 @@
 
 class HexaActuationSystem : public ActuationSystem {
 
+private:    
+    std::list<Actuator*> _actuators;
+
 public:
 
     void receive_msg_data(DataMessage* t_msg);
-
-    HexaActuationSystem();
+    
+    HexaActuationSystem(std::list<Actuator*>);
     ~HexaActuationSystem();
 };

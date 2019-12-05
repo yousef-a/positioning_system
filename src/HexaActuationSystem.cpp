@@ -1,7 +1,7 @@
 #include "HexaActuationSystem.hpp"
 
-HexaActuationSystem::HexaActuationSystem() {
-
+HexaActuationSystem::HexaActuationSystem(std::list<Actuator*> t_actuators) : ActuationSystem(t_actuators){
+    _actuators = t_actuators;
 }
 
 HexaActuationSystem::~HexaActuationSystem() {

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #include "../include/PositioningProvider.hpp"
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
@@ -17,6 +18,7 @@
 #include "../include/looper.hpp"
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
+#include "../include/actuator.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -88,6 +90,17 @@ int main(int argc, char** argv) {
     Yaw_ControlSystem->addBlock(PID_yaw);
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
     Yaw_ControlSystem->getStatus();
+
+    //*********************SETTING ACTUATION SYSTEMS************************
+
+    Actuator* M1 = new Actuator();
+    Actuator* M2 = new Actuator();
+    Actuator* M3 = new Actuator();
+    Actuator* M4 = new Actuator();
+    Actuator* M5 = new Actuator();
+    Actuator* M6 = new Actuator();
+
+    std::list<Actuator*> actuators({M1, M2, M3, M4, M5, M6});
 
     ActuationSystem* myActuationSystem = new HexaActuationSystem();
 
