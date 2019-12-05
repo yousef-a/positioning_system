@@ -10,52 +10,34 @@ make
 sudo ./Servo
 */
 
-
 #include "esc_motor.hpp"
 
-#define freq 400
-
-esc_motor::esc_motor(int pin){
-
-    this->_pwmPin = pin;
+ESCMotor::ESCMotor(int t_pin, int t_freq){
+    _pwmPin = t_pin;
+    _freq = t_freq;
     this->initialize();
-
 }
 
-std::unique_ptr <RCOutput> get_rcout(){
 
-        if (get_navio_version() == NAVIO2){
-            auto ptr = std::unique_ptr <RCOutput>{ new RCOutput_Navio2() };
-            return ptr;
-        } 
+bool ESCMotor::initialize(){
 
-        else{
-            auto ptr = std::unique_ptr <RCOutput>{ new RCOutput_Navio() };
-            return ptr;
-        }
-        
-}
+    _pwm = new RCOutput_Navio2();
 
-auto pwm = get_rcout();
-
-bool esc_motor::initialize(){
-
-    if( !(pwm->initialize(esc_motor::_pwmPin)) ) {
+    if(!(_pwm->initialize(_pwmPin)) ) {
         return 1;
     }
 
-    pwm->set_frequency(esc_motor::_pwmPin, freq);
+    _pwm->set_frequency(_pwmPin, _freq);
 
-	if ( !(pwm->enable(esc_motor::_pwmPin)) ) {
+	if ( !(_pwm->enable(_pwmPin)) ) {
 	    return 1;
 	}
 
-
 }
 
-bool esc_motor::applyCommand(int command){
+void ESCMotor::applyCommand(int t_command){
 
-    pwm->set_duty_cycle(esc_motor::_pwmPin, command);
+    _pwm->set_duty_cycle(_pwmPin, t_command);
 
 }
 

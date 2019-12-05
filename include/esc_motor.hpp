@@ -3,17 +3,22 @@
 #include "actuator.hpp"
 #include <unistd.h>
 #include "Navio2/PWM.h"
-#include "Navio+/RCOutput_Navio.h"
 #include "Navio2/RCOutput_Navio2.h"
 #include "Common/Util.h"
 #include <unistd.h>
 #include <memory>
 
-class esc_motor : public actuator {
-private:
-    int _pwmPin;
-public:
-    bool initialize();
-    bool applyCommand(int command);
-    esc_motor(int pin);
+class ESCMotor : public Actuator {
+
+    private:
+        int _pwmPin;
+        int _freq;
+        RCOutput* _pwm;
+
+    public:
+        bool initialize();
+        void applyCommand(int command);
+        RCOutput* get_rcout();
+
+        ESCMotor(int, int);
 };

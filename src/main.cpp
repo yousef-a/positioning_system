@@ -18,8 +18,7 @@
 #include "../include/looper.hpp"
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
-#include "../include/actuator.hpp"
-
+#include "../include/esc_motor.hpp"
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
 
@@ -93,16 +92,17 @@ int main(int argc, char** argv) {
 
     //*********************SETTING ACTUATION SYSTEMS************************
 
-    Actuator* M1 = new Actuator();
-    Actuator* M2 = new Actuator();
-    Actuator* M3 = new Actuator();
-    Actuator* M4 = new Actuator();
-    Actuator* M5 = new Actuator();
-    Actuator* M6 = new Actuator();
+    int freq = 50;
+    Actuator* M1 = new ESCMotor(0, freq);
+    Actuator* M2 = new ESCMotor(1, freq);
+    Actuator* M3 = new ESCMotor(2, freq);
+    Actuator* M4 = new ESCMotor(3, freq);
+    Actuator* M5 = new ESCMotor(4, freq);
+    Actuator* M6 = new ESCMotor(5, freq);
 
     std::list<Actuator*> actuators({M1, M2, M3, M4, M5, M6});
 
-    ActuationSystem* myActuationSystem = new HexaActuationSystem();
+    ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
 
     //***********************SETTING USER INPUTS****************************
     msg_emitter* User = new msg_emitter();
