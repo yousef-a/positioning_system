@@ -144,22 +144,22 @@ int main(int argc, char** argv) {
     myLoop->addTimedBlock((TimedBlock*)Pitch_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Yaw_ControlSystem);
 
-    // // Creating a new thread 
-    // pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
-    // pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
+    // Creating a new thread 
+    pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
+    pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
 
-    // while(ros::ok()){
-    //     ros::spinOnce();
-    //     rate.sleep();
-    // }
-    
     while(ros::ok()){
-        myOptitrackSystem->getPosition();
-        myOptitrackSystem->getAttitudeHeading();
         ros::spinOnce();
         rate.sleep();
     }
+    
+    // while(ros::ok()){
+    //     myOptitrackSystem->getPosition();
+    //     myOptitrackSystem->getAttitudeHeading();
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
 
     return 0;
 
