@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <vector>
 #include "../include/PositioningProvider.hpp"
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
@@ -19,6 +19,7 @@
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
 #include "../include/esc_motor.hpp"
+
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
 
@@ -100,14 +101,14 @@ int main(int argc, char** argv) {
     Actuator* M5 = new ESCMotor(4, freq);
     Actuator* M6 = new ESCMotor(5, freq);
 
-    std::list<Actuator*> actuators({M1, M2, M3, M4, M5, M6});
+    std::vector<Actuator*> actuators{M1, M2, M3, M4, M5, M6};
 
     ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
 
     //***********************SETTING USER INPUTS****************************
     msg_emitter* User = new msg_emitter();
 
-    UserMessage* test_user = new UserMessage(123.0, 234.0, 345.0, 1.1234);
+    UserMessage* test_user = new UserMessage(0.0, 0.0, 10.0, 1.1234);
 
     //***********************SETTING PID VALUES*****************************
 
