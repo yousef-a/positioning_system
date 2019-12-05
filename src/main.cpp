@@ -16,6 +16,7 @@
 #include "../include/GeneralStateProvider.hpp"
 #include "../include/looper.hpp"
 #include "../include/std_logger.hpp"
+#include "../include/HexaActuationSystem.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -88,7 +89,7 @@ int main(int argc, char** argv) {
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
     Yaw_ControlSystem->getStatus();
 
-    ActuationSystem* myActuationSystem = new ActuationSystem();
+    ActuationSystem* myActuationSystem = new HexaActuationSystem();
 
     //***********************SETTING USER INPUTS****************************
     msg_emitter* User = new msg_emitter();
