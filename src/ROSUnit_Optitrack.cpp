@@ -2,8 +2,8 @@
 #include <iostream>
 ROSUnit_Optitrack* ROSUnit_Optitrack::_instance_ptr = NULL;
 
-ROSUnit_Optitrack::ROSUnit_Optitrack(ros::NodeHandle&) {
-    _sub_attitude = _main_handler.subscribe("/Robot_1/pose", 10, callbackOptitrack);
+ROSUnit_Optitrack::ROSUnit_Optitrack(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler){
+    _sub_attitude = t_main_handler.subscribe("/Robot_1/pose", 10, callbackOptitrack);
     _instance_ptr = this;
 }
 

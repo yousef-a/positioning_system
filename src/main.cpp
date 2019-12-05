@@ -154,6 +154,13 @@ int main(int argc, char** argv) {
         rate.sleep();
     }
     
+    // while(ros::ok()){
+    //     myOptitrackSystem->getPosition();
+    //     myOptitrackSystem->getAttitudeHeading();
+    //     ros::spinOnce();
+    //     rate.sleep();
+    // }
+
     return 0;
 
 }

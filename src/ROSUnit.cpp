@@ -1,12 +1,8 @@
 #include "ROSUnit.hpp"
 
-ROSUnit::ROSUnit() {
+ROSUnit::ROSUnit(ros::NodeHandle& t_main_handler){
 
-}
-
-ROSUnit::ROSUnit(ros::NodeHandle& main_handler){
-
-    _main_handler = main_handler;
+    _main_handler = t_main_handler;
 }
 
 ROSUnit::~ROSUnit() {
