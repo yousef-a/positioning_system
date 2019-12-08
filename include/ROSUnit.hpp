@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 #include "std_msgs/String.h"
-#include "msg_receiver.hpp"
-#include "msg_emitter.hpp"
+#include "MsgReceiver.hpp"
+#include "MsgEmitter.hpp"
 
 
 class ROSUnit : public msg_emitter, public msg_receiver{

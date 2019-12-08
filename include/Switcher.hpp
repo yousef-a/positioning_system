@@ -1,8 +1,8 @@
 #pragma once
 #include "Block.hpp"
 #include <list>
-#include "msg_receiver.hpp"
-#include "msg_emitter.hpp"
+#include "MsgReceiver.hpp"
+#include "MsgEmitter.hpp"
 #include "ControlSystemMessage.hpp"
 #include "SwitcherMessage.hpp"
 #include "Vector3DMessage.hpp"

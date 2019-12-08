@@ -11,20 +11,25 @@ OptiTrack::~OptiTrack() {
 
 }
 
-Vector3D OptiTrack::getAttitude(){
+AttitudeMsg OptiTrack::getAttitude(){
     Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
-    rpy.z = 0.0;
+    AttitudeMsg t_att_msg;
+    t_att_msg.roll = rpy.x;
+    t_att_msg.pitch = rpy.y;
+    //rpy.z = 0.0;
 
     std::cout << "getAttitude"<< std::endl;
     std::cout << "roll: " << rpy.x << std::endl;
     std::cout << "pitch: " << rpy.y << std::endl;
     std::cout << "yaw: " << rpy.z << std::endl;
 
-    return rpy;
+    return t_att_msg;
 }
 
-double OptiTrack::getHeading(){
+HeadingMsg OptiTrack::getHeading(){
     Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
+    HeadingMsg t_heading_msg;
+    t_heading_msg.yaw = rpy.z;
     rpy.x = 0.0;
     rpy.y = 0.0; 
 
@@ -33,7 +38,7 @@ double OptiTrack::getHeading(){
     std::cout << "pitch: " << rpy.y << std::endl;
     std::cout << "yaw: " << rpy.z << std::endl;
 
-    return rpy.z;
+    return t_heading_msg;
 }
 
 Quaternion OptiTrack::getAttitudeHeading(){
@@ -47,14 +52,18 @@ Quaternion OptiTrack::getAttitudeHeading(){
     return _bodyAtt;
 }
 
-Vector3D OptiTrack::getPosition(){
+PositionMsg OptiTrack::getPosition(){
 
+    PositionMsg t_pos_msg;
+    t_pos_msg.x = _bodyPos.x;
+    t_pos_msg.y = _bodyPos.y;
+    t_pos_msg.z = _bodyPos.z;
     std::cout << "getPosition"<< std::endl;
     std::cout << "x: " << _bodyPos.x << std::endl;
     std::cout << "y: " << _bodyPos.y << std::endl;
     std::cout << "z: " << _bodyPos.z << std::endl;
     
-    return _bodyPos;
+    return t_pos_msg;
 }
 
 void OptiTrack::receive_msg_data(DataMessage* t_msg){

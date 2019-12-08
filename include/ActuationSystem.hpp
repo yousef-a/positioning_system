@@ -1,7 +1,8 @@
 #pragma once
-#include "msg_emitter.hpp"
-#include "msg_receiver.hpp"
-#include "DataMessage.hpp"
+
+#include "MsgEmitter.hpp"
+#include "MsgReceiver.hpp"
+#include "ControlSystemMessage.hpp"
 #include "actuator.hpp"
 #include <vector>
 

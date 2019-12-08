@@ -2,7 +2,7 @@
 // Author: Pedro Henrique R. P. B. Silva
 // Date: 19 November 2019
 
-#include "msg_emitter.hpp"
+#include "MsgEmitter.hpp"
 
 void msg_emitter::add_callback_msg_receiver(msg_receiver* _callback_msg_receiver){
     _list_of_msg_receivers.push_back(_callback_msg_receiver);

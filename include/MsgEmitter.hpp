@@ -7,7 +7,7 @@
 #include <list> 
 #include <iterator> 
 #include <iostream>
-#include "msg_receiver.hpp"
+#include "MsgReceiver.hpp"
 #include "DataMessage.hpp"
 
 using namespace std;
