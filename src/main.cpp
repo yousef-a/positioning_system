@@ -108,24 +108,59 @@ int main(int argc, char** argv) {
     //***********************SETTING USER INPUTS****************************
     msg_emitter* User = new msg_emitter();
 
-    UserMessage* test_user = new UserMessage(0.0, 0.0, 10.0, 1.1234);
+    UserMessage* test_user = new UserMessage(0, -1, 0, 0.0);
 
     //***********************SETTING PID VALUES*****************************
 
     PID_parameters* pid_para_test = new PID_parameters;
-    pid_para_test->kp = 5.0;
-    pid_para_test->ki = 2.0;
-    pid_para_test->kd = 3.0;
-    pid_para_test->kdd = 4.0;
-    pid_para_test->anti_windup = 0.5;
-    pid_para_test->en_pv_derivation = 1;
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 0.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
     X_ControlSystem->changePIDSettings(pid_para_test);
-    Pitch_ControlSystem->changePIDSettings(pid_para_test);
-    Y_ControlSystem->changePIDSettings(pid_para_test);
-    Roll_ControlSystem->changePIDSettings(pid_para_test);
-    Z_ControlSystem->changePIDSettings(pid_para_test);
-    Yaw_ControlSystem->changePIDSettings(pid_para_test);
 
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Pitch_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 0.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Y_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Roll_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Z_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Yaw_ControlSystem->changePIDSettings(pid_para_test);
+    
 
     //***********************SETTING CONNECTIONS****************************
     //========                                                      =============
