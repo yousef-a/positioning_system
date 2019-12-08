@@ -1,6 +1,6 @@
 #pragma once
 #include "Block.hpp"
-#include "msg_receiver.hpp"
+#include "MsgReceiver.hpp"
 
 class Provider : public Block{ //TODO possibly remove Block
 

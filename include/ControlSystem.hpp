@@ -1,7 +1,7 @@
 #pragma once
 #include "Switcher.hpp"
-#include "msg_emitter.hpp"
-#include "msg_receiver.hpp"
+#include "MsgEmitter.hpp"
+#include "MsgReceiver.hpp"
 #include <vector>
 #include "ControlSystemMessage.hpp"
 #include "PID_values.hpp"
@@ -9,6 +9,7 @@
 #include "GeneralStateProvider.hpp"
 #include "ReferenceMessage.hpp"
 #include "TimedBlock.hpp"
+#include "../include/Switcher.hpp"
 
 class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver{
 

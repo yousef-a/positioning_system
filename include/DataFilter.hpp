@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "filter_settings.hpp"
+#include "FilterSettings.hpp"
 #include <cmath>
 
 class DataFilter

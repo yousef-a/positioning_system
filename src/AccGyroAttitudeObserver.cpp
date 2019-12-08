@@ -1,6 +1,6 @@
-#include "acc_gyro_attitude_observer.hpp"
+#include "AccGyroAttitudeObserver.hpp"
 
-AccGyroAttitudeObserver::AccGyroAttitudeObserver(BodyAccProvider* t_acc, BodyRateProvider* t_rate) : AttitudeProvider(t_acc, t_rate)
+AccGyroAttitudeObserver::AccGyroAttitudeObserver(std::string t_name, block_type t_type, BodyAccProvider* t_acc, BodyRateProvider* t_rate) : AttitudeProvider(t_name, t_type)
 {
     m_acc = t_acc;
     m_rate = t_rate;

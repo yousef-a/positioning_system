@@ -1,4 +1,4 @@
-#include "attitude_msg.hpp"
+#include "AttitudeMsg.hpp"
 
 msg_type AttitudeMsg::getType()
 {

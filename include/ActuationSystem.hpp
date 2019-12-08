@@ -1,6 +1,6 @@
 #pragma once
-#include "msg_emitter.hpp"
-#include "msg_receiver.hpp"
+#include "MsgEmitter.hpp"
+#include "MsgReceiver.hpp"
 #include "ControlSystemMessage.hpp"
 
 class ActuationSystem : public msg_emitter, public msg_receiver{

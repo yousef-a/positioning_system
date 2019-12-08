@@ -1,13 +1,15 @@
 #pragma once 
 
 #include "AttitudeProvider.hpp"
-#include "data_filter.hpp"
+#include "DataFilter.hpp"
+#include "BodyAccProvider.hpp"
+#include "BodyRateProvider.hpp"
 
 class AccGyroAttitudeObserver : public AttitudeProvider
 {
 public:
 
-	AccGyroAttitudeObserver(BodyAccProvider*, BodyRateProvider*);
+	AccGyroAttitudeObserver(std::string, block_type, BodyAccProvider*, BodyRateProvider*);
 	void setFilterType(DataFilter*, DataFilter*);
 	void updateSettings(FilterSettings*, float);
 	AttitudeMsg getAttitude();

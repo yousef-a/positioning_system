@@ -2,7 +2,7 @@
 // Author: Pedro Henrique R. P. B. Silva
 // Date: 19 November 2019
 
-#include "msg_receiver.hpp"
+#include "MsgReceiver.hpp"
 
 
 void msg_receiver::assign_message_type_ID(msg_type i){

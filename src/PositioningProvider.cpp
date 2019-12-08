@@ -25,7 +25,6 @@ DataMessage* PositioningProvider::receive_msg_internal(DataMessage* t_msg){
 }
 
 DataMessage* PositioningProvider::receive_msg_internal(){
-    Vector3DMessage* pos_msg = new Vector3DMessage(this->getPosition(), _provider_type);
-
-    return (DataMessage*)pos_msg;
+    m_pos_msg = this->getPosition();
+    return (DataMessage*) &m_pos_msg;
 }

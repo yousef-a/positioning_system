@@ -1,6 +1,6 @@
-#include "gyro_mag_heading_observer.hpp"
+#include "GyroMagHeadingObserver.hpp"
 
-GyroMagHeadingObserver::GyroMagHeadingObserver(AttitudeProvider* t_att_provider, BodyRateProvider* t_rate_provider, CompassProvider* t_compass) : HeadingProvider(t_att_provider, t_rate_provider, t_compass)
+GyroMagHeadingObserver::GyroMagHeadingObserver(std::string t_name, block_type t_type, AttitudeProvider* t_att_provider, BodyRateProvider* t_rate_provider, CompassProvider* t_compass) : HeadingProvider(t_name, t_type)
 {
     m_att_provider = t_att_provider;
     m_rate_provider = t_rate_provider;

@@ -1,7 +1,7 @@
 #pragma once 
 
 
-#include "data_message.hpp"
+#include "DataMessage.hpp"
 #include "common_types.hpp"
 
 class AttitudeMsg : public DataMessage

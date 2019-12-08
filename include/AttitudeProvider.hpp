@@ -2,7 +2,7 @@
 //#include "Vector3D.hpp"
 #include "Provider.hpp"
 #include "Quaternion.hpp"
-#include "attitude_msg.hpp"
+#include "AttitudeMsg.hpp"
 
 class AttitudeProvider : public Provider{
 
@@ -15,4 +15,8 @@ class AttitudeProvider : public Provider{
         
         AttitudeProvider(std::string, block_type);
         ~AttitudeProvider();
+    
+    private:
+
+        AttitudeMsg m_att_msg;
 };

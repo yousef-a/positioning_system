@@ -1,12 +1,9 @@
 #pragma once
 #include "Provider.hpp"
-#include "msg_receiver.hpp"
-#include "heading_msg.hpp"
+#include "MsgReceiver.hpp"
+#include "HeadingMsg.hpp"
 
 class HeadingProvider : public Provider{
-
-     private:
-        provider_type _provider_type;
 
     public:
 
@@ -17,4 +14,8 @@ class HeadingProvider : public Provider{
         
         HeadingProvider(std::string, block_type);
         ~HeadingProvider();
+
+    private:
+
+        HeadingMsg m_heading_msg;
 };

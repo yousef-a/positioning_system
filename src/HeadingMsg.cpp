@@ -1,4 +1,4 @@
-#include "heading_msg.hpp"
+#include "HeadingMsg.hpp"
 
 msg_type HeadingMsg::getType()
 {

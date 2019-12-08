@@ -41,21 +41,21 @@ Vector3D GeneralStateProvider::getProcessVariable(control_system t_control_syste
     }
     case control_system::roll:
     {
-        process_variable.x = _attitude_provider->getAttitude().x;
+        process_variable.x = _attitude_provider->getAttitude().roll;
         process_variable.y = 0.0; //TODO roll_dot
         process_variable.z = 0.0; //TODO roll_dot_dot
         break;
     }
     case control_system::pitch:
     {
-        process_variable.x = _attitude_provider->getAttitude().y;
+        process_variable.x = _attitude_provider->getAttitude().pitch;
         process_variable.y = 0.0; //TODO pitch_dot
         process_variable.z = 0.0; //TODO pitch_dot_dot
         break;
     }
     case control_system::yaw:
     {
-        process_variable.x = _heading_provider->getHeading();
+        process_variable.x = _heading_provider->getHeading().yaw;
         process_variable.y = 0.0; //TODO yaw_dot
         process_variable.z = 0.0; //TODO yaw_dot_dot
         break;
