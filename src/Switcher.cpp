@@ -100,7 +100,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
             }
         }
-
+        
     }else if(t_msg->getType() == msg_type::switcher){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;

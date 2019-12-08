@@ -17,6 +17,7 @@ public:
 
     virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
     virtual DataMessage* receive_msg_internal() = 0;
+    virtual provider_type getProviderType() = 0;
     virtual void receive_msg_data(DataMessage* t_msg) = 0;
     
     Provider(std::string, block_type);

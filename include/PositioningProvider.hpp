@@ -19,6 +19,7 @@ class PositioningProvider : public Provider{
         
         DataMessage* receive_msg_internal(DataMessage*);
         DataMessage* receive_msg_internal();
+        provider_type getProviderType();
         
         PositioningProvider(std::string, block_type);
         ~PositioningProvider();
