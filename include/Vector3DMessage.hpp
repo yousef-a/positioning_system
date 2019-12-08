@@ -13,7 +13,6 @@ public:
 
     msg_type getType();
     Vector3D getData();
-    provider_type getProviderType();
     
     Vector3DMessage(Vector3D);
     Vector3DMessage(Vector3D, provider_type);

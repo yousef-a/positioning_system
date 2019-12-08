@@ -15,7 +15,7 @@ class OptiTrack : public MotionCapture {
     public:
         Quaternion getAttitudeHeading(); 
         Vector3D getPosition();
-        Vector3D getAttitude(); 
+        AttitudeMsg getAttitude(); 
         double getHeading(); 
         void receive_msg_data(DataMessage* t_msg);
         Vector3D getEulerfromQuaternion(Quaternion);

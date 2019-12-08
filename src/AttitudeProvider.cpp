@@ -13,11 +13,5 @@ DataMessage* AttitudeProvider::receive_msg_internal(DataMessage*){
 }
 
 DataMessage* AttitudeProvider::receive_msg_internal(){
-    Vector3DMessage* att_msg = new Vector3DMessage(this->getAttitude(), _provider_type);
-
-    return (DataMessage*)att_msg;
-}
-
-provider_type AttitudeProvider::getProviderType(){
-    return _provider_type;
+    return (DataMessage*)this->getAttitude();
 }
