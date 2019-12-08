@@ -26,9 +26,9 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
     error.y = 0.0 - pos_msg->getData().y ;
     error.z = 0.0 - pos_msg->getData().z;
 
-    Vector3DMessage* error_msg = new Vector3DMessage(error);
+    m_error_msg.setVector3DMessage(error);
 
-    return (DataMessage*)error_msg;
+    return (DataMessage*) &m_error_msg;
 }
 
 DataMessage* ProcessVariableReference::receive_msg_internal(){

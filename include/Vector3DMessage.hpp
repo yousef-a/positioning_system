@@ -16,5 +16,9 @@ public:
     
     Vector3DMessage(Vector3D);
     Vector3DMessage(Vector3D, provider_type);
+    Vector3DMessage();
     ~Vector3DMessage();
+
+    void setVector3DMessage(Vector3D);
+    void setVector3DMessage(Vector3D, provider_type);
 };

@@ -15,5 +15,10 @@ public:
     
     ReferenceMessage(Vector3D);
     ReferenceMessage(float);
+    ReferenceMessage();
+
+    void setReferenceMessage(Vector3D);
+    void setReferenceMessage(float);
+
     ~ReferenceMessage();
 };

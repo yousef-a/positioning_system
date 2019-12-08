@@ -33,6 +33,13 @@ public:
     ControlSystemMessage(control_system_msg_type, PID_parameters*);
     ControlSystemMessage(control_system, control_system, control_system_msg_type, float);
     ControlSystemMessage(control_system, control_system_msg_type, Vector3D);
+    ControlSystemMessage();
+
+    void setControlSystemMessage(control_system_msg_type, Block*, Block*);
+    void setControlSystemMessage(control_system_msg_type, Block*);
+    void setControlSystemMessage(control_system_msg_type, PID_parameters*);
+    void setControlSystemMessage(control_system, control_system, control_system_msg_type, float);
+    void setControlSystemMessage(control_system, control_system_msg_type, Vector3D);
 
     ~ControlSystemMessage();
 };

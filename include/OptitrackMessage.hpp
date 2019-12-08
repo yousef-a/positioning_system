@@ -15,8 +15,9 @@ public:
     msg_type getType();
     Vector3D getPosition();
     Quaternion getAttitudeHeading();
-
+    void setOptitrackMessage(Vector3D, Quaternion);
 
     OptitrackMessage(Vector3D, Quaternion);
+    OptitrackMessage();
     ~OptitrackMessage();
 };

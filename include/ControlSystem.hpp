@@ -20,6 +20,19 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
         GeneralStateProvider* _providerProcessVariable;
         std::vector<Switcher*> _switchers;
         // ControlSystem();
+        ReferenceMessage m_ref_msg_x;
+        ReferenceMessage m_ref_msg_y;
+        ReferenceMessage m_ref_msg_z;
+        ReferenceMessage m_ref_msg_yaw;
+
+        ControlSystemMessage m_output_msg;
+
+        ReferenceMessage m_ref_out_msg;
+
+        ControlSystemMessage m_provider_data_msg;
+        ControlSystemMessage m_switch_msg;
+        ControlSystemMessage m_add_block_msg;
+        ControlSystemMessage m_change_PID_msg;
 
     public:
         void receive_msg_data(DataMessage* t_msg);
