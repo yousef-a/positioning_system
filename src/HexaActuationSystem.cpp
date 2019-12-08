@@ -3,18 +3,12 @@
 
 HexaActuationSystem::HexaActuationSystem(std::vector<Actuator*> t_actuators) : ActuationSystem(t_actuators){
     _actuators = t_actuators;
-    this->initialize();
 }
 
 HexaActuationSystem::~HexaActuationSystem() {
 
 }
 
-void HexaActuationSystem::initialize(){
-
-    
-    
-}
 
 void HexaActuationSystem::command(){
 
@@ -24,9 +18,10 @@ void HexaActuationSystem::command(){
     
     //update pulse values
     for(int i = 0; i < 6; i++){
-        for(int j = 0; j < 3; j++){
+        for(int j = 0; j < 4; j++){
             _commands[i] += _geometry[i][j] * _movements[j];
         }
+        std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
     }
     
     //Actuate

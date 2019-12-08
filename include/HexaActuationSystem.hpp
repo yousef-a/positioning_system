@@ -32,7 +32,6 @@ private:
 public:
 
     void receive_msg_data(DataMessage* t_msg);
-    void initialize();
     void command();
     int constrain(float value, int min_value, int max_value);
 
