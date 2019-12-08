@@ -6,8 +6,12 @@
                 "limitSymbolsToIncludedHeaders": true
             },
             "includePath": [
-                "/home/ffuav01/MBZIRC_ws/src/positioning_system/include/**",
-                "/home/ffuav01/MBZIRC_ws/src/positioning_system/src/**"
+                "/opt/ros/kinetic/include/**",
+                "/home/pedrohrpbs/catkin_ws/src/kuri_mbzirc_offboard_control/include/**",
+                "/home/pedrohrpbs/catkin_ws/src/mocap_optitrack/include/**",
+                "/usr/include/**",
+                "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/include/**",
+                "/home/pedrohrpbs/catkin_ws_NAVIO/src/positioning_system/src/**"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

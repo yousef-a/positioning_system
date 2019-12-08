@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "../include/PositioningProvider.hpp"
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
@@ -16,6 +17,8 @@
 #include "../include/GeneralStateProvider.hpp"
 #include "../include/looper.hpp"
 #include "../include/std_logger.hpp"
+#include "../include/HexaActuationSystem.hpp"
+#include "../include/esc_motor.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
@@ -88,29 +91,76 @@ int main(int argc, char** argv) {
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
     Yaw_ControlSystem->getStatus();
 
-    ActuationSystem* myActuationSystem = new ActuationSystem();
+    //*********************SETTING ACTUATION SYSTEMS************************
+
+    int freq = 50;
+    Actuator* M1 = new ESCMotor(0, freq);
+    Actuator* M2 = new ESCMotor(1, freq);
+    Actuator* M3 = new ESCMotor(2, freq);
+    Actuator* M4 = new ESCMotor(3, freq);
+    Actuator* M5 = new ESCMotor(4, freq);
+    Actuator* M6 = new ESCMotor(5, freq);
+
+    std::vector<Actuator*> actuators{M1, M2, M3, M4, M5, M6};
+
+    ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
 
     //***********************SETTING USER INPUTS****************************
     msg_emitter* User = new msg_emitter();
 
-    UserMessage* test_user = new UserMessage(123.0, 234.0, 345.0, 1.1234);
+    UserMessage* test_user = new UserMessage(0, -1, 0, 0.0);
 
     //***********************SETTING PID VALUES*****************************
 
     PID_parameters* pid_para_test = new PID_parameters;
-    pid_para_test->kp = 5.0;
-    pid_para_test->ki = 2.0;
-    pid_para_test->kd = 3.0;
-    pid_para_test->kdd = 4.0;
-    pid_para_test->anti_windup = 0.5;
-    pid_para_test->en_pv_derivation = 1;
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 0.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
     X_ControlSystem->changePIDSettings(pid_para_test);
-    Pitch_ControlSystem->changePIDSettings(pid_para_test);
-    Y_ControlSystem->changePIDSettings(pid_para_test);
-    Roll_ControlSystem->changePIDSettings(pid_para_test);
-    Z_ControlSystem->changePIDSettings(pid_para_test);
-    Yaw_ControlSystem->changePIDSettings(pid_para_test);
 
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Pitch_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 0.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Y_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Roll_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Z_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 2.0;
+    pid_para_test->ki = 1.0;
+    pid_para_test->kd = 0.0;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 0;
+    Yaw_ControlSystem->changePIDSettings(pid_para_test);
+    
 
     //***********************SETTING CONNECTIONS****************************
     //========                                                      =============

@@ -26,6 +26,7 @@ Vector3D Vector3DMessage::getData(){
     return _data;
 }
 
+<<<<<<< HEAD
 void Vector3DMessage::setVector3DMessage(Vector3D t_data) {
     _type = msg_type::vector3D_msg;
     _data = t_data;
@@ -35,4 +36,8 @@ void Vector3DMessage::setVector3DMessage(Vector3D t_data, provider_type t_provid
     _type = msg_type::vector3D_msg;
     _provider_type = t_provider_type;
     _data = t_data;
+=======
+provider_type Vector3DMessage::getProviderType(){
+    return _provider_type;
+>>>>>>> d716c09071cd81b785db82b220faf2ac03450c19
 }
