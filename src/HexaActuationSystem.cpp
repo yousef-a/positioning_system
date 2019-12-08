@@ -34,6 +34,8 @@ void HexaActuationSystem::command(){
         _actuators[i]->applyCommand(this->constrain(_commands[i], _escMin, _escMax));
     }
 
+    //  TODO CHECK IF COMMANDS ARE WORKING
+
 }
 
 int HexaActuationSystem::constrain(float value, int min_value, int max_value) {
