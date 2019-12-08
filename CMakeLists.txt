@@ -117,6 +117,8 @@ catkin_package(
 include_directories(
 # include
   ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/Navio2
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/Navio2/Common
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -206,7 +208,8 @@ include_directories(
 # catkin_add_nosetests(test)
 
 FILE(GLOB SOURCE_FILES *.hpp *.cpp
-	      ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/Navio2_cpp/*.cpp
         )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

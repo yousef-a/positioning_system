@@ -17,3 +17,8 @@ DataMessage* HeadingProvider::receive_msg_internal(){
     return (DataMessage*) &m_heading_msg;
     //TODO
 }
+provider_type HeadingProvider::getProviderType(){
+    return _provider_type;
+}
+    
+        

@@ -11,6 +11,7 @@ class MotionCapture : public msg_receiver, public PositioningProvider, public At
         virtual Quaternion getAttitudeHeading() = 0;
         virtual AttitudeMsg getAttitude() = 0; 
         virtual HeadingMsg getHeading() = 0; 
+
         virtual void receive_msg_data(DataMessage* t_msg) = 0;
 
         MotionCapture(std::string, block_type);

@@ -22,3 +22,7 @@ msg_type Vector3DMessage::getType(){
 Vector3D Vector3DMessage::getData(){
     return _data;
 }
+
+provider_type Vector3DMessage::getProviderType(){
+    return _provider_type;
+}
