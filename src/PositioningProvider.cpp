@@ -15,9 +15,6 @@ void PositioningProvider::setHomePosition(Vector3D data){
 
 }
 
-provider_type PositioningProvider::getProviderType(){
-    return _provider_type;
-}
 Vector3D PositioningProvider::getRelativePosition(){
     return _homePos;
 }
