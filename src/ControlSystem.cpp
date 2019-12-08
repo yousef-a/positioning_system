@@ -46,7 +46,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
         }else if(this->getControlSystemType() == control_system::z){
             ReferenceMessage* user_data_z = new ReferenceMessage(user_msg->getZ());
-            std::cout << "Msg received from User. Sending to Z Control System" << std::endl;
+            std::cout << "Msg received from User. Sending to Z Control System " << user_msg->getZ() <<  std::endl;
             this->emit_message((DataMessage*)user_data_z);
 
         }else if(this->getControlSystemType() == control_system::yaw){
