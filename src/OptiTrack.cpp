@@ -34,8 +34,8 @@ HeadingMsg OptiTrack::getHeading(){
     rpy.y = 0.0; 
 
     // std::cout << "getHeading"<< std::endl;
-    // std::cout << "roll: " << rpy.x << std::endl;
-    // std::cout << "pitch: " << rpy.y << std::endl;
+    // // std::cout << "roll: " << rpy.x << std::endl;
+    // // std::cout << "pitch: " << rpy.y << std::endl;
     // std::cout << "yaw: " << rpy.z << std::endl;
 
     return t_heading_msg;

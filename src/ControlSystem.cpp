@@ -17,7 +17,8 @@ ControlSystem::ControlSystem(control_system t_control_system, GeneralStateProvid
     referenceSwitcher = new Switcher("ReferenceSwitcher", switcher_type::reference, _control_system);
     _providerProcessVariable = t_g_s_provider;
     _switchers = {controllerSwitcher, referenceSwitcher};
-    
+    _frequency = t_bf;
+
     this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
@@ -123,6 +124,7 @@ void ControlSystem::addBlock(Block* t_block){
 
 void ControlSystem::changePIDSettings(PID_parameters* t_pid_para){ //TODO refactor through receive_msg, a remote msg should change the pid
 
+    t_pid_para->dt = 1 / (int)_frequency;
     m_change_PID_msg.setControlSystemMessage(control_system_msg_type::change_PID_settings, t_pid_para);
 
     this->emit_message((DataMessage*) &m_change_PID_msg);

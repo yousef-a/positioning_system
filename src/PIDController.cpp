@@ -42,6 +42,7 @@ void PIDController::set_internal_sw(PID_parameters pid_para_x){ //This checks in
 		dd_term= !(pid_para_x.kdd <= 0);
 		en_anti_windup = !(pid_para_x.anti_windup <= 0); //Same check for Anti-Windup
 		en_pv_derivation = pid_para_x.en_pv_derivation;
+		_dt = pid_para_x.dt;
 	}
     
 void PIDController::initialize(void* para){ //Refer to example 1 on how to initialize
@@ -72,20 +73,20 @@ float PIDController::pid_direct(float err, float pv_first, float pv_second) { //
 	{
 		if (en_anti_windup) { //$$$$$$$$$$$$$$$$$$$$ TODO: Optimize! $$$$$$$$$$$$$$$$$$$$$
 			if (fabs(accum_I) < parameters.anti_windup) {
-				accum_I += parameters.ki*err*dt_manual;
+				accum_I += parameters.ki*err*_dt;
 			}
 			else {
-				//float buff_I = accum_I + parameters.ki*err*dt_manual;
+				//float buff_I = accum_I + parameters.ki*err*_dt;
 				//if (abs(buff_I) < parameters.anti_windup) {
 				//	accum_I = buff_I;
 				//}
 				if (((accum_I > 0) && (err < 0))||((accum_I < 0) && (err > 0))) {
-					accum_I += parameters.ki*err*dt_manual;
+					accum_I += parameters.ki*err*_dt;
 				}
 			}
 		}
 		else {
-			accum_I += parameters.ki*err*dt_manual;
+			accum_I += parameters.ki*err*_dt;
 		}
 	}
 	u += accum_I;
@@ -95,7 +96,7 @@ float PIDController::pid_direct(float err, float pv_first, float pv_second) { //
 			u += parameters.kd*(-pv_first);
 		}
 		else {
-			u += parameters.kd*(err - prev_err) / dt_manual;
+			u += parameters.kd*(err - prev_err) / _dt;
 		}
 	}
 	// ************************* DD-term ***************************
@@ -116,10 +117,10 @@ float PIDController::pid_inc(float err, float pv_first,float pv_second) { //Arbi
 	{
 		if (en_anti_windup) { //$$$$$$$$$$$$$$$$$$$$ TODO: Optimize! $$$$$$$$$$$$$$$$$$$$$
 			if (fabs(accum_u)<parameters.anti_windup)
-				accum_u += parameters.ki*err*dt_manual;//os::get_dt()
+				accum_u += parameters.ki*err*_dt;//os::get_dt()
 		}
 		else {
-			accum_u += parameters.ki*err*dt_manual;
+			accum_u += parameters.ki*err*_dt;
 		}
 	}
 	// ************************** D-term ***************************
@@ -128,7 +129,7 @@ float PIDController::pid_inc(float err, float pv_first,float pv_second) { //Arbi
 			accum_u += parameters.kd*(-pv_first + prev_pv_rate);
 		}
 		else {
-			accum_u += parameters.kd*(-err + 2 * prev_err - prev2_err) / dt_manual;
+			accum_u += parameters.kd*(-err + 2 * prev_err - prev2_err) / _dt;
 		}
 	}
 	prev_pv_rate = pv_first;

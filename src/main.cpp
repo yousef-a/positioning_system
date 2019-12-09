@@ -200,17 +200,17 @@ int main(int argc, char** argv) {
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
 
-    while(ros::ok()){
-        ros::spinOnce();
-        rate.sleep();
-    }
-    
     // while(ros::ok()){
-    //     myOptitrackSystem->getPosition();
-    //     myOptitrackSystem->getAttitudeHeading();
     //     ros::spinOnce();
     //     rate.sleep();
     // }
+    
+    while(ros::ok()){
+        //myOptitrackSystem->getPosition();
+        //myOptitrackSystem->getAttitudeHeading();
+        ros::spinOnce();
+        rate.sleep();
+    }
 
     return 0;
 

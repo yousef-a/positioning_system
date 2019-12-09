@@ -80,7 +80,7 @@ bool MRFTController::algorithm(float err, bool& mrft_bag_ready_para, mrft_bag& m
 	// if (mrft_bag_ready_para){
 	// 	mrft_bag_ready_para = false;
 	// }
-	// buff1 = ((-err) - (prev_err)) / dt_manual;//TODO: use Gyro
+	// buff1 = ((-err) - (prev_err)) / _dt;//TODO: use Gyro
 	// prev_err = -err;
 	// if (buff1 >= 0)
 	// {

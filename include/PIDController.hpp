@@ -16,6 +16,7 @@ class PIDController : public Controller{
         //Chehadeh's code
         PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster
+        float _dt;
 	    bool en_pv_derivation = true, en_anti_windup = false;
         void set_internal_sw(PID_parameters pid_para_x);
         //---------------
