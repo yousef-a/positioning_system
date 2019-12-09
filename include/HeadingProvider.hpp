@@ -5,6 +5,8 @@
 
 class HeadingProvider : public Provider{
 
+
+
     public:
 
         virtual HeadingMsg getHeading() = 0;

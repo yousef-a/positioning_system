@@ -14,7 +14,6 @@ public:
     msg_type getType();
     const int getSize();
     Vector3D getData();
-    provider_type getProviderType();
     
     Vector3DMessage(Vector3D);
     Vector3DMessage(Vector3D, provider_type);

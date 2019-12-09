@@ -108,7 +108,8 @@ int main(int argc, char** argv) {
     //***********************SETTING USER INPUTS****************************
     msg_emitter* User = new msg_emitter();
 
-    UserMessage* test_user = new UserMessage(0, -1, 0, 0.0);
+    //Forward is negative pitch, Right is positive roll, CW is positive yaw, Upwards is negative Z
+    UserMessage* test_user = new UserMessage(-1, 0, 0, 0);
 
     //***********************SETTING PID VALUES*****************************
 
@@ -182,7 +183,7 @@ int main(int argc, char** argv) {
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
     User->emit_message((DataMessage*)test_user);
- 
+    
     //******************************LOOP***********************************
     
     pthread_t loop1khz_func_id, loop100hz_func_id; 

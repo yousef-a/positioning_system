@@ -16,7 +16,6 @@ class AttitudeProvider : public Provider{
         
         DataMessage* receive_msg_internal(DataMessage*);
         DataMessage* receive_msg_internal();
-        provider_type getProviderType();
         
         AttitudeProvider(std::string, block_type);
         ~AttitudeProvider();
