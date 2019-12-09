@@ -17,4 +17,3 @@ DataMessage* HeadingProvider::receive_msg_internal(){
     return (DataMessage*) &m_heading_msg;
     //TODO
 }
-        

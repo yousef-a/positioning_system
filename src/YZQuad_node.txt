@@ -1,0 +1,17 @@
+#include <iostream>
+
+#include "linux_serial_comm_device.hpp"
+#include "BaseCommunication.hpp"
+#include "TestRec.hpp"
+
+int main() 
+{
+    std::cout << "Hello Easy C++ project!" << std::endl;
+    TestRec first_rec;
+    LinuxSerialCommDevice* dev1 = new LinuxSerialCommDevice;
+    BaseCommunication* com_stack1 = new BaseCommunication((CommDevice*)dev1);
+    com_stack1->add_callback_msg_receiver((msg_receiver*) &first_rec);
+    std::string port_add = "/dev/ttyACM0";
+    dev1->attach_hardware_sender((void*) &(port_add));
+    while(1);
+}

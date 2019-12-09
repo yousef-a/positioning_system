@@ -13,6 +13,11 @@ msg_type FloatMessage::getType(){
     return _type;
 }
 
+const int FloatMessage::getSize()
+{
+    return sizeof(this);
+}
+
 float FloatMessage::getData(){
     return _data;
 }

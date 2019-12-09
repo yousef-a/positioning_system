@@ -22,6 +22,11 @@ msg_type Vector3DMessage::getType(){
     return _type;
 }
 
+const int Vector3DMessage::getSize()
+{
+    return sizeof(this);
+}
+
 Vector3D Vector3DMessage::getData(){
     return _data;
 }

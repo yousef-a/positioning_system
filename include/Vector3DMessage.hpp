@@ -12,6 +12,7 @@ private:
 public:
 
     msg_type getType();
+    const int getSize();
     Vector3D getData();
     
     Vector3DMessage(Vector3D);

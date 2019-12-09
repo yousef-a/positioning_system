@@ -24,8 +24,7 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
     error.x = _reference_value - pos_msg->getData().x;
     error.y = 0.0 - pos_msg->getData().y ;
     error.z = 0.0 - pos_msg->getData().z;
-
-    if(error.x < 0.05 && error.x > -0.05){
+   if(error.x < 0.05 && error.x > -0.05){
         error.x = 0;
     }
   

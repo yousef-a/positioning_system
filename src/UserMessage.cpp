@@ -27,3 +27,8 @@ float UserMessage::getYaw(){
 msg_type UserMessage::getType(){
     return _type;
 }
+
+const int UserMessage::getSize()
+{
+    return sizeof(this);
+}
