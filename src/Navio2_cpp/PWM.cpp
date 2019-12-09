@@ -11,6 +11,7 @@ bool PWM::init(unsigned int channel)
     err = write_file("/sys/class/pwm/pwmchip0/export", "%u", channel);
     if (err >= 0 || err == -EBUSY)
     {
+        printf("Init channel %u\n", channel);
         return true;
     }
     else 
@@ -33,6 +34,7 @@ bool PWM::enable(unsigned int channel)
         printf("Can't enable channel %u\n", channel);
         return false;
     }
+    printf("Enable channel %u\n", channel);
     return true;
 }
 
