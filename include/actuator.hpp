@@ -1,8 +1,8 @@
 #pragma once
 
 #include "DataMessage.hpp"
-#include "msg_emitter.hpp"
-#include "msg_receiver.hpp"
+#include "MsgEmitter.hpp"
+#include "MsgReceiver.hpp"
 #include "ControlSystemMessage.hpp"
 
 

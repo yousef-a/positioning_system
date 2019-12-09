@@ -11,7 +11,7 @@ class AttitudeProvider : public Provider{
 
     public:
 
-        virtual Vector3D getAttitude() = 0;
+        virtual AttitudeMsg getAttitude() = 0;
         virtual void receive_msg_data(DataMessage* t_msg) = 0;
         
         DataMessage* receive_msg_internal(DataMessage*);

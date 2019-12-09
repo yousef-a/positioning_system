@@ -25,16 +25,12 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
     error.x = _reference_value - pos_msg->getData().x;
     error.y = 0.0 - pos_msg->getData().y ;
     error.z = 0.0 - pos_msg->getData().z;
-
-<<<<<<< HEAD
-    m_error_msg.setVector3DMessage(error);
-=======
-    if(error.x < 0.05){
+    
+    if(error.x < 0.05 && error.x > -0.05){
         error.x = 0;
     }
-
-    Vector3DMessage* error_msg = new Vector3DMessage(error);
->>>>>>> d716c09071cd81b785db82b220faf2ac03450c19
+  
+    m_error_msg.setVector3DMessage(error);
 
     return (DataMessage*) &m_error_msg;
 }

@@ -44,6 +44,12 @@ ControlSystemMessage::~ControlSystemMessage() {
 msg_type ControlSystemMessage::getType(){
     return _type;
 }
+
+const int ControlSystemMessage::getSize()
+{
+    return sizeof(this);
+}
+
 Block* ControlSystemMessage::getBlockToRemove(){
     return _to_remove;
 }

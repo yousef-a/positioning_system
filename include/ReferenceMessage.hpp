@@ -11,6 +11,7 @@ private:
 public:
 
     msg_type getType();
+    const int getSize();
     float getData();
     
     ReferenceMessage(Vector3D);

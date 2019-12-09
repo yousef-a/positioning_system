@@ -13,6 +13,7 @@ private:
 public:
 
     msg_type getType();
+    const int getSize();
     Vector3D getPosition();
     Quaternion getAttitudeHeading();
     void setOptitrackMessage(Vector3D, Quaternion);

@@ -15,6 +15,7 @@ private:
 public:
 
     msg_type getType();
+    const int getSize();
     internal_switcher_type getInternalType();
     Vector3D getVector3DData();
     float getFloatData();
