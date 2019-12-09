@@ -21,7 +21,7 @@ void* Looper::Loop1KHz(void *vargp)
         
         int consumed_time =_loop_timer->tockMicroSeconds();
         if (consumed_time>Loop1KHz_dt){
-            Logger::getAssignedLogger()->log("exceeded loop time",LoggerLevel::Warning);
+            Logger::getAssignedLogger()->log("exceeded loop time 1khz",LoggerLevel::Warning);
             // std::cout << "exceeded loop time" << std::endl;
         }
         else{
@@ -44,7 +44,7 @@ void* Looper::Loop100Hz(void *vargp)
         
         int consumed_time =_loop_timer->tockMicroSeconds();
         if (consumed_time>Loop100Hz_dt){
-            Logger::getAssignedLogger()->log("exceeded loop time",LoggerLevel::Warning);
+            Logger::getAssignedLogger()->log("exceeded loop time 100hz",LoggerLevel::Warning);
             // std::cout << "exceeded loop time" << std::endl;
         }
         else{
