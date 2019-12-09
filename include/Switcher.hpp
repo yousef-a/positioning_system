@@ -23,6 +23,9 @@ class Switcher : public msg_receiver, public msg_emitter{
         Block* _active_block;
         string _name;
         control_system _parent;
+        Vector3DMessage m_process_variable;
+        SwitcherMessage m_reference_msg;
+        SwitcherMessage m_out_switcher_msg;
 
     public:
         void addBlock(Block* b);

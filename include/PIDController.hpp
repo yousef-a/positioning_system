@@ -12,6 +12,7 @@ class PIDController : public Controller{
 
     private:
         controller_type _controller_type;
+        Vector3DMessage m_output_msg;
         //Chehadeh's code
         PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster

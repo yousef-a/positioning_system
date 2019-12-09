@@ -86,15 +86,15 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                     ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
 
-                    Vector3DMessage* process_variable = new Vector3DMessage(data_provided);
+                    m_process_variable.setVector3DMessage(data_provided);
 
-                    DataMessage* output_from_reference = pv_ref_block->receive_msg_internal((DataMessage*)process_variable);
+                    DataMessage* output_from_reference = pv_ref_block->receive_msg_internal((DataMessage*) &m_process_variable);
 
-                    process_variable = (Vector3DMessage*)output_from_reference;
+                    m_process_variable.setVector3DMessage(((Vector3DMessage*)output_from_reference)->getData());
 
-                    SwitcherMessage* reference_msg = new SwitcherMessage(process_variable->getData());
+                    m_reference_msg.setSwitcherMessage(m_process_variable.getData());
                     
-                    this->emit_message((DataMessage*)reference_msg);
+                    this->emit_message((DataMessage*) &m_reference_msg);
 
                 }//TODO add other references as else if
 
@@ -108,9 +108,9 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         DataMessage* output = _active_block->receive_msg_internal((DataMessage*)switcher_msg);
 
         Vector3DMessage* data = (Vector3DMessage*)output;
-        SwitcherMessage* out_switcher_msg = new SwitcherMessage(data->getData());
+        m_out_switcher_msg.setSwitcherMessage(data->getData());
         
-        this->emit_message((DataMessage*)out_switcher_msg);
+        this->emit_message((DataMessage*) &m_out_switcher_msg);
 
     }else if(t_msg->getType() == msg_type::reference){ //TODO User message
 

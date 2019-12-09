@@ -35,35 +35,33 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
         UserMessage* user_msg = (UserMessage*)t_msg;
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
-            ReferenceMessage* user_data_x = new ReferenceMessage(user_msg->getX());
+            m_ref_msg_x.setReferenceMessage(user_msg->getX());
             std::cout << "Msg received from User. Sending to X Control System" << std::endl;
-            this->emit_message((DataMessage*)user_data_x);
+            this->emit_message((DataMessage*) &m_ref_msg_x);
 
         }else if(this->getControlSystemType() == control_system::y){
-            ReferenceMessage* user_data_y = new ReferenceMessage(user_msg->getY());
+            m_ref_msg_y.setReferenceMessage(user_msg->getY());
             std::cout << "Msg received from User. Sending to Y Control System" << std::endl;
-            this->emit_message((DataMessage*)user_data_y);
+            this->emit_message((DataMessage*) &m_ref_msg_y);
 
         }else if(this->getControlSystemType() == control_system::z){
-            ReferenceMessage* user_data_z = new ReferenceMessage(user_msg->getZ());
-            std::cout << "Msg received from User. Sending to Z Control System " << user_msg->getZ() <<  std::endl;
-            this->emit_message((DataMessage*)user_data_z);
+            m_ref_msg_z.setReferenceMessage(user_msg->getZ());
+            std::cout << "Msg received from User. Sending to Z Control System" << std::endl;
+            this->emit_message((DataMessage*) &m_ref_msg_z);
 
         }else if(this->getControlSystemType() == control_system::yaw){
-            ReferenceMessage* user_data_yaw = new ReferenceMessage(user_msg->getYaw());
+            m_ref_msg_yaw.setReferenceMessage(user_msg->getYaw());
             std::cout << "Msg received from User. Sending to Yaw Control System" << std::endl;
-            this->emit_message((DataMessage*)user_data_yaw);
-
+            this->emit_message((DataMessage*) &m_ref_msg_yaw);
         }
     // (2)
     }else if(t_msg->getType() == msg_type::switcher){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
 
-        ControlSystemMessage* output = new ControlSystemMessage(this->getControlSystemType(), control_system_msg_type::to_system, 
-                                                                switcher_msg->getVector3DData());
+        m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::to_system, switcher_msg->getVector3DData());
 
-        this->emit_message((DataMessage*)output);
+        this->emit_message((DataMessage*) &m_output_msg);
             
     // (3)
     }else if(t_msg->getType() == msg_type::control_system){
@@ -72,9 +70,9 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
         if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_system){
             
-            ReferenceMessage* output = new ReferenceMessage(control_system_msg->getV3DData());
+            m_ref_out_msg.setReferenceMessage(control_system_msg->getV3DData());
             
-            this->emit_message((DataMessage*)output);
+            this->emit_message((DataMessage*) &m_ref_out_msg);
         }
         
 
@@ -106,28 +104,26 @@ Switcher* ControlSystem::getReferenceSwitcher(){
 
 void ControlSystem::loopInternal(){
     Vector3D data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
-    ControlSystemMessage* provider_data_msg = new ControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
+    m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
 
-    this->emit_message((DataMessage*)provider_data_msg);
+    this->emit_message((DataMessage*) &m_provider_data_msg);
 }
 
 void ControlSystem::switchBlock(Block* t_from, Block* t_to){
-    ControlSystemMessage* switch_msg = new ControlSystemMessage(control_system_msg_type::switch_in_out, t_from, t_to);
+    m_switch_msg.setControlSystemMessage(control_system_msg_type::switch_in_out, t_from, t_to);
     
-    this->emit_message((DataMessage*)switch_msg);
+    this->emit_message((DataMessage*) &m_switch_msg);
 }
 
 void ControlSystem::addBlock(Block* t_block){
-    ControlSystemMessage* add_block_msg = new ControlSystemMessage(control_system_msg_type::add_block, t_block);
+    m_add_block_msg.setControlSystemMessage(control_system_msg_type::add_block, t_block);
 
-    this->emit_message((DataMessage*)add_block_msg);
-
+    this->emit_message((DataMessage*) &m_add_block_msg);
 }
 
 void ControlSystem::changePIDSettings(PID_parameters* t_pid_para){ //TODO refactor through receive_msg, a remote msg should change the pid
 
-    ControlSystemMessage* change_PID_msg = new ControlSystemMessage(control_system_msg_type::change_PID_settings, t_pid_para);
+    m_change_PID_msg.setControlSystemMessage(control_system_msg_type::change_PID_settings, t_pid_para);
 
-    this->emit_message((DataMessage*)change_PID_msg);
-
+    this->emit_message((DataMessage*) &m_change_PID_msg);
 }

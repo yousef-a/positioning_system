@@ -9,6 +9,7 @@ class ProcessVariableReference : public Reference{
 private:
     reference_type _reference_type;
     float _reference_value;
+    Vector3DMessage m_error_msg;
 
 public:
     reference_type getReferenceType();

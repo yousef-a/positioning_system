@@ -25,9 +25,9 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 	command.y = 0.0;
 	command.z = 0.0;
 	std::cout << "pid_output: " << command.x << std::endl;
-    Vector3DMessage* output_msg = new Vector3DMessage(command);
+    m_output_msg.setVector3DMessage(command);
 
-	return (DataMessage*)output_msg;
+	return (DataMessage*) &m_output_msg;
 }
 
 controller_type PIDController::getControllerType(){

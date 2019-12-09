@@ -21,8 +21,13 @@ public:
     switcher_type getSource();
     switcher_type getDestination();
 
+    void setSwitcherMessage(switcher_type, switcher_type, internal_switcher_type, Vector3D);
+    void setSwitcherMessage(switcher_type, switcher_type, internal_switcher_type, float);
+    void setSwitcherMessage(Vector3D);
+
     SwitcherMessage(switcher_type, switcher_type, internal_switcher_type, Vector3D);
     SwitcherMessage(switcher_type, switcher_type, internal_switcher_type, float);
     SwitcherMessage(Vector3D);
+    SwitcherMessage();
     ~SwitcherMessage();
 };

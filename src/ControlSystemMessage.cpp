@@ -34,6 +34,9 @@ ControlSystemMessage::ControlSystemMessage(control_system t_source, control_syst
     _v3d_data = t_data;
 }
 
+ControlSystemMessage::ControlSystemMessage(){
+}
+
 ControlSystemMessage::~ControlSystemMessage() {
 
 }
@@ -64,4 +67,37 @@ float ControlSystemMessage::getData(){
 }
 Vector3D ControlSystemMessage::getV3DData(){
     return _v3d_data;
+}
+
+void ControlSystemMessage::setControlSystemMessage(control_system_msg_type t_type, Block* t_to_remove, Block* t_to_add) {
+    _to_remove = t_to_remove;
+    _to_add = t_to_add;
+    _type = msg_type::control_system;
+    _control_system_msg_type = t_type;
+}
+
+void ControlSystemMessage::setControlSystemMessage(control_system_msg_type t_type, Block* t_to_add) {
+    _to_add = t_to_add;
+    _type = msg_type::control_system;
+    _control_system_msg_type = t_type;
+}
+
+void ControlSystemMessage::setControlSystemMessage(control_system_msg_type t_type, PID_parameters* t_pid_para){
+    _control_system_msg_type = t_type;
+    _pid_para = t_pid_para;
+    _type = msg_type::control_system;
+}
+
+void ControlSystemMessage::setControlSystemMessage(control_system t_source, control_system t_destination, control_system_msg_type t_type, float t_data){
+    _type = msg_type::control_system;
+    _source = t_source;
+    _destination = t_destination;
+    _control_system_msg_type = t_type;
+    _data = t_data;
+}
+
+void ControlSystemMessage::setControlSystemMessage(control_system t_source, control_system_msg_type t_type, Vector3D t_data){
+    _type = msg_type::control_system;
+    _source = t_source;
+    _control_system_msg_type = t_type;
 }
