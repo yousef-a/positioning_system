@@ -4,7 +4,7 @@
 OptiTrack::OptiTrack(std::string t_name, block_type t_type) : MotionCapture(t_name, t_type){
     Quaternion _bodyAtt;
     Vector3D _bodyPos;
-    std::cout << "Optitrack constructor" << std::endl;
+    // std::cout << "Optitrack constructor" << std::endl;
 }
 
 OptiTrack::~OptiTrack() {
@@ -18,10 +18,10 @@ AttitudeMsg OptiTrack::getAttitude(){
     t_att_msg.pitch = rpy.y;
     //rpy.z = 0.0;
 
-    std::cout << "getAttitude"<< std::endl;
-    std::cout << "roll: " << rpy.x << std::endl;
-    std::cout << "pitch: " << rpy.y << std::endl;
-    std::cout << "yaw: " << rpy.z << std::endl;
+    // std::cout << "getAttitude"<< std::endl;
+    // std::cout << "roll: " << rpy.x << std::endl;
+    // std::cout << "pitch: " << rpy.y << std::endl;
+    // std::cout << "yaw: " << rpy.z << std::endl;
 
     return t_att_msg;
 }
@@ -33,21 +33,21 @@ HeadingMsg OptiTrack::getHeading(){
     rpy.x = 0.0;
     rpy.y = 0.0; 
 
-    std::cout << "getHeading"<< std::endl;
-    std::cout << "roll: " << rpy.x << std::endl;
-    std::cout << "pitch: " << rpy.y << std::endl;
-    std::cout << "yaw: " << rpy.z << std::endl;
+    // std::cout << "getHeading"<< std::endl;
+    // std::cout << "roll: " << rpy.x << std::endl;
+    // std::cout << "pitch: " << rpy.y << std::endl;
+    // std::cout << "yaw: " << rpy.z << std::endl;
 
     return t_heading_msg;
 }
 
 Quaternion OptiTrack::getAttitudeHeading(){
 
-    std::cout << "getAttitudeHeading"<< std::endl;
-    std::cout << "x: " << _bodyAtt.x << std::endl;
-    std::cout << "y: " << _bodyAtt.y << std::endl;
-    std::cout << "z: " << _bodyAtt.z << std::endl;
-    std::cout << "w: " << _bodyAtt.w << std::endl;
+    // std::cout << "getAttitudeHeading"<< std::endl;
+    // std::cout << "x: " << _bodyAtt.x << std::endl;
+    // std::cout << "y: " << _bodyAtt.y << std::endl;
+    // std::cout << "z: " << _bodyAtt.z << std::endl;
+    // std::cout << "w: " << _bodyAtt.w << std::endl;
     
     return _bodyAtt;
 }
@@ -58,10 +58,10 @@ PositionMsg OptiTrack::getPosition(){
     t_pos_msg.x = _bodyPos.x;
     t_pos_msg.y = _bodyPos.y;
     t_pos_msg.z = _bodyPos.z;
-    std::cout << "getPosition"<< std::endl;
-    std::cout << "x: " << _bodyPos.x << std::endl;
-    std::cout << "y: " << _bodyPos.y << std::endl;
-    std::cout << "z: " << _bodyPos.z << std::endl;
+    // std::cout << "getPosition"<< std::endl;
+    // std::cout << "x: " << _bodyPos.x << std::endl;
+    // std::cout << "y: " << _bodyPos.y << std::endl;
+    // std::cout << "z: " << _bodyPos.z << std::endl;
     
     return t_pos_msg;
 }

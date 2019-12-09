@@ -21,7 +21,7 @@ void HexaActuationSystem::command(){
         for(int j = 0; j < 4; j++){
             _commands[i] += _geometry[i][j] * _movements[j];
         }
-        std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
+        // std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
     }
 
     //_movements (PID outputs) should be between 0 and 1. Thus, we have to adjust for the range 1000 to 2000 on _commands.
@@ -57,28 +57,28 @@ void HexaActuationSystem::receive_msg_data(DataMessage* t_msg){
             {
                 _movements[0] = control_system_msg->getV3DData().x;
                 //_movements[0] = 0;
-                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
+                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
                 break;
             }
             case control_system::roll:
             {
                 _movements[1] = control_system_msg->getV3DData().x;
                 //_movements[1] = 0;
-                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
+                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
                 break;
             }
             case control_system::yaw:
             {
                 _movements[2] = control_system_msg->getV3DData().x;
                 //_movements[2] = 0;
-                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
+                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
                 break;
             }
             case control_system::z:
             {
                 _movements[3] = control_system_msg->getV3DData().x;
                 //_movements[3] = 0;
-                std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
+                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
                 break;
             }
             default:

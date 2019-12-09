@@ -21,7 +21,7 @@
 #include "../include/esc_motor.hpp"
 
 int main(int argc, char** argv) {
-    std::cout << "Hello Easy C++ project!" << std::endl;
+    // std::cout << "Hello Easy C++ project!" << std::endl;
 
     ros::init(argc, argv, "testing_node");
 

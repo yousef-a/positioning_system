@@ -72,8 +72,8 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 if(controller_block->getControllerType() == controller_type::pid){
                     PIDController* pid_block = (PIDController*)controller_block;
                     pid_block->initialize(control_system_msg->getPIDSettings());
-                    std::cout << "Active Block: " << controller_block->getName() << std::endl;
-                    std::cout << "CHANGING PID PARAMETERS" << std::endl;
+                    // std::cout << "Active Block: " << controller_block->getName() << std::endl;
+                    // std::cout << "CHANGING PID PARAMETERS" << std::endl;
                 } //TODO else if MRFT
             } 
         } else if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::provider_data){
@@ -122,7 +122,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                 ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
                 pv_ref_block->setReferenceValue(reference->getData());
-                std::cout << "........................Setting Process variable" << std::endl;
+                // std::cout << "........................Setting Process variable" << std::endl;
             }
            
         }

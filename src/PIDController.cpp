@@ -17,14 +17,14 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 	SwitcherMessage* controller_msg = (SwitcherMessage*)t_msg;
 
     Vector3D data = controller_msg->getVector3DData();
-	std::cout << "error: " << data.x << std::endl;
-	std::cout << "pv_first: " << data.y << std::endl;
-	std::cout << "pv_second: " << data.z << std::endl;
+	// std::cout << "error: " << data.x << std::endl;
+	// std::cout << "pv_first: " << data.y << std::endl;
+	// std::cout << "pv_second: " << data.z << std::endl;
     Vector3D command;
 	command.x = pid_direct(data.x, data.y, data.z);
 	command.y = 0.0;
 	command.z = 0.0;
-	std::cout << "pid_output: " << command.x << std::endl;
+	// std::cout << "pid_output: " << command.x << std::endl;
     m_output_msg.setVector3DMessage(command);
 
 	return (DataMessage*) &m_output_msg;
@@ -53,13 +53,13 @@ void PIDController::initialize(void* para){ //Refer to example 1 on how to initi
 		prev2_err = 0;
 		prev_pv_rate = 0;
 
-		// std::cout << "PID SETTINGS: " << std::endl;
-		// std::cout << "Kp Term: " << parameters.kp << std::endl;
-		// std::cout << "Ki Term: " << parameters.ki << std::endl;
-		// std::cout << "Kd Term: " << parameters.kd << std::endl;
-		// std::cout << "Kdd Term: " << parameters.kdd << std::endl;
-		// std::cout << "Anti Windup Term: " << parameters.anti_windup << std::endl;
-		// std::cout << "en_pv_derivation Term: " << static_cast<int>(parameters.en_pv_derivation) << std::endl;
+		// // std::cout << "PID SETTINGS: " << std::endl;
+		// // std::cout << "Kp Term: " << parameters.kp << std::endl;
+		// // std::cout << "Ki Term: " << parameters.ki << std::endl;
+		// // std::cout << "Kd Term: " << parameters.kd << std::endl;
+		// // std::cout << "Kdd Term: " << parameters.kdd << std::endl;
+		// // std::cout << "Anti Windup Term: " << parameters.anti_windup << std::endl;
+		// // std::cout << "en_pv_derivation Term: " << static_cast<int>(parameters.en_pv_derivation) << std::endl;
 
 	}
 
