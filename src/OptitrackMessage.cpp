@@ -17,6 +17,11 @@ OptitrackMessage::~OptitrackMessage() {
 msg_type OptitrackMessage::getType(){
     return _type;
 }
+
+const int OptitrackMessage::getSize()
+{
+    return sizeof(this);
+}
     
 Vector3D OptitrackMessage::getPosition(){
     return _position;

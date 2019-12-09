@@ -25,6 +25,12 @@ PID_data* ControllerMessage::getData(){
 msg_type ControllerMessage::getType(){
     return _type;
 }
+
+const int ControllerMessage::getSize()
+{
+    return sizeof(this);
+}
+
 controller_msg_type ControllerMessage::getControllerMsgType(){
     return _controller_msg_type;
 }

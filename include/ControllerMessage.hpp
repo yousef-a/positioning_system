@@ -13,6 +13,7 @@ private:
 
 public:
     PID_data* getData();
+    const int getSize();
     // PID_parameters* getSettings();
     msg_type getType();
     controller_msg_type getControllerMsgType();

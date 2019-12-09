@@ -53,6 +53,11 @@ msg_type SwitcherMessage::getType(){
     return _type;
 }
 
+const int SwitcherMessage::getSize()
+{
+    return sizeof(this);
+}
+
 internal_switcher_type SwitcherMessage::getInternalType(){
     return _internal_type;
 }

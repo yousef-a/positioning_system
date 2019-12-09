@@ -14,6 +14,7 @@ public:
     float getZ();
     float getYaw();
     msg_type getType();
+    const int getSize();
 
     UserMessage(float,float,float,float);
     ~UserMessage();

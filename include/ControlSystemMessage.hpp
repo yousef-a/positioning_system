@@ -19,6 +19,7 @@ private:
 
 public:
     msg_type getType();
+    const int getSize();
     Block* getBlockToRemove();
     Block* getBlockToAdd();
     control_system_msg_type getControlSystemMsgType();
