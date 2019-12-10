@@ -27,7 +27,7 @@ void HexaActuationSystem::command(){
     //Normalize
     for(int i = 0; i < 6; i++){
         _commands[i] = (_commands[i] * 1000) + 1000;
-        std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
+        //std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
     }
     
     //Actuate with constrains

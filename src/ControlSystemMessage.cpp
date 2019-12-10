@@ -106,4 +106,5 @@ void ControlSystemMessage::setControlSystemMessage(control_system t_source, cont
     _type = msg_type::control_system;
     _source = t_source;
     _control_system_msg_type = t_type;
+    _v3d_data = t_data;
 }

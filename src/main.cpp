@@ -134,7 +134,7 @@ int main(int argc, char** argv) {
     msg_emitter* User = new msg_emitter();
 
     //Forward is negative pitch, Right is positive roll, CW is positive yaw, Upwards is negative Z
-    UserMessage* test_user = new UserMessage(0, 1, 0, 0);
+    UserMessage* test_user = new UserMessage(0, 0, 0, 0);
 
     //***********************SETTING PID VALUES*****************************
 
