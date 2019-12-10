@@ -6,28 +6,11 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
-  genmsg
-  cv_bridge
-  sensor_msgs
-  message_generation
-  image_transport
-)
-
-find_package(OpenCV REQUIRED)
-
-add_message_files(
-  FILES
-  temp_range.msg
-)
-
-generate_messages(
-  DEPENDENCIES
-  std_msgs
 )
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp std_msgs message_runtime cv_bridge image_transport sensor_msgs
+  CATKIN_DEPENDS roscpp std_msgs
 )
 
 include_directories(
@@ -35,8 +18,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/Navio2
   ${CMAKE_CURRENT_SOURCE_DIR}/include/Navio2/Common
   ${catkin_INCLUDE_DIRS}
-  include
-  ${OpenCV_INCLUDE_DIRS}
 )
 
 
