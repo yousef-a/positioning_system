@@ -21,13 +21,13 @@ void HexaActuationSystem::command(){
         for(int j = 0; j < 4; j++){
             _commands[i] += _geometry[i][j] * _movements[j];
         }
-        // std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
     }
 
     //_movements (PID outputs) should be between 0 and 1. Thus, we have to adjust for the range 1000 to 2000 on _commands.
     //Normalize
     for(int i = 0; i < 6; i++){
         _commands[i] = (_commands[i] * 1000) + 1000;
+        std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
     }
     
     //Actuate with constrains

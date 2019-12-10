@@ -134,7 +134,7 @@ int main(int argc, char** argv) {
     msg_emitter* User = new msg_emitter();
 
     //Forward is negative pitch, Right is positive roll, CW is positive yaw, Upwards is negative Z
-    UserMessage* test_user = new UserMessage(0, 0, 0, 0);
+    UserMessage* test_user = new UserMessage(0, 1, 0, 0);
 
     //***********************SETTING PID VALUES*****************************
 
@@ -227,8 +227,8 @@ int main(int argc, char** argv) {
     performCalibration(myIMU);
 
     while(ros::ok()){
-        std::cout << "pitch " << myAttObserver.filtered_attitude.pitch * 180.f/3.14 << std::endl;
-        std::cout << "roll " << myAttObserver.filtered_attitude.roll * 180.f/3.14 << std::endl;
+        //std::cout << "pitch " << myAttObserver.filtered_attitude.pitch * 180.f/3.14 << std::endl;
+        //std::cout << "roll " << myAttObserver.filtered_attitude.roll * 180.f/3.14 << std::endl;
         ros::spinOnce();
         rate.sleep();
     }
