@@ -310,9 +310,9 @@ void MPU9250::update()
     for(i=0; i<3; i++) {
         bit_data[i] = ((int16_t)response[i*2] << 8) | response[i*2+1];
     }
-    _rax = bit_data[0];
-    _ray = bit_data[1];
-    _raz = bit_data[2];
+    _rax = (int) bit_data[0];
+    _ray = (int) bit_data[1];
+    _raz = (int) bit_data[2];
     _ax = G_SI * bit_data[0] / acc_divider;
     _ay = G_SI * bit_data[1] / acc_divider;
     _az = G_SI * bit_data[2] / acc_divider;
@@ -325,9 +325,9 @@ void MPU9250::update()
     for(i=4; i<7; i++) {
         bit_data[i-4] = ((int16_t)response[i*2] << 8) | response[i*2+1];
     }
-    _rgx = bit_data[0];
-    _rgy = bit_data[1];
-    _rgz = bit_data[2];
+    _rgx = (int) bit_data[0];
+    _rgy = (int) bit_data[1];
+    _rgz = (int) bit_data[2];
     _gx = (PI / 180) * bit_data[0] / gyro_divider;
     _gy = (PI / 180) * bit_data[1] / gyro_divider;
     _gz = (PI / 180) * bit_data[2] / gyro_divider;
@@ -336,9 +336,9 @@ void MPU9250::update()
     for(i=7; i<10; i++) {
         bit_data[i-7] = ((int16_t)response[i*2+1] << 8) | response[i*2];
     }
-    _rmx = bit_data[0];
-    _rmy = bit_data[1];
-    _rmz = bit_data[2];
+    _rmx = (int) bit_data[0];
+    _rmy = (int) bit_data[1];
+    _rmz = (int) bit_data[2];
     _mx = bit_data[0] * magnetometer_ASA[0];
     _my = bit_data[1] * magnetometer_ASA[1];
     _mz = bit_data[2] * magnetometer_ASA[2];

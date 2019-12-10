@@ -19,6 +19,7 @@
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
 #include "../include/esc_motor.hpp"
+#include "../include/HeatCenterProvider.hpp"
 
 int main(int argc, char** argv) {
     std::cout << "Hello Easy C++ project!" << std::endl;
