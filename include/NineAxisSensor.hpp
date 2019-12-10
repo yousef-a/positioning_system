@@ -1,14 +1,16 @@
 #pragma once 
 
-#include "ThreeAxisSensor.hpp"
+#include "Acc.hpp"
+#include "Gyro.hpp"
+#include "Mag.hpp"
 
 class NineAxisSensor
 {
 public:
 
-	virtual ThreeAxisSensor* getAcc() = 0;
-	virtual ThreeAxisSensor* getGyro() = 0;
-	virtual ThreeAxisSensor* getMag() = 0;
+	virtual Acc* getAcc() = 0;
+	virtual Gyro* getGyro() = 0;
+	virtual Mag* getMag() = 0;
 	virtual void setSettings(sens_type, setting_type, int) = 0;
 
 };

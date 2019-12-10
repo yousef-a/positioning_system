@@ -19,6 +19,7 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
         Switcher* referenceSwitcher;
         GeneralStateProvider* _providerProcessVariable;
         std::vector<Switcher*> _switchers;
+        block_frequency _frequency;
         // ControlSystem();
         ReferenceMessage m_ref_msg_x;
         ReferenceMessage m_ref_msg_y;

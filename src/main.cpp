@@ -19,9 +19,15 @@
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
 #include "../include/esc_motor.hpp"
+#include "../include/NavioMPU9250Sensor.hpp"
+#include "../include/AccGyroAttitudeObserver.hpp"
+#include "../include/GyroMagHeadingObserver.hpp"
+#include "../include/ComplementaryFilter.hpp"
+
+void performCalibration(NAVIOMPU9250_sensor*);
 
 int main(int argc, char** argv) {
-    std::cout << "Hello Easy C++ project!" << std::endl;
+    // std::cout << "Hello Easy C++ project!" << std::endl;
 
     ros::init(argc, argv, "testing_node");
 
@@ -33,12 +39,31 @@ int main(int argc, char** argv) {
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
 
+    //***********************ADDING SENSORS********************************
+    NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
+    myIMU->setSettings(ACCELEROMETER, FSR, 16);
+    myIMU->setSettings(GYROSCOPE, FSR, 2000);
+    myIMU->setSettings(MAGNETOMETER, FSR, 16);
+
     //***********************SETTING PROVIDERS**********************************
     MotionCapture* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
     PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
-    AttitudeProvider* myAttProvider = (AttitudeProvider*)myOptitrackSystem;
+    AccGyroAttitudeObserver myAttObserver("IMU Navio", block_type::provider, 
+                                         (BodyAccProvider*) myIMU->getAcc(), 
+                                         (BodyRateProvider*) myIMU->getGyro());
+
     HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
     
+    ComplementaryFilter filter1, filter2, filter3;
+
+    ComplementaryFilterSettings settings(false, 0.001);
+
+    myAttObserver.setFilterType(&filter1, &filter2);
+    myAttObserver.updateSettings(&settings, 0.05);
+
+    AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
+    //AttitudeProvider* myAttProvider = (AttitudeProvider*) myOptitrackSystem;
+
     GeneralStateProvider* my_general_state_provider = new GeneralStateProvider(myAttProvider, myPosProvider, myHeadProvider);
 
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
@@ -109,7 +134,7 @@ int main(int argc, char** argv) {
     msg_emitter* User = new msg_emitter();
 
     //Forward is negative pitch, Right is positive roll, CW is positive yaw, Upwards is negative Z
-    UserMessage* test_user = new UserMessage(-1, 0, 0, 0);
+    UserMessage* test_user = new UserMessage(0, 0, 0, 0);
 
     //***********************SETTING PID VALUES*****************************
 
@@ -199,19 +224,56 @@ int main(int argc, char** argv) {
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
+    performCalibration(myIMU);
 
     while(ros::ok()){
+        //std::cout << "pitch " << myAttObserver.filtered_attitude.pitch * 180.f/3.14 << std::endl;
+        //std::cout << "roll " << myAttObserver.filtered_attitude.roll * 180.f/3.14 << std::endl;
         ros::spinOnce();
         rate.sleep();
     }
     
-    // while(ros::ok()){
-    //     myOptitrackSystem->getPosition();
-    //     myOptitrackSystem->getAttitudeHeading();
-    //     ros::spinOnce();
-    //     rate.sleep();
-    // }
-
     return 0;
+
+}
+
+void performCalibration(NAVIOMPU9250_sensor* t_imu){
+    Timer* _calib_timer = new Timer();
+    int consumed_time = 0;
+    
+    //1 second of garbage
+    _calib_timer->tick();
+    while(consumed_time < 1000){
+        consumed_time = _calib_timer->tockMilliSeconds();
+        t_imu->getAcc()->getCalibratedData();
+        t_imu->getGyro()->getCalibratedData();
+    }
+
+    std::cout << "1 Second passed" << std::endl;
+    
+    t_imu->getAcc()->startCalibration();
+    t_imu->getGyro()->startCalibration(); 
+    std::cout << "CALIBRATION STARTED..." << std::endl;
+
+    _calib_timer->tick();
+    consumed_time = 0;
+    std::cout << "CALIBRATION RUNNING....................................................................." << std::endl;
+    while(consumed_time < 5000){
+        consumed_time = _calib_timer->tockMilliSeconds();     
+        t_imu->getAcc()->getCalibratedData();
+        t_imu->getGyro()->getCalibratedData(); 
+    }
+
+
+    std::cout << "5 Second passed" << std::endl;
+    t_imu->getAcc()->stopCalibration();
+    t_imu->getGyro()->stopCalibration();
+    std::cout << "CALIBRATION ENDED" << std::endl;
+
+    _calib_timer->tick();
+    consumed_time = 0;
+    while(consumed_time < 5000){
+        consumed_time = _calib_timer->tockMilliSeconds();    
+    }
 
 }

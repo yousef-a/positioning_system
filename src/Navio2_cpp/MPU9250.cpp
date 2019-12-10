@@ -4,7 +4,8 @@ Adapted for Raspberry Pi by Mikhail Avkhimenia (mikhail.avkhimenia@emlid.com)
 */
 
 #include "MPU9250.h"
-
+#include <iostream>
+//TODO remove
 #define G_SI 9.80665
 #define PI   3.14159
 
@@ -137,7 +138,7 @@ bool MPU9250::initialize()
         usleep(100000);  //I2C must slow down the write speed, otherwise it won't work
     }
 
-    calib_mag();
+    //calib_mag();
     return 0;
 }
 /*-----------------------------------------------------------------------------------------------

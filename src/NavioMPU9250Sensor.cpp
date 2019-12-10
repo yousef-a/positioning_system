@@ -1,30 +1,36 @@
 #include "NavioMPU9250Sensor.hpp"
+#include <iostream>
+//TODO remove
 
 NAVIOMPU9250_sensor::NAVIOMPU9250_sensor() //TODO: we need to add a logger for imu fail!!!
 {
+	
 	if(_imu.probe())
 	{
 		_imu.initialize();
+		std::cout << "init imu" << std::endl;
 	}
 	else
 	{
-		//add warning here
+		while(1){
+			std::cout << "FAILED TO START IMU" << std::endl;
+		}
 	}
 }
 
-ThreeAxisSensor* NAVIOMPU9250_sensor::getAcc()
+Acc* NAVIOMPU9250_sensor::getAcc()
 {
-	return _acc;
+	return (Acc*) _acc;
 }
 
-ThreeAxisSensor* NAVIOMPU9250_sensor::getGyro()
+Gyro* NAVIOMPU9250_sensor::getGyro()
 {
-	return _gyro;
+	return (Gyro*) _gyro;
 }
 
-ThreeAxisSensor* NAVIOMPU9250_sensor::getMag()
+Mag* NAVIOMPU9250_sensor::getMag()
 {
-	return _mag;
+	return (Mag*) _mag;
 }
 
 void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type setting_name, int val)
@@ -49,7 +55,7 @@ void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type settin
 		else if(sensor_name == GYROSCOPE)
 		{
 			//TODO: see acc notes
-			_gyro->setSettings(SENS, 16.4f);
+			_gyro->setSettings(SENS, 16.f);
 		}
 		else if(sensor_name == MAGNETOMETER)
 		{

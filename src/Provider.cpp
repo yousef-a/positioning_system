@@ -18,10 +18,10 @@ block_type Provider::getType(){
 void Provider::switchIn(DataMessage* data){
     // Vector3DMessage* pos_msg = (Vector3DMessage*)t_pos_msg;
     
-    // std::cout << "Switch In with Message: \n";
-    // std::cout << "X: " << pos_msg->getData().x << std::endl;
-    // std::cout << "Y: " << pos_msg->getData().y << std::endl;
-    // std::cout << "Z: " << pos_msg->getData().z << std::endl;
+    // // std::cout << "Switch In with Message: \n";
+    // // std::cout << "X: " << pos_msg->getData().x << std::endl;
+    // // std::cout << "Y: " << pos_msg->getData().y << std::endl;
+    // // std::cout << "Z: " << pos_msg->getData().z << std::endl;
 }
 DataMessage* Provider::switchOut(){
     //TODO implement

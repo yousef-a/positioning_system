@@ -10,6 +10,9 @@ void* Looper::Loop1KHz(void *vargp)
 { 
     Timer* _loop_timer = new Timer();
     
+    int j = 0;
+    int p = 0;
+
     while(1){
         _loop_timer->tick();
 
@@ -21,11 +24,15 @@ void* Looper::Loop1KHz(void *vargp)
         
         int consumed_time =_loop_timer->tockMicroSeconds();
         if (consumed_time>Loop1KHz_dt){
-            Logger::getAssignedLogger()->log("exceeded loop time",LoggerLevel::Warning);
-            std::cout << "exceeded loop time" << std::endl;
+            //Logger::getAssignedLogger()->log("exceeded loop time 1khz ",LoggerLevel::Warning);
+            std::cout << "Consumed Time 1kHz" << consumed_time << std::endl;
+            //std::cout << "Exceeded: " << j++ << std::endl;
+
         }
         else{
+            //std::cout << "Sleep Time" << Loop1KHz_dt-consumed_time << std::endl;
             usleep(Loop1KHz_dt-consumed_time);
+            std::cout << "Fine: " << p++ << std::endl;
         }
     }
 } 
@@ -44,8 +51,8 @@ void* Looper::Loop100Hz(void *vargp)
         
         int consumed_time =_loop_timer->tockMicroSeconds();
         if (consumed_time>Loop100Hz_dt){
-            Logger::getAssignedLogger()->log("exceeded loop time",LoggerLevel::Warning);
-            std::cout << "exceeded loop time" << std::endl;
+            Logger::getAssignedLogger()->log("exceeded loop time 100hz",LoggerLevel::Warning);
+            // std::cout << "exceeded loop time" << std::endl;
         }
         else{
             usleep(Loop100Hz_dt-consumed_time);

@@ -22,25 +22,35 @@ AttitudeMsg AccGyroAttitudeObserver::getAttitude()
 {
     AttitudeMsg acc_attitude;
     acc_data = m_acc->getBodyAcceleration();
-    gyro_data = m_rate->getBodyRate();
+    gyro_data = m_rate->getBodyRate() * (M_PI/180);
+    //gyro_data = 0;
+    //acc_data = 0;
     acc_attitude = getAccAttitude();
+
+    //std::cout << "HERE " << sqrt((acc_data.x*acc_data.x) + (acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)) << std::endl;
     if(fabs(sqrt((acc_data.x*acc_data.x) + (acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)) - grav) > m_val_threshold)
     {
-        filtered_attitude.pitch = m_pitch_filter->getFilteredData(gyro_data.y);
-        filtered_attitude.roll = m_roll_filter->getFilteredData(gyro_data.x);
+        //std::cout << "HERE" << sqrt((acc_data.x*acc_data.x) + (acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)) << std::endl;
+        filtered_attitude.pitch = m_pitch_filter->getFilteredData(gyro_data.x);
+        filtered_attitude.roll = m_roll_filter->getFilteredData(gyro_data.y);
     }
     else
     {
-        filtered_attitude.pitch = m_pitch_filter->getFilteredData(acc_attitude.pitch, gyro_data.y);
-        filtered_attitude.roll = m_roll_filter->getFilteredData(acc_attitude.roll, gyro_data.x);
+        //std::cout << "OR HERE" << std::endl;
+        filtered_attitude.pitch = m_pitch_filter->getFilteredData(acc_attitude.pitch, gyro_data.x);
+        filtered_attitude.roll = m_roll_filter->getFilteredData(acc_attitude.roll, gyro_data.y);
     }
+
+    //std::cout << "Pitch: " << filtered_attitude.pitch << std::endl;
+    //std::cout << "Roll: " << filtered_attitude.roll << std::endl;
+
     return filtered_attitude;    
 }
 
 AttitudeMsg AccGyroAttitudeObserver::getAccAttitude()
 {
     AttitudeMsg acc_att;
-    acc_att.pitch =  atan2(-acc_data.x , sqrt((acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)));
-    acc_att.roll = atan2( acc_data.y , sqrt((acc_data.x*acc_data.x) + (acc_data.z*acc_data.z)));
+    acc_att.pitch =  atan2( acc_data.y , sqrt((acc_data.x*acc_data.x) + (acc_data.z*acc_data.z)));
+    acc_att.roll = atan2( - acc_data.x , sqrt((acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)));
     return acc_att;
 }

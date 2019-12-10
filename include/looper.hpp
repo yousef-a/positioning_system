@@ -8,7 +8,7 @@ const int Loop100Hz_dt = 10000; //in us
 #include "TimedBlock.hpp"
 #include <list>
 #include <iostream>
-//TODO: pass dt_manual to reflect looping rate!!!
+//TODO: pass _dt to reflect looping rate!!!
 class Looper {
     //TODO convert to singleton
     //TODO create Timed Block as parent of ControlSystem

@@ -17,14 +17,14 @@ DataMessage* MRFTController::receive_msg_internal(DataMessage* t_msg){
 	// ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
 
     // PID_data* data = controller_msg->getData();
-    // std::cout << "pid block receives msg: " << std::endl;
-	// std::cout << "error: " << data->err << std::endl;
-	// std::cout << "pv_first: " << data->pv_first << std::endl;
-	// std::cout << "pv_second: " << data->pv_second << std::endl;
+    // // std::cout << "pid block receives msg: " << std::endl;
+	// // std::cout << "error: " << data->err << std::endl;
+	// // std::cout << "pv_first: " << data->pv_first << std::endl;
+	// // std::cout << "pv_second: " << data->pv_second << std::endl;
     // float command = pid_direct(data->err, data->pv_first, data->pv_second);
     // FloatMessage* output_msg = new FloatMessage(command);
 
-    // std::cout << "SENDING COMMAND" << std::endl;
+    // // std::cout << "SENDING COMMAND" << std::endl;
 	// return (DataMessage*)output_msg;
 }
 
@@ -80,7 +80,7 @@ bool MRFTController::algorithm(float err, bool& mrft_bag_ready_para, mrft_bag& m
 	// if (mrft_bag_ready_para){
 	// 	mrft_bag_ready_para = false;
 	// }
-	// buff1 = ((-err) - (prev_err)) / dt_manual;//TODO: use Gyro
+	// buff1 = ((-err) - (prev_err)) / _dt;//TODO: use Gyro
 	// prev_err = -err;
 	// if (buff1 >= 0)
 	// {

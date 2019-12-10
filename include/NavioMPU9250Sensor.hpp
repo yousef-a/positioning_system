@@ -13,9 +13,9 @@ public:
 
 	NAVIOMPU9250_sensor();
 
-	ThreeAxisSensor* getAcc();
-	ThreeAxisSensor* getGyro();
-	ThreeAxisSensor* getMag();
+	Acc* getAcc();
+	Gyro* getGyro();
+	Mag* getMag();
 	void setSettings(sens_type, setting_type, int);
 	
 

@@ -3,7 +3,6 @@
 #include "ControllerMessage.hpp"
 #include "FloatMessage.hpp"
 #include "common_types.hpp"
-#define dt_manual 0.01f
 
 class Controller : public Block{
 

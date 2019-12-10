@@ -17,7 +17,8 @@ ControlSystem::ControlSystem(control_system t_control_system, GeneralStateProvid
     referenceSwitcher = new Switcher("ReferenceSwitcher", switcher_type::reference, _control_system);
     _providerProcessVariable = t_g_s_provider;
     _switchers = {controllerSwitcher, referenceSwitcher};
-    
+    _frequency = t_bf;
+
     this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
     this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
     referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
@@ -36,22 +37,22 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
             m_ref_msg_x.setReferenceMessage(user_msg->getX());
-            std::cout << "Msg received from User. Sending to X Control System" << std::endl;
+            // std::cout << "Msg received from User. Sending to X Control System" << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_x);
 
         }else if(this->getControlSystemType() == control_system::y){
             m_ref_msg_y.setReferenceMessage(user_msg->getY());
-            std::cout << "Msg received from User. Sending to Y Control System" << std::endl;
+            // std::cout << "Msg received from User. Sending to Y Control System" << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_y);
 
         }else if(this->getControlSystemType() == control_system::z){
             m_ref_msg_z.setReferenceMessage(user_msg->getZ());
-            std::cout << "Msg received from User. Sending to Z Control System" << std::endl;
+            // std::cout << "Msg received from User. Sending to Z Control System" << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_z);
 
         }else if(this->getControlSystemType() == control_system::yaw){
             m_ref_msg_yaw.setReferenceMessage(user_msg->getYaw());
-            std::cout << "Msg received from User. Sending to Yaw Control System" << std::endl;
+            // std::cout << "Msg received from User. Sending to Yaw Control System" << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_yaw);
         }
     // (2)
@@ -88,8 +89,8 @@ void ControlSystem::getStatus(){
     
     for(Switcher* s : _switchers){
         if(s->getActiveBlock() != nullptr){
-            std::cout << "For Control System " << static_cast<int>(_control_system) << std::endl;
-            std::cout << "For switcher " << s->getName() << " the active block is " << s->getActiveBlock()->getName() << std::endl;
+            // std::cout << "For Control System " << static_cast<int>(_control_system) << std::endl;
+            // std::cout << "For switcher " << s->getName() << " the active block is " << s->getActiveBlock()->getName() << std::endl;
         }     
     }
 }
@@ -123,6 +124,7 @@ void ControlSystem::addBlock(Block* t_block){
 
 void ControlSystem::changePIDSettings(PID_parameters* t_pid_para){ //TODO refactor through receive_msg, a remote msg should change the pid
 
+    t_pid_para->dt = 1 / (int)_frequency;
     m_change_PID_msg.setControlSystemMessage(control_system_msg_type::change_PID_settings, t_pid_para);
 
     this->emit_message((DataMessage*) &m_change_PID_msg);

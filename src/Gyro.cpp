@@ -1,5 +1,6 @@
 #include "Gyro.hpp"
-
+#include <iostream>
+//TODO remove
 Gyro::Gyro()
 {
 	calibration_offset = 0;
@@ -72,10 +73,16 @@ vec_3d<float> Gyro::getCalibratedData(void)
 		return raw;
 	}
 	calibrated = vec_3d<float>((raw - calibration_offset)) / sens;
+
+	// std::cout << "Calibrated_X " <<  calibrated.x << std::endl;
+	// std::cout << "Calibrated_Y " <<  calibrated.y << std::endl;
+	// std::cout << "Calibrated_Z " <<  calibrated.z << std::endl;
+
+
 	return calibrated;
 }
 
 vec_3d<float> Gyro::getBodyRate(void)
-{
+{	
 	return getCalibratedData();
 }
