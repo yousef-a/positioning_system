@@ -212,6 +212,8 @@ int main(int argc, char** argv) {
     //******************************LOOP***********************************
     
     pthread_t loop1khz_func_id, loop100hz_func_id; 
+    struct sched_param params;
+
     Looper* myLoop = new Looper();
     myLoop->addTimedBlock((TimedBlock*)X_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Y_ControlSystem);
@@ -224,11 +226,19 @@ int main(int argc, char** argv) {
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
+    //Setting priority
+    params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+
+    int ret = pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
+
+    if (ret != 0) {
+         // Print the error
+         std::cout << "Unsuccessful in setting thread realtime prior " << ret << std::endl;
+     }
+
     performCalibration(myIMU);
 
     while(ros::ok()){
-        //std::cout << "pitch " << myAttObserver.filtered_attitude.pitch * 180.f/3.14 << std::endl;
-        //std::cout << "roll " << myAttObserver.filtered_attitude.roll * 180.f/3.14 << std::endl;
         ros::spinOnce();
         rate.sleep();
     }

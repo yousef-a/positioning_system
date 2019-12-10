@@ -1,5 +1,6 @@
 #pragma once
 #include <pthread.h>
+#include <sched.h>
 #include "timer.hpp"
 #include <unistd.h>
 const int Loop1KHz_dt = 1000; //in us
