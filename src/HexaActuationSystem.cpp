@@ -30,10 +30,19 @@ void HexaActuationSystem::command(){
         //std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
     }
     
+
+    // std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
+    //         << " M2:" << constrain(_commands[1], _escMin, _escMax)
+    //         << " M3:" << constrain(_commands[2], _escMin, _escMax)
+    //         << " M4:" << constrain(_commands[3], _escMin, _escMax)
+    //         << " M5:" << constrain(_commands[4], _escMin, _escMax)
+    //         << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r";
+
     //Actuate with constrains
     for(int i = 0; i < 6; i++){
         _actuators[i]->applyCommand(this->constrain(_commands[i], _escMin, _escMax));
     }
+
 }
 
 int HexaActuationSystem::constrain(float value, int min_value, int max_value) {

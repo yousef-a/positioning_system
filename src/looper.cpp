@@ -25,14 +25,14 @@ void* Looper::Loop1KHz(void *vargp)
         int consumed_time =_loop_timer->tockMicroSeconds();
         if (consumed_time>Loop1KHz_dt){
             //Logger::getAssignedLogger()->log("exceeded loop time 1khz ",LoggerLevel::Warning);
-            //std::cout << "Consumed Time" << consumed_time << std::endl;
+            std::cout << "Consumed Time 1kHz" << consumed_time << std::endl;
             //std::cout << "Exceeded: " << j++ << std::endl;
 
         }
         else{
             //std::cout << "Sleep Time" << Loop1KHz_dt-consumed_time << std::endl;
             usleep(Loop1KHz_dt-consumed_time);
-            //std::cout << "Fine: " << p++ << std::endl;
+            std::cout << "Fine: " << p++ << std::endl;
         }
     }
 } 

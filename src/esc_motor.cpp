@@ -37,7 +37,7 @@ bool ESCMotor::initialize(){
 
 void ESCMotor::applyCommand(int t_command){
 
-    std::cout << "Received Command on PIN: " << _pwmPin << " Value :" << t_command << std::endl;
+    //std::cout << "Received Command on PIN: " << _pwmPin << " Value :" << t_command << "\r"; //std::endl;
     _pwm->set_duty_cycle(_pwmPin, t_command);
 
 }
