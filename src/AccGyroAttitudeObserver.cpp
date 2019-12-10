@@ -22,18 +22,27 @@ AttitudeMsg AccGyroAttitudeObserver::getAttitude()
 {
     AttitudeMsg acc_attitude;
     acc_data = m_acc->getBodyAcceleration();
-    gyro_data = m_rate->getBodyRate();
+    gyro_data = m_rate->getBodyRate() * (M_PI/180);
+    //gyro_data = 0;
     acc_attitude = getAccAttitude();
+
+    //std::cout << "HERE " << sqrt((acc_data.x*acc_data.x) + (acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)) << std::endl;
     if(fabs(sqrt((acc_data.x*acc_data.x) + (acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)) - grav) > m_val_threshold)
     {
+        //std::cout << "HERE" << sqrt((acc_data.x*acc_data.x) + (acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)) << std::endl;
         filtered_attitude.pitch = m_pitch_filter->getFilteredData(gyro_data.y);
         filtered_attitude.roll = m_roll_filter->getFilteredData(gyro_data.x);
     }
     else
     {
+        //std::cout << "OR HERE" << std::endl;
         filtered_attitude.pitch = m_pitch_filter->getFilteredData(acc_attitude.pitch, gyro_data.y);
         filtered_attitude.roll = m_roll_filter->getFilteredData(acc_attitude.roll, gyro_data.x);
     }
+
+    //std::cout << "Pitch: " << filtered_attitude.pitch << std::endl;
+    //std::cout << "Roll: " << filtered_attitude.roll << std::endl;
+
     return filtered_attitude;    
 }
 
