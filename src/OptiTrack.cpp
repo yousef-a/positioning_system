@@ -4,6 +4,14 @@
 OptiTrack::OptiTrack(std::string t_name, block_type t_type) : MotionCapture(t_name, t_type){
     Quaternion _bodyAtt;
     Vector3D _bodyPos;
+    _prev_pos.x = 0;
+    _prev_pos.y = 0;
+    _prev_pos.z = 0;
+    _prev_vel.x = 0;
+    _prev_vel.y = 0;
+    _prev_vel.z = 0;
+    _prev_time = 0;
+
     // std::cout << "Optitrack constructor" << std::endl;
 }
 
@@ -63,8 +71,48 @@ PositionMsg OptiTrack::getPosition(){
     // std::cout << "y: " << _bodyPos.y << std::endl;
     // std::cout << "z: " << _bodyPos.z << std::endl;
     
+    double t_dt = (_time - _prev_time);
+    this->updateVelocity(t_dt);
+    this->updateAcceleration(t_dt);
+
+    _prev_pos = _bodyPos;
+    _prev_vel = _bodyVel;
+    _prev_time = _time;
+
     return t_pos_msg;
 }
+
+void OptiTrack::updateVelocity(double t_dt){
+    _bodyVel.x = (_bodyPos.x - _prev_pos.x) / t_dt;
+    _bodyVel.y = (_bodyPos.y - _prev_pos.y) / t_dt;
+    _bodyVel.z = (_bodyPos.z - _prev_pos.z) / t_dt;  
+}
+
+void OptiTrack::updateAcceleration(double t_dt){
+    _bodyAcc.x = (_bodyVel.x - _prev_vel.x) / t_dt;
+    _bodyAcc.y = (_bodyVel.y - _prev_vel.y) / t_dt;
+    _bodyAcc.z = (_bodyVel.z - _prev_vel.z) / t_dt;
+}
+
+VelocityMsg OptiTrack::getVelocity(){
+    VelocityMsg t_vel_msg;    
+    t_vel_msg.dx = _bodyVel.x;
+    t_vel_msg.dy = _bodyVel.y;
+    t_vel_msg.dz = _bodyVel.z;
+    
+    return t_vel_msg;
+}
+
+AccelerationMsg OptiTrack::getAcceleration(){
+    AccelerationMsg t_accel_msg;
+    t_accel_msg.ddx = _bodyAcc.x;
+    t_accel_msg.ddy = _bodyAcc.y;
+    t_accel_msg.ddz = _bodyAcc.z;
+
+    return t_accel_msg;
+}
+
+
 
 void OptiTrack::receive_msg_data(DataMessage* t_msg){
 
@@ -74,6 +122,7 @@ void OptiTrack::receive_msg_data(DataMessage* t_msg){
         
         _bodyPos = opti_msg->getPosition();
         _bodyAtt = opti_msg->getAttitudeHeading();
+        _time = opti_msg->getTime();
     }
 }
 

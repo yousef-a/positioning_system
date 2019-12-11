@@ -34,6 +34,7 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
         ControlSystemMessage m_switch_msg;
         ControlSystemMessage m_add_block_msg;
         ControlSystemMessage m_change_PID_msg;
+        float _dt;
 
     public:
         void receive_msg_data(DataMessage* t_msg);
