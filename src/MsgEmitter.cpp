@@ -19,5 +19,5 @@ void msg_emitter::emit_message(DataMessage* t_msg){
     //// std::cout<<"msg_emitter::emit_message "<<_list_of_msg_receivers.size()<<std::endl;
 }
 msg_emitter::msg_emitter(){
-    // std::cout<<"msg_emitter"<<std::endl;
 }
+
