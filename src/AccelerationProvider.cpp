@@ -15,7 +15,3 @@ DataMessage* AccelerationProvider::receive_msg_internal(DataMessage*){
 DataMessage* AccelerationProvider::receive_msg_internal(){
 
 }
-
-void AccelerationProvider::receive_msg_data(DataMessage* t_msg){
-
-}

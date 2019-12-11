@@ -15,7 +15,6 @@ class PositioningProvider : public Provider{
     public:
         virtual PositionMsg getPosition() = 0;
         void setHomePosition(Vector3D);
-        virtual void receive_msg_data(DataMessage* t_msg) = 0;
         Vector3D getRelativePosition();
         
         DataMessage* receive_msg_internal(DataMessage*);

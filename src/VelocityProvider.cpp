@@ -16,6 +16,3 @@ DataMessage* VelocityProvider::receive_msg_internal(){
 
 }
 
-void VelocityProvider::receive_msg_data(DataMessage* t_msg){
-
-}

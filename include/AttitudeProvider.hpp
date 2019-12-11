@@ -9,7 +9,6 @@ class AttitudeProvider : public Provider{
     public:
 
         virtual AttitudeMsg getAttitude() = 0;
-        virtual void receive_msg_data(DataMessage* t_msg) = 0;
         
         DataMessage* receive_msg_internal(DataMessage*);
         DataMessage* receive_msg_internal();
