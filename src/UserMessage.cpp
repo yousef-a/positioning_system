@@ -27,6 +27,12 @@ float UserMessage::getYaw(){
 msg_type UserMessage::getType(){
     return _type;
 }
+void UserMessage::setUserMessage(float t_x, float t_y, float t_z, float t_yaw){
+    _x = t_x;
+    _y = t_y;
+    _z = t_z;
+    _yaw = t_yaw;
+}
 
 const int UserMessage::getSize()
 {

@@ -5,6 +5,7 @@
 #include "std_msgs/String.h"
 #include "MsgReceiver.hpp"
 #include "MsgEmitter.hpp"
+#include "common_types.hpp"
 
 
 class ROSUnit : public msg_emitter, public msg_receiver{

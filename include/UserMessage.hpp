@@ -15,7 +15,8 @@ public:
     float getYaw();
     msg_type getType();
     const int getSize();
-
+    void setUserMessage(float, float, float, float);
+    
     UserMessage(float,float,float,float);
     ~UserMessage();
 };
