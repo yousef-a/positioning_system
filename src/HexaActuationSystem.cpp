@@ -31,12 +31,12 @@ void HexaActuationSystem::command(){
     }
     
 
-    std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
-            << " M2:" << constrain(_commands[1], _escMin, _escMax)
-            << " M3:" << constrain(_commands[2], _escMin, _escMax)
-            << " M4:" << constrain(_commands[3], _escMin, _escMax)
-            << " M5:" << constrain(_commands[4], _escMin, _escMax)
-            << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r";
+    // std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
+    //         << " M2:" << constrain(_commands[1], _escMin, _escMax)
+    //         << " M3:" << constrain(_commands[2], _escMin, _escMax)
+    //         << " M4:" << constrain(_commands[3], _escMin, _escMax)
+    //         << " M5:" << constrain(_commands[4], _escMin, _escMax)
+    //         << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r";
 
     //Actuate with constrains
     for(int i = 0; i < 6; i++){

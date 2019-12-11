@@ -37,22 +37,22 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
             m_ref_msg_x.setReferenceMessage(user_msg->getX());
-            // std::cout << "Msg received from User. Sending to X Control System" << std::endl;
+            std::cout << "Msg received from User. Sending to X Control System: " << user_msg->getX() << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_x);
 
         }else if(this->getControlSystemType() == control_system::y){
             m_ref_msg_y.setReferenceMessage(user_msg->getY());
-            // std::cout << "Msg received from User. Sending to Y Control System" << std::endl;
+            std::cout << "Msg received from User. Sending to Y Control System: " << user_msg->getY() << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_y);
 
         }else if(this->getControlSystemType() == control_system::z){
             m_ref_msg_z.setReferenceMessage(user_msg->getZ());
-            // std::cout << "Msg received from User. Sending to Z Control System" << std::endl;
+            std::cout << "Msg received from User. Sending to Z Control System: " << user_msg->getZ() << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_z);
 
         }else if(this->getControlSystemType() == control_system::yaw){
             m_ref_msg_yaw.setReferenceMessage(user_msg->getYaw());
-            // std::cout << "Msg received from User. Sending to Yaw Control System" << std::endl;
+            std::cout << "Msg received from User. Sending to Yaw Control System: " << user_msg->getYaw() << std::endl;
             this->emit_message((DataMessage*) &m_ref_msg_yaw);
         }
     // (2)
