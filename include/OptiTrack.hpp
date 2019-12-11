@@ -12,7 +12,7 @@ class OptiTrack : public MotionCapture {
         Vector3D _prev_pos, _prev_vel; 
         Vector3D _euler;
         Quaternion _quat;
-        
+        int j = 0;
         double _time, _prev_time;
 
     public:

@@ -66,23 +66,26 @@ PositionMsg OptiTrack::getPosition(){
     t_pos_msg.x = _bodyPos.x;
     t_pos_msg.y = _bodyPos.y;
     t_pos_msg.z = _bodyPos.z;
-    // std::cout << "getPosition"<< std::endl;
-    // std::cout << "x: " << _bodyPos.x << std::endl;
-    // std::cout << "y: " << _bodyPos.y << std::endl;
-    // std::cout << "z: " << _bodyPos.z << std::endl;
-    
-    double t_dt = (_time - _prev_time);
-    this->updateVelocity(t_dt);
-    this->updateAcceleration(t_dt);
+    std::cout << "getPosition"<< std::endl;
+    std::cout << "x: " << _bodyPos.x << std::endl;
+    std::cout << "y: " << _bodyPos.y << std::endl;
+    std::cout << "z: " << _bodyPos.z << std::endl;
 
-    _prev_pos = _bodyPos;
-    _prev_vel = _bodyVel;
-    _prev_time = _time;
+    double t_dt = (_time - _prev_time);
+    
+    if(t_dt != 0) {
+        this->updateVelocity(t_dt);
+        this->updateAcceleration(t_dt);
+        _prev_pos = _bodyPos;
+        _prev_vel = _bodyVel;
+        _prev_time = _time;
+    }
 
     return t_pos_msg;
 }
 
 void OptiTrack::updateVelocity(double t_dt){
+
     _bodyVel.x = (_bodyPos.x - _prev_pos.x) / t_dt;
     _bodyVel.y = (_bodyPos.y - _prev_pos.y) / t_dt;
     _bodyVel.z = (_bodyPos.z - _prev_pos.z) / t_dt;  
@@ -99,6 +102,11 @@ VelocityMsg OptiTrack::getVelocity(){
     t_vel_msg.dx = _bodyVel.x;
     t_vel_msg.dy = _bodyVel.y;
     t_vel_msg.dz = _bodyVel.z;
+
+    std::cout << "getVelocity"<< std::endl;
+    std::cout << "x: " << _bodyVel.x << std::endl;
+    std::cout << "y: " << _bodyVel.y << std::endl;
+    std::cout << "z: " << _bodyVel.z << std::endl;
     
     return t_vel_msg;
 }
@@ -108,6 +116,11 @@ AccelerationMsg OptiTrack::getAcceleration(){
     t_accel_msg.ddx = _bodyAcc.x;
     t_accel_msg.ddy = _bodyAcc.y;
     t_accel_msg.ddz = _bodyAcc.z;
+
+    std::cout << "getAccel"<< std::endl;
+    std::cout << "x: " << _bodyAcc.x << std::endl;
+    std::cout << "y: " << _bodyAcc.y << std::endl;
+    std::cout << "z: " << _bodyAcc.z << std::endl;
 
     return t_accel_msg;
 }
@@ -123,6 +136,8 @@ void OptiTrack::receive_msg_data(DataMessage* t_msg){
         _bodyPos = opti_msg->getPosition();
         _bodyAtt = opti_msg->getAttitudeHeading();
         _time = opti_msg->getTime();
+        
+
     }
 }
 

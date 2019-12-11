@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "testing_node");
 
     ros::NodeHandle nh;
-    ros::Rate rate(120);
+    ros::Rate rate(300);
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
 
