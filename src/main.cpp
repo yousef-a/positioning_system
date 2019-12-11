@@ -50,12 +50,17 @@ int main(int argc, char** argv) {
     //***********************SETTING PROVIDERS**********************************
     MotionCapture* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
     PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
+    HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
+    VelocityProvider* myVelProvider = (VelocityProvider*)myOptitrackSystem;
+    AccelerationProvider* myAccelProvider = (AccelerationProvider*)myOptitrackSystem;
+    AttitudeProvider* myAttProvider = (AttitudeProvider*) myOptitrackSystem;
+    
     // AccGyroAttitudeObserver myAttObserver("IMU Navio", block_type::provider, 
     //                                      (BodyAccProvider*) myIMU->getAcc(), 
     //                                      (BodyRateProvider*) myIMU->getGyro(),
     //                                      block_frequency::hhz1000);
 
-    HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
+    
     
     // ComplementaryFilter filter1, filter2, filter3;
 
@@ -65,9 +70,13 @@ int main(int argc, char** argv) {
     // myAttObserver.updateSettings(&settings, 0.05);
 
     // AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
-    AttitudeProvider* myOptiAttProvider = (AttitudeProvider*) myOptitrackSystem;
+    
 
-    GeneralStateProvider* my_general_state_provider = new GeneralStateProvider(myOptiAttProvider, myPosProvider, myHeadProvider);
+    GeneralStateProvider* my_general_state_provider = new GeneralStateProvider( myAttProvider, 
+                                                                                myPosProvider, 
+                                                                                myHeadProvider,
+                                                                                myVelProvider,
+                                                                                myAccelProvider);
 
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
 
