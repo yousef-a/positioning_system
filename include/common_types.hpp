@@ -12,7 +12,7 @@ const struct tPacketProp{
 
 enum class msg_type {TESTMSG, SERIALDATA ,reference, THREEAXISSENSORMSG, THERMALIMAGE, optitrack, FLIGHTSCENARIO, POSITION, ATTITUDE, HEADING, NOZZLEMSG,control_system, user, controller, float_msg, switcher, vector3D_msg, external_reference, ack,internal_msg_start,internal_ros };
 enum class msg_type_optitrack {position, attitude};
-enum class msg_type_flight_scenario {user, setPID};
+enum class msg_type_flight_scenario {USER, SET_PID};
 enum class control_system {roll, pitch, yaw, x, y, z, null_type};
 enum class block_type {controller, provider, reference};
 enum class switcher_type {controller, provider, reference, null_type};
