@@ -5,23 +5,23 @@
 #include "BodyAccProvider.hpp"
 #include "BodyRateProvider.hpp"
 #include "Acc.hpp"
+#include "TimedBlock.hpp"
 
-class AccGyroAttitudeObserver : public AttitudeProvider
+class AccGyroAttitudeObserver : public AttitudeProvider, public TimedBlock
 {
 public:
-	//TODO: move back to private
-	AttitudeMsg filtered_attitude;
-
-	AccGyroAttitudeObserver(std::string, block_type, BodyAccProvider*, BodyRateProvider*);
+	AccGyroAttitudeObserver(std::string, block_type, BodyAccProvider*, BodyRateProvider*, block_frequency);
 	void setFilterType(DataFilter*, DataFilter*);
 	void updateSettings(FilterSettings*, float);
 	void receive_msg_data(DataMessage* t_msg) {};
 	AttitudeMsg getAttitude();
+	void loopInternal();
 
 private:
 
 	const float grav = 1.f;
 	float m_val_threshold;
+	block_frequency m_bf;
 
 	BodyAccProvider* m_acc;
 	BodyRateProvider* m_rate;
@@ -29,7 +29,8 @@ private:
 	DataFilter* m_pitch_filter;
 	DataFilter* m_roll_filter;
 
-	//AttitudeMsg filtered_attitude;
+	AttitudeMsg m_filtered_attitude;
+	AttitudeMsg m_filtered_attitude_temp;
 	vec_3d<float> acc_data, gyro_data;
 
 	AttitudeMsg getAccAttitude();

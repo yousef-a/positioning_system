@@ -50,7 +50,8 @@ int main(int argc, char** argv) {
     PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
     AccGyroAttitudeObserver myAttObserver("IMU Navio", block_type::provider, 
                                          (BodyAccProvider*) myIMU->getAcc(), 
-                                         (BodyRateProvider*) myIMU->getGyro());
+                                         (BodyRateProvider*) myIMU->getGyro(),
+                                         block_frequency::hhz1000);
 
     HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
     
@@ -211,7 +212,7 @@ int main(int argc, char** argv) {
     
     //******************************LOOP***********************************
     
-    pthread_t loop1khz_func_id, loop100hz_func_id; 
+    pthread_t loop1khz_func_id, loop100hz_func_id, hwloop1khz_func_id; 
     struct sched_param params;
 
     Looper* myLoop = new Looper();
@@ -221,24 +222,31 @@ int main(int argc, char** argv) {
     myLoop->addTimedBlock((TimedBlock*)Roll_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Pitch_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Yaw_ControlSystem);
+    myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
 
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
+    pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
     //Setting priority
     params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+    int ret = pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
+    ret += pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
 
-    int ret = pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
+    params.sched_priority = sched_get_priority_max(SCHED_FIFO) - 1;
+    ret += pthread_setschedparam(loop100hz_func_id, SCHED_FIFO, &params);
 
     if (ret != 0) {
          // Print the error
          std::cout << "Unsuccessful in setting thread realtime prior " << ret << std::endl;
+         while(1){}
      }
 
     performCalibration(myIMU);
 
     while(ros::ok()){
+
         ros::spinOnce();
         rate.sleep();
     }
