@@ -8,6 +8,10 @@ UserMessage::UserMessage(float t_x, float t_y, float t_z, float t_yaw) {
     _yaw = t_yaw;
 }
 
+UserMessage::UserMessage() {
+
+}
+
 UserMessage::~UserMessage() {
 
 }

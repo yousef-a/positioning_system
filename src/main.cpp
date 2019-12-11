@@ -112,7 +112,8 @@ int main(int argc, char** argv) {
     Z_ControlSystem->addBlock(PV_Ref_z);
     Z_ControlSystem->getStatus();
 
-    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, my_general_state_provider, block_frequency::hz1000);
+    //Yaw on Optitrack 100Hz
+    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, my_general_state_provider, block_frequency::hz100);
     Yaw_ControlSystem->addBlock(PID_yaw);
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
     Yaw_ControlSystem->getStatus();

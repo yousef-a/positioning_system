@@ -16,7 +16,10 @@ public:
     float getYaw();
     msg_type getType();
     msg_type_flight_scenario getFlightScenarioMsgType();
+    void setFSUserMessage(float, float, float, float);
+    const int getSize();
 
     FlightScenarioMessage(float, float, float, float);
+    FlightScenarioMessage();
     ~FlightScenarioMessage();
 };

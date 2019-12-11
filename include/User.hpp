@@ -3,6 +3,7 @@
 #include "MsgEmitter.hpp"
 #include "MsgReceiver.hpp"
 #include "UserMessage.hpp"
+#include "FlightScenarioMessage.hpp"
 
 class User : public msg_emitter, public msg_receiver{
 

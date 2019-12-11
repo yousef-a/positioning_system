@@ -18,5 +18,6 @@ public:
     void setUserMessage(float, float, float, float);
     
     UserMessage(float,float,float,float);
+    UserMessage();
     ~UserMessage();
 };

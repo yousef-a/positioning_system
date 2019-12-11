@@ -6,7 +6,7 @@ class ROSUnit_FlightScenario :  public ROSUnit{
 
     private:
         static ROSUnit_FlightScenario* _instance_ptr;
-        static ROSUnit_FlightScenario user_msg; 
+        static FlightScenarioMessage user_msg; 
         void receive_msg_data(DataMessage* t_msg);  
   
     public:
