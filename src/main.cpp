@@ -23,12 +23,14 @@
 #include "../include/AccGyroAttitudeObserver.hpp"
 #include "../include/GyroMagHeadingObserver.hpp"
 #include "../include/ComplementaryFilter.hpp"
+#include "../include/User.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
 int main(int argc, char** argv) {
     // std::cout << "Hello Easy C++ project!" << std::endl;
-
+    //TODO separate files on specific folders
+    
     ros::init(argc, argv, "testing_node");
 
     ros::NodeHandle nh;
@@ -133,10 +135,10 @@ int main(int argc, char** argv) {
     ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
 
     //***********************SETTING USER INPUTS****************************
-    msg_emitter* User = new msg_emitter();
+    User* myUser = new User();
 
     //Forward is negative pitch, Right is positive roll, CW is positive yaw, Upwards is negative Z
-    UserMessage* test_user = new UserMessage(0, 0, 0, 0);
+    UserMessage* test_user = new UserMessage(1, 0, 0, 0);
 
     //***********************SETTING PID VALUES*****************************
 
@@ -198,10 +200,10 @@ int main(int argc, char** argv) {
     //|      |----->Yaw_Control_System----------------------------->|           |
     //========                                                      =============
     
-    User->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
-    User->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
-    User->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
-    User->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
+    myUser->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
+    myUser->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
+    myUser->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
+    myUser->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
     X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
     Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
@@ -209,7 +211,7 @@ int main(int argc, char** argv) {
     Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
-    User->emit_message((DataMessage*)test_user);
+    myUser->emit_message((DataMessage*)test_user);
     
     //******************************LOOP***********************************
     

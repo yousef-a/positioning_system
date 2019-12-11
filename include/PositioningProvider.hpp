@@ -10,7 +10,6 @@ class PositioningProvider : public Provider{
 
     private:
         Vector3D _homePos;
-        provider_type _provider_type;
         PositionMsg m_pos_msg;
 
     public:

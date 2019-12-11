@@ -5,6 +5,7 @@
 class ROSUnit_FlightScenario :  public ROSUnit{
 
     private:
+        //TODO receive msgs from a service through a callback 
         static ROSUnit_FlightScenario* _instance_ptr;
         static FlightScenarioMessage user_msg; 
         void receive_msg_data(DataMessage* t_msg);  

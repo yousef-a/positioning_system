@@ -6,9 +6,6 @@
 
 class AttitudeProvider : public Provider{
 
-    private:
-        provider_type _provider_type;
-
     public:
 
         virtual AttitudeMsg getAttitude() = 0;

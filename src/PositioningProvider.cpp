@@ -1,8 +1,6 @@
 #include "PositioningProvider.hpp"
 
 PositioningProvider::PositioningProvider(std::string t_name, block_type t_type) : Provider(t_name, t_type){
-    _provider_type = provider_type::position;
-    Vector3D _homePos;
 
 }
 
