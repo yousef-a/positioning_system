@@ -2,7 +2,7 @@
 #include "Block.hpp"
 #include "MsgReceiver.hpp"
 
-class Provider : public Block{ //TODO possibly remove Block
+class Provider{ //TODO possibly remove Block
 
 private:
     std::string _name; 
@@ -10,14 +10,6 @@ private:
     
 public:
 
-    std::string getName();
-    block_type getType();
-    void switchIn(DataMessage*);
-    DataMessage* switchOut();
-
-    virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
-    virtual DataMessage* receive_msg_internal() = 0;
-    
     Provider(std::string, block_type);
     ~Provider();
 };

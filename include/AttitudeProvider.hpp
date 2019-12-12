@@ -10,9 +10,6 @@ class AttitudeProvider : public Provider{
 
         virtual AttitudeMsg getAttitude() = 0;
         
-        DataMessage* receive_msg_internal(DataMessage*);
-        DataMessage* receive_msg_internal();
-        
         AttitudeProvider(std::string, block_type);
         ~AttitudeProvider();
     

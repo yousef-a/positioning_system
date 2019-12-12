@@ -13,10 +13,9 @@ private:
 
 public:
     reference_type getReferenceType();
-    DataMessage* receive_msg_internal(DataMessage*);
-    DataMessage* receive_msg_internal();
+      
     void setReferenceValue(float);
-
+    DataMessage* receive_msg_internal(DataMessage*);
     ProcessVariableReference(std::string, block_type);
     ~ProcessVariableReference();
 };

@@ -39,8 +39,7 @@ public:
 	float mrft_with_antilock(float,bool&, mrft_bag&);
     //---------------
 
-    DataMessage* receive_msg_internal(DataMessage*);
-    DataMessage* receive_msg_internal();
+	DataMessage* receive_msg_internal(DataMessage*);
     controller_type getControllerType();
 
     MRFTController(std::string name, block_type type);

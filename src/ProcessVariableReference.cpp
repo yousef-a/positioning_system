@@ -33,10 +33,6 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
     return (DataMessage*) &m_error_msg;
 }
 
-DataMessage* ProcessVariableReference::receive_msg_internal(){
-    
-}
-
 void ProcessVariableReference::setReferenceValue(float t_reference_value){
     _reference_value = t_reference_value;
 }

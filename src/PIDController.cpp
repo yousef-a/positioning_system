@@ -8,9 +8,7 @@ PIDController::~PIDController() {
 
 }
 
-DataMessage* PIDController::receive_msg_internal(){
-	
-}
+  
 
 DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
         

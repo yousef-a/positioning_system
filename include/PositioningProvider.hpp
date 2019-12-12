@@ -17,9 +17,6 @@ class PositioningProvider : public Provider{
         void setHomePosition(Vector3D);
         Vector3D getRelativePosition();
         
-        DataMessage* receive_msg_internal(DataMessage*);
-        DataMessage* receive_msg_internal();
-        
         PositioningProvider(std::string, block_type);
         ~PositioningProvider();
         

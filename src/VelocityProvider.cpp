@@ -7,12 +7,3 @@ VelocityProvider::VelocityProvider(std::string t_name, block_type t_type) : Prov
 VelocityProvider::~VelocityProvider() {
 
 }
-
-DataMessage* VelocityProvider::receive_msg_internal(DataMessage*){
-
-}
-
-DataMessage* VelocityProvider::receive_msg_internal(){
-
-}
-

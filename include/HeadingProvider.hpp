@@ -11,8 +11,7 @@ class HeadingProvider : public Provider{
 
         virtual HeadingMsg getHeading() = 0;
         
-        DataMessage* receive_msg_internal(DataMessage*);
-        DataMessage* receive_msg_internal();
+         
         
         HeadingProvider(std::string, block_type);
         ~HeadingProvider();

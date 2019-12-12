@@ -7,11 +7,3 @@ AccelerationProvider::AccelerationProvider(std::string t_name, block_type t_type
 AccelerationProvider::~AccelerationProvider() {
 
 }
-
-DataMessage* AccelerationProvider::receive_msg_internal(DataMessage*){
-
-}
-
-DataMessage* AccelerationProvider::receive_msg_internal(){
-
-}

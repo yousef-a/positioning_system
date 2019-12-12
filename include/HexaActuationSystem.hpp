@@ -22,13 +22,6 @@ private:
     const int _escMax = 2000;
     float _movements[4]; //[roll, pitch, yaw, throttle]
     float _commands[6];
-    //TODO Check these transformations
-    // float _geometry[6][4] = {{ 0,           1 * -1, -1, -1},
-    //                          { 0,          -1 * -1,  1, -1},
-    //                          { 0.866025, -0.5 * -1, -1, -1},
-    //                          {-0.866025,  0.5 * -1,  1, -1},
-    //                          { 0.866025,  0.5 * -1,  1, -1},
-    //                          {-0.866025, -0.5 * -1, -1, -1}};
     float _geometry[6][4] = {{  1  * -1,         0 * -1,  1, 1},
                              { -1  * -1,         0 * -1, -1, 1},
                              {-0.5 * -1,  0.866025 * -1,  1, 1},
