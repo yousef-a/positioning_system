@@ -79,7 +79,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         //(7)
         } else if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::provider_data){
             
-            Vector3D data_provided = control_system_msg->getV3DData();
+            Vector3D<float> data_provided = control_system_msg->getV3DData();
             
             if(_active_block->getType() == block_type::reference){
                 Reference* reference_block = (Reference*)_active_block;

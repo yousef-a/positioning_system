@@ -27,7 +27,7 @@ ControlSystemMessage::ControlSystemMessage(control_system t_source, control_syst
     _data = t_data;
 }
 
-ControlSystemMessage::ControlSystemMessage(control_system t_source, control_system_msg_type t_type, Vector3D t_data){
+ControlSystemMessage::ControlSystemMessage(control_system t_source, control_system_msg_type t_type, Vector3D<float> t_data){
     _type = msg_type::control_system;
     _source = t_source;
     _control_system_msg_type = t_type;
@@ -71,7 +71,7 @@ control_system ControlSystemMessage::getDestination(){
 float ControlSystemMessage::getData(){
     return _data;
 }
-Vector3D ControlSystemMessage::getV3DData(){
+Vector3D<float> ControlSystemMessage::getV3DData(){
     return _v3d_data;
 }
 
@@ -102,7 +102,7 @@ void ControlSystemMessage::setControlSystemMessage(control_system t_source, cont
     _data = t_data;
 }
 
-void ControlSystemMessage::setControlSystemMessage(control_system t_source, control_system_msg_type t_type, Vector3D t_data){
+void ControlSystemMessage::setControlSystemMessage(control_system t_source, control_system_msg_type t_type, Vector3D<float> t_data){
     _type = msg_type::control_system;
     _source = t_source;
     _control_system_msg_type = t_type;

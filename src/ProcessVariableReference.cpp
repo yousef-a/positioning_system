@@ -19,7 +19,7 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
 
     Vector3DMessage* pos_msg = (Vector3DMessage*)t_msg;
     // std::cout << "Data received (Process Variable): " << pos_msg->getData().x << std::endl;
-    Vector3D error;
+    Vector3D<float> error;
 
     error.x = _reference_value - pos_msg->getData().x;
     error.y = 0.0 - pos_msg->getData().y ;

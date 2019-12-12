@@ -9,13 +9,13 @@
 class PositioningProvider : public Provider{
 
     private:
-        Vector3D _homePos;
+        Vector3D<float> _homePos;
         PositionMsg m_pos_msg;
 
     public:
         virtual PositionMsg getPosition() = 0;
-        void setHomePosition(Vector3D);
-        Vector3D getRelativePosition();
+        void setHomePosition(Vector3D<float>);
+        Vector3D<float> getRelativePosition();
         
         PositioningProvider();
         ~PositioningProvider();

@@ -8,9 +8,9 @@ class OptiTrack : public MotionCapture {
 
     private:
         Quaternion _bodyAtt;
-        Vector3D _bodyPos, _bodyVel, _bodyAcc;
-        Vector3D _prev_pos, _prev_vel; 
-        Vector3D _euler;
+        Vector3D<float> _bodyPos, _bodyVel, _bodyAcc;
+        Vector3D<float> _prev_pos, _prev_vel; 
+        Vector3D<float> _euler;
         Quaternion _quat;
         int j = 0;
         double _time, _prev_time;
@@ -26,8 +26,8 @@ class OptiTrack : public MotionCapture {
         AccelerationMsg getAcceleration();
 
         void receive_msg_data(DataMessage* t_msg);
-        Vector3D getEulerfromQuaternion(Quaternion);
-        Quaternion getQuaternionfromEuler(Vector3D);
+        Vector3D<float> getEulerfromQuaternion(Quaternion);
+        Quaternion getQuaternionfromEuler(Vector3D<float>);
     
 
         OptiTrack();

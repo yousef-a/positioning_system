@@ -3,7 +3,7 @@
 
 OptiTrack::OptiTrack(){
     Quaternion _bodyAtt;
-    Vector3D _bodyPos;
+    Vector3D<float> _bodyPos;
     _prev_pos.x = 0;
     _prev_pos.y = 0;
     _prev_pos.z = 0;
@@ -20,7 +20,7 @@ OptiTrack::~OptiTrack() {
 }
 
 AttitudeMsg OptiTrack::getAttitude(){
-    Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
+    Vector3D<float> rpy = getEulerfromQuaternion(_bodyAtt);
     AttitudeMsg t_att_msg;
     t_att_msg.roll = rpy.x;
     t_att_msg.pitch = rpy.y;
@@ -35,7 +35,7 @@ AttitudeMsg OptiTrack::getAttitude(){
 }
 
 HeadingMsg OptiTrack::getHeading(){
-    Vector3D rpy = getEulerfromQuaternion(_bodyAtt);
+    Vector3D<float> rpy = getEulerfromQuaternion(_bodyAtt);
     HeadingMsg t_heading_msg;
     t_heading_msg.yaw = rpy.z;
     rpy.x = 0.0;
@@ -141,7 +141,7 @@ void OptiTrack::receive_msg_data(DataMessage* t_msg){
     }
 }
 
-Vector3D OptiTrack::getEulerfromQuaternion(Quaternion q){
+Vector3D<float> OptiTrack::getEulerfromQuaternion(Quaternion q){
 
     // roll (x-axis rotation)
     double sinr_cosp = +2.0 * (q.w * q.x + q.y * q.z);
@@ -163,7 +163,7 @@ Vector3D OptiTrack::getEulerfromQuaternion(Quaternion q){
     return _euler;
 }
 
-Quaternion OptiTrack::getQuaternionfromEuler(Vector3D euler){
+Quaternion OptiTrack::getQuaternionfromEuler(Vector3D<float> euler){
     
     double roll = euler.x;
     double pitch = euler.y;

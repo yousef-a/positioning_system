@@ -6,7 +6,7 @@
 #include "ControlSystemMessage.hpp"
 #include "PID_values.hpp"
 #include "UserMessage.hpp"
-#include "GeneralStateProvider.hpp"
+#include "PVProvider.hpp"
 #include "ReferenceMessage.hpp"
 #include "TimedBlock.hpp"
 
@@ -16,7 +16,7 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
         control_system _control_system;
         Switcher* controllerSwitcher;
         Switcher* referenceSwitcher;
-        GeneralStateProvider* _providerProcessVariable;
+        PVProvider* _providerProcessVariable;
         std::vector<Switcher*> _switchers;
         block_frequency _frequency;
         // ControlSystem();
@@ -48,7 +48,7 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
         Switcher* getReferenceSwitcher();
         // Switcher* getProviderSwitcher();
 
-        ControlSystem(control_system, GeneralStateProvider*, block_frequency);
+        ControlSystem(control_system, PVProvider*, block_frequency);
         ~ControlSystem(); //TODO prevent automatic storage
 
     

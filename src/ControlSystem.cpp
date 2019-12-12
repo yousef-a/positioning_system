@@ -1,6 +1,6 @@
 #include "ControlSystem.hpp"
 
-ControlSystem::ControlSystem(control_system t_control_system, GeneralStateProvider* t_g_s_provider, block_frequency t_bf) : TimedBlock(t_bf) {
+ControlSystem::ControlSystem(control_system t_control_system, PVProvider* t_g_s_provider, block_frequency t_bf) : TimedBlock(t_bf) {
     _control_system = t_control_system;
     
     controllerSwitcher = new Switcher("ControlSwitcher", switcher_type::controller, _control_system);
@@ -97,7 +97,7 @@ Switcher* ControlSystem::getReferenceSwitcher(){
 //TODO Provider msg_emitter, remove loopInternal
 //(10)
 void ControlSystem::loopInternal(){
-    Vector3D data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
+    Vector3D<float> data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
     m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
 
     this->emit_message((DataMessage*) &m_provider_data_msg);

@@ -20,7 +20,7 @@ Vector3D Vector3DMessage::getData(){
     return _data;
 }
 
-void Vector3DMessage::setVector3DMessage(Vector3D t_data) {
+void Vector3DMessage::setVector3DMessage(Vector3D<float> t_data) {
     _type = msg_type::vector3D_msg;
     _data = t_data;
 }

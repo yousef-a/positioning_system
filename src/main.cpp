@@ -14,7 +14,7 @@
 #include "../include/ProcessVariableReference.hpp"
 #include "../include/Controller.hpp"
 #include "../include/ActuationSystem.hpp"
-#include "../include/GeneralStateProvider.hpp"
+#include "../include/PVProvider.hpp"
 #include "../include/looper.hpp"
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
     // AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
     
 
-    GeneralStateProvider* my_general_state_provider = new GeneralStateProvider( myAttProvider, 
+    PVProvider* my_general_state_provider = new PVProvider( myAttProvider, 
                                                                                 myPosProvider, 
                                                                                 myHeadProvider,
                                                                                 myVelProvider,

@@ -8,11 +8,11 @@ PositioningProvider::~PositioningProvider(){
     
 }
 
-void PositioningProvider::setHomePosition(Vector3D data){
+void PositioningProvider::setHomePosition(Vector3D<float> data){
 
 
 }
 
-Vector3D PositioningProvider::getRelativePosition(){
+Vector3D<float> PositioningProvider::getRelativePosition(){
     return _homePos;
 }
