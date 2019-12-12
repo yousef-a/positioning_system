@@ -28,8 +28,6 @@ void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg)
 
     double t_dt = t_time.toSec();
 
-    //std::cout << "TIME RECEIVED __________________ " << t_dt << std::endl;
-
     optitrack_msg.setOptitrackMessage(pos_data, att_data, t_dt);
     _instance_ptr->emit_message((DataMessage*) &optitrack_msg);   
 }

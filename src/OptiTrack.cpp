@@ -66,10 +66,10 @@ PositionMsg OptiTrack::getPosition(){
     t_pos_msg.x = _bodyPos.x;
     t_pos_msg.y = _bodyPos.y;
     t_pos_msg.z = _bodyPos.z;
-    std::cout << "getPosition"<< std::endl;
-    std::cout << "x: " << _bodyPos.x << std::endl;
-    std::cout << "y: " << _bodyPos.y << std::endl;
-    std::cout << "z: " << _bodyPos.z << std::endl;
+    // std::cout << "getPosition"<< std::endl;
+    // std::cout << "x: " << _bodyPos.x << std::endl;
+    // std::cout << "y: " << _bodyPos.y << std::endl;
+    // std::cout << "z: " << _bodyPos.z << std::endl;
 
     double t_dt = (_time - _prev_time);
     
@@ -103,10 +103,10 @@ VelocityMsg OptiTrack::getVelocity(){
     t_vel_msg.dy = _bodyVel.y;
     t_vel_msg.dz = _bodyVel.z;
 
-    std::cout << "getVelocity"<< std::endl;
-    std::cout << "x: " << _bodyVel.x << std::endl;
-    std::cout << "y: " << _bodyVel.y << std::endl;
-    std::cout << "z: " << _bodyVel.z << std::endl;
+    // std::cout << "getVelocity"<< std::endl;
+    // std::cout << "x: " << _bodyVel.x << std::endl;
+    // std::cout << "y: " << _bodyVel.y << std::endl;
+    // std::cout << "z: " << _bodyVel.z << std::endl;
     
     return t_vel_msg;
 }
@@ -117,10 +117,10 @@ AccelerationMsg OptiTrack::getAcceleration(){
     t_accel_msg.ddy = _bodyAcc.y;
     t_accel_msg.ddz = _bodyAcc.z;
 
-    std::cout << "getAccel"<< std::endl;
-    std::cout << "x: " << _bodyAcc.x << std::endl;
-    std::cout << "y: " << _bodyAcc.y << std::endl;
-    std::cout << "z: " << _bodyAcc.z << std::endl;
+    // std::cout << "getAccel"<< std::endl;
+    // std::cout << "x: " << _bodyAcc.x << std::endl;
+    // std::cout << "y: " << _bodyAcc.y << std::endl;
+    // std::cout << "z: " << _bodyAcc.z << std::endl;
 
     return t_accel_msg;
 }

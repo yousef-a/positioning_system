@@ -146,8 +146,8 @@ int main(int argc, char** argv) {
     //***********************SETTING USER INPUTS****************************
     User* myUser = new User();
 
-    //Forward is negative pitch, Right is positive roll, CW is positive yaw, Upwards is negative Z
-    UserMessage* test_user = new UserMessage(1, 0, 0, 0);
+    //Forward is negative pitch, Right is positive roll, CCW is positive yaw, Upwards is positive Z
+    UserMessage* test_user = new UserMessage(0, 0, 0, 0);
 
     //***********************SETTING PID VALUES*****************************
 
@@ -203,8 +203,8 @@ int main(int argc, char** argv) {
 
     //***********************SETTING CONNECTIONS****************************
     //========                                                      =============
-    //|      |----->X_Control_System----->Pitch_Control_System----->|           |
-    //| USER |----->Y_Control_System----->Roll_Control_System------>| Actuation |      
+    //|      |----->X_Control_System----->Roll_Control_System------>|           |
+    //| USER |----->Y_Control_System----->Pitch_Control_System----->| Actuation |      
     //|      |----->Z_Control_System------------------------------->|  System   |
     //|      |----->Yaw_Control_System----------------------------->|           |
     //========                                                      =============
@@ -213,10 +213,10 @@ int main(int argc, char** argv) {
     myUser->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
     myUser->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
     myUser->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
-    X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
-    Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
-    Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
+    X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
     Roll_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
+    Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
+    Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 

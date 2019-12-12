@@ -45,7 +45,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         Block* block_to_add = control_system_msg->getBlockToAdd();
         
         //Considering the message is sent to all the Switchers, this checks if the block being altered belongs to that switcher
-        
+        //(4)
         if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::switch_in_out
             && std::find(_blocks.begin(), _blocks.end(), block_to_add) != _blocks.end()){
 
@@ -55,7 +55,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 block_to_add->switchIn(block_to_remove->switchOut());
                 _active_block = block_to_add;          
             }
-
+        //(5)
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::add_block
                     && static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){ //TODO Refactor
                 
@@ -64,7 +64,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 _active_block = block_to_add;
             }
             this->addBlock(block_to_add);
-                
+        //(6)
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings){ //TODO Refactor to change_Controller_sett
             
             if(_active_block->getType() == block_type::controller){
@@ -76,6 +76,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                     // std::cout << "CHANGING PID PARAMETERS" << std::endl;
                 } //TODO else if MRFT
             } 
+        //(7)
         } else if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::provider_data){
             
             Vector3D data_provided = control_system_msg->getV3DData();
@@ -100,7 +101,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
             }
         }
-        
+    //(8)    
     }else if(t_msg->getType() == msg_type::switcher){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
@@ -111,7 +112,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         m_out_switcher_msg.setSwitcherMessage(data->getData());
         
         this->emit_message((DataMessage*) &m_out_switcher_msg);
-
+    //(9)
     }else if(t_msg->getType() == msg_type::reference){ //TODO User message
 
         ReferenceMessage* reference = (ReferenceMessage*)t_msg;

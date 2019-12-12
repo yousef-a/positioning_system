@@ -1,15 +1,5 @@
 #include "ControlSystem.hpp"
 
-// ControlSystem::ControlSystem() : TimedBlock(t_bf) {
-//     // this->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
-//     // this->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
-//     // this->add_callback_msg_receiver((msg_receiver*)providerSwitcher);
-//     // providerSwitcher->add_callback_msg_receiver((msg_receiver*)referenceSwitcher);
-//     // referenceSwitcher->add_callback_msg_receiver((msg_receiver*)controllerSwitcher);
-//     // controllerSwitcher->add_callback_msg_receiver((msg_receiver*)this);
-    
-// }
-
 ControlSystem::ControlSystem(control_system t_control_system, GeneralStateProvider* t_g_s_provider, block_frequency t_bf) : TimedBlock(t_bf) {
     _control_system = t_control_system;
     
@@ -104,6 +94,8 @@ Switcher* ControlSystem::getReferenceSwitcher(){
     return referenceSwitcher;
 }
 
+//TODO Provider msg_emitter, remove loopInternal
+//(10)
 void ControlSystem::loopInternal(){
     Vector3D data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
     m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
