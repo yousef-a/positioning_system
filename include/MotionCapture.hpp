@@ -5,15 +5,12 @@
 #include "HeadingProvider.hpp"
 #include "VelocityProvider.hpp"
 #include "AccelerationProvider.hpp"
+#include "X_PVProvider.hpp"
 
-class MotionCapture : public msg_receiver, public PositioningProvider, public AttitudeProvider, 
-                      public HeadingProvider, public VelocityProvider, public AccelerationProvider{
+class MotionCapture : public msg_receiver, public X_PVProvider{
 
     public:
         virtual PositionMsg getPosition() = 0;
-        virtual Quaternion getAttitudeHeading() = 0;
-        virtual AttitudeMsg getAttitude() = 0; 
-        virtual HeadingMsg getHeading() = 0; 
         virtual VelocityMsg getVelocity() = 0;
         virtual AccelerationMsg getAcceleration() = 0;
 
