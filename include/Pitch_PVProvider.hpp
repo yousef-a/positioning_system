@@ -2,8 +2,8 @@
 #include "PVProvider.hpp"
 #include "AttitudeProvider.hpp"
 
-class Pitch_PVProvider :    public PVProvider, 
-                            public AttitudeProvider{
+class Pitch_PVProvider :public PVProvider, 
+                        public AttitudeProvider{
 
 public:
 
