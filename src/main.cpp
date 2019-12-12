@@ -1,20 +1,13 @@
 #include <iostream>
 #include <vector>
-#include "../include/PositioningProvider.hpp"
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
-#include "../include/ROSUnit.hpp"
 #include "../include/ROSUnit_Optitrack.hpp"
-#include "../include/MsgReceiver.hpp"
-#include "../include/MsgEmitter.hpp"
 #include "../include/PIDController.hpp"
-#include "../include/Reference.hpp"
 #include "../include/ControlSystem.hpp"
 #include "../include/PID_values.hpp"
 #include "../include/ProcessVariableReference.hpp"
-#include "../include/Controller.hpp"
 #include "../include/ActuationSystem.hpp"
-#include "../include/PVProvider.hpp"
 #include "../include/looper.hpp"
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
@@ -24,7 +17,7 @@
 #include "../include/GyroMagHeadingObserver.hpp"
 #include "../include/ComplementaryFilter.hpp"
 #include "../include/User.hpp"
-#include "../include/X_PVProvider.hpp"
+
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -50,11 +43,12 @@ int main(int argc, char** argv) {
 
     //***********************SETTING PROVIDERS**********************************
     MotionCapture* myOptitrackSystem = new OptiTrack();
-    PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
-    HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
-    VelocityProvider* myVelProvider = (VelocityProvider*)myOptitrackSystem;
-    AccelerationProvider* myAccelProvider = (AccelerationProvider*)myOptitrackSystem;
-    AttitudeProvider* myAttProvider = (AttitudeProvider*) myOptitrackSystem;
+    X_PVProvider* myXPV = (X_PVProvider*)myOptitrackSystem;
+    Y_PVProvider* myYPV = (Y_PVProvider*)myOptitrackSystem;
+    Z_PVProvider* myZPV = (Z_PVProvider*)myOptitrackSystem;
+    Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
+    Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
+    Yaw_PVProvider* myYawPV = (Yaw_PVProvider*)myOptitrackSystem;
     
     // AccGyroAttitudeObserver myAttObserver("IMU Navio", block_type::provider, 
     //                                      (BodyAccProvider*) myIMU->getAcc(), 
@@ -72,9 +66,6 @@ int main(int argc, char** argv) {
 
     // AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
     
-
-    PVProvider* my_general_state_provider = new X_PVProvider();
-
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
 
     //**************************SETTING BLOCKS**********************************
@@ -95,33 +86,33 @@ int main(int argc, char** argv) {
     //***********************SETTING CONTROL SYSTEMS***************************
 
     //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
-    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, my_general_state_provider, block_frequency::hz100);
+    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, myXPV, block_frequency::hz100);
     X_ControlSystem->addBlock(PID_x);
     X_ControlSystem->addBlock(PV_Ref_x);
     X_ControlSystem->getStatus();
 
-    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, my_general_state_provider, block_frequency::hz1000);
+    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, myPitchPV, block_frequency::hz1000);
     Pitch_ControlSystem->addBlock(PID_pitch);
     Pitch_ControlSystem->addBlock(PV_Ref_pitch);
     Pitch_ControlSystem->getStatus();
 
-    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, my_general_state_provider, block_frequency::hz100);
+    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, myYPV, block_frequency::hz100);
     Y_ControlSystem->addBlock(PID_y);
     Y_ControlSystem->addBlock(PV_Ref_y);
     Y_ControlSystem->getStatus();
 
-    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, my_general_state_provider, block_frequency::hz1000);
+    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, myRollPV, block_frequency::hz1000);
     Roll_ControlSystem->addBlock(PID_roll);
     Roll_ControlSystem->addBlock(PV_Ref_roll);
     Roll_ControlSystem->getStatus();
 
-    ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, my_general_state_provider, block_frequency::hz100);
+    ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, myZPV, block_frequency::hz100);
     Z_ControlSystem->addBlock(PID_z);
     Z_ControlSystem->addBlock(PV_Ref_z);
     Z_ControlSystem->getStatus();
 
     //Yaw on Optitrack 100Hz
-    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, my_general_state_provider, block_frequency::hz100);
+    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, myYawPV, block_frequency::hz100);
     Yaw_ControlSystem->addBlock(PID_yaw);
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
     Yaw_ControlSystem->getStatus();

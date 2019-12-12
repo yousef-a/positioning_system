@@ -12,7 +12,6 @@ OptiTrack::OptiTrack(){
     _prev_vel.z = 0;
     _prev_time = 0;
 
-    // std::cout << "Optitrack constructor" << std::endl;
 }
 
 OptiTrack::~OptiTrack() {
@@ -24,7 +23,6 @@ AttitudeMsg OptiTrack::getAttitude(){
     AttitudeMsg t_att_msg;
     t_att_msg.roll = rpy.x;
     t_att_msg.pitch = rpy.y;
-    //rpy.z = 0.0;
 
     // std::cout << "getAttitude"<< std::endl;
     // std::cout << "roll: " << rpy.x << std::endl;
@@ -38,8 +36,6 @@ HeadingMsg OptiTrack::getHeading(){
     Vector3D<float> rpy = getEulerfromQuaternion(_bodyAtt);
     HeadingMsg t_heading_msg;
     t_heading_msg.yaw = rpy.z;
-    rpy.x = 0.0;
-    rpy.y = 0.0; 
 
     // std::cout << "getHeading"<< std::endl;
     // // std::cout << "roll: " << rpy.x << std::endl;

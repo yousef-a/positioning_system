@@ -16,19 +16,19 @@ class OptiTrack : public MotionCapture {
         double _time, _prev_time;
 
     public:
-        Quaternion getAttitudeHeading(); 
         PositionMsg getPosition();
         AttitudeMsg getAttitude(); 
         HeadingMsg getHeading(); 
-        void updateVelocity(double);
-        void updateAcceleration(double);
         VelocityMsg getVelocity();
         AccelerationMsg getAcceleration();
 
+        void updateVelocity(double);
+        void updateAcceleration(double);
+        
         void receive_msg_data(DataMessage* t_msg);
         Vector3D<float> getEulerfromQuaternion(Quaternion);
         Quaternion getQuaternionfromEuler(Vector3D<float>);
-    
+        Quaternion getAttitudeHeading(); 
 
         OptiTrack();
         ~OptiTrack();

@@ -1,11 +1,11 @@
 #include "ControlSystem.hpp"
 
-ControlSystem::ControlSystem(control_system t_control_system, PVProvider* t_g_s_provider, block_frequency t_bf) : TimedBlock(t_bf) {
+ControlSystem::ControlSystem(control_system t_control_system, PVProvider* t_pvprovider, block_frequency t_bf) : TimedBlock(t_bf) {
     _control_system = t_control_system;
     
     controllerSwitcher = new Switcher("ControlSwitcher", switcher_type::controller, _control_system);
     referenceSwitcher = new Switcher("ReferenceSwitcher", switcher_type::reference, _control_system);
-    _providerProcessVariable = t_g_s_provider;
+    _providerProcessVariable = t_pvprovider;
     _switchers = {controllerSwitcher, referenceSwitcher};
     _frequency = t_bf;
     _dt = 1 / (int)_frequency;
@@ -98,10 +98,10 @@ Switcher* ControlSystem::getReferenceSwitcher(){
 //(10)
 void ControlSystem::loopInternal(){
     //UNDER MAINTENANCE
-    // Vector3D<float> data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
-    // m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
+    Vector3D<float> data = _providerProcessVariable->getProcessVariable();
+    m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
 
-    // this->emit_message((DataMessage*) &m_provider_data_msg);
+    this->emit_message((DataMessage*) &m_provider_data_msg);
 }
 
 void ControlSystem::switchBlock(Block* t_from, Block* t_to){
