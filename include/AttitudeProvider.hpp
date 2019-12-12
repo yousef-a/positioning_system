@@ -10,7 +10,7 @@ class AttitudeProvider : public Provider{
 
         virtual AttitudeMsg getAttitude() = 0;
         
-        AttitudeProvider(std::string, block_type);
+        AttitudeProvider();
         ~AttitudeProvider();
     
     private:

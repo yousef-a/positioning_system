@@ -10,7 +10,7 @@
 class AccGyroAttitudeObserver : public AttitudeProvider, public TimedBlock
 {
 public:
-	AccGyroAttitudeObserver(std::string, block_type, BodyAccProvider*, BodyRateProvider*, block_frequency);
+	AccGyroAttitudeObserver(BodyAccProvider*, BodyRateProvider*, block_frequency);
 	void setFilterType(DataFilter*, DataFilter*);
 	void updateSettings(FilterSettings*, float);
 	void receive_msg_data(DataMessage* t_msg) {};

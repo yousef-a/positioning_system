@@ -30,6 +30,6 @@ class OptiTrack : public MotionCapture {
         Quaternion getQuaternionfromEuler(Vector3D);
     
 
-        OptiTrack(std::string, block_type);
+        OptiTrack();
         ~OptiTrack();
 };

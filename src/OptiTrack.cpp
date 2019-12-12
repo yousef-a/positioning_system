@@ -1,7 +1,7 @@
 #include "OptiTrack.hpp"
 #include <iostream>
 
-OptiTrack::OptiTrack(std::string t_name, block_type t_type) : MotionCapture(t_name, t_type){
+OptiTrack::OptiTrack(){
     Quaternion _bodyAtt;
     Vector3D _bodyPos;
     _prev_pos.x = 0;

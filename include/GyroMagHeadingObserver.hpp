@@ -11,7 +11,7 @@ class GyroMagHeadingObserver : public HeadingProvider
 {
 public:
 
-	GyroMagHeadingObserver(std::string, block_type, AttitudeProvider*, BodyRateProvider*, CompassProvider*);
+	GyroMagHeadingObserver(AttitudeProvider*, BodyRateProvider*, CompassProvider*);
 	void setSettings(FilterSettings*);
 	HeadingMsg getHeading();
 

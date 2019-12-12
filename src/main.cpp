@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     // myIMU->setSettings(MAGNETOMETER, FSR, 16);
 
     //***********************SETTING PROVIDERS**********************************
-    MotionCapture* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
+    MotionCapture* myOptitrackSystem = new OptiTrack();
     PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
     HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
     VelocityProvider* myVelProvider = (VelocityProvider*)myOptitrackSystem;

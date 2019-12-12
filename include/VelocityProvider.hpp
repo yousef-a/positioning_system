@@ -9,6 +9,6 @@ public:
     virtual VelocityMsg getVelocity() = 0;
       
 
-    VelocityProvider(std::string, block_type);
+    VelocityProvider();
     ~VelocityProvider();
 };

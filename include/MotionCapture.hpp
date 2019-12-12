@@ -19,6 +19,6 @@ class MotionCapture : public msg_receiver, public PositioningProvider, public At
 
         virtual void receive_msg_data(DataMessage* t_msg) = 0;
 
-        MotionCapture(std::string, block_type);
+        MotionCapture();
         ~MotionCapture();
 };

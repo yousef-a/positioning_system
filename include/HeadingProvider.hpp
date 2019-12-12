@@ -13,7 +13,7 @@ class HeadingProvider : public Provider{
         
          
         
-        HeadingProvider(std::string, block_type);
+        HeadingProvider();
         ~HeadingProvider();
 
     private:

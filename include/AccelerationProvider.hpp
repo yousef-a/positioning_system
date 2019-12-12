@@ -9,6 +9,6 @@ public:
     virtual AccelerationMsg getAcceleration() = 0;
       
     
-    AccelerationProvider(std::string, block_type);
+    AccelerationProvider();
     ~AccelerationProvider();
 };
