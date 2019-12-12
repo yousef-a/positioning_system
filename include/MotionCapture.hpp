@@ -6,10 +6,14 @@
 #include "VelocityProvider.hpp"
 #include "AccelerationProvider.hpp"
 #include "X_PVProvider.hpp"
+#include "Y_PVProvider.hpp"
+#include "Z_PVProvider.hpp"
 #include "Yaw_PVProvider.hpp"
 
 class MotionCapture :   public msg_receiver, 
                         public X_PVProvider,
+                        public Y_PVProvider,
+                        public Z_PVProvider,
                         public Yaw_PVProvider{
 
     public:
