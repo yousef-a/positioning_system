@@ -60,11 +60,11 @@ void Gyro::doCalibrationCycle(void)
 		avg_factor = (float) (calibration_counter - 1);
 		avg_factor = (float) avg_factor/calibration_counter;
 
-		calibration_temp = vec_3d<int>(vec_3d<float>(calibration_temp) * avg_factor + vec_3d<float>(raw) / (float)calibration_counter);
+		calibration_temp = Vector3D<int>(Vector3D<float>(calibration_temp) * avg_factor + Vector3D<float>(raw) / (float)calibration_counter);
 	}
 }
 
-vec_3d<float> Gyro::getCalibratedData(void)
+Vector3D<float> Gyro::getCalibratedData(void)
 {
 	raw = getRawData();
 	if(calibration_flag) //TODO: raw is int, but the func returns float
@@ -72,7 +72,7 @@ vec_3d<float> Gyro::getCalibratedData(void)
 		doCalibrationCycle();
 		return raw;
 	}
-	calibrated = vec_3d<float>((raw - calibration_offset)) / sens;
+	calibrated = Vector3D<float>((raw - calibration_offset)) / sens;
 
 	// std::cout << "Calibrated_X " <<  calibrated.x << std::endl;
 	// std::cout << "Calibrated_Y " <<  calibrated.y << std::endl;
@@ -82,7 +82,7 @@ vec_3d<float> Gyro::getCalibratedData(void)
 	return calibrated;
 }
 
-vec_3d<float> Gyro::getBodyRate(void)
+Vector3D<float> Gyro::getBodyRate(void)
 {	
 	return getCalibratedData();
 }

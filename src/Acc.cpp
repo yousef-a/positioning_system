@@ -32,7 +32,7 @@ void Acc::stopCalibration(void)
 
 void Acc::updateCalibrationTerms(void)
 {
-	calibration_offset = vec_3d<int32_t>(calibration_temp) * conv_coef;
+	calibration_offset = Vector3D<int32_t>(calibration_temp) * conv_coef;
 	calibration_offset.z = calibration_offset.z - (conv_coef*g_in_working_range);
 	std::cout << "Calib_X " <<  calibration_offset.x << std::endl;
 	std::cout << "Calib_Y " <<  calibration_offset.y << std::endl;
@@ -62,7 +62,7 @@ void Acc::doCalibrationCycle(void)
 
 		avg_factor = (float) (calibration_counter - 1);
 		avg_factor = (float) avg_factor/calibration_counter;
-		calibration_temp = vec_3d<int>(vec_3d<float>(calibration_temp) * avg_factor + vec_3d<float>(raw) / (float)calibration_counter);
+		calibration_temp = Vector3D<int>(Vector3D<float>(calibration_temp) * avg_factor + Vector3D<float>(raw) / (float)calibration_counter);
 	}
 }
 
@@ -81,7 +81,7 @@ void Acc::setgWorkingRange(float tmp)
 	g_in_working_range = tmp;
 }
 
-vec_3d<float> Acc::getCalibratedData(void)
+Vector3D<float> Acc::getCalibratedData(void)
 {
 	raw = getRawData();
 	if(calibration_flag) //TODO: raw is int, but the func returns float
@@ -92,7 +92,7 @@ vec_3d<float> Acc::getCalibratedData(void)
 		doCalibrationCycle();
 		return raw;
 	}
-	calibrated = vec_3d<float>((raw - calibration_offset)) / sens;
+	calibrated = Vector3D<float>((raw - calibration_offset)) / sens;
 
 	// std::cout << "Calibrated_X " <<  calibrated.x << std::endl;
 	// std::cout << "Calibrated_Y " <<  calibrated.y << std::endl;
@@ -101,7 +101,7 @@ vec_3d<float> Acc::getCalibratedData(void)
 	return calibrated;
 }
 
-vec_3d<float> Acc::getBodyAcceleration(void)
+Vector3D<float> Acc::getBodyAcceleration(void)
 {
 	return getCalibratedData();
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "DataMessage.hpp"
-#include "vec_3d.hpp"
+#include "Vector3D.hpp"
 
 class Vector3DMessage : public DataMessage{
 

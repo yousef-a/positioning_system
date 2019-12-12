@@ -31,7 +31,7 @@ private:
 
 	AttitudeMsg m_filtered_attitude;
 	AttitudeMsg m_filtered_attitude_temp;
-	vec_3d<float> acc_data, gyro_data;
+	Vector3D<float> acc_data, gyro_data;
 
 	AttitudeMsg getAccAttitude();
 };

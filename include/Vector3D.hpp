@@ -10,41 +10,41 @@ class Vector3D
         
                 T x, y, z;
 
-                vec_3d<T> operator + (vec_3d<T> obj)
+                Vector3D<T> operator + (Vector3D<T> obj)
                 {
-                        vec_3d<T> res;
+                        Vector3D<T> res;
                         res.x = x + obj.x;
                         res.y = y + obj.y;
                         res.z = z + obj.z;
                         return res;
                 }
-                vec_3d<T> operator - (vec_3d<T> obj)
+                Vector3D<T> operator - (Vector3D<T> obj)
                 {
-                        vec_3d<T> res;
+                        Vector3D<T> res;
                         res.x = x - obj.x;
                         res.y = y - obj.y;
                         res.z = z - obj.z;
                         return res;
                 }
-                vec_3d<T> operator * (vec_3d<T> obj)
+                Vector3D<T> operator * (Vector3D<T> obj)
                 {
-                        vec_3d<T> res;
+                        Vector3D<T> res;
                         res.x = x * obj.x;
                         res.y = y * obj.y;
                         res.z = z * obj.z;
                         return res;
                 }
-                vec_3d<T> operator * (T tmp)
+                Vector3D<T> operator * (T tmp)
                 {
-                        vec_3d<T> res;
+                        Vector3D<T> res;
                         res.x = this->x * tmp;
                         res.y = this->y * tmp;
                         res.z = this->z * tmp;
                         return res;
                 }
-                vec_3d<T> operator / (T tmp)
+                Vector3D<T> operator / (T tmp)
                 {
-                        vec_3d<T> res;
+                        Vector3D<T> res;
                         res.x = this->x / tmp;
                         res.y = this->y / tmp;
                         res.z = this->z / tmp;
@@ -58,9 +58,9 @@ class Vector3D
                 }
 
                 template <typename M>
-                operator vec_3d<M>()
+                operator Vector3D<M>()
                 {
-                        vec_3d<M> tmp;
+                        Vector3D<M> tmp;
                         tmp.x = M(this->x);
                         tmp.y = M(this->y);
                         tmp.z = M(this->z);

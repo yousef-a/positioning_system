@@ -18,7 +18,7 @@ private:
 
 public:
 
-    virtual vec_3d<float> getProcessVariable() = 0;
+    virtual Vector3D<float> getProcessVariable() = 0;
 
     // PVProvider(AttitudeProvider* , PositioningProvider*, HeadingProvider*, VelocityProvider*, AccelerationProvider*);
     // ~PVProvider();
