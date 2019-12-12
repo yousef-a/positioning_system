@@ -9,7 +9,7 @@ UserMessage::UserMessage(float t_x, float t_y, float t_z, float t_yaw) {
 }
 
 UserMessage::UserMessage() {
-
+    _type = msg_type::user;
 }
 
 UserMessage::~UserMessage() {
@@ -32,6 +32,7 @@ msg_type UserMessage::getType(){
     return _type;
 }
 void UserMessage::setUserMessage(float t_x, float t_y, float t_z, float t_yaw){
+    _type = msg_type::user;
     _x = t_x;
     _y = t_y;
     _z = t_z;
