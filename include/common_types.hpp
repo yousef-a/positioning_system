@@ -18,7 +18,6 @@ enum class block_type {controller, provider, reference};
 enum class switcher_type {controller, provider, reference, null_type};
 enum class controller_type {pid, mrft};
 enum class reference_type {process_variable_ref, restricted_process_variable_ref};
-enum class provider_type {position, attitude, heading};
 enum class internal_switcher_type {position_provider, attitude_provider, reference, controller};
 enum class controller_msg_type {data, change_settings, command};
 enum class control_system_msg_type {switch_in_out, add_block, change_PID_settings, to_system, provider_data};

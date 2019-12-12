@@ -75,7 +75,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 control_system ControlSystem::getControlSystemType(){
     return _control_system;
 }
-
+//TODO remove
 void ControlSystem::getStatus(){
     
     for(Switcher* s : _switchers){

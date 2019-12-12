@@ -86,7 +86,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
 
                 if(reference_block->getReferenceType() == reference_type::process_variable_ref){
                     ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
-
+                    //TODO remove Vector3DMessage 
                     m_process_variable.setVector3DMessage(data_provided);
 
                     DataMessage* output_from_reference = pv_ref_block->receive_msg_internal((DataMessage*) &m_process_variable);
