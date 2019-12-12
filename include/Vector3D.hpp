@@ -8,7 +8,9 @@ class Vector3D
 {
         public:
         
-                T x, y, z;
+                T x = 0;
+                T y = 0;
+                T z = 0;
 
                 Vector3D<T> operator + (Vector3D<T> obj)
                 {

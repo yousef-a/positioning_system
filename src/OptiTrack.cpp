@@ -4,12 +4,6 @@
 OptiTrack::OptiTrack(){
     Quaternion _bodyAtt;
     Vector3D<float> _bodyPos;
-    _prev_pos.x = 0;
-    _prev_pos.y = 0;
-    _prev_pos.z = 0;
-    _prev_vel.x = 0;
-    _prev_vel.y = 0;
-    _prev_vel.z = 0;
     _prev_time = 0;
 
 }
@@ -27,7 +21,6 @@ AttitudeMsg OptiTrack::getAttitude(){
     // std::cout << "getAttitude"<< std::endl;
     // std::cout << "roll: " << rpy.x << std::endl;
     // std::cout << "pitch: " << rpy.y << std::endl;
-    // std::cout << "yaw: " << rpy.z << std::endl;
 
     return t_att_msg;
 }
@@ -38,8 +31,6 @@ HeadingMsg OptiTrack::getHeading(){
     t_heading_msg.yaw = rpy.z;
 
     // std::cout << "getHeading"<< std::endl;
-    // // std::cout << "roll: " << rpy.x << std::endl;
-    // // std::cout << "pitch: " << rpy.y << std::endl;
     // std::cout << "yaw: " << rpy.z << std::endl;
 
     return t_heading_msg;
