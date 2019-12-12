@@ -97,10 +97,11 @@ Switcher* ControlSystem::getReferenceSwitcher(){
 //TODO Provider msg_emitter, remove loopInternal
 //(10)
 void ControlSystem::loopInternal(){
-    Vector3D<float> data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
-    m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
+    //UNDER MAINTENANCE
+    // Vector3D<float> data = _providerProcessVariable->getProcessVariable(this->getControlSystemType());
+    // m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
 
-    this->emit_message((DataMessage*) &m_provider_data_msg);
+    // this->emit_message((DataMessage*) &m_provider_data_msg);
 }
 
 void ControlSystem::switchBlock(Block* t_from, Block* t_to){

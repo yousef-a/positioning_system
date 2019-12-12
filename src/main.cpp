@@ -24,6 +24,7 @@
 #include "../include/GyroMagHeadingObserver.hpp"
 #include "../include/ComplementaryFilter.hpp"
 #include "../include/User.hpp"
+#include "../include/X_PVProvider.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -72,11 +73,7 @@ int main(int argc, char** argv) {
     // AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
     
 
-    PVProvider* my_general_state_provider = new PVProvider( myAttProvider, 
-                                                                                myPosProvider, 
-                                                                                myHeadProvider,
-                                                                                myVelProvider,
-                                                                                myAccelProvider);
+    PVProvider* my_general_state_provider = new X_PVProvider();
 
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
 
