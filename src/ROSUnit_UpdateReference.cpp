@@ -1,24 +1,24 @@
-#include "ROSUnit_FlightScenario.hpp"
+#include "ROSUnit_UpdateReference.hpp"
 
 //TODO rename the topics and class
-ROSUnit_FlightScenario* ROSUnit_FlightScenario::_instance_ptr = NULL;
-UserMessage ROSUnit_FlightScenario::user_msg;
+ROSUnit_UpdateReference* ROSUnit_UpdateReference::_instance_ptr = NULL;
+UserMessage ROSUnit_UpdateReference::user_msg;
 
-ROSUnit_FlightScenario::ROSUnit_FlightScenario(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler) {
+ROSUnit_UpdateReference::ROSUnit_UpdateReference(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler) {
     _sub_setpoint = t_main_handler.subscribe("/setpoint_position", 10, callbackSetpoint);
     _instance_ptr = this;
 }   
 
-ROSUnit_FlightScenario::~ROSUnit_FlightScenario() {
+ROSUnit_UpdateReference::~ROSUnit_UpdateReference() {
 
 }
 
-void ROSUnit_FlightScenario::receive_msg_data(DataMessage* t_msg){
+void ROSUnit_UpdateReference::receive_msg_data(DataMessage* t_msg){
 
 
 }
 
-void ROSUnit_FlightScenario::callbackSetpoint(const geometry_msgs::PoseStamped& msg){
+void ROSUnit_UpdateReference::callbackSetpoint(const geometry_msgs::PoseStamped& msg){
 
     //TODO Send message received to User
     Vector3D<float> pos_data;

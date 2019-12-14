@@ -6,13 +6,13 @@
 #include "FloatMessage.hpp"
 #include "Controller.hpp"
 #include "SwitcherMessage.hpp"
-#include "Vector3DMessage.hpp"
+#include "FloatMessage.hpp"
 
 class PIDController : public Controller{
 
     private:
         controller_type _controller_type;
-        Vector3DMessage m_output_msg;
+        FloatMessage m_output_msg;
         //Chehadeh's code
         PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster

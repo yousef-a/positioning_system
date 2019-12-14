@@ -17,7 +17,7 @@
 #include "../include/GyroMagHeadingObserver.hpp"
 #include "../include/ComplementaryFilter.hpp"
 #include "../include/User.hpp"
-#include "../include/ROSUnit_FlightScenario.hpp"
+#include "../include/ROSUnit_UpdateReference.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     ros::Rate rate(300);
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
-    ROSUnit* myROSFlightScenario = new ROSUnit_FlightScenario(nh);
+    ROSUnit* myROSUpdateReference = new ROSUnit_UpdateReference(nh);
 
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
@@ -137,9 +137,9 @@ int main(int argc, char** argv) {
     User* myUser = new User();
 
     //Forward is negative pitch, Right is positive roll, CCW is positive yaw, Upwards is positive Z
-    UserMessage* test_user = new UserMessage(0, 0, 0, 0);
+    UserMessage* test_user = new UserMessage(0, 0, 1, 0);
 
-    myROSFlightScenario->add_callback_msg_receiver((msg_receiver*)myUser);
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myUser);
 
     //***********************SETTING PID VALUES*****************************
 

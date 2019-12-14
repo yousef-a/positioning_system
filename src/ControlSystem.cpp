@@ -27,31 +27,33 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
         UserMessage* user_msg = (UserMessage*)t_msg;
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
-            m_ref_msg_x.setReferenceMessage(user_msg->getX());
+            m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, user_msg->getX());
+
+            //m_ref_msg_x.setReferenceMessage(user_msg->getX());
             std::cout << "Msg received from User. Sending to X Control System: " << user_msg->getX() << std::endl;
-            this->emit_message((DataMessage*) &m_ref_msg_x);
+            this->emit_message((DataMessage*) &m_output_msg);
 
         }else if(this->getControlSystemType() == control_system::y){
-            m_ref_msg_y.setReferenceMessage(user_msg->getY());
+            m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, user_msg->getY());
             std::cout << "Msg received from User. Sending to Y Control System: " << user_msg->getY() << std::endl;
-            this->emit_message((DataMessage*) &m_ref_msg_y);
+            this->emit_message((DataMessage*) &m_output_msg);
 
         }else if(this->getControlSystemType() == control_system::z){
-            m_ref_msg_z.setReferenceMessage(user_msg->getZ());
+            m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, user_msg->getZ());
             std::cout << "Msg received from User. Sending to Z Control System: " << user_msg->getZ() << std::endl;
-            this->emit_message((DataMessage*) &m_ref_msg_z);
+            this->emit_message((DataMessage*) &m_output_msg);
 
         }else if(this->getControlSystemType() == control_system::yaw){
-            m_ref_msg_yaw.setReferenceMessage(user_msg->getYaw());
+            m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, user_msg->getYaw());
             std::cout << "Msg received from User. Sending to Yaw Control System: " << user_msg->getYaw() << std::endl;
-            this->emit_message((DataMessage*) &m_ref_msg_yaw);
+            this->emit_message((DataMessage*) &m_output_msg);
         }
     // (2)
     }else if(t_msg->getType() == msg_type::switcher){
 
         SwitcherMessage* switcher_msg = (SwitcherMessage*)t_msg;
 
-        m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::to_system, switcher_msg->getVector3DData());
+        m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::to_system, switcher_msg->getFloatData());
 
         this->emit_message((DataMessage*) &m_output_msg);
             
@@ -62,8 +64,8 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
 
         if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_system){
             
-            m_ref_out_msg.setReferenceMessage(control_system_msg->getV3DData());
-            
+            m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, control_system_msg->getData());
+
             this->emit_message((DataMessage*) &m_ref_out_msg);
         }
         

@@ -18,12 +18,11 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 	// std::cout << "error: " << data.x << std::endl;
 	// std::cout << "pv_first: " << data.y << std::endl;
 	// std::cout << "pv_second: " << data.z << std::endl;
-    Vector3D<float> command;
-	command.x = pid_direct(data.x, data.y, data.z);
-	command.y = 0.0;
-	command.z = 0.0;
-	// std::cout << "pid_output: " << command.x << std::endl;
-    m_output_msg.setVector3DMessage(command);
+    float command;
+	command = pid_direct(data.x, data.y, data.z);
+
+	// std::cout << "pid_output: " << command << std::endl;
+    m_output_msg.setFloatMessage(command);
 
 	return (DataMessage*) &m_output_msg;
 }

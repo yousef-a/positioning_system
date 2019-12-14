@@ -1,8 +1,6 @@
 #include "FloatMessage.hpp"
 
-FloatMessage::FloatMessage(float t_data) {
-    _type = msg_type::float_msg;
-    _data = t_data;
+FloatMessage::FloatMessage() {
 }
 
 FloatMessage::~FloatMessage() {
@@ -20,4 +18,9 @@ const int FloatMessage::getSize()
 
 float FloatMessage::getData(){
     return _data;
+}
+
+void FloatMessage::setFloatMessage(float t_data){
+    _type = msg_type::float_msg;
+    _data = t_data;
 }

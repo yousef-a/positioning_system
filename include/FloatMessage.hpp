@@ -12,7 +12,8 @@ public:
     msg_type getType();
     const int getSize();
     float getData();
-    
-    FloatMessage(float);
+    void setFloatMessage(float);
+
+    FloatMessage();
     ~FloatMessage();
 };

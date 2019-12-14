@@ -25,10 +25,8 @@ public:
     void setSwitcherMessage(switcher_type, switcher_type, internal_switcher_type, Vector3D<float>);
     void setSwitcherMessage(switcher_type, switcher_type, internal_switcher_type, float);
     void setSwitcherMessage(Vector3D<float>);
+    void setSwitcherMessage(float);
 
-    SwitcherMessage(switcher_type, switcher_type, internal_switcher_type, Vector3D<float>);
-    SwitcherMessage(switcher_type, switcher_type, internal_switcher_type, float);
-    SwitcherMessage(Vector3D<float>);
     SwitcherMessage();
     ~SwitcherMessage();
 };

@@ -16,6 +16,7 @@ class Reference : public Block {
         std::string getName();
         virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
         virtual reference_type getReferenceType() = 0;
+        virtual void setReferenceValue(float) = 0;
 
         Reference(std::string t_name, block_type t_type);
         ~Reference();
