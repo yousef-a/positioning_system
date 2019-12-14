@@ -212,7 +212,7 @@ int main(int argc, char** argv) {
     Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
 
-    //myX_UserRef->emit_message((DataMessage*)test_user);
+    myX_UserRef->emit_message((DataMessage*)test_user);
     
     //******************************LOOP***********************************
     

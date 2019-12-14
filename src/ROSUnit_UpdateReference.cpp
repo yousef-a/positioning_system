@@ -27,6 +27,7 @@ void ROSUnit_UpdateReference::callbackSetpoint(const geometry_msgs::PoseStamped&
     pos_data.z = msg.pose.position.z;
 
     user_msg.setUserMessage(pos_data.x, pos_data.y, pos_data.z, 0);
+    std::cout << "ESTOU AQUIIIIIIIII %%%%%%%%%%%%%%%%%%%%%%%%%%         " << pos_data.x <<  std::endl;
     _instance_ptr->emit_message((DataMessage*) &user_msg);
 
 }

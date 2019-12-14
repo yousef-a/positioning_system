@@ -104,12 +104,11 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         //(9)
         } else if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::SETREFERENCE){
             float reference = control_system_msg->getData();
-        
-                if(_active_block->getType() == block_type::reference){
-                    Reference* _reference_block = (Reference*)_active_block;
-                    _reference_block->setReferenceValue(reference);
-                    //std::cout << "........................Setting Process variable" << std::endl;
-                }
+            if(_active_block->getType() == block_type::reference){
+                Reference* _reference_block = (Reference*)_active_block;
+                _reference_block->setReferenceValue(reference);
+                //std::cout << "........................Setting Process variable " << reference << std::endl;
+            }
         }
 
     //(8)  //Controller Switcher
