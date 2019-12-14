@@ -15,7 +15,6 @@ void X_UserReference::receive_msg_data(DataMessage* t_msg){
         UserReferenceMessage* user_msg = (UserReferenceMessage*)t_msg;
 
         m_output_msg.setControlSystemMessage(control_system::null_type, control_system_msg_type::to_system, user_msg->getX());
-        std::cout << "SAINDOOO AQUIIIIIIIII %%%%%%%%%%%%%%%%%%%%%%%%%%         " << user_msg->getX() <<  std::endl;
         this->emit_message((DataMessage*) &m_output_msg);
     }
 }

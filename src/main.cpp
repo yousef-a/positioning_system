@@ -17,6 +17,10 @@
 #include "../include/GyroMagHeadingObserver.hpp"
 #include "../include/ComplementaryFilter.hpp"
 #include "../include/X_UserReference.hpp"
+#include "../include/Y_UserReference.hpp"
+#include "../include/Z_UserReference.hpp"
+#include "../include/Yaw_UserReference.hpp"
+
 #include "../include/ROSUnit_UpdateReference.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
@@ -135,11 +139,16 @@ int main(int argc, char** argv) {
 
     //***********************SETTING USER INPUTS****************************
     X_UserReference* myX_UserRef = new X_UserReference();
+    Y_UserReference* myY_UserRef = new Y_UserReference();
+    Z_UserReference* myZ_UserRef = new Z_UserReference();
+    Yaw_UserReference* myYaw_UserRef = new Yaw_UserReference();
 
     //Forward is negative pitch, Right is positive roll, CCW is positive yaw, Upwards is positive Z
-    UserReferenceMessage* test_user = new UserReferenceMessage(0, 0, 1, 0);
 
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myX_UserRef);
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myY_UserRef);
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
 
     //***********************SETTING PID VALUES*****************************
 
@@ -202,17 +211,15 @@ int main(int argc, char** argv) {
     //========                                                      =============
     
     myX_UserRef->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
-    myX_UserRef->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
-    myX_UserRef->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
-    myX_UserRef->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
+    myY_UserRef->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
+    myZ_UserRef->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
+    myYaw_UserRef->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
     X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
     Roll_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
     Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
-
-    myX_UserRef->emit_message((DataMessage*)test_user);
     
     //******************************LOOP***********************************
     
