@@ -24,12 +24,10 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
     // (1)
     if(t_msg->getType() == msg_type::user){
         //TODO if the control_system is equal to the user message getchannel
-        UserMessage* user_msg = (UserMessage*)t_msg;
+        UserReferenceMessage* user_msg = (UserReferenceMessage*)t_msg;
         //TODO add mask to ignore msgs
         if(this->getControlSystemType() == control_system::x){
             m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, user_msg->getX());
-
-            //m_ref_msg_x.setReferenceMessage(user_msg->getX());
             std::cout << "Msg received from User. Sending to X Control System: " << user_msg->getX() << std::endl;
             this->emit_message((DataMessage*) &m_output_msg);
 

@@ -2,7 +2,7 @@
 
 //TODO rename the topics and class
 ROSUnit_UpdateReference* ROSUnit_UpdateReference::_instance_ptr = NULL;
-UserMessage ROSUnit_UpdateReference::user_msg;
+UserReferenceMessage ROSUnit_UpdateReference::user_msg;
 
 ROSUnit_UpdateReference::ROSUnit_UpdateReference(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler) {
     _sub_setpoint = t_main_handler.subscribe("/setpoint_position", 10, callbackSetpoint);

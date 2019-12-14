@@ -1,7 +1,7 @@
 #pragma once
 #include "DataMessage.hpp"
 
-class UserMessage : public DataMessage{
+class UserReferenceMessage : public DataMessage{
 
 private:
     float _x, _y, _z, _yaw;
@@ -17,7 +17,7 @@ public:
     const int getSize();
     void setUserMessage(float, float, float, float);
     
-    UserMessage(float,float,float,float);
-    UserMessage();
-    ~UserMessage();
+    UserReferenceMessage(float,float,float,float);
+    UserReferenceMessage();
+    ~UserReferenceMessage();
 };

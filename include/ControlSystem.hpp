@@ -5,7 +5,7 @@
 #include <vector>
 #include "ControlSystemMessage.hpp"
 #include "PID_values.hpp"
-#include "UserMessage.hpp"
+#include "UserReferenceMessage.hpp"
 #include "PVProvider.hpp"
 #include "ReferenceMessage.hpp"
 #include "TimedBlock.hpp"
