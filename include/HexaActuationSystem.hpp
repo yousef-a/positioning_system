@@ -1,6 +1,7 @@
 #pragma once
 #include "ActuationSystem.hpp"
 #include "ControlSystemMessage.hpp"
+#include "BoolMessage.hpp"
 
 // GEOMETRY
 //      CW(3) (5)CCW                y
@@ -20,6 +21,7 @@ private:
     std::vector<Actuator*> _actuators;
     const int _escMin = 1000;
     const int _escMax = 2000;
+    bool _armed = false;
     float _movements[4]; //[roll, pitch, yaw, throttle]
     float _commands[6];
     float _geometry[6][4] = {{  1  * -1,         0 * -1,  1, 1},

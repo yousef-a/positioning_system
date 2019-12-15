@@ -60,43 +60,54 @@ void HexaActuationSystem::receive_msg_data(DataMessage* t_msg){
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
         if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_system){
             
-            switch (control_system_msg->getSource())
-            {
-            case control_system::roll:
-            {
-                _movements[0] = control_system_msg->getData();
-                //_movements[0] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
-                break;
+            if(_armed){
+                switch (control_system_msg->getSource())
+                {
+                case control_system::roll:
+                {
+                    _movements[0] = control_system_msg->getData();
+                    //_movements[0] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
+                    break;
+                }
+                case control_system::pitch:
+                {
+                    _movements[1] = control_system_msg->getData();
+                    //_movements[1] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
+                    break;
+                }
+                case control_system::yaw:
+                {
+                    _movements[2] = control_system_msg->getData();
+                    //_movements[2] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
+                    break;
+                }
+                case control_system::z:
+                {
+                    _movements[3] = control_system_msg->getData();
+                    //_movements[3] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
+                    break;
+                }
+                default:
+                    break;
+                }
+            }else{
+                _movements[0] = 0.0;
+                _movements[1] = 0.0;
+                _movements[2] = 0.0;
+                _movements[3] = 0.0;
             }
-            case control_system::pitch:
-            {
-                _movements[1] = control_system_msg->getData();
-                //_movements[1] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
-                break;
-            }
-            case control_system::yaw:
-            {
-                _movements[2] = control_system_msg->getData();
-                //_movements[2] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
-                break;
-            }
-            case control_system::z:
-            {
-                _movements[3] = control_system_msg->getData();
-                //_movements[3] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
-                break;
-            }
-            default:
-                break;
-            }
-
+            
             this->command();
             
         }
           
+    }else if(t_msg->getType() == msg_type::BOOLEAN){
+
+        BoolMessage* bool_msg = (BoolMessage*)t_msg;
+        _armed = bool_msg->getData();
     }
 }
