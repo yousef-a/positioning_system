@@ -1,7 +1,7 @@
 #pragma once
 #include "DataMessage.hpp"
 
-class ResetControllerMessage : public DataMessage{
+class ResetControllerMsg : public DataMessage{
 
 private:
     msg_type _type;
@@ -14,6 +14,6 @@ public:
     int getData();
     void setResetControllerMessage(int);
 
-    ResetControllerMessage();
-    ~ResetControllerMessage();
+    ResetControllerMsg();
+    ~ResetControllerMsg();
 };

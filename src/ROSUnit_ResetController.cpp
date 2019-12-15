@@ -1,6 +1,6 @@
 #include "ROSUnit_ResetController.hpp"
 ROSUnit_ResetController* ROSUnit_ResetController::_instance_ptr = NULL;
-ResetControllerMessage ROSUnit_ResetController::_reset_msg;
+ResetControllerMsg ROSUnit_ResetController::_reset_msg;
 
 ROSUnit_ResetController::ROSUnit_ResetController(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler) {
     _srv_reset_controller = t_main_handler.advertiseService("reset_controller", callbackArm);

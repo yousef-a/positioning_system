@@ -7,7 +7,7 @@
 #include "Controller.hpp"
 #include "SwitcherMessage.hpp"
 #include "FloatMessage.hpp"
-#include "ResetControllerMessage.hpp"
+#include "ResetControllerMsg.hpp"
 
 class PIDController : public Controller{
 
