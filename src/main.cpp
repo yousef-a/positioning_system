@@ -22,6 +22,7 @@
 #include "../include/Yaw_UserReference.hpp"
 #include "../include/ROSUnit_Arm.hpp"
 #include "../include/ROSUnit_UpdateReference.hpp"
+#include "../include/ROSUnit_UpdateController.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -37,7 +38,8 @@ int main(int argc, char** argv) {
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
     ROSUnit* myROSUpdateReference = new ROSUnit_UpdateReference(nh);
     ROSUnit* myROSArm = new ROSUnit_Arm(nh);
-    
+    ROSUnit* myROSUpdateController = new ROSUnit_UpdateController(nh);
+
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
 
@@ -77,18 +79,18 @@ int main(int argc, char** argv) {
 
     //**************************SETTING BLOCKS**********************************
 
-    Block* PID_x = new PIDController("PID_x", block_type::controller);
-    Block* PID_pitch = new PIDController("PID_pitch", block_type::controller);
-    Block* PV_Ref_x = new ProcessVariableReference("Ref_x", block_type::reference);
-    Block* PV_Ref_pitch = new ProcessVariableReference("Ref_pitch", block_type::reference);
-    Block* PID_y = new PIDController("PID_y", block_type::controller);
-    Block* PID_roll = new PIDController("PID_roll", block_type::controller);
-    Block* PV_Ref_y = new ProcessVariableReference("Ref_y", block_type::reference);
-    Block* PV_Ref_roll = new ProcessVariableReference("Ref_roll", block_type::reference);
-    Block* PID_z = new PIDController("PID_z", block_type::controller);
-    Block* PID_yaw = new PIDController("PID_yaw", block_type::controller);
-    Block* PV_Ref_z = new ProcessVariableReference("Ref_z", block_type::reference);
-    Block* PV_Ref_yaw = new ProcessVariableReference("Ref_yaw", block_type::reference);
+    Block* PID_x = new PIDController(block_id::PID_X, block_type::controller);
+    Block* PID_pitch = new PIDController(block_id::PID_PITCH, block_type::controller);
+    Block* PV_Ref_x = new ProcessVariableReference(block_id::REF_X, block_type::reference);
+    Block* PV_Ref_pitch = new ProcessVariableReference(block_id::REF_PITCH, block_type::reference);
+    Block* PID_y = new PIDController(block_id::PID_Y, block_type::controller);
+    Block* PID_roll = new PIDController(block_id::PID_ROLL, block_type::controller);
+    Block* PV_Ref_y = new ProcessVariableReference(block_id::REF_Y, block_type::reference);
+    Block* PV_Ref_roll = new ProcessVariableReference(block_id::REF_ROLL, block_type::reference);
+    Block* PID_z = new PIDController(block_id::PID_Z, block_type::controller);
+    Block* PID_yaw = new PIDController(block_id::PID_YAW, block_type::controller);
+    Block* PV_Ref_z = new ProcessVariableReference(block_id::REF_Z, block_type::reference);
+    Block* PV_Ref_yaw = new ProcessVariableReference(block_id::REF_YAW, block_type::reference);
 
     //***********************SETTING CONTROL SYSTEMS***************************
 
@@ -151,6 +153,14 @@ int main(int argc, char** argv) {
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myY_UserRef);
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
+
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_x);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_y);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_z);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_roll);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
+
 
     //***********************SETTING PID VALUES*****************************
 

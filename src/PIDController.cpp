@@ -1,14 +1,23 @@
 #include "PIDController.hpp"
 
-PIDController::PIDController(std::string t_name, block_type t_type) : Controller(t_name, t_type){
+PIDController::PIDController(block_id t_name, block_type t_type) : Controller(t_name, t_type){
     _controller_type = controller_type::pid;
+	_name = t_name;
 }
 
 PIDController::~PIDController() {
 
 }
 
-  
+void PIDController::receive_msg_data(DataMessage* t_msg){
+
+	if(t_msg->getType() == msg_type::UPDATECONTROLLER){
+		PID_parameters* _params = (PID_parameters*)t_msg;
+		if(_params->id == this->_name){
+			this->initialize(_params);
+		}
+	}
+}
 
 DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
         
@@ -51,13 +60,14 @@ void PIDController::initialize(void* para){ //Refer to example 1 on how to initi
 		prev2_err = 0;
 		prev_pv_rate = 0;
 
-		// // std::cout << "PID SETTINGS: " << std::endl;
-		// // std::cout << "Kp Term: " << parameters.kp << std::endl;
-		// // std::cout << "Ki Term: " << parameters.ki << std::endl;
-		// // std::cout << "Kd Term: " << parameters.kd << std::endl;
-		// // std::cout << "Kdd Term: " << parameters.kdd << std::endl;
-		// // std::cout << "Anti Windup Term: " << parameters.anti_windup << std::endl;
-		// // std::cout << "en_pv_derivation Term: " << static_cast<int>(parameters.en_pv_derivation) << std::endl;
+		std::cout << "PID SETTINGS: " << std::endl;
+		std::cout << "Kp Term: " << parameters.kp << std::endl;
+		std::cout << "Ki Term: " << parameters.ki << std::endl;
+		std::cout << "Kd Term: " << parameters.kd << std::endl;
+		std::cout << "Kdd Term: " << parameters.kdd << std::endl;
+		std::cout << "Anti Windup Term: " << parameters.anti_windup << std::endl;
+		std::cout << "en_pv_derivation Term: " << static_cast<int>(parameters.en_pv_derivation) << std::endl;
+		std::cout << "ID Term: " << static_cast<int>(parameters.id) << std::endl;
 
 	}
 

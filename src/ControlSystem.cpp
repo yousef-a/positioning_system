@@ -39,6 +39,11 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
             m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, control_system_msg->getData());
             this->emit_message((DataMessage*) &m_output_msg);
         }//TODO add the update parameters msg
+    }else if(t_msg->getType() == msg_type::UPDATECONTROLLER){
+
+        std::cout << "INSIDE " << (int)(this->getControlSystemType()) << std::endl;
+        PID_parameters* _pid_param_msg = (PID_parameters*)t_msg;
+        this->changePIDSettings(_pid_param_msg);
     }
 
 }

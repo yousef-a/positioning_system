@@ -1,6 +1,6 @@
 #include "Controller.hpp"
 
-Controller::Controller(std::string t_name, block_type t_type) {
+Controller::Controller(block_id t_name, block_type t_type) {
     _name = t_name;
     _type = t_type;
 }
@@ -24,6 +24,6 @@ block_type Controller::getType(){
     return _type;
 }
 
-std::string Controller::getName(){
+block_id Controller::getName(){
     return _name;
 }

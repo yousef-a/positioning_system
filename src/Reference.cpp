@@ -1,6 +1,6 @@
 #include "Reference.hpp"
 
-Reference::Reference(std::string t_name, block_type t_type){
+Reference::Reference(block_id t_name, block_type t_type){
     _name = t_name;
     _type = t_type;
     
@@ -31,7 +31,7 @@ void Reference::receive_msg_data(DataMessage* t_msg){
 
 }
 
-std::string Reference::getName(){
+block_id Reference::getName(){
     return _name;
 }
 

@@ -1,6 +1,6 @@
 #include "MRFTController.hpp"
 
-MRFTController::MRFTController(std::string t_name, block_type t_type) : Controller(t_name, t_type) {  
+MRFTController::MRFTController(block_id t_name, block_type t_type) : Controller(t_name, t_type) {  
     _controller_type = controller_type::mrft;
 }
 

@@ -7,18 +7,19 @@
 class Controller : public Block{
 
 private:
-    std::string _name; 
+    block_id _name; 
     block_type _type;
 
 public:
 
     void switchIn(DataMessage*);
     DataMessage* switchOut();
-    std::string getName();
+    block_id getName();
     block_type getType();
     virtual controller_type getControllerType() = 0;
     virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
+    virtual void receive_msg_data(DataMessage* t_msg) = 0;
     
-    Controller(std::string t_name, block_type t_type);
+    Controller(block_id t_name, block_type t_type);
     ~Controller();
 };
