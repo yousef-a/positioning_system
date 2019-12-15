@@ -13,9 +13,9 @@ void NAVIOMPU9250_gyro::setSettings(setting_type setting_name, float setting_val
 	}
 }
 
-vec_3d<int> NAVIOMPU9250_gyro::getRawData()
+Vector3D<int> NAVIOMPU9250_gyro::getRawData()
 {
-	vec_3d<int> tmp;
+	Vector3D<int> tmp;
 	_imu->update();
 	_imu->read_raw_gyroscope(&(tmp.x), &(tmp.y), &(tmp.z));
 	return tmp;

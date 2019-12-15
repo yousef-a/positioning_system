@@ -11,7 +11,7 @@ class GyroMagHeadingObserver : public HeadingProvider
 {
 public:
 
-	GyroMagHeadingObserver(std::string, block_type, AttitudeProvider*, BodyRateProvider*, CompassProvider*);
+	GyroMagHeadingObserver(AttitudeProvider*, BodyRateProvider*, CompassProvider*);
 	void setSettings(FilterSettings*);
 	HeadingMsg getHeading();
 
@@ -24,7 +24,7 @@ private:
 	DataFilter* heading_filter;
 
 	HeadingMsg filtered_heading;
-	vec_3d<float> m_mag_data, m_gyro_data;
+	Vector3D<float> m_mag_data, m_gyro_data;
 
 	HeadingMsg m_mag_heading;
 	float heading_rate;

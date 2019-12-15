@@ -19,22 +19,19 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
 
     Vector3DMessage* pos_msg = (Vector3DMessage*)t_msg;
     // std::cout << "Data received (Process Variable): " << pos_msg->getData().x << std::endl;
-    Vector3D error;
+    Vector3D<float> error;
 
     error.x = _reference_value - pos_msg->getData().x;
     error.y = 0.0 - pos_msg->getData().y ;
     error.z = 0.0 - pos_msg->getData().z;
-   if(error.x < 0.05 && error.x > -0.05){
+    //TODO for testing
+    if(error.x < 0.05 && error.x > -0.05){
         error.x = 0;
     }
   
     m_error_msg.setVector3DMessage(error);
 
     return (DataMessage*) &m_error_msg;
-}
-
-DataMessage* ProcessVariableReference::receive_msg_internal(){
-    
 }
 
 void ProcessVariableReference::setReferenceValue(float t_reference_value){

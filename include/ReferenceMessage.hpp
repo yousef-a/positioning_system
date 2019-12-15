@@ -14,11 +14,11 @@ public:
     const int getSize();
     float getData();
     
-    ReferenceMessage(Vector3D);
+    ReferenceMessage(Vector3D<float>);
     ReferenceMessage(float);
     ReferenceMessage();
 
-    void setReferenceMessage(Vector3D);
+    void setReferenceMessage(Vector3D<float>);
     void setReferenceMessage(float);
 
     ~ReferenceMessage();

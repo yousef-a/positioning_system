@@ -1,11 +1,11 @@
 #pragma once 
 
-#include "vec_3d.hpp"
+#include "Vector3D.hpp"
 
 class BodyAccProvider
 {
 public:
 
-	virtual vec_3d<float> getBodyAcceleration() = 0;
+	virtual Vector3D<float> getBodyAcceleration() = 0;
 
 };

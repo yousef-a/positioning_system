@@ -31,12 +31,12 @@ void HexaActuationSystem::command(){
     }
     
 
-    // std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
-    //         << " M2:" << constrain(_commands[1], _escMin, _escMax)
-    //         << " M3:" << constrain(_commands[2], _escMin, _escMax)
-    //         << " M4:" << constrain(_commands[3], _escMin, _escMax)
-    //         << " M5:" << constrain(_commands[4], _escMin, _escMax)
-    //         << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r";
+    std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
+            << " M2:" << constrain(_commands[1], _escMin, _escMax)
+            << " M3:" << constrain(_commands[2], _escMin, _escMax)
+            << " M4:" << constrain(_commands[3], _escMin, _escMax)
+            << " M5:" << constrain(_commands[4], _escMin, _escMax)
+            << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r";
 
     //Actuate with constrains
     for(int i = 0; i < 6; i++){
@@ -62,30 +62,30 @@ void HexaActuationSystem::receive_msg_data(DataMessage* t_msg){
             
             switch (control_system_msg->getSource())
             {
-            case control_system::pitch:
+            case control_system::roll:
             {
-                _movements[0] = control_system_msg->getV3DData().x;
+                _movements[0] = control_system_msg->getData();
                 //_movements[0] = 0;
                 // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
                 break;
             }
-            case control_system::roll:
+            case control_system::pitch:
             {
-                _movements[1] = control_system_msg->getV3DData().x;
+                _movements[1] = control_system_msg->getData();
                 //_movements[1] = 0;
                 // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
                 break;
             }
             case control_system::yaw:
             {
-                _movements[2] = control_system_msg->getV3DData().x;
+                _movements[2] = control_system_msg->getData();
                 //_movements[2] = 0;
                 // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
                 break;
             }
             case control_system::z:
             {
-                _movements[3] = control_system_msg->getV3DData().x;
+                _movements[3] = control_system_msg->getData();
                 //_movements[3] = 0;
                 // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
                 break;

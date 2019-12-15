@@ -6,20 +6,16 @@ class Vector3DMessage : public DataMessage{
 
 private:
     msg_type _type;
-    Vector3D _data;
-    provider_type _provider_type;
+    Vector3D<float> _data;
 
 public:
 
     msg_type getType();
     const int getSize();
-    Vector3D getData();
+    Vector3D<float> getData();
     
-    Vector3DMessage(Vector3D);
-    Vector3DMessage(Vector3D, provider_type);
     Vector3DMessage();
     ~Vector3DMessage();
 
-    void setVector3DMessage(Vector3D);
-    void setVector3DMessage(Vector3D, provider_type);
+    void setVector3DMessage(Vector3D<float>);
 };

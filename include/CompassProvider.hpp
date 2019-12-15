@@ -1,11 +1,11 @@
 #pragma once 
 
-#include "vec_3d.hpp"
+#include "Vector3D.hpp"
 
 class CompassProvider
 {
 public:
 
-	virtual vec_3d<float> GetCompass() = 0;
+	virtual Vector3D<float> GetCompass() = 0;
 
 };

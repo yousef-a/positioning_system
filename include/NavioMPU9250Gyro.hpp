@@ -12,7 +12,7 @@ public:
 
 protected:
 
-	vec_3d<int> getRawData();
+	Vector3D<int> getRawData();
 
 private:
 

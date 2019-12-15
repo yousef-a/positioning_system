@@ -3,15 +3,15 @@
 #include "ControlSystemMessage.hpp"
 
 // GEOMETRY
-//      CW(3) (5)CCW                x
-//          \ /                   z ↑
-// CCW(2) -- X -- (1)CW            \|
-//          / \                     +----→ y
-//      CW(6) (4)CCW
+//      CW(3) (5)CCW                y
+//          \ /                     ↑
+// CCW(2) -- X -- (1)CW             |
+//          / \                     +----→ x
+//      CW(6) (4)CCW               z up
 //
-// For Positive Roll, all motors with negative Y should be increased
-// For Positive Pitch, all motors with positive X should be increased
-// For Positive Yaw, all motors with CCW should be increased
+// For Positive Roll, all motors with negative X should be increased
+// For Positive Pitch, all motors with negative Y should be increased
+// For Positive Yaw, all motors with CW should be increased
 // Mx = [x, y, direction, thottle]
 
 class HexaActuationSystem : public ActuationSystem {
@@ -20,15 +20,14 @@ private:
     std::vector<Actuator*> _actuators;
     const int _escMin = 1000;
     const int _escMax = 2000;
-    float _movements[4]; //[pitch, roll, yaw, throttle]
+    float _movements[4]; //[roll, pitch, yaw, throttle]
     float _commands[6];
-    //TODO Check these transformations
-    float _geometry[6][4] = {{ 0,           1 * -1, -1, -1},
-                             { 0,          -1 * -1,  1, -1},
-                             { 0.866025, -0.5 * -1, -1, -1},
-                             {-0.866025,  0.5 * -1,  1, -1},
-                             { 0.866025,  0.5 * -1,  1, -1},
-                             {-0.866025, -0.5 * -1, -1, -1}};
+    float _geometry[6][4] = {{  1  * -1,         0 * -1,  1, 1},
+                             { -1  * -1,         0 * -1, -1, 1},
+                             {-0.5 * -1,  0.866025 * -1,  1, 1},
+                             { 0.5 * -1, -0.866025 * -1, -1, 1},
+                             { 0.5 * -1,  0.866025 * -1, -1, 1},
+                             {-0.5 * -1, -0.866025 * -1,  1, 1}};
 
 public:
 

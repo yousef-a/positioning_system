@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "vec_3d.hpp"
+#include "Vector3D.hpp"
 #include "DataMessage.hpp"
 #include "common_types.hpp"
 
@@ -11,5 +11,5 @@ public:
 	msg_type getType();
 	const int getSize();
 
-	vec_3d<float> data; 
+	Vector3D<float> data; 
 };

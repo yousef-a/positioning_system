@@ -6,7 +6,8 @@
 class OptitrackMessage : public DataMessage{
 
 private:
-    Vector3D _position;
+    Vector3D<float> _position;
+    double _time;
     Quaternion _attitude_heading; 
     msg_type _type;
 
@@ -14,11 +15,12 @@ public:
 
     msg_type getType();
     const int getSize();
-    Vector3D getPosition();
+    double getTime();
+    Vector3D<float> getPosition();
     Quaternion getAttitudeHeading();
-    void setOptitrackMessage(Vector3D, Quaternion);
+    void setOptitrackMessage(Vector3D<float>, Quaternion, double);
 
-    OptitrackMessage(Vector3D, Quaternion);
+    OptitrackMessage(Vector3D<float>, Quaternion);
     OptitrackMessage();
     ~OptitrackMessage();
 };

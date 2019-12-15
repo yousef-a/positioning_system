@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "vec_3d.hpp"
+#include "Vector3D.hpp"
 
 enum sens_type {ACCELEROMETER = 0, GYROSCOPE = 1, MAGNETOMETER = 2};
 enum setting_type {FSR = 0, SENS = 1, SAMPLERATE = 2, LPF = 3};
@@ -16,5 +16,5 @@ public:
 	virtual void stopCalibration() = 0;
 	virtual void resetCalibration() = 0;
 	virtual sen_status getSensorStatus() = 0;
-	virtual vec_3d<float> getCalibratedData() = 0;
+	virtual Vector3D<float> getCalibratedData() = 0;
 };

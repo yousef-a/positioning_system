@@ -58,7 +58,7 @@ void Mag::setSens(float tmp)
 	sens = tmp;
 }
 
-vec_3d<float> Mag::getCalibratedData()
+Vector3D<float> Mag::getCalibratedData()
 {
 	raw = getRawData();
 	if(calibration_flag) //TODO: raw is int, but the func returns float
@@ -66,11 +66,11 @@ vec_3d<float> Mag::getCalibratedData()
 		doCalibrationCycle();
 		return raw;
 	}
-	calibrated = (vec_3d<float>((raw - calibration_offset)) * calibration_scale) / sens;
+	calibrated = (Vector3D<float>((raw - calibration_offset)) * calibration_scale) / sens;
 	return calibrated;
 }
 
-vec_3d<float> Mag::GetCompass()
+Vector3D<float> Mag::GetCompass()
 {
 	return getCalibratedData();
 }

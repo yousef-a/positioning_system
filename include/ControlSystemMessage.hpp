@@ -14,7 +14,7 @@ private:
     PID_parameters* _pid_para;
     control_system _source;
     control_system _destination;
-    Vector3D _v3d_data;
+    Vector3D<float> _v3d_data;
     float _data;
 
 public:
@@ -27,20 +27,16 @@ public:
     control_system getSource();
     control_system getDestination();
     float getData();
-    Vector3D getV3DData();
+    Vector3D<float> getV3DData();
 
-    ControlSystemMessage(control_system_msg_type, Block*, Block*);
-    ControlSystemMessage(control_system_msg_type, Block*);
-    ControlSystemMessage(control_system_msg_type, PID_parameters*);
-    ControlSystemMessage(control_system, control_system, control_system_msg_type, float);
-    ControlSystemMessage(control_system, control_system_msg_type, Vector3D);
     ControlSystemMessage();
 
     void setControlSystemMessage(control_system_msg_type, Block*, Block*);
     void setControlSystemMessage(control_system_msg_type, Block*);
     void setControlSystemMessage(control_system_msg_type, PID_parameters*);
     void setControlSystemMessage(control_system, control_system, control_system_msg_type, float);
-    void setControlSystemMessage(control_system, control_system_msg_type, Vector3D);
+    void setControlSystemMessage(control_system, control_system_msg_type, Vector3D<float>);
+    void setControlSystemMessage(control_system, control_system_msg_type, float);
 
     ~ControlSystemMessage();
 };

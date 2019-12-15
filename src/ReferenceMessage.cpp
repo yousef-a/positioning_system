@@ -1,6 +1,6 @@
 #include "ReferenceMessage.hpp"
 
-ReferenceMessage::ReferenceMessage(Vector3D t_v3d){
+ReferenceMessage::ReferenceMessage(Vector3D<float> t_v3d){
     _type = msg_type::reference;
     _data = t_v3d.x;
 }
@@ -17,7 +17,7 @@ ReferenceMessage::~ReferenceMessage() {
 
 }
 
-void ReferenceMessage::setReferenceMessage(Vector3D t_v3d){
+void ReferenceMessage::setReferenceMessage(Vector3D<float> t_v3d){
     _type = msg_type::reference;
     _data = t_v3d.x;
 }

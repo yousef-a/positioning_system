@@ -1,20 +1,13 @@
 #include <iostream>
 #include <vector>
-#include "../include/PositioningProvider.hpp"
 #include "../include/UM8E.hpp"
 #include "../include/OptiTrack.hpp"
-#include "../include/ROSUnit.hpp"
 #include "../include/ROSUnit_Optitrack.hpp"
-#include "../include/MsgReceiver.hpp"
-#include "../include/MsgEmitter.hpp"
 #include "../include/PIDController.hpp"
-#include "../include/Reference.hpp"
 #include "../include/ControlSystem.hpp"
 #include "../include/PID_values.hpp"
 #include "../include/ProcessVariableReference.hpp"
-#include "../include/Controller.hpp"
 #include "../include/ActuationSystem.hpp"
-#include "../include/GeneralStateProvider.hpp"
 #include "../include/looper.hpp"
 #include "../include/std_logger.hpp"
 #include "../include/HexaActuationSystem.hpp"
@@ -23,50 +16,63 @@
 #include "../include/AccGyroAttitudeObserver.hpp"
 #include "../include/GyroMagHeadingObserver.hpp"
 #include "../include/ComplementaryFilter.hpp"
+#include "../include/X_UserReference.hpp"
+#include "../include/Y_UserReference.hpp"
+#include "../include/Z_UserReference.hpp"
+#include "../include/Yaw_UserReference.hpp"
+
+#include "../include/ROSUnit_UpdateReference.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
 int main(int argc, char** argv) {
     // std::cout << "Hello Easy C++ project!" << std::endl;
-
+    //TODO separate files on specific folders
+    
     ros::init(argc, argv, "testing_node");
 
     ros::NodeHandle nh;
-    ros::Rate rate(120);
+    ros::Rate rate(300);
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
+    ROSUnit* myROSUpdateReference = new ROSUnit_UpdateReference(nh);
 
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
 
     //***********************ADDING SENSORS********************************
-    NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
-    myIMU->setSettings(ACCELEROMETER, FSR, 16);
-    myIMU->setSettings(GYROSCOPE, FSR, 2000);
-    myIMU->setSettings(MAGNETOMETER, FSR, 16);
+    // NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
+    // myIMU->setSettings(ACCELEROMETER, FSR, 16);
+    // myIMU->setSettings(GYROSCOPE, FSR, 2000);
+    // myIMU->setSettings(MAGNETOMETER, FSR, 16);
 
     //***********************SETTING PROVIDERS**********************************
-    MotionCapture* myOptitrackSystem = new OptiTrack("OptiTrack", block_type::provider);
-    PositioningProvider* myPosProvider = (PositioningProvider*)myOptitrackSystem;
-    AccGyroAttitudeObserver myAttObserver("IMU Navio", block_type::provider, 
-                                         (BodyAccProvider*) myIMU->getAcc(), 
-                                         (BodyRateProvider*) myIMU->getGyro());
-
-    HeadingProvider* myHeadProvider = (HeadingProvider*)myOptitrackSystem;
+    MotionCapture* myOptitrackSystem = new OptiTrack();
+    X_PVProvider* myXPV = (X_PVProvider*)myOptitrackSystem;
+    Y_PVProvider* myYPV = (Y_PVProvider*)myOptitrackSystem;
+    Z_PVProvider* myZPV = (Z_PVProvider*)myOptitrackSystem;
+    Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
+    Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
+    Yaw_PVProvider* myYawPV = (Yaw_PVProvider*)myOptitrackSystem;
     
-    ComplementaryFilter filter1, filter2, filter3;
+    // AccGyroAttitudeObserver myAttObserver("IMU Navio", block_type::provider, 
+    //                                      (BodyAccProvider*) myIMU->getAcc(), 
+    //                                      (BodyRateProvider*) myIMU->getGyro(),
+    //                                      block_frequency::hhz1000);
 
-    ComplementaryFilterSettings settings(false, 0.001);
+    
+    
+    // ComplementaryFilter filter1, filter2, filter3;
 
-    myAttObserver.setFilterType(&filter1, &filter2);
-    myAttObserver.updateSettings(&settings, 0.05);
+    // ComplementaryFilterSettings settings(false, 0.001);
 
-    AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
-    //AttitudeProvider* myAttProvider = (AttitudeProvider*) myOptitrackSystem;
+    // myAttObserver.setFilterType(&filter1, &filter2);
+    // myAttObserver.updateSettings(&settings, 0.05);
 
-    GeneralStateProvider* my_general_state_provider = new GeneralStateProvider(myAttProvider, myPosProvider, myHeadProvider);
-
+    // AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
+    
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
+    
 
     //**************************SETTING BLOCKS**********************************
 
@@ -86,32 +92,33 @@ int main(int argc, char** argv) {
     //***********************SETTING CONTROL SYSTEMS***************************
 
     //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
-    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, my_general_state_provider, block_frequency::hz100);
+    ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, myXPV, block_frequency::hz100);
     X_ControlSystem->addBlock(PID_x);
     X_ControlSystem->addBlock(PV_Ref_x);
     X_ControlSystem->getStatus();
 
-    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, my_general_state_provider, block_frequency::hz1000);
+    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, myPitchPV, block_frequency::hz1000);
     Pitch_ControlSystem->addBlock(PID_pitch);
     Pitch_ControlSystem->addBlock(PV_Ref_pitch);
     Pitch_ControlSystem->getStatus();
 
-    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, my_general_state_provider, block_frequency::hz100);
+    ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, myYPV, block_frequency::hz100);
     Y_ControlSystem->addBlock(PID_y);
     Y_ControlSystem->addBlock(PV_Ref_y);
     Y_ControlSystem->getStatus();
 
-    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, my_general_state_provider, block_frequency::hz1000);
+    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, myRollPV, block_frequency::hz1000);
     Roll_ControlSystem->addBlock(PID_roll);
     Roll_ControlSystem->addBlock(PV_Ref_roll);
     Roll_ControlSystem->getStatus();
 
-    ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, my_general_state_provider, block_frequency::hz100);
+    ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, myZPV, block_frequency::hz100);
     Z_ControlSystem->addBlock(PID_z);
     Z_ControlSystem->addBlock(PV_Ref_z);
     Z_ControlSystem->getStatus();
 
-    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, my_general_state_provider, block_frequency::hz1000);
+    //Yaw on Optitrack 100Hz
+    ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, myYawPV, block_frequency::hz100);
     Yaw_ControlSystem->addBlock(PID_yaw);
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
     Yaw_ControlSystem->getStatus();
@@ -131,10 +138,17 @@ int main(int argc, char** argv) {
     ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
 
     //***********************SETTING USER INPUTS****************************
-    msg_emitter* User = new msg_emitter();
+    X_UserReference* myX_UserRef = new X_UserReference();
+    Y_UserReference* myY_UserRef = new Y_UserReference();
+    Z_UserReference* myZ_UserRef = new Z_UserReference();
+    Yaw_UserReference* myYaw_UserRef = new Yaw_UserReference();
 
-    //Forward is negative pitch, Right is positive roll, CW is positive yaw, Upwards is negative Z
-    UserMessage* test_user = new UserMessage(0, 0, 0, 0);
+    //Forward is negative pitch, Right is positive roll, CCW is positive yaw, Upwards is positive Z
+
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myX_UserRef);
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myY_UserRef);
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
+    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
 
     //***********************SETTING PID VALUES*****************************
 
@@ -190,28 +204,28 @@ int main(int argc, char** argv) {
 
     //***********************SETTING CONNECTIONS****************************
     //========                                                      =============
-    //|      |----->X_Control_System----->Pitch_Control_System----->|           |
-    //| USER |----->Y_Control_System----->Roll_Control_System------>| Actuation |      
+    //|      |----->X_Control_System----->Roll_Control_System------>|           |
+    //| USER |----->Y_Control_System----->Pitch_Control_System----->| Actuation |      
     //|      |----->Z_Control_System------------------------------->|  System   |
     //|      |----->Yaw_Control_System----------------------------->|           |
     //========                                                      =============
     
-    User->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
-    User->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
-    User->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
-    User->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
-    X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
-    Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
-    Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
+    myX_UserRef->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
+    myY_UserRef->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
+    myZ_UserRef->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
+    myYaw_UserRef->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
+    X_ControlSystem->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
     Roll_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
+    Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
+    Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
-
-    User->emit_message((DataMessage*)test_user);
     
     //******************************LOOP***********************************
     
-    pthread_t loop1khz_func_id, loop100hz_func_id; 
+    pthread_t loop1khz_func_id, loop100hz_func_id, hwloop1khz_func_id; 
+    struct sched_param params;
+
     Looper* myLoop = new Looper();
     myLoop->addTimedBlock((TimedBlock*)X_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Y_ControlSystem);
@@ -219,16 +233,31 @@ int main(int argc, char** argv) {
     myLoop->addTimedBlock((TimedBlock*)Roll_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Pitch_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Yaw_ControlSystem);
+    //myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
 
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
+    //pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
-    performCalibration(myIMU);
+    //Setting priority
+    // params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+    // int ret = pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
+    // ret += pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
+
+    // params.sched_priority = sched_get_priority_max(SCHED_FIFO) - 1;
+    // ret += pthread_setschedparam(loop100hz_func_id, SCHED_FIFO, &params);
+
+    // if (ret != 0) {
+    //      // Print the error
+    //      std::cout << "Unsuccessful in setting thread realtime prior " << ret << std::endl;
+    //      while(1){}
+    //  }
+
+    // performCalibration(myIMU);
 
     while(ros::ok()){
-        //std::cout << "pitch " << myAttObserver.filtered_attitude.pitch * 180.f/3.14 << std::endl;
-        //std::cout << "roll " << myAttObserver.filtered_attitude.roll * 180.f/3.14 << std::endl;
+
         ros::spinOnce();
         rate.sleep();
     }

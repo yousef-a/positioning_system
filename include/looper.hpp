@@ -1,7 +1,9 @@
 #pragma once
 #include <pthread.h>
+#include <sched.h>
 #include "timer.hpp"
 #include <unistd.h>
+const int hardwareLoop1KHz_dt = 1000; //in us
 const int Loop1KHz_dt = 1000; //in us
 const int Loop100Hz_dt = 10000; //in us
 #include "logger.hpp"
@@ -21,6 +23,7 @@ class Looper {
     public:
         static void* Loop1KHz(void *vargp);
         static void* Loop100Hz(void *vargp);
+        static void* hardwareLoop1KHz(void *vargp);
         void addTimedBlock(TimedBlock*);
 
         Looper();
