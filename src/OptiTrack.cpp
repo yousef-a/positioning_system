@@ -63,8 +63,10 @@ PositionMsg OptiTrack::getPosition(){
     if(t_dt != 0) {
         this->updateVelocity(t_dt);
         this->updateAcceleration(t_dt);
+        this->updateYawRate(t_dt);
         _prev_pos = _bodyPos;
         _prev_vel = _bodyVel;
+        _prev_heading = _bodyHeading;
         _prev_time = _time;
     }
 
@@ -82,6 +84,10 @@ void OptiTrack::updateAcceleration(double t_dt){
     _bodyAcc.x = (_bodyVel.x - _prev_vel.x) / t_dt;
     _bodyAcc.y = (_bodyVel.y - _prev_vel.y) / t_dt;
     _bodyAcc.z = (_bodyVel.z - _prev_vel.z) / t_dt;
+}
+
+void OptiTrack::updateYawRate(double t_dt){
+    _bodyYawRate = (_bodyHeading - _prev_heading) / t_dt;
 }
 
 VelocityMsg OptiTrack::getVelocity(){
@@ -112,7 +118,15 @@ AccelerationMsg OptiTrack::getAcceleration(){
     return t_accel_msg;
 }
 
+Vector3D<float> OptiTrack::getBodyRate(){
+    
+    Vector3D<float> t_body_rate;
+    t_body_rate.x = 0.0;
+    t_body_rate.y = 0.0;
+    t_body_rate.z = _bodyYawRate;
 
+    return t_body_rate;
+}
 
 void OptiTrack::receive_msg_data(DataMessage* t_msg){
 
@@ -122,6 +136,7 @@ void OptiTrack::receive_msg_data(DataMessage* t_msg){
         
         _bodyPos = opti_msg->getPosition();
         _bodyAtt = opti_msg->getAttitudeHeading();
+        _bodyHeading = this->getHeading().yaw;
         _time = opti_msg->getTime();
         
 
