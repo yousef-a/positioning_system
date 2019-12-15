@@ -7,6 +7,7 @@
 #include "Controller.hpp"
 #include "SwitcherMessage.hpp"
 #include "FloatMessage.hpp"
+#include "ResetControllerMessage.hpp"
 
 class PIDController : public Controller{
 
@@ -31,6 +32,7 @@ class PIDController : public Controller{
         void set_I_term(float);
         //---------------
         void receive_msg_data(DataMessage* t_msg); 
+        void reset();
         DataMessage* receive_msg_internal(DataMessage*);
         controller_type getControllerType();
         //TODO Send a message to Switcher

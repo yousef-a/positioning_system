@@ -23,6 +23,7 @@
 #include "../include/ROSUnit_Arm.hpp"
 #include "../include/ROSUnit_UpdateReference.hpp"
 #include "../include/ROSUnit_UpdateController.hpp"
+#include "../include/ROSUnit_ResetController.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -39,6 +40,7 @@ int main(int argc, char** argv) {
     ROSUnit* myROSUpdateReference = new ROSUnit_UpdateReference(nh);
     ROSUnit* myROSArm = new ROSUnit_Arm(nh);
     ROSUnit* myROSUpdateController = new ROSUnit_UpdateController(nh);
+    ROSUnit* myROSResetController = new ROSUnit_ResetController(nh);
 
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
@@ -159,6 +161,13 @@ int main(int argc, char** argv) {
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_roll);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
+
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_x);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_y);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_z);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_roll);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
 
     myROSArm->add_callback_msg_receiver((msg_receiver*) myActuationSystem);
 

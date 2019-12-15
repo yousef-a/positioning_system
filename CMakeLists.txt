@@ -19,6 +19,7 @@ add_service_files(
   FILES
   Arm.srv
   Update_Controller.srv
+  Reset_Controller.srv
 )
 
 generate_messages(
