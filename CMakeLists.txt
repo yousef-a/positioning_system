@@ -40,9 +40,6 @@ include_directories(
 )
 
 
-
-
-
 FILE(GLOB SOURCE_FILES *.hpp *.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/Navio2_cpp/*.cpp
