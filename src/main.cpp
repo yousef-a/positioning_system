@@ -20,7 +20,7 @@
 #include "../include/Y_UserReference.hpp"
 #include "../include/Z_UserReference.hpp"
 #include "../include/Yaw_UserReference.hpp"
-
+#include "../include/ROSUnit_Arm.hpp"
 #include "../include/ROSUnit_UpdateReference.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
@@ -36,7 +36,8 @@ int main(int argc, char** argv) {
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
     ROSUnit* myROSUpdateReference = new ROSUnit_UpdateReference(nh);
-
+    ROSUnit* myROSArm = new ROSUnit_Arm(nh);
+    
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
 
