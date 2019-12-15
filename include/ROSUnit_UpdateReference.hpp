@@ -1,8 +1,8 @@
 #pragma once
 #include "ROSUnit.hpp"
 #include "FlightScenarioMessage.hpp"
-#include <geometry_msgs/PoseStamped.h>
 #include "UserReferenceMessage.hpp"
+#include <positioning_system/Waypoint.h>
 #include "Vector3D.hpp"
 
 class ROSUnit_UpdateReference :  public ROSUnit{
@@ -12,7 +12,7 @@ class ROSUnit_UpdateReference :  public ROSUnit{
         static ROSUnit_UpdateReference* _instance_ptr;
         static UserReferenceMessage user_msg; 
         ros::Subscriber _sub_setpoint;
-        static void callbackSetpoint(const geometry_msgs::PoseStamped& msg);
+        static void callbackSetpoint(const positioning_system::Waypoint& msg);
         void receive_msg_data(DataMessage* t_msg);  
 
     public:

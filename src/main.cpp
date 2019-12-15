@@ -139,9 +139,8 @@ int main(int argc, char** argv) {
     std::vector<Actuator*> actuators{M1, M2, M3, M4, M5, M6};
 
     ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
-    myROSArm->add_callback_msg_receiver((msg_receiver*) myActuationSystem);
     
-    //***********************SETTING USER INPUTS****************************
+    //***********************SETTING FLIGHT SCENARIO INPUTS****************************
     X_UserReference* myX_UserRef = new X_UserReference();
     Y_UserReference* myY_UserRef = new Y_UserReference();
     Z_UserReference* myZ_UserRef = new Z_UserReference();
@@ -161,8 +160,9 @@ int main(int argc, char** argv) {
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
 
+    myROSArm->add_callback_msg_receiver((msg_receiver*) myActuationSystem);
 
-    //***********************SETTING PID VALUES*****************************
+    //***********************SETTING PID INITIAL VALUES*****************************
 
     PID_parameters* pid_para_test = new PID_parameters;
     pid_para_test->kp = 2.0;
