@@ -34,5 +34,4 @@ void ROSUnit_Optitrack::callbackOptitrack(const geometry_msgs::PoseStamped& msg)
 
 void ROSUnit_Optitrack::receive_msg_data(DataMessage* t_msg){
 
-
 }

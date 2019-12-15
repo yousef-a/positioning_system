@@ -66,7 +66,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             this->addBlock(block_to_add);
         //(6)
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings){ //TODO Refactor to change_Controller_sett
-            
+            //TODO send to all the blocks, so we can update before switching
             if(_active_block->getType() == block_type::controller){
                 Controller* controller_block = (Controller*)_active_block; //TODO refactor
                 if(controller_block->getControllerType() == controller_type::pid){

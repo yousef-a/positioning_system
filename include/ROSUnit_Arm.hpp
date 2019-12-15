@@ -5,6 +5,7 @@
 #include "BoolMessage.hpp"
 #include "Vector3D.hpp"
 #include "BoolMessage.hpp"
+#include <positioning_system/Arm.h>
 
 class ROSUnit_Arm :  public ROSUnit{
 
@@ -12,8 +13,8 @@ class ROSUnit_Arm :  public ROSUnit{
         //TODO receive msgs from a service through a callback 
         static ROSUnit_Arm* _instance_ptr;
         static BoolMessage _bool_msg; 
-        ros::Subscriber _sub_armed;
-        static void callbackArm(const std_msgs::Bool::ConstPtr& msg);
+        ros::ServiceServer _srv_armed;
+        static bool callbackArm(positioning_system::Arm::Request  &req, positioning_system::Arm::Response &res);
         void receive_msg_data(DataMessage* t_msg);  
 
     public:

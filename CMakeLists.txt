@@ -6,11 +6,27 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  message_generation
+)
+
+add_message_files(
+  FILES
+  PID_param.msg
+)
+
+add_service_files(
+  FILES
+  Arm.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
 )
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp std_msgs
+  CATKIN_DEPENDS roscpp std_msgs message_runtime
 )
 
 include_directories(
@@ -19,6 +35,9 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/Navio2/Common
   ${catkin_INCLUDE_DIRS}
 )
+
+
+
 
 
 FILE(GLOB SOURCE_FILES *.hpp *.cpp

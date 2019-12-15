@@ -34,11 +34,11 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
     }else if(t_msg->getType() == msg_type::control_system){
 
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
-
+        //TODO make the naming more clear
         if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_system){
             m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, control_system_msg->getData());
             this->emit_message((DataMessage*) &m_output_msg);
-        }
+        }//TODO add the update parameters msg
     }
 
 }
@@ -68,7 +68,6 @@ Switcher* ControlSystem::getReferenceSwitcher(){
 //TODO Provider msg_emitter, remove loopInternal
 //(10)
 void ControlSystem::loopInternal(){
-    //UNDER MAINTENANCE
     Vector3D<float> data = _providerProcessVariable->getProcessVariable();
     m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
 
