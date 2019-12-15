@@ -50,7 +50,8 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             && std::find(_blocks.begin(), _blocks.end(), block_to_add) != _blocks.end()){
 
             Block* block_to_remove = control_system_msg->getBlockToRemove();                
-            
+            //Check if blocks to switch are of the same type, because the message sent by the Control System will go to both swithcers (Controller
+            // and Reference)
             if(block_to_remove->getType() == block_to_add->getType()){
                 block_to_add->switchIn(block_to_remove->switchOut());
                 _active_block = block_to_add;          

@@ -30,6 +30,7 @@ void performCalibration(NAVIOMPU9250_sensor*);
 int main(int argc, char** argv) {
     // std::cout << "Hello Easy C++ project!" << std::endl;
     //TODO separate files on specific folders
+    //TODO ROSUnit to switch blocks
     
     ros::init(argc, argv, "testing_node");
 
