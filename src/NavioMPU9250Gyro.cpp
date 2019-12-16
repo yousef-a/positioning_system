@@ -3,6 +3,9 @@
 NAVIOMPU9250_gyro::NAVIOMPU9250_gyro(MPU9250* tmp)
 {
 	_imu = tmp;
+	_loop_timer->tick();
+	_imu->update();
+	_imu->read_raw_gyroscope(&(raw_tmp.x), &(raw_tmp.y), &(raw_tmp.z));
 }
 
 void NAVIOMPU9250_gyro::setSettings(setting_type setting_name, float setting_val)
@@ -15,8 +18,15 @@ void NAVIOMPU9250_gyro::setSettings(setting_type setting_name, float setting_val
 
 Vector3D<int> NAVIOMPU9250_gyro::getRawData()
 {
-	Vector3D<int> tmp;
-	_imu->update();
-	_imu->read_raw_gyroscope(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
+	
+	int consumed_time = _loop_timer->tockMicroSeconds();
+	if(consumed_time < 1000000){
+		return raw_tmp;
+	}else{
+		_imu->update();
+		_imu->read_raw_gyroscope(&(raw_tmp.x), &(raw_tmp.y), &(raw_tmp.z));
+		_loop_timer->tick();
+		return raw_tmp;
+	}
+	
 }

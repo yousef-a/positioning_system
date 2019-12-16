@@ -31,12 +31,12 @@ void HexaActuationSystem::command(){
     }
     
 
-    std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
-            << " M2:" << constrain(_commands[1], _escMin, _escMax)
-            << " M3:" << constrain(_commands[2], _escMin, _escMax)
-            << " M4:" << constrain(_commands[3], _escMin, _escMax)
-            << " M5:" << constrain(_commands[4], _escMin, _escMax)
-            << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r";
+    // std::cout << "M1:" <<_commands[0]
+    //         << " M2:" << _commands[1]
+    //         << " M3:" << _commands[2]
+    //         << " M4:" << _commands[3]
+    //         << " M5:" << _commands[4]
+    //         << " M6:" << _commands[5] << "\r\n";
 
     //Actuate with constrains
     for(int i = 0; i < 6; i++){
@@ -46,11 +46,23 @@ void HexaActuationSystem::command(){
 }
 
 int HexaActuationSystem::constrain(float value, int min_value, int max_value) {
-    if (value > max_value) {
-        value = max_value;
-    } else if (value < min_value) {
-        value = min_value;
+    
+    if(_armed){
+        int min_value_armed = min_value + 150;
+
+        if (value > max_value) {
+            value = max_value;
+        } else if (value < min_value_armed) {
+            value = min_value_armed;
+        }
+    }else{
+        if (value > max_value) {
+            value = max_value;
+        } else if (value < min_value) {
+            value = min_value;
+        }
     }
+        
     return int(value);
 }
 
