@@ -1,6 +1,6 @@
 #include "NavioMPU9250Acc.hpp"
 
-NAVIOMPU9250_acc::NAVIOMPU9250_acc(MPU9250* tmp)
+NAVIOMPU9250_acc::NAVIOMPU9250_acc(NineAxisSensor* tmp)
 {
 	_imu = tmp;
 }
@@ -19,8 +19,6 @@ void NAVIOMPU9250_acc::setSettings(setting_type setting_name, float setting_val)
 
 Vector3D<int> NAVIOMPU9250_acc::getRawData()
 {
-	Vector3D<int> tmp;
-	_imu->update();
-	_imu->read_raw_accelerometer(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
+	_imu->updateReadings();
+	return _imu->getAccelReadings();
 }
