@@ -33,7 +33,7 @@ void* Looper::Loop1KHz(void *vargp)
         //std::cout << "Consumed Time 1kHz: " << consumed_time << std::endl;
         if (consumed_time>Loop1KHz_dt){
             //Logger::getAssignedLogger()->log("exceeded loop time 1khz ",LoggerLevel::Warning);
-            //std::cout << "Consumed Time 1kHz" << consumed_time << std::endl;
+            std::cout << "Consumed Time 1kHz" << consumed_time << std::endl;
             //std::cout << "Exceeded 1kHz: " << j++ << std::endl;
         }
         else{
@@ -64,7 +64,7 @@ void* Looper::hardwareLoop1KHz(void *vargp)
         //std::cout << "Consumed Time Hardware 1kHz: " << consumed_time << std::endl;
         if (consumed_time>hardwareLoop1KHz_dt){
             //Logger::getAssignedLogger()->log("exceeded loop time hardware 1khz ",LoggerLevel::Warning);
-            //std::cout << "Consumed Time hard1kHZ" << consumed_time << std::endl;
+            std::cout << "Consumed Time hard1kHZ" << consumed_time << std::endl;
             //std::cout << "Exceeded hard1kHZ: " << j++ << std::endl;
 
         }
