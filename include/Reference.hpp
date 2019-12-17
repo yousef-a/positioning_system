@@ -13,7 +13,7 @@ class Reference : public Block {
         void switchIn(DataMessage*);
         DataMessage* switchOut();
         void receive_msg_data(DataMessage* t_msg);
-        block_id getName();
+        block_id getID();
         virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
         virtual reference_type getReferenceType() = 0;
         virtual void setReferenceValue(float) = 0;

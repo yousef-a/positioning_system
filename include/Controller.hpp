@@ -14,7 +14,7 @@ public:
 
     void switchIn(DataMessage*);
     DataMessage* switchOut();
-    block_id getName();
+    block_id getID();
     block_type getType();
     virtual controller_type getControllerType() = 0;
     virtual DataMessage* receive_msg_internal(DataMessage*) = 0;

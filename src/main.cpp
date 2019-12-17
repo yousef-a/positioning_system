@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
     // std::cout << "Hello Easy C++ project!" << std::endl;
     //TODO separate files on specific folders
     //TODO ROSUnit to switch blocks
+    //TODO ROSUnit to receive msg data from ControlSystem, Actuation and Providers.
     
     ros::init(argc, argv, "testing_node");
 

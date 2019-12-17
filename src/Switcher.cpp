@@ -32,7 +32,7 @@ Block* Switcher::getActiveBlock(){
     return _active_block;
 }
 
-string Switcher::getName(){
+string Switcher::getID(){
     return _name;
 }
 
@@ -73,7 +73,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 if(controller_block->getControllerType() == controller_type::pid){
                     PIDController* pid_block = (PIDController*)controller_block;
                     pid_block->initialize(control_system_msg->getPIDSettings());
-                    // std::cout << "Active Block: " << controller_block->getName() << std::endl;
+                    // std::cout << "Active Block: " << controller_block->getID() << std::endl;
                     // std::cout << "CHANGING PID PARAMETERS" << std::endl;
                 } //TODO else if MRFT
             } 

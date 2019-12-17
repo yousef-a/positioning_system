@@ -24,6 +24,6 @@ block_type Controller::getType(){
     return _type;
 }
 
-block_id Controller::getName(){
+block_id Controller::getID(){
     return _name;
 }

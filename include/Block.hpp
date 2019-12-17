@@ -8,7 +8,7 @@ class Block : public msg_receiver{   //TODO check msg_emitter msg_receiver
 
     public:
         
-        virtual block_id getName() = 0;
+        virtual block_id getID() = 0;
         virtual block_type getType() = 0;
         virtual void switchIn(DataMessage*) = 0;
         virtual DataMessage* switchOut() = 0;

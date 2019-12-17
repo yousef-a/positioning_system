@@ -31,7 +31,7 @@ void Reference::receive_msg_data(DataMessage* t_msg){
 
 }
 
-block_id Reference::getName(){
+block_id Reference::getID(){
     return _name;
 }
 
