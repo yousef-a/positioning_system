@@ -1,6 +1,6 @@
 #include "NavioMPU9250Gyro.hpp"
 
-NAVIOMPU9250_gyro::NAVIOMPU9250_gyro(MPU9250* tmp)
+NAVIOMPU9250_gyro::NAVIOMPU9250_gyro(NineAxisSensor* tmp)
 {
 	_imu = tmp;
 }
@@ -15,8 +15,6 @@ void NAVIOMPU9250_gyro::setSettings(setting_type setting_name, float setting_val
 
 Vector3D<int> NAVIOMPU9250_gyro::getRawData()
 {
-	Vector3D<int> tmp;
-	_imu->update();
-	_imu->read_raw_gyroscope(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
+	_imu->updateReadings();
+	return _imu->getGyroReadings();
 }
