@@ -3,6 +3,9 @@
 NAVIOMPU9250_gyro::NAVIOMPU9250_gyro(NineAxisSensor* tmp)
 {
 	_imu = tmp;
+	_loop_timer->tick();
+	_imu->update();
+	_imu->read_raw_gyroscope(&(raw_tmp.x), &(raw_tmp.y), &(raw_tmp.z));
 }
 
 void NAVIOMPU9250_gyro::setSettings(setting_type setting_name, float setting_val)

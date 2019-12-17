@@ -65,6 +65,8 @@
         "memory_resource": "cpp",
         "random": "cpp",
         "set": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "mutex": "cpp",
+        "condition_variable": "cpp"
     }
 }

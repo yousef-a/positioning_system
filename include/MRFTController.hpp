@@ -42,6 +42,6 @@ public:
 	DataMessage* receive_msg_internal(DataMessage*);
     controller_type getControllerType();
 
-    MRFTController(std::string name, block_type type);
+    MRFTController(block_id name, block_type type);
     ~MRFTController();
 };

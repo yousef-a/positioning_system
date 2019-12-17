@@ -31,12 +31,19 @@ void HexaActuationSystem::command(){
     }
     
 
+    // std::cout << "M1:" << _commands[0]
+    //         << " M2:" << _commands[1]
+    //         << " M3:" << _commands[2]
+    //         << " M4:" << _commands[3]
+    //         << " M5:" << _commands[4]
+    //         << " M6:" << _commands[5] << "\r\n";
+
     std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
             << " M2:" << constrain(_commands[1], _escMin, _escMax)
             << " M3:" << constrain(_commands[2], _escMin, _escMax)
             << " M4:" << constrain(_commands[3], _escMin, _escMax)
             << " M5:" << constrain(_commands[4], _escMin, _escMax)
-            << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r";
+            << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r\n";
 
     //Actuate with constrains
     for(int i = 0; i < 6; i++){
@@ -46,11 +53,23 @@ void HexaActuationSystem::command(){
 }
 
 int HexaActuationSystem::constrain(float value, int min_value, int max_value) {
-    if (value > max_value) {
-        value = max_value;
-    } else if (value < min_value) {
-        value = min_value;
+    
+    if(_armed){
+        int min_value_armed = min_value + 150;
+
+        if (value > max_value) {
+            value = max_value;
+        } else if (value < min_value_armed) {
+            value = min_value_armed;
+        }
+    }else{
+        if (value > max_value) {
+            value = max_value;
+        } else if (value < min_value) {
+            value = min_value;
+        }
     }
+        
     return int(value);
 }
 
@@ -60,43 +79,54 @@ void HexaActuationSystem::receive_msg_data(DataMessage* t_msg){
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
         if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::to_system){
             
-            switch (control_system_msg->getSource())
-            {
-            case control_system::roll:
-            {
-                _movements[0] = control_system_msg->getData();
-                //_movements[0] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
-                break;
+            if(_armed){
+                switch (control_system_msg->getSource())
+                {
+                case control_system::roll:
+                {
+                    _movements[0] = control_system_msg->getData();
+                    //_movements[0] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
+                    break;
+                }
+                case control_system::pitch:
+                {
+                    _movements[1] = control_system_msg->getData();
+                    //_movements[1] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
+                    break;
+                }
+                case control_system::yaw:
+                {
+                    _movements[2] = control_system_msg->getData();
+                    //_movements[2] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
+                    break;
+                }
+                case control_system::z:
+                {
+                    _movements[3] = control_system_msg->getData();
+                    //_movements[3] = 0;
+                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
+                    break;
+                }
+                default:
+                    break;
+                }
+            }else{
+                _movements[0] = 0.0;
+                _movements[1] = 0.0;
+                _movements[2] = 0.0;
+                _movements[3] = 0.0;
             }
-            case control_system::pitch:
-            {
-                _movements[1] = control_system_msg->getData();
-                //_movements[1] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
-                break;
-            }
-            case control_system::yaw:
-            {
-                _movements[2] = control_system_msg->getData();
-                //_movements[2] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
-                break;
-            }
-            case control_system::z:
-            {
-                _movements[3] = control_system_msg->getData();
-                //_movements[3] = 0;
-                // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
-                break;
-            }
-            default:
-                break;
-            }
-
+            
             this->command();
             
         }
           
+    }else if(t_msg->getType() == msg_type::BOOLEAN){
+
+        BoolMessage* bool_msg = (BoolMessage*)t_msg;
+        _armed = bool_msg->getData();
     }
 }

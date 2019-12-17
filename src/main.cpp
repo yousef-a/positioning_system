@@ -20,14 +20,18 @@
 #include "../include/Y_UserReference.hpp"
 #include "../include/Z_UserReference.hpp"
 #include "../include/Yaw_UserReference.hpp"
-
+#include "../include/ROSUnit_Arm.hpp"
 #include "../include/ROSUnit_UpdateReference.hpp"
+#include "../include/ROSUnit_UpdateController.hpp"
+#include "../include/ROSUnit_ResetController.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
 int main(int argc, char** argv) {
     // std::cout << "Hello Easy C++ project!" << std::endl;
     //TODO separate files on specific folders
+    //TODO ROSUnit to switch blocks
+    //TODO ROSUnit to receive msg data from ControlSystem, Actuation and Providers.
     
     ros::init(argc, argv, "testing_node");
 
@@ -36,58 +40,62 @@ int main(int argc, char** argv) {
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
     ROSUnit* myROSUpdateReference = new ROSUnit_UpdateReference(nh);
+    ROSUnit* myROSArm = new ROSUnit_Arm(nh);
+    ROSUnit* myROSUpdateController = new ROSUnit_UpdateController(nh);
+    ROSUnit* myROSResetController = new ROSUnit_ResetController(nh);
 
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
 
     //***********************ADDING SENSORS********************************
-    // NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
-    // myIMU->setSettings(ACCELEROMETER, FSR, 16);
-    // myIMU->setSettings(GYROSCOPE, FSR, 2000);
-    // myIMU->setSettings(MAGNETOMETER, FSR, 16);
+    NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
+    myIMU->setSettings(ACCELEROMETER, FSR, 16);
+    myIMU->setSettings(GYROSCOPE, FSR, 2000);
+    myIMU->setSettings(MAGNETOMETER, FSR, 16);
 
     //***********************SETTING PROVIDERS**********************************
     MotionCapture* myOptitrackSystem = new OptiTrack();
     X_PVProvider* myXPV = (X_PVProvider*)myOptitrackSystem;
     Y_PVProvider* myYPV = (Y_PVProvider*)myOptitrackSystem;
     Z_PVProvider* myZPV = (Z_PVProvider*)myOptitrackSystem;
-    Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
-    Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
+    //Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
+    //Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
     Yaw_PVProvider* myYawPV = (Yaw_PVProvider*)myOptitrackSystem;
     
-    // AccGyroAttitudeObserver myAttObserver("IMU Navio", block_type::provider, 
-    //                                      (BodyAccProvider*) myIMU->getAcc(), 
-    //                                      (BodyRateProvider*) myIMU->getGyro(),
-    //                                      block_frequency::hhz1000);
+    AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
+                                         (BodyRateProvider*) myIMU->getGyro(),
+                                         block_frequency::hhz1000);
 
     
     
-    // ComplementaryFilter filter1, filter2, filter3;
+    ComplementaryFilter filter1, filter2, filter3;
 
-    // ComplementaryFilterSettings settings(false, 0.001);
+    ComplementaryFilterSettings settings(false, 0.001);
 
-    // myAttObserver.setFilterType(&filter1, &filter2);
-    // myAttObserver.updateSettings(&settings, 0.05);
+    myAttObserver.setFilterType(&filter1, &filter2);
+    myAttObserver.updateSettings(&settings, 0.05);
 
-    // AttitudeProvider* myAttProvider = (AttitudeProvider*) &myAttObserver;
-    
+    //Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
+    Roll_PVProvider* myRollPV = (Roll_PVProvider*) &myAttObserver;
+    Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*) &myAttObserver;
+
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
     
 
     //**************************SETTING BLOCKS**********************************
 
-    Block* PID_x = new PIDController("PID_x", block_type::controller);
-    Block* PID_pitch = new PIDController("PID_pitch", block_type::controller);
-    Block* PV_Ref_x = new ProcessVariableReference("Ref_x", block_type::reference);
-    Block* PV_Ref_pitch = new ProcessVariableReference("Ref_pitch", block_type::reference);
-    Block* PID_y = new PIDController("PID_y", block_type::controller);
-    Block* PID_roll = new PIDController("PID_roll", block_type::controller);
-    Block* PV_Ref_y = new ProcessVariableReference("Ref_y", block_type::reference);
-    Block* PV_Ref_roll = new ProcessVariableReference("Ref_roll", block_type::reference);
-    Block* PID_z = new PIDController("PID_z", block_type::controller);
-    Block* PID_yaw = new PIDController("PID_yaw", block_type::controller);
-    Block* PV_Ref_z = new ProcessVariableReference("Ref_z", block_type::reference);
-    Block* PV_Ref_yaw = new ProcessVariableReference("Ref_yaw", block_type::reference);
+    Block* PID_x = new PIDController(block_id::PID_X, block_type::controller);
+    Block* PID_pitch = new PIDController(block_id::PID_PITCH, block_type::controller);
+    Block* PV_Ref_x = new ProcessVariableReference(block_id::REF_X, block_type::reference);
+    Block* PV_Ref_pitch = new ProcessVariableReference(block_id::REF_PITCH, block_type::reference);
+    Block* PID_y = new PIDController(block_id::PID_Y, block_type::controller);
+    Block* PID_roll = new PIDController(block_id::PID_ROLL, block_type::controller);
+    Block* PV_Ref_y = new ProcessVariableReference(block_id::REF_Y, block_type::reference);
+    Block* PV_Ref_roll = new ProcessVariableReference(block_id::REF_ROLL, block_type::reference);
+    Block* PID_z = new PIDController(block_id::PID_Z, block_type::controller);
+    Block* PID_yaw = new PIDController(block_id::PID_YAW, block_type::controller);
+    Block* PV_Ref_z = new ProcessVariableReference(block_id::REF_Z, block_type::reference);
+    Block* PV_Ref_yaw = new ProcessVariableReference(block_id::REF_YAW, block_type::reference);
 
     //***********************SETTING CONTROL SYSTEMS***************************
 
@@ -136,8 +144,8 @@ int main(int argc, char** argv) {
     std::vector<Actuator*> actuators{M1, M2, M3, M4, M5, M6};
 
     ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
-
-    //***********************SETTING USER INPUTS****************************
+    
+    //***********************SETTING FLIGHT SCENARIO INPUTS****************************
     X_UserReference* myX_UserRef = new X_UserReference();
     Y_UserReference* myY_UserRef = new Y_UserReference();
     Z_UserReference* myZ_UserRef = new Z_UserReference();
@@ -150,7 +158,23 @@ int main(int argc, char** argv) {
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
 
-    //***********************SETTING PID VALUES*****************************
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_x);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_y);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_z);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_roll);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
+
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_x);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_y);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_z);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_roll);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
+
+    myROSArm->add_callback_msg_receiver((msg_receiver*) myActuationSystem);
+
+    //***********************SETTING PID INITIAL VALUES*****************************
 
     PID_parameters* pid_para_test = new PID_parameters;
     pid_para_test->kp = 2.0;
@@ -162,7 +186,7 @@ int main(int argc, char** argv) {
     X_ControlSystem->changePIDSettings(pid_para_test);
 
     pid_para_test->kp = 2.0;
-    pid_para_test->ki = 1.0;
+    pid_para_test->ki = 0.0;
     pid_para_test->kd = 0.0;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
@@ -178,7 +202,7 @@ int main(int argc, char** argv) {
     Y_ControlSystem->changePIDSettings(pid_para_test);
 
     pid_para_test->kp = 2.0;
-    pid_para_test->ki = 1.0;
+    pid_para_test->ki = 0.0;
     pid_para_test->kd = 0.0;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
@@ -186,7 +210,7 @@ int main(int argc, char** argv) {
     Roll_ControlSystem->changePIDSettings(pid_para_test);
 
     pid_para_test->kp = 2.0;
-    pid_para_test->ki = 1.0;
+    pid_para_test->ki = 0.0;
     pid_para_test->kd = 0.0;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
@@ -194,7 +218,7 @@ int main(int argc, char** argv) {
     Z_ControlSystem->changePIDSettings(pid_para_test);
 
     pid_para_test->kp = 2.0;
-    pid_para_test->ki = 1.0;
+    pid_para_test->ki = 0.0;
     pid_para_test->kd = 0.0;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
@@ -222,8 +246,8 @@ int main(int argc, char** argv) {
     Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myActuationSystem);
     
     //******************************LOOP***********************************
-    
-    pthread_t loop1khz_func_id, loop100hz_func_id, hwloop1khz_func_id; 
+    //TODO  move to looper constructor
+    pthread_t loop1khz_func_id, loop100hz_func_id, hwloop1khz_func_id;
     struct sched_param params;
 
     Looper* myLoop = new Looper();
@@ -233,28 +257,28 @@ int main(int argc, char** argv) {
     myLoop->addTimedBlock((TimedBlock*)Roll_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Pitch_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Yaw_ControlSystem);
-    //myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
+    myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
 
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
-    //pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
+    pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
     //Setting priority
-    // params.sched_priority = sched_get_priority_max(SCHED_FIFO);
-    // int ret = pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
-    // ret += pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
+    params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+    int ret = pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
+    ret += pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
 
-    // params.sched_priority = sched_get_priority_max(SCHED_FIFO) - 1;
-    // ret += pthread_setschedparam(loop100hz_func_id, SCHED_FIFO, &params);
+    params.sched_priority = sched_get_priority_max(SCHED_FIFO) - 1;
+    ret += pthread_setschedparam(loop100hz_func_id, SCHED_FIFO, &params);
 
-    // if (ret != 0) {
-    //      // Print the error
-    //      std::cout << "Unsuccessful in setting thread realtime prior " << ret << std::endl;
-    //      while(1){}
-    //  }
+    if (ret != 0) {
+         // Print the error
+         // change
+         std::cout << "Unsuccessful in setting thread realtime prior " << ret << std::endl;
+     }
 
-    // performCalibration(myIMU);
+    performCalibration(myIMU);
 
     while(ros::ok()){
 
@@ -269,7 +293,6 @@ int main(int argc, char** argv) {
 void performCalibration(NAVIOMPU9250_sensor* t_imu){
     Timer* _calib_timer = new Timer();
     int consumed_time = 0;
-    
     //1 second of garbage
     _calib_timer->tick();
     while(consumed_time < 1000){

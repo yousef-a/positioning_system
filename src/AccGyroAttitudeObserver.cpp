@@ -52,7 +52,7 @@ AttitudeMsg AccGyroAttitudeObserver::getAttitude()
 AttitudeMsg AccGyroAttitudeObserver::getAccAttitude()
 {
     AttitudeMsg acc_att;
-    acc_att.pitch =  atan2( acc_data.y , sqrt((acc_data.x*acc_data.x) + (acc_data.z*acc_data.z)));
+    acc_att.pitch =  atan2( - acc_data.y , sqrt((acc_data.x*acc_data.x) + (acc_data.z*acc_data.z)));
     acc_att.roll = atan2( - acc_data.x , sqrt((acc_data.y*acc_data.y) + (acc_data.z*acc_data.z)));
     return acc_att;
 }
