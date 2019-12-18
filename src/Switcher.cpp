@@ -32,7 +32,7 @@ Block* Switcher::getActiveBlock(){
     return _active_block;
 }
 
-string Switcher::getName(){
+string Switcher::getID(){
     return _name;
 }
 
@@ -50,7 +50,8 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             && std::find(_blocks.begin(), _blocks.end(), block_to_add) != _blocks.end()){
 
             Block* block_to_remove = control_system_msg->getBlockToRemove();                
-            
+            //Check if blocks to switch are of the same type, because the message sent by the Control System will go to both swithcers (Controller
+            // and Reference)
             if(block_to_remove->getType() == block_to_add->getType()){
                 block_to_add->switchIn(block_to_remove->switchOut());
                 _active_block = block_to_add;          
@@ -66,13 +67,13 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             this->addBlock(block_to_add);
         //(6)
         } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings){ //TODO Refactor to change_Controller_sett
-            
+            //TODO send to all the blocks, so we can update before switching
             if(_active_block->getType() == block_type::controller){
                 Controller* controller_block = (Controller*)_active_block; //TODO refactor
                 if(controller_block->getControllerType() == controller_type::pid){
                     PIDController* pid_block = (PIDController*)controller_block;
                     pid_block->initialize(control_system_msg->getPIDSettings());
-                    // std::cout << "Active Block: " << controller_block->getName() << std::endl;
+                    // std::cout << "Active Block: " << controller_block->getID() << std::endl;
                     // std::cout << "CHANGING PID PARAMETERS" << std::endl;
                 } //TODO else if MRFT
             } 

@@ -7,12 +7,14 @@
 #include "Controller.hpp"
 #include "SwitcherMessage.hpp"
 #include "FloatMessage.hpp"
+#include "ResetControllerMsg.hpp"
 
 class PIDController : public Controller{
 
     private:
         controller_type _controller_type;
         FloatMessage m_output_msg;
+        block_id _name;
         //Chehadeh's code
         PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster
@@ -29,12 +31,13 @@ class PIDController : public Controller{
         float pid_direct(float err, float pv_first,float pv_second=-1);
         void set_I_term(float);
         //---------------
-         
+        void receive_msg_data(DataMessage* t_msg); 
+        void reset();
         DataMessage* receive_msg_internal(DataMessage*);
         controller_type getControllerType();
         //TODO Send a message to Switcher
         //TODO Receive a message from Switcher
 
-        PIDController(std::string t_name, block_type t_type);
+        PIDController(block_id t_name, block_type t_type);
         ~PIDController();
 };

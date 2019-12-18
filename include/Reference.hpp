@@ -5,7 +5,7 @@
 class Reference : public Block {
 
     private:
-        std::string _name; 
+        block_id _name; 
         block_type _type;
 
     public:
@@ -13,11 +13,11 @@ class Reference : public Block {
         void switchIn(DataMessage*);
         DataMessage* switchOut();
         void receive_msg_data(DataMessage* t_msg);
-        std::string getName();
+        block_id getID();
         virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
         virtual reference_type getReferenceType() = 0;
         virtual void setReferenceValue(float) = 0;
 
-        Reference(std::string t_name, block_type t_type);
+        Reference(block_id t_name, block_type t_type);
         ~Reference();
 };

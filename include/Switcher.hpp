@@ -31,7 +31,7 @@ class Switcher : public msg_receiver, public msg_emitter{
         void addBlock(Block* b);
         switcher_type getType();
         Block* getActiveBlock();
-        string getName();
+        string getID();
         void switchBlock(Block* from, Block* to);
         void receive_msg_data(DataMessage* t_msg);
         void loopInternal();

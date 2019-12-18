@@ -1,6 +1,7 @@
 #pragma once
+#include "MsgEmitter.hpp"
 
-class Provider{ 
+class Provider : public msg_emitter{ 
     
 public:
 

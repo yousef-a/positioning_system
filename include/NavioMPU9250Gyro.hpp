@@ -16,6 +16,6 @@ protected:
 
 private:
 
-	NineAxisSensor* _imu;
+  NineAxisSensor* _imu;
 
 };

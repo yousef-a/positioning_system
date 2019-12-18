@@ -6,14 +6,19 @@
 #include "BodyRateProvider.hpp"
 #include "Acc.hpp"
 #include "TimedBlock.hpp"
+#include "Roll_PVProvider.hpp"
+#include "Pitch_PVProvider.hpp"
 
-class AccGyroAttitudeObserver : public AttitudeProvider, public TimedBlock
+class AccGyroAttitudeObserver : public Roll_PVProvider,
+								public Pitch_PVProvider,
+								public TimedBlock
 {
 public:
 	AccGyroAttitudeObserver(BodyAccProvider*, BodyRateProvider*, block_frequency);
 	void setFilterType(DataFilter*, DataFilter*);
 	void updateSettings(FilterSettings*, float);
 	void receive_msg_data(DataMessage* t_msg) {};
+	BodyRateProvider* getBodyRateProvider(){ return m_rate; }
 	AttitudeMsg getAttitude();
 	void loopInternal();
 

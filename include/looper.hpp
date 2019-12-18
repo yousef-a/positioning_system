@@ -19,6 +19,7 @@ class Looper {
         std::list<TimedBlock*> _timed_blocks;
         std::list<TimedBlock*>::iterator _it;
         static Looper* _instance_ptr;
+        static pthread_mutex_t lock;
 
     public:
         static void* Loop1KHz(void *vargp);
