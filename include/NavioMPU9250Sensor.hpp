@@ -18,15 +18,16 @@ public:
 	Gyro* getGyro();
 	Mag* getMag();
 	void updateReadings();
-	Vector3D<int> getAccelReadings();
-	Vector3D<int> getGyroReadings();
-	Vector3D<int> getMagReadings();
+	void getAccelReadings(Vector3D<int> &tmp);
+	void getGyroReadings(Vector3D<int> &tmp);
+	void getMagReadings(Vector3D<int> &tmp);
 	void setSettings(sens_type, setting_type, int);
 
 private:
 
 	//int m_samplerate = 1000;
 	int _dt = 1000;
+	Vector3D<int> m_acc, m_gyro, m_mag;
 	Timer _timer;
 	MPU9250 _imu;
 	ThreeAxisSensor* _acc = new NAVIOMPU9250_acc((NineAxisSensor*)this);

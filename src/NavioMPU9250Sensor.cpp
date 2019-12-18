@@ -9,7 +9,7 @@ NAVIOMPU9250_sensor::NAVIOMPU9250_sensor() //TODO: we need to add a logger for i
 	{
 		_imu.initialize();
 		_imu.update();
-		_timer.tick();
+		//_timer.tick();
 		std::cout << "init imu" << std::endl;
 	}
 	else
@@ -41,28 +41,26 @@ void NAVIOMPU9250_sensor::updateReadings()
 	if(_timer.tockMicroSeconds() > _dt)
 	{
 		_imu.update();
+		_timer.tick();
+		_imu.read_raw_accelerometer(&(m_acc.x), &(m_acc.y), &(m_acc.z));
+		_imu.read_raw_gyroscope(&(m_gyro.x), &(m_gyro.y), &(m_gyro.z));
+		_imu.read_raw_magnetometer(&(m_mag.x), &(m_mag.y), &(m_mag.z));
 	}
 }
 
-Vector3D<int> NAVIOMPU9250_sensor::getAccelReadings()
+void NAVIOMPU9250_sensor::getAccelReadings(Vector3D<int> &tmp)
 {
-	Vector3D<int> tmp;
-	_imu.read_raw_accelerometer(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
+	tmp = m_acc;
 }
 
-Vector3D<int> NAVIOMPU9250_sensor::getGyroReadings()
+void NAVIOMPU9250_sensor::getGyroReadings(Vector3D<int> &tmp)
 {
-	Vector3D<int> tmp;
-	_imu.read_raw_gyroscope(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
+	tmp = m_gyro;
 }
 
-Vector3D<int> NAVIOMPU9250_sensor::getMagReadings()
+void NAVIOMPU9250_sensor::getMagReadings(Vector3D<int> &tmp)
 {
-	Vector3D<int> tmp;
-	_imu.read_raw_magnetometer(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
+	tmp = m_mag;
 }
 
 void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type setting_name, int val)

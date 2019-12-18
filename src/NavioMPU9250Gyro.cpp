@@ -15,6 +15,8 @@ void NAVIOMPU9250_gyro::setSettings(setting_type setting_name, float setting_val
 
 Vector3D<int> NAVIOMPU9250_gyro::getRawData()
 {
+	Vector3D<int> tmp;
 	_imu->updateReadings();
-	return _imu->getGyroReadings();
+	_imu->getGyroReadings(tmp);
+	return tmp;
 }
