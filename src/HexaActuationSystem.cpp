@@ -29,13 +29,6 @@ void HexaActuationSystem::command(){
         _commands[i] = (_commands[i] * 1000) + 1000;
     }
 
-    // std::cout << "M1:" << _commands[0]
-    //         << " M2:" << _commands[1]
-    //         << " M3:" << _commands[2]
-    //         << " M4:" << _commands[3]
-    //         << " M5:" << _commands[4]
-    //         << " M6:" << _commands[5] << "\r\n";
-
     //Actuate with constrains
     for(int i = 0; i < 6; i++){
         _commands[i] = this->constrain(_commands[i], _escMin, _escMax);
@@ -79,29 +72,21 @@ void HexaActuationSystem::receive_msg_data(DataMessage* t_msg){
                 case control_system::roll:
                 {
                     _movements[0] = control_system_msg->getData();
-                    //_movements[0] = 0;
-                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM PITCH: " << control_system_msg->getV3DData().x << std::endl; 
                     break;
                 }
                 case control_system::pitch:
                 {
                     _movements[1] = control_system_msg->getData();
-                    //_movements[1] = 0;
-                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM ROLL: " << control_system_msg->getV3DData().x << std::endl;  
                     break;
                 }
                 case control_system::yaw:
                 {
                     _movements[2] = control_system_msg->getData();
-                    //_movements[2] = 0;
-                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM YAW: " << control_system_msg->getV3DData().x << std::endl;  
                     break;
                 }
                 case control_system::z:
                 {
                     _movements[3] = control_system_msg->getData();
-                    //_movements[3] = 0;
-                    // std::cout << "ACTUATION SYSTEM RECEIVED THE MESSAGE FROM Z: " << control_system_msg->getV3DData().x << std::endl; 
                     break;
                 }
                 default:

@@ -3,7 +3,7 @@
 #include "MsgEmitter.hpp"
 #include "MsgReceiver.hpp"
 #include "ControlSystemMessage.hpp"
-#include "Actuator.hpp"
+#include "actuator.hpp"
 #include <vector>
 
 class ActuationSystem : public msg_emitter, public msg_receiver{

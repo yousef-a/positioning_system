@@ -1,13 +1,13 @@
 #pragma once 
 
 #include "Mag.hpp"
-#include "NineAxisSensor.hpp"
+#include "Common/MPU9250.h"
 
 class NAVIOMPU9250_mag : public Mag
 {
 public:
 
-	NAVIOMPU9250_mag(NineAxisSensor*);
+	NAVIOMPU9250_mag(MPU9250*);
 	void setSettings(setting_type, float);
 
 protected:
@@ -16,5 +16,5 @@ protected:
 
 private:
 
-	NineAxisSensor* _imu;
+	MPU9250* _imu;
 };

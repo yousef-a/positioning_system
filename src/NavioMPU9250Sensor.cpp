@@ -8,14 +8,11 @@ NAVIOMPU9250_sensor::NAVIOMPU9250_sensor() //TODO: we need to add a logger for i
 	if(_imu.probe())
 	{
 		_imu.initialize();
-		_imu.update();
-		_timer.tick();
 		std::cout << "init imu" << std::endl;
 	}
 	else
 	{
-		while(1)
-		{
+		while(1){
 			std::cout << "FAILED TO START IMU" << std::endl;
 		}
 	}
@@ -94,8 +91,6 @@ void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type settin
 	}
 	else if(setting_name == SAMPLERATE)
 	{
-		//m_samplerate = val;
-		int _dt = (int) 1000000.f/((float)val);
 		if(sensor_name == ACCELEROMETER || sensor_name == GYROSCOPE) //TODO: add a warning here that they are coupled
 		{
 			//TODO: navio library has no set sample rate setting_name
