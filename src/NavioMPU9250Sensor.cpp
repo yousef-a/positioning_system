@@ -9,7 +9,7 @@ NAVIOMPU9250_sensor::NAVIOMPU9250_sensor() //TODO: we need to add a logger for i
 	{
 		_imu.initialize();
 		_imu.update();
-		//_timer.tick();
+		_timer.tick();
 		std::cout << "init imu" << std::endl;
 	}
 	else
@@ -48,19 +48,19 @@ void NAVIOMPU9250_sensor::updateReadings()
 	}
 }
 
-void NAVIOMPU9250_sensor::getAccelReadings(Vector3D<int> &tmp)
+Vector3D<int> NAVIOMPU9250_sensor::getAccelReadings()
 {
-	tmp = m_acc;
+	return m_acc;
 }
 
-void NAVIOMPU9250_sensor::getGyroReadings(Vector3D<int> &tmp)
+Vector3D<int> NAVIOMPU9250_sensor::getGyroReadings()
 {
-	tmp = m_gyro;
+	return m_gyro;
 }
 
-void NAVIOMPU9250_sensor::getMagReadings(Vector3D<int> &tmp)
+Vector3D<int> NAVIOMPU9250_sensor::getMagReadings()
 {
-	tmp = m_mag;
+	return m_mag;
 }
 
 void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type setting_name, int val)

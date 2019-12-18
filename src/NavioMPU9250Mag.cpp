@@ -16,8 +16,6 @@ void NAVIOMPU9250_mag::setSettings(setting_type setting_name, float setting_val)
 
 Vector3D<int> NAVIOMPU9250_mag::getRawData()
 {
-	Vector3D<int> tmp;
 	_imu->updateReadings();
-	_imu->getMagReadings(tmp);
-	return tmp;
+	return _imu->getMagReadings();
 }

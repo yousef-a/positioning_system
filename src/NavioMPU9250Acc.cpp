@@ -19,8 +19,6 @@ void NAVIOMPU9250_acc::setSettings(setting_type setting_name, float setting_val)
 
 Vector3D<int> NAVIOMPU9250_acc::getRawData()
 {
-	Vector3D<int> tmp;
 	_imu->updateReadings();
-	_imu->getAccelReadings(tmp);
-	return tmp;
+	return _imu->getAccelReadings();
 }

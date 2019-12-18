@@ -8,9 +8,9 @@ class NineAxisSensor
 {
 public:
 	virtual void updateReadings() = 0;
-	virtual void getAccelReadings(Vector3D<int>&) = 0;
-	virtual void getGyroReadings(Vector3D<int>&) = 0;
-	virtual void getMagReadings(Vector3D<int>&) = 0;
+	virtual Vector3D<int> getAccelReadings() = 0;
+	virtual Vector3D<int> getGyroReadings() = 0;
+	virtual Vector3D<int> getMagReadings() = 0;
 	virtual Acc* getAcc() = 0;
 	virtual Gyro* getGyro() = 0;
 	virtual Mag* getMag() = 0;
