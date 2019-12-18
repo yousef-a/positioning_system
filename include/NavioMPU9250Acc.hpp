@@ -1,13 +1,13 @@
 #pragma once 
 
 #include "Acc.hpp"
-#include "NineAxisSensor.hpp"
+#include "Common/MPU9250.h"
 
 class NAVIOMPU9250_acc : public Acc
 {
 public:
 
-	NAVIOMPU9250_acc(NineAxisSensor*);
+	NAVIOMPU9250_acc(MPU9250*);
 	void setSettings(setting_type, float);
 
 protected:
@@ -16,6 +16,6 @@ protected:
 	
 private:
 
-	NineAxisSensor* _imu;
+	MPU9250* _imu;
 	
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Actuator.hpp"
+#include "actuator.hpp"
 #include <unistd.h>
 #include "Navio2/PWM.h"
 #include "Navio2/RCOutput_Navio2.h"

@@ -8,14 +8,11 @@ NAVIOMPU9250_sensor::NAVIOMPU9250_sensor() //TODO: we need to add a logger for i
 	if(_imu.probe())
 	{
 		_imu.initialize();
-		_imu.update();
-		_timer.tick();
 		std::cout << "init imu" << std::endl;
 	}
 	else
 	{
-		while(1)
-		{
+		while(1){
 			std::cout << "FAILED TO START IMU" << std::endl;
 		}
 	}
@@ -34,36 +31,6 @@ Gyro* NAVIOMPU9250_sensor::getGyro()
 Mag* NAVIOMPU9250_sensor::getMag()
 {
 	return (Mag*) _mag;
-}
-
-void NAVIOMPU9250_sensor::updateReadings()
-{
-	if(_timer.tockMicroSeconds() > _dt)
-	{
-		_imu.update();
-		_timer.tick();
-	}
-}
-
-Vector3D<int> NAVIOMPU9250_sensor::getAccelReadings()
-{
-	Vector3D<int> tmp;
-	_imu.read_raw_accelerometer(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
-}
-
-Vector3D<int> NAVIOMPU9250_sensor::getGyroReadings()
-{
-	Vector3D<int> tmp;
-	_imu.read_raw_gyroscope(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
-}
-
-Vector3D<int> NAVIOMPU9250_sensor::getMagReadings()
-{
-	Vector3D<int> tmp;
-	_imu.read_raw_magnetometer(&(tmp.x), &(tmp.y), &(tmp.z));
-	return tmp;
 }
 
 void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type setting_name, int val)
@@ -97,8 +64,6 @@ void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type settin
 	}
 	else if(setting_name == SAMPLERATE)
 	{
-		//m_samplerate = val;
-		int _dt = (int) 1000000.f/((float)val);
 		if(sensor_name == ACCELEROMETER || sensor_name == GYROSCOPE) //TODO: add a warning here that they are coupled
 		{
 			//TODO: navio library has no set sample rate setting_name
