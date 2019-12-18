@@ -27,9 +27,7 @@ void HexaActuationSystem::command(){
     //Normalize
     for(int i = 0; i < 6; i++){
         _commands[i] = (_commands[i] * 1000) + 1000;
-        //std::cout << "Motor " << i+1 << " value: " << _commands[i] << std::endl;
     }
-    
 
     // std::cout << "M1:" << _commands[0]
     //         << " M2:" << _commands[1]
@@ -38,18 +36,14 @@ void HexaActuationSystem::command(){
     //         << " M5:" << _commands[4]
     //         << " M6:" << _commands[5] << "\r\n";
 
-    std::cout << "M1:" << constrain(_commands[0], _escMin, _escMax)
-            << " M2:" << constrain(_commands[1], _escMin, _escMax)
-            << " M3:" << constrain(_commands[2], _escMin, _escMax)
-            << " M4:" << constrain(_commands[3], _escMin, _escMax)
-            << " M5:" << constrain(_commands[4], _escMin, _escMax)
-            << " M6:" << constrain(_commands[5], _escMin, _escMax) << "\r\n";
-
     //Actuate with constrains
     for(int i = 0; i < 6; i++){
-        _actuators[i]->applyCommand(this->constrain(_commands[i], _escMin, _escMax));
+        _commands[i] = this->constrain(_commands[i], _escMin, _escMax);
+        _actuators[i]->applyCommand(_commands[i]);
     }
 
+    ros_msg.setActuation(&_commands[0]);
+    this->emit_message((DataMessage*) &ros_msg);
 }
 
 int HexaActuationSystem::constrain(float value, int min_value, int max_value) {

@@ -3,6 +3,7 @@
 #include "Quaternion.hpp"
 #include "OptitrackMessage.hpp"
 #include <math.h>
+#include "ROSMsg.hpp"
 
 class OptiTrack : public MotionCapture {
 
@@ -15,7 +16,7 @@ class OptiTrack : public MotionCapture {
         Quaternion _quat;
         int j = 0;
         double _time, _prev_time;
-
+        ROSMsg ros_msg;
     public:
         PositionMsg getPosition();
         AttitudeMsg getAttitude(); 

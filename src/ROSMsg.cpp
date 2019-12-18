@@ -17,13 +17,17 @@ ros_msg_type ROSMsg::getROSMsgType(){
 const int ROSMsg::getSize(){
     return sizeof(this);
 }
-void ROSMsg::setPosition(Vector3D<float> tmp){
+void ROSMsg::setPosition(PositionMsg tmp){
     _ros_type = ros_msg_type::POSITION;
     _position = tmp;
 }
-void ROSMsg::setOrientation(Vector3D<float> tmp){
+void ROSMsg::setAttitude(AttitudeMsg tmp){
     _ros_type = ros_msg_type::ORIENTATION;
-    _orientation = tmp;
+    _attitude = tmp;
+}
+void ROSMsg::setHeading(HeadingMsg tmp){
+    _ros_type = ros_msg_type::ORIENTATION;
+    _heading = tmp;
 }
 void ROSMsg::setX_PV(Vector3D<float> tmp){
     _ros_type = ros_msg_type::X_PV;
@@ -49,14 +53,12 @@ void ROSMsg::setYaw_PV(Vector3D<float> tmp){
     _ros_type = ros_msg_type::YAW_PV;
     _yaw_pv = tmp;
 }
-void ROSMsg::setControlSystem(float tmp){
+void ROSMsg::setControlSystem(float tmp, control_system t_source){
     _ros_type = ros_msg_type::CONTROLSYSTEM;
     _control_system = tmp;
+    _source = t_source;
 }
 void ROSMsg::setActuation(float* tmp){
     _ros_type = ros_msg_type::ACTUATION;
     _actuation = tmp;
-}
-Vector3D<float> ROSMsg::getPosition(){
-    return _position;
 }

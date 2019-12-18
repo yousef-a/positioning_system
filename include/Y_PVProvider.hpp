@@ -3,6 +3,7 @@
 #include "PositioningProvider.hpp"
 #include "VelocityProvider.hpp"
 #include "AccelerationProvider.hpp"
+#include "ROSMsg.hpp"
 
 class Y_PVProvider :    public PVProvider, 
                         public PositioningProvider, 
@@ -15,7 +16,7 @@ public:
     virtual PositionMsg getPosition() = 0;
     virtual VelocityMsg getVelocity() = 0;
     virtual AccelerationMsg getAcceleration() = 0;
-    
+    ROSMsg ros_msg;
     Y_PVProvider();
     ~Y_PVProvider();
 };

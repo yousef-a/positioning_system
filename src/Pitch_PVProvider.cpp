@@ -19,11 +19,9 @@ Vector3D<float> Pitch_PVProvider::getProcessVariable(){
     }
     t_process_variable.z = 0.0; //TODO yaw_dot_dot
 
-    // std::cout << "Pitch_PVProvider: " << std::endl;
-    // std::cout << "Pitch: " << t_process_variable.x << std::endl;
-    // std::cout << "Pitch_Dot: " << t_process_variable.y << std::endl;
-    // std::cout << "Pitch_Dot_Dot: " << t_process_variable.z << std::endl;
-
+    ros_msg.setPitch_PV(t_process_variable);
+    this->PVProvider::emit_message((DataMessage*) &ros_msg);
+    
     return t_process_variable;
     
 }

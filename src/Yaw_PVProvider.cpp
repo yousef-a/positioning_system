@@ -15,6 +15,12 @@ Vector3D<float> Yaw_PVProvider::getProcessVariable(){
     t_process_variable.y = this->getBodyRate().z; 
     t_process_variable.z = 0.0; //TODO yaw_dot_dot
 
+    ros_msg.setYaw_PV(t_process_variable);
+    this->PVProvider::emit_message((DataMessage*) &ros_msg);
+
+    ros_msg.setHeading(this->getHeading());
+    this->HeadingProvider::emit_message((DataMessage*) &ros_msg);
+
     return t_process_variable;
     
 }

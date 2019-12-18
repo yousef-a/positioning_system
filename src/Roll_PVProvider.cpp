@@ -19,10 +19,11 @@ Vector3D<float> Roll_PVProvider::getProcessVariable(){
     }
     t_process_variable.z = 0.0; //TODO roll_dot_dot
 
-    // std::cout << "Roll_PVProvider: " << std::endl;
-    // std::cout << "Roll: " << t_process_variable.x << std::endl;
-    // std::cout << "Roll_Dot: " << t_process_variable.y << std::endl;
-    // std::cout << "Roll_Dot_Dot: " << t_process_variable.z << std::endl;
+    ros_msg.setRoll_PV(t_process_variable);
+    this->PVProvider::emit_message((DataMessage*) &ros_msg);
+
+    ros_msg.setAttitude(this->getAttitude());
+    this->AttitudeProvider::emit_message((DataMessage*) &ros_msg);
 
     return t_process_variable;
     

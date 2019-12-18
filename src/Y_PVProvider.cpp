@@ -15,6 +15,9 @@ Vector3D<float> Y_PVProvider::getProcessVariable(){
     t_process_variable.y = this->getVelocity().dy;
     t_process_variable.z = this->getAcceleration().ddy;
 
+    ros_msg.setY_PV(t_process_variable);
+    this->PVProvider::emit_message((DataMessage*) &ros_msg);
+
     return t_process_variable;
     
 }
