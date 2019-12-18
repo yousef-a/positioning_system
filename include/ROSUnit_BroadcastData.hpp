@@ -23,9 +23,10 @@ private:
     void receive_msg_data(DataMessage* t_msg); 
     int _seq_pos = 0, _seq_ori = 0, _seq_xpv = 0, _seq_ypv = 0, _seq_zpv = 0;
     int _seq_rollpv = 0, _seq_pitchpv = 0, _seq_yawpv = 0, _seq_cs = 0, _seq_act = 0;
-    vector<double> cs_outputs{ 0, 0, 0, 0, 0, 0 }; 
-    AttitudeMsg att;
-    HeadingMsg head;
+    vector<double> _cs_outputs{ 0, 0, 0, 0, 0, 0 }; 
+    vector<double> _act_outputs{ 0, 0, 0, 0, 0, 0 }; 
+    AttitudeMsg _att;
+    HeadingMsg _head;
 
 public:
     ROSUnit_BroadcastData(ros::NodeHandle&);

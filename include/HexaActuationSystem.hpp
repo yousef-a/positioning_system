@@ -2,6 +2,7 @@
 #include "ActuationSystem.hpp"
 #include "ControlSystemMessage.hpp"
 #include "BoolMessage.hpp"
+#include "ROSMsg.hpp"
 
 // GEOMETRY
 //      CW(3) (5)CCW                y
@@ -19,6 +20,7 @@ class HexaActuationSystem : public ActuationSystem {
 
 private:    
     std::vector<Actuator*> _actuators;
+    ROSMsg ros_msg;
     const int _escMin = 1000;
     const int _escMax = 2000;
     bool _armed = false;

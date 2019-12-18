@@ -14,8 +14,8 @@ ROSUnit_BroadcastData::ROSUnit_BroadcastData(ros::NodeHandle& t_main_handler) : 
     _cs_prov_pub = t_main_handler.advertise<std_msgs::Float64MultiArray>("control_systems_output", 10);
     _act_prov_pub = t_main_handler.advertise<std_msgs::Float64MultiArray>("actuation_output", 10);
 
-    att.roll = 0;
-    head.yaw = 0;
+    _att.roll = 0;
+    _head.yaw = 0;
 
     _instance_ptr = this;
 }
@@ -43,18 +43,18 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::ORIENTATION){
             if(ros_msg->getAttitude().roll != 0){
-                att = ros_msg->getAttitude();
+                _att = ros_msg->getAttitude();
             }
             if(ros_msg->getHeading().yaw != 0){
-                head = ros_msg->getHeading();
+                _head = ros_msg->getHeading();
             }
             geometry_msgs::PointStamped msg;
             msg.header.seq = ++_seq_ori;
             msg.header.stamp = ros::Time::now();
             msg.header.frame_id = "body";
-            msg.point.x = att.roll;
-            msg.point.y = att.pitch;
-            msg.point.z = head.yaw;
+            msg.point.x = _att.roll;
+            msg.point.y = _att.pitch;
+            msg.point.z = _head.yaw;
             _ori_prov_pub.publish(msg);
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::X_PV){
@@ -125,14 +125,22 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::CONTROLSYSTEM){
             int i = (int)ros_msg->getSource();
-            cs_outputs[i] = ros_msg->getControlSystem();
+            _cs_outputs[i] = ros_msg->getControlSystem();
 
             std_msgs::Float64MultiArray msg;
-            msg.data = cs_outputs;
+            msg.data = _cs_outputs;
             _cs_prov_pub.publish(msg);
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::ACTUATION){
+            float* pointer = ros_msg->getActuation();
+
+            for(int i=0;i<6;i++){
+                _act_outputs[i] = *pointer++;
+            }
             
+            std_msgs::Float64MultiArray msg;
+            msg.data = _act_outputs;
+            _act_prov_pub.publish(msg);
         }
 
     }
