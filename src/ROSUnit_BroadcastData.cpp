@@ -115,7 +115,7 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
             _yawpv_prov_pub.publish(msg);
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::CONTROLSYSTEM){
-            
+            //std::cout << "Received msg control system output" << std::endl;
         }else if(ros_msg->getROSMsgType() == ros_msg_type::ACTUATION){
             
         }

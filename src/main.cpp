@@ -24,6 +24,7 @@
 #include "../include/ROSUnit_UpdateReference.hpp"
 #include "../include/ROSUnit_UpdateController.hpp"
 #include "../include/ROSUnit_ResetController.hpp"
+#include "../include/ROSUnit_BroadcastData.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -43,6 +44,7 @@ int main(int argc, char** argv) {
     ROSUnit* myROSArm = new ROSUnit_Arm(nh);
     ROSUnit* myROSUpdateController = new ROSUnit_UpdateController(nh);
     ROSUnit* myROSResetController = new ROSUnit_ResetController(nh);
+    ROSUnit* myROSBroadcastData = new ROSUnit_BroadcastData(nh);
 
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
@@ -62,7 +64,7 @@ int main(int argc, char** argv) {
     Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
     Yaw_PVProvider* myYawPV = (Yaw_PVProvider*)myOptitrackSystem;
     
-    //  AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
+    // AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
     //                                       (BodyRateProvider*) myIMU->getGyro(),
     //                                       block_frequency::hhz1000);
 
@@ -78,7 +80,7 @@ int main(int argc, char** argv) {
     //  Roll_PVProvider* myRollPV = (Roll_PVProvider*) &myAttObserver;
     //  Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*) &myAttObserver;
 
-    // myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
+    myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
     
 
     //**************************SETTING BLOCKS**********************************
@@ -144,7 +146,7 @@ int main(int argc, char** argv) {
 
     ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
     
-    //***********************SETTING FLIGHT SCENARIO INPUTS****************************
+    //***********************SETTING FLIGHT SCENARIO INPallback_msUTS****************************
     X_UserReference* myX_UserRef = new X_UserReference();
     Y_UserReference* myY_UserRef = new Y_UserReference();
     Z_UserReference* myZ_UserRef = new Z_UserReference();
@@ -172,6 +174,30 @@ int main(int argc, char** argv) {
     myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
 
     myROSArm->add_callback_msg_receiver((msg_receiver*) myActuationSystem);
+
+    //********************SETTING FLIGHT SCENARIO OUTPUTS***************************
+
+    X_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    Z_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    Roll_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    Pitch_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    Yaw_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+
+    myXPV->PVProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myYPV->PVProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myZPV->PVProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myRollPV->PVProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myPitchPV->PVProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myYawPV->PVProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+
+    myActuationSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+
+    PositioningProvider* myPosProv = (PositioningProvider*)myXPV;
+    myPosProv->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    
+    AttitudeProvider* myAttProv = (AttitudeProvider*)myRollPV;
+    myAttProv->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
 
     //***********************SETTING PID INITIAL VALUES*****************************
 

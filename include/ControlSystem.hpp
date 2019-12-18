@@ -28,6 +28,8 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
 
         ControlSystemMessage m_output_msg;
 
+        ROSMsg m_ros_msg;
+
         ReferenceMessage m_ref_out_msg;
 
         ControlSystemMessage m_provider_data_msg;
