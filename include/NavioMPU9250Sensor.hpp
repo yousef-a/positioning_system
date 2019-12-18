@@ -21,6 +21,11 @@ public:
 
 private:
 
+	//int m_samplerate = 1000;
+	int _dt = 1000;
+	Vector3D<int> m_acc, m_gyro, m_mag;
+	Timer _timer;
+
 	MPU9250 _imu;
 	ThreeAxisSensor* _acc = new NAVIOMPU9250_acc(&_imu);
 	ThreeAxisSensor* _gyro = new NAVIOMPU9250_gyro(&_imu);

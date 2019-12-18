@@ -33,6 +33,33 @@ Mag* NAVIOMPU9250_sensor::getMag()
 	return (Mag*) _mag;
 }
 
+void NAVIOMPU9250_sensor::updateReadings()
+{
+	if(_timer.tockMicroSeconds() > _dt)
+	{
+		_imu.update();
+		_timer.tick();
+		_imu.read_raw_accelerometer(&(m_acc.x), &(m_acc.y), &(m_acc.z));
+		_imu.read_raw_gyroscope(&(m_gyro.x), &(m_gyro.y), &(m_gyro.z));
+		_imu.read_raw_magnetometer(&(m_mag.x), &(m_mag.y), &(m_mag.z));
+	}
+}
+
+Vector3D<int> NAVIOMPU9250_sensor::getAccelReadings()
+{
+	return m_acc;
+}
+
+Vector3D<int> NAVIOMPU9250_sensor::getGyroReadings()
+{
+	return m_gyro;
+}
+
+Vector3D<int> NAVIOMPU9250_sensor::getMagReadings()
+{
+	return m_mag;
+}
+
 void NAVIOMPU9250_sensor::setSettings(sens_type sensor_name, setting_type setting_name, int val)
 {
 	if(setting_name == LPF) //TODO: add a warning here that it effects all sensors
