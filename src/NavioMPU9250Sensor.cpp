@@ -41,6 +41,7 @@ void NAVIOMPU9250_sensor::updateReadings()
 	if(_timer.tockMicroSeconds() > _dt)
 	{
 		_imu.update();
+		_timer.tick();
 	}
 }
 
