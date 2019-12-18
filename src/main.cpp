@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     //TODO separate files on specific folders
     //TODO ROSUnit to switch blocks
     //TODO ROSUnit to receive msg data from ControlSystem, Actuation and Providers.
-    
+
     ros::init(argc, argv, "testing_node");
 
     ros::NodeHandle nh;
@@ -48,10 +48,10 @@ int main(int argc, char** argv) {
     Logger::assignLogger(new StdLogger());
 
     //***********************ADDING SENSORS********************************
-    NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
-    myIMU->setSettings(ACCELEROMETER, FSR, 16);
-    myIMU->setSettings(GYROSCOPE, FSR, 2000);
-    myIMU->setSettings(MAGNETOMETER, FSR, 16);
+     NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
+     myIMU->setSettings(ACCELEROMETER, FSR, 16);
+     myIMU->setSettings(GYROSCOPE, FSR, 2000);
+     myIMU->setSettings(MAGNETOMETER, FSR, 16);
 
     //***********************SETTING PROVIDERS**********************************
     MotionCapture* myOptitrackSystem = new OptiTrack();
@@ -62,22 +62,21 @@ int main(int argc, char** argv) {
     //Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
     Yaw_PVProvider* myYawPV = (Yaw_PVProvider*)myOptitrackSystem;
     
-    AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
-                                         (BodyRateProvider*) myIMU->getGyro(),
-                                         block_frequency::hhz1000);
+     AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
+                                          (BodyRateProvider*) myIMU->getGyro(),
+                                          block_frequency::hhz1000);
 
     
     
-    ComplementaryFilter filter1, filter2, filter3;
+     ComplementaryFilter filter1, filter2, filter3;
 
-    ComplementaryFilterSettings settings(false, 0.001);
+     ComplementaryFilterSettings settings(false, 0.001);
 
-    myAttObserver.setFilterType(&filter1, &filter2);
-    myAttObserver.updateSettings(&settings, 0.05);
+     myAttObserver.setFilterType(&filter1, &filter2);
+     myAttObserver.updateSettings(&settings, 0.05);
 
-    //Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
-    Roll_PVProvider* myRollPV = (Roll_PVProvider*) &myAttObserver;
-    Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*) &myAttObserver;
+     Roll_PVProvider* myRollPV = (Roll_PVProvider*) &myAttObserver;
+     Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*) &myAttObserver;
 
     myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
     
@@ -257,17 +256,17 @@ int main(int argc, char** argv) {
     myLoop->addTimedBlock((TimedBlock*)Roll_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Pitch_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Yaw_ControlSystem);
-    myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
+     myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
 
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
-    pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
+     pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
     //Setting priority
     params.sched_priority = sched_get_priority_max(SCHED_FIFO);
     int ret = pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
-    ret += pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
+     ret += pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
 
     params.sched_priority = sched_get_priority_max(SCHED_FIFO) - 1;
     ret += pthread_setschedparam(loop100hz_func_id, SCHED_FIFO, &params);
@@ -278,7 +277,7 @@ int main(int argc, char** argv) {
          std::cout << "Unsuccessful in setting thread realtime prior " << ret << std::endl;
      }
 
-    performCalibration(myIMU);
+     performCalibration(myIMU);
 
     while(ros::ok()){
 
