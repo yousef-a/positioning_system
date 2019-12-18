@@ -115,9 +115,13 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
             _yawpv_prov_pub.publish(msg);
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::CONTROLSYSTEM){
-            std::cout << "Received msg control system output" << std::endl;
-            std::cout << "Source: " << (int)ros_msg->getSource() << std::endl;
-            std::cout << "Value: " << ros_msg->getControlSystem() << std::endl;
+            int i = (int)ros_msg->getSource();
+            cs_outputs[i] = ros_msg->getControlSystem();
+
+            std_msgs::Float64MultiArray msg;
+            msg.data = cs_outputs;
+            _cs_prov_pub.publish(msg);
+
         }else if(ros_msg->getROSMsgType() == ros_msg_type::ACTUATION){
             
         }
