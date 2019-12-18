@@ -17,13 +17,17 @@ ros_msg_type ROSMsg::getROSMsgType(){
 const int ROSMsg::getSize(){
     return sizeof(this);
 }
-void ROSMsg::setPosition(Vector3D<float> tmp){
+void ROSMsg::setPosition(PositionMsg tmp){
     _ros_type = ros_msg_type::POSITION;
     _position = tmp;
 }
-void ROSMsg::setOrientation(Vector3D<float> tmp){
+void ROSMsg::setAttitude(AttitudeMsg tmp){
     _ros_type = ros_msg_type::ORIENTATION;
-    _orientation = tmp;
+    _attitude = tmp;
+}
+void ROSMsg::setHeading(HeadingMsg tmp){
+    _ros_type = ros_msg_type::ORIENTATION;
+    _heading = tmp;
 }
 void ROSMsg::setX_PV(Vector3D<float> tmp){
     _ros_type = ros_msg_type::X_PV;

@@ -13,6 +13,10 @@ ROSUnit_BroadcastData::ROSUnit_BroadcastData(ros::NodeHandle& t_main_handler) : 
     _yawpv_prov_pub = t_main_handler.advertise<geometry_msgs::PointStamped>("yaw_provider", 10);
     _cs_prov_pub = t_main_handler.advertise<std_msgs::Float64MultiArray>("control_systems_output", 10);
     _act_prov_pub = t_main_handler.advertise<std_msgs::Float64MultiArray>("actuation_output", 10);
+
+    att.roll = 0;
+    head.yaw = 0;
+
     _instance_ptr = this;
 }
 
@@ -27,7 +31,7 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
         ROSMsg* ros_msg = (ROSMsg*)t_msg;
 
         if(ros_msg->getROSMsgType() == ros_msg_type::POSITION){
-            Vector3D<float> pos = ros_msg->getPosition();
+            PositionMsg pos = ros_msg->getPosition();
             geometry_msgs::PointStamped msg;
             msg.header.seq = ++_seq_pos;
             msg.header.stamp = ros::Time::now();
@@ -38,14 +42,19 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
             _pos_prov_pub.publish(msg);
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::ORIENTATION){
-            Vector3D<float> ori = ros_msg->getOrientation();
+            if(ros_msg->getAttitude().roll != 0){
+                att = ros_msg->getAttitude();
+            }
+            if(ros_msg->getHeading().yaw != 0){
+                head = ros_msg->getHeading();
+            }
             geometry_msgs::PointStamped msg;
             msg.header.seq = ++_seq_ori;
             msg.header.stamp = ros::Time::now();
             msg.header.frame_id = "body";
-            msg.point.x = ori.x;
-            msg.point.y = ori.y;
-            msg.point.z = ori.z;
+            msg.point.x = att.roll;
+            msg.point.y = att.pitch;
+            msg.point.z = head.yaw;
             _ori_prov_pub.publish(msg);
 
         }else if(ros_msg->getROSMsgType() == ros_msg_type::X_PV){

@@ -193,11 +193,9 @@ int main(int argc, char** argv) {
 
     myActuationSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
 
-    PositioningProvider* myPosProv = (PositioningProvider*)myXPV;
-    myPosProv->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
-    
-    AttitudeProvider* myAttProv = (AttitudeProvider*)myRollPV;
-    myAttProv->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myXPV->PositioningProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myRollPV->AttitudeProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
+    myYawPV->HeadingProvider::add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
 
     //***********************SETTING PID INITIAL VALUES*****************************
 

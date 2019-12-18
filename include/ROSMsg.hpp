@@ -1,14 +1,18 @@
 #pragma once
 #include "DataMessage.hpp"
 #include "Vector3D.hpp"
+#include "PositionMsg.hpp"
+#include "AttitudeMsg.hpp"
+#include "HeadingMsg.hpp"
 
 class ROSMsg : public DataMessage {
 
 private:
     msg_type _type;
     ros_msg_type _ros_type;
-    Vector3D<float> _position;
-    Vector3D<float> _orientation;
+    PositionMsg _position;
+    AttitudeMsg _attitude;
+    HeadingMsg _heading;
     Vector3D<float> _x_pv;
     Vector3D<float> _y_pv;
     Vector3D<float> _z_pv;
@@ -23,8 +27,9 @@ public:
     msg_type getType();
     ros_msg_type getROSMsgType();
     const int getSize();
-    void setPosition(Vector3D<float>);
-    void setOrientation(Vector3D<float>);
+    void setPosition(PositionMsg);
+    void setAttitude(AttitudeMsg);
+    void setHeading(HeadingMsg);
     void setX_PV(Vector3D<float>);
     void setY_PV(Vector3D<float>);
     void setZ_PV(Vector3D<float>);
@@ -34,8 +39,9 @@ public:
     void setControlSystem(float, control_system);
     void setActuation(float*);
     void setSource(control_system);
-    Vector3D<float> getPosition() { return _position; }
-    Vector3D<float> getOrientation() { return _orientation; }
+    PositionMsg getPosition() { return _position; }
+    AttitudeMsg getAttitude() { return _attitude; }
+    HeadingMsg getHeading() { return _heading; }
     Vector3D<float> getX_PV() { return _x_pv; }
     Vector3D<float> getY_PV() { return _y_pv; }
     Vector3D<float> getZ_PV() { return _z_pv; }

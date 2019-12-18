@@ -22,6 +22,9 @@ Vector3D<float> Roll_PVProvider::getProcessVariable(){
     ros_msg.setRoll_PV(t_process_variable);
     this->PVProvider::emit_message((DataMessage*) &ros_msg);
 
+    ros_msg.setAttitude(this->getAttitude());
+    this->AttitudeProvider::emit_message((DataMessage*) &ros_msg);
+
     return t_process_variable;
     
 }
