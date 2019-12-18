@@ -49,14 +49,12 @@ void ROSMsg::setYaw_PV(Vector3D<float> tmp){
     _ros_type = ros_msg_type::YAW_PV;
     _yaw_pv = tmp;
 }
-void ROSMsg::setControlSystem(float tmp){
+void ROSMsg::setControlSystem(float tmp, control_system t_source){
     _ros_type = ros_msg_type::CONTROLSYSTEM;
     _control_system = tmp;
+    _source = t_source;
 }
 void ROSMsg::setActuation(float* tmp){
     _ros_type = ros_msg_type::ACTUATION;
     _actuation = tmp;
-}
-Vector3D<float> ROSMsg::getPosition(){
-    return _position;
 }

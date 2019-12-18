@@ -9,6 +9,7 @@
 #include "PVProvider.hpp"
 #include "ReferenceMessage.hpp"
 #include "TimedBlock.hpp"
+#include "ROSMsg.hpp"
 
 class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver{
 
