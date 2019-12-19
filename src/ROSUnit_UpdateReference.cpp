@@ -2,7 +2,7 @@
 
 //TODO rename the topics and class
 ROSUnit_UpdateReference* ROSUnit_UpdateReference::_instance_ptr = NULL;
-UserReferenceMessage ROSUnit_UpdateReference::user_msg;
+UpdatePoseMessage ROSUnit_UpdateReference::user_msg;
 
 ROSUnit_UpdateReference::ROSUnit_UpdateReference(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler) {
     _sub_setpoint = t_main_handler.subscribe("/setpoint_position/local", 10, callbackSetpoint);
@@ -26,7 +26,7 @@ void ROSUnit_UpdateReference::callbackSetpoint(const positioning_system::Waypoin
     z = msg.z;
     yaw = msg.yaw;
 
-    user_msg.setUserMessage(x, y, z, yaw);
+    user_msg.setPoseMessage(x, y, z, yaw);
 
     _instance_ptr->emit_message((DataMessage*) &user_msg);
 
