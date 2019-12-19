@@ -17,7 +17,11 @@ public:
 	Gyro* getGyro();
 	Mag* getMag();
 	void setSettings(sens_type, setting_type, int);
-	
+	void updateReadings();
+	Vector3D<int> getAccelReadings();
+	Vector3D<int> getGyroReadings();
+	Vector3D<int> getMagReadings();
+
 
 private:
 
