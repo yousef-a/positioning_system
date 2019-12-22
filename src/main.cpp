@@ -146,7 +146,7 @@ int main(int argc, char** argv) {
 
     ActuationSystem* myActuationSystem = new HexaActuationSystem(actuators);
     
-    //***********************SETTING FLIGHT SCENARIO INPallback_msUTS****************************
+    //***********************SETTING FLIGHT SCENARIO INPUTS****************************
     X_UserReference* myX_UserRef = new X_UserReference();
     Y_UserReference* myY_UserRef = new Y_UserReference();
     Z_UserReference* myZ_UserRef = new Z_UserReference();
