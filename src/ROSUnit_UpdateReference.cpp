@@ -20,6 +20,7 @@ void ROSUnit_UpdateReference::receive_msg_data(DataMessage* t_msg){
 
 void ROSUnit_UpdateReference::callbackSetpoint(const positioning_system::Waypoint& msg){
 
+    //TODO change to receive only one reference at a time
     float x, y, z, yaw;
     x = msg.x;
     y = msg.y;

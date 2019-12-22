@@ -10,7 +10,7 @@ Z_UserReference::~Z_UserReference() {
 
 void Z_UserReference::receive_msg_data(DataMessage* t_msg){
 
-    if(t_msg->getType() == msg_type::user){   
+    if(t_msg->getType() == msg_type::UPDATEPOSEREFERENCE){   
 
         UpdatePoseMessage* user_msg = (UpdatePoseMessage*)t_msg;
 

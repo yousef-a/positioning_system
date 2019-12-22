@@ -1,7 +1,7 @@
 #include "UpdatePoseMessage.hpp"
 
 UpdatePoseMessage::UpdatePoseMessage(float t_x, float t_y, float t_z, float t_yaw) {
-    _type = msg_type::user;
+    _type = msg_type::UPDATEPOSEREFERENCE;
     _x = t_x;
     _y = t_y;
     _z = t_z;
@@ -9,7 +9,7 @@ UpdatePoseMessage::UpdatePoseMessage(float t_x, float t_y, float t_z, float t_ya
 }
 
 UpdatePoseMessage::UpdatePoseMessage() {
-    _type = msg_type::user;
+    _type = msg_type::UPDATEPOSEREFERENCE;
 }
 
 UpdatePoseMessage::~UpdatePoseMessage() {
@@ -32,7 +32,7 @@ msg_type UpdatePoseMessage::getType(){
     return _type;
 }
 void UpdatePoseMessage::setPoseMessage(float t_x, float t_y, float t_z, float t_yaw){
-    _type = msg_type::user;
+    _type = msg_type::UPDATEPOSEREFERENCE;
     _x = t_x;
     _y = t_y;
     _z = t_z;
