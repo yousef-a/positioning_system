@@ -21,6 +21,7 @@ void PIDController::receive_msg_data(DataMessage* t_msg){
 		ResetControllerMsg* reset_msg = (ResetControllerMsg*)t_msg;
 
 		if(static_cast<block_id>(reset_msg->getData()) == this->_name){
+			std::cout << "RESET CONTROLLER: " << (int)this->_name << std::endl;
 			this->reset();
 		}
 	}

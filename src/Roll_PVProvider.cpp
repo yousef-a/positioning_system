@@ -15,7 +15,7 @@ Vector3D<float> Roll_PVProvider::getProcessVariable(){
     Vector3D<float> t_process_variable;
     t_process_variable.x = att.roll;
     if(this->getBodyRateProvider()){
-        t_process_variable.y = (this->getBodyRateProvider()->getBodyRate().y) * (M_PI/180);
+        t_process_variable.y = - (this->getBodyRateProvider()->getBodyRate().y) * (M_PI/180);
     }else{
         t_process_variable.y = 0.0;
     }

@@ -24,4 +24,4 @@ enum class controller_msg_type {data, change_settings, command};
 enum class control_system_msg_type {switch_in_out, add_block, change_PID_settings, to_system, provider_data, SETREFERENCE, UPDATECONTROLLER};
 enum class ack_msg_type { raw_packet, payload, nozzle, obstacle, mission,ack,internal_msg_start,internal_ros };
 enum class ros_msg_type {POSITION, ORIENTATION, X_PV, Y_PV, Z_PV, ROLL_PV, PITCH_PV, YAW_PV, CONTROLSYSTEM, ACTUATION};
-enum class block_frequency {hz100 = 100, hz1000 = 1000, hhz1000 = 1001};
+enum class block_frequency {hz100 = 100, hz1000 = 200, hhz1000 = 201};
