@@ -12,7 +12,7 @@ public:
 
     Vector3D<float> getProcessVariable();
     virtual AttitudeMsg getAttitude() = 0;
-    virtual BodyRateProvider* getBodyRateProvider() = 0;
+    virtual Vector3D<float> getBodyRate() = 0;
     ROSMsg ros_msg;
 
     Pitch_PVProvider();

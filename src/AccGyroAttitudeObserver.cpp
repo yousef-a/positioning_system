@@ -44,6 +44,11 @@ void AccGyroAttitudeObserver::loopInternal()
     m_filtered_attitude = m_filtered_attitude_temp;
 }
 
+Vector3D<float> AccGyroAttitudeObserver::getBodyRate()
+{
+    return m_rate->getBodyRate();
+}
+
 AttitudeMsg AccGyroAttitudeObserver::getAttitude()
 {
     return m_filtered_attitude;
