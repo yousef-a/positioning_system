@@ -1,6 +1,5 @@
 #include "looper.hpp"
 
-
 Looper* Looper::_instance_ptr = NULL;
 pthread_mutex_t Looper::lock;
 

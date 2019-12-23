@@ -38,10 +38,10 @@ void NAVIOMPU9250_sensor::updateReadings()
 	if(_timer.tockMicroSeconds() > _dt)
 	{
 		_imu.update();
-		_timer.tick();
 		_imu.read_raw_accelerometer(&(m_acc.x), &(m_acc.y), &(m_acc.z));
 		_imu.read_raw_gyroscope(&(m_gyro.x), &(m_gyro.y), &(m_gyro.z));
 		_imu.read_raw_magnetometer(&(m_mag.x), &(m_mag.y), &(m_mag.z));
+		_timer.tick();
 	}
 }
 

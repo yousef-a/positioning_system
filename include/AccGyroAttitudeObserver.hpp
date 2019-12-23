@@ -18,7 +18,8 @@ public:
 	void setFilterType(DataFilter*, DataFilter*);
 	void updateSettings(FilterSettings*, float);
 	void receive_msg_data(DataMessage* t_msg) {};
-	BodyRateProvider* getBodyRateProvider(){ return m_rate; }
+	//BodyRateProvider* getBodyRateProvider(){ return m_rate; }
+	Vector3D<float> getBodyRate();
 	AttitudeMsg getAttitude();
 	void loopInternal();
 

@@ -284,7 +284,7 @@ int main(int argc, char** argv) {
 
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
-     pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
+    pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
     //Setting priority

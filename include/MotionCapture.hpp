@@ -26,7 +26,7 @@ class MotionCapture :   public msg_receiver,
         virtual AttitudeMsg getAttitude() = 0;
         virtual HeadingMsg getHeading() = 0;
         virtual Vector3D<float> getBodyRate() = 0;
-        BodyRateProvider* getBodyRateProvider() { return NULL; }
+        //BodyRateProvider* getBodyRateProvider() { return NULL; }
 
         virtual void receive_msg_data(DataMessage* t_msg) = 0;
 
