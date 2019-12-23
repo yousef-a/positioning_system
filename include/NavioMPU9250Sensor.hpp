@@ -5,6 +5,7 @@
 #include "NavioMPU9250Acc.hpp"
 #include "NavioMPU9250Gyro.hpp"
 #include "NavioMPU9250Mag.hpp"
+#include "Timer.hpp"
 
 //TODO: this assumes modifactions to the navio_library, don't use with the original one
 class NAVIOMPU9250_sensor : public NineAxisSensor
@@ -31,7 +32,7 @@ private:
 	Timer _timer;
 
 	MPU9250 _imu;
-	ThreeAxisSensor* _acc = new NAVIOMPU9250_acc(&_imu);
-	ThreeAxisSensor* _gyro = new NAVIOMPU9250_gyro(&_imu);
-	ThreeAxisSensor* _mag = new NAVIOMPU9250_mag(&_imu);
+	ThreeAxisSensor* _acc = new NAVIOMPU9250_acc(this);
+	ThreeAxisSensor* _gyro = new NAVIOMPU9250_gyro(this);
+	ThreeAxisSensor* _mag = new NAVIOMPU9250_mag(this);
 };

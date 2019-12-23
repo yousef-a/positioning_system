@@ -116,7 +116,7 @@ float PIDController::pid_direct(float err, float pv_first, float pv_second) { //
 	// ************************** D-term ***************************
 	if (d_term) {
 		if (en_pv_derivation) {
-			u += parameters.kd*(-pv_first);
+			u += parameters.kd*(pv_first);
 		}
 		else {
 			u += parameters.kd*(err - prev_err) / _dt;
