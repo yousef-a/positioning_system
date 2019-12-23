@@ -9,6 +9,9 @@ NAVIOMPU9250_sensor::NAVIOMPU9250_sensor() //TODO: we need to add a logger for i
 	{
 		_imu.initialize();
 		std::cout << "init imu" << std::endl;
+		_imu.update();
+		_timer.tick();
+
 	}
 	else
 	{
