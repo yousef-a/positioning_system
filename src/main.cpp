@@ -32,7 +32,6 @@ int main(int argc, char** argv) {
     // std::cout << "Hello Easy C++ project!" << std::endl;
     //TODO separate files on specific folders
     //TODO ROSUnit to switch blocks
-    //TODO ROSUnit to receive msg data from ControlSystem, Actuation and Providers.
 
     ros::init(argc, argv, "testing_node");
 
@@ -50,37 +49,37 @@ int main(int argc, char** argv) {
     Logger::assignLogger(new StdLogger());
 
     //***********************ADDING SENSORS********************************
-     NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
-     myIMU->setSettings(ACCELEROMETER, FSR, 16);
-     myIMU->setSettings(GYROSCOPE, FSR, 2000);
-     myIMU->setSettings(MAGNETOMETER, FSR, 16);
+    //  NAVIOMPU9250_sensor* myIMU = new NAVIOMPU9250_sensor();
+    //  myIMU->setSettings(ACCELEROMETER, FSR, 16);
+    //  myIMU->setSettings(GYROSCOPE, FSR, 2000);
+    //  myIMU->setSettings(MAGNETOMETER, FSR, 16);
 
     //***********************SETTING PROVIDERS**********************************
     MotionCapture* myOptitrackSystem = new OptiTrack();
     X_PVProvider* myXPV = (X_PVProvider*)myOptitrackSystem;
     Y_PVProvider* myYPV = (Y_PVProvider*)myOptitrackSystem;
     Z_PVProvider* myZPV = (Z_PVProvider*)myOptitrackSystem;
-    // Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
-    // Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
+    Roll_PVProvider* myRollPV = (Roll_PVProvider*)myOptitrackSystem;
+    Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*)myOptitrackSystem;
     Yaw_PVProvider* myYawPV = (Yaw_PVProvider*)myOptitrackSystem;
     
-    AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
-                                          (BodyRateProvider*) myIMU->getGyro(),
-                                          block_frequency::hhz1000);
+    // AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
+    //                                       (BodyRateProvider*) myIMU->getGyro(),
+    //                                       block_frequency::hhz1000);
 
     
     
-     ComplementaryFilter filter1, filter2, filter3;
-    //TODO second argument should be dt of IMU sampling rate
-     ComplementaryFilterSettings settings(false, 0.005, 0.995);
+    //  ComplementaryFilter filter1, filter2, filter3;
+    // //TODO second argument should be dt of IMU sampling rate
+    //  ComplementaryFilterSettings settings(false, 0.005, 0.995);
 
-     myAttObserver.setFilterType(&filter1, &filter2);
-     myAttObserver.updateSettings(&settings, 0.1);
+    //  myAttObserver.setFilterType(&filter1, &filter2);
+    //  myAttObserver.updateSettings(&settings, 0.1);
 
-     Roll_PVProvider* myRollPV = (Roll_PVProvider*) &myAttObserver;
-     Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*) &myAttObserver;
+    //  Roll_PVProvider* myRollPV = (Roll_PVProvider*) &myAttObserver;
+    //  Pitch_PVProvider* myPitchPV = (Pitch_PVProvider*) &myAttObserver;
 
-    myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
+    // myROSOptitrack->add_callback_msg_receiver((msg_receiver*)myOptitrackSystem);
     
 
     //**************************SETTING BLOCKS**********************************
@@ -279,17 +278,17 @@ int main(int argc, char** argv) {
     myLoop->addTimedBlock((TimedBlock*)Roll_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Pitch_ControlSystem);
     myLoop->addTimedBlock((TimedBlock*)Yaw_ControlSystem);
-     myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
+    //  myLoop->addTimedBlock((TimedBlock*) &myAttObserver);
 
     // Creating a new thread 
     pthread_create(&loop1khz_func_id, NULL, &Looper::Loop1KHz, NULL);
-    pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
+    //  pthread_create(&hwloop1khz_func_id, NULL, &Looper::hardwareLoop1KHz, NULL);
     pthread_create(&loop100hz_func_id, NULL, &Looper::Loop100Hz, NULL); 
 
     //Setting priority
     params.sched_priority = sched_get_priority_max(SCHED_FIFO);
     int ret = pthread_setschedparam(loop1khz_func_id, SCHED_FIFO, &params);
-     ret += pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
+    //  ret += pthread_setschedparam(hwloop1khz_func_id, SCHED_FIFO, &params);
 
     params.sched_priority = sched_get_priority_max(SCHED_FIFO) - 1;
     ret += pthread_setschedparam(loop100hz_func_id, SCHED_FIFO, &params);

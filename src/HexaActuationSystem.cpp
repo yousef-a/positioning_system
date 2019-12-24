@@ -9,7 +9,6 @@ HexaActuationSystem::~HexaActuationSystem() {
 
 }
 
-
 void HexaActuationSystem::command(){
 
     for(int i = 0; i < 6; i++){
@@ -24,21 +23,19 @@ void HexaActuationSystem::command(){
     }
 
     //_movements (PID outputs) should be between 0 and 1. Thus, we have to adjust for the range 1000 to 2000 on _commands.
-    //Normalize
-    //TODO fix this issue of motors spinning even though not armed
-    
+    //Normalize and Constrain
+    //TODO make it more general    
     for(int i = 0; i < 6; i++){
-	if(_armed){
-        _commands[i] = (_commands[i] * 850) + 1150;
-	}else{
-	_commands[i] = 1000;
-	}
+        if(_armed){
+            _commands[i] = (_commands[i] * (_escMax-_escMin_armed)) + _escMin_armed;
+            _commands[i] = this->constrain(_commands[i], _escMin_armed, _escMax);
+        }else{
+            _commands[i] = _escMin;
+        }
     }
     
-
-    //Actuate with constrains
+    //Actuate
     for(int i = 0; i < 6; i++){
-        _commands[i] = this->constrain(_commands[i], _escMin, _escMax);
         _actuators[i]->applyCommand(_commands[i]);
     }
 
@@ -48,22 +45,12 @@ void HexaActuationSystem::command(){
 
 int HexaActuationSystem::constrain(float value, int min_value, int max_value) {
     
-    if(_armed){
-        int min_value_armed = min_value + 150;
-
-        if (value > max_value) {
-            value = max_value;
-        } else if (value < min_value_armed) {
-            value = min_value_armed;
-        }
-    }else{
-        if (value > max_value) {
-            value = max_value;
-        } else if (value < min_value) {
-            value = min_value;
-        }
+    if (value > max_value) {
+        value = max_value;
+    } else if (value < min_value) {
+        value = min_value;
     }
-        
+
     return int(value);
 }
 
