@@ -5,7 +5,7 @@
 class Reference : public Block {
 
     private:
-        block_id _name; 
+        block_id _id; 
         block_type _type;
 
     public:
@@ -18,6 +18,6 @@ class Reference : public Block {
         virtual reference_type getReferenceType() = 0;
         virtual void setReferenceValue(float) = 0;
 
-        Reference(block_id t_name, block_type t_type);
+        Reference(block_id t_id, block_type t_type);
         ~Reference();
 };

@@ -1,8 +1,8 @@
 #include "PIDController.hpp"
 
-PIDController::PIDController(block_id t_name, block_type t_type) : Controller(t_name, t_type){
+PIDController::PIDController(block_id t_id, block_type t_type) : Controller(t_id, t_type){
     _controller_type = controller_type::pid;
-	_name = t_name;
+	_id = t_id;
 }
 
 PIDController::~PIDController() {
@@ -14,14 +14,14 @@ void PIDController::receive_msg_data(DataMessage* t_msg){
 	if(t_msg->getType() == msg_type::UPDATECONTROLLER){
 		PID_parameters* _params = (PID_parameters*)t_msg;
 
-		if(_params->id == this->_name){
+		if(_params->id == this->_id){
 			this->initialize(_params);
 		}
 	}else if(t_msg->getType() == msg_type::RESETCONTROLLER){
 		ResetControllerMsg* reset_msg = (ResetControllerMsg*)t_msg;
 
-		if(static_cast<block_id>(reset_msg->getData()) == this->_name){
-			std::cout << "RESET CONTROLLER: " << (int)this->_name << std::endl;
+		if(static_cast<block_id>(reset_msg->getData()) == this->_id){
+			std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
 			this->reset();
 		}
 	}

@@ -1,7 +1,7 @@
 #include "Controller.hpp"
 
-Controller::Controller(block_id t_name, block_type t_type) {
-    _name = t_name;
+Controller::Controller(block_id t_id, block_type t_type) {
+    _id = t_id;
     _type = t_type;
 }
 
@@ -25,5 +25,5 @@ block_type Controller::getType(){
 }
 
 block_id Controller::getID(){
-    return _name;
+    return _id;
 }

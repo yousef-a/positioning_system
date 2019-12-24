@@ -22,7 +22,7 @@ void HexaActuationSystem::command(){
         }
     }
 
-    //_movements (PID outputs) should be between 0 and 1. Thus, we have to adjust for the range 1000 to 2000 on _commands.
+    //_movements (PID outputs) should be between 0 and 1. Thus, we have to adjust for the range 1150 to 2000 on _commands.
     //Normalize and Constrain
     //TODO make it more general    
     for(int i = 0; i < 6; i++){

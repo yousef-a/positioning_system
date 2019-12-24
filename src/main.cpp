@@ -174,7 +174,7 @@ int main(int argc, char** argv) {
 
     myROSArm->add_callback_msg_receiver((msg_receiver*) myActuationSystem);
 
-    // //********************SETTING FLIGHT SCENARIO OUTPUTS***************************
+    //********************SETTING FLIGHT SCENARIO OUTPUTS***************************
 
     X_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);
     Y_ControlSystem->add_callback_msg_receiver((msg_receiver*)myROSBroadcastData);

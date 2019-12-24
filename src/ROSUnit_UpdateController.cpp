@@ -3,7 +3,7 @@
 //TODO rename the topics and class
 ROSUnit_UpdateController* ROSUnit_UpdateController::_instance_ptr = NULL;
 PID_parameters ROSUnit_UpdateController::_update_controller_msg;
-control_system ROSUnit_UpdateController::_name;
+control_system ROSUnit_UpdateController::_id;
 
 ROSUnit_UpdateController::ROSUnit_UpdateController(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler) {
     _srv_update_controller = t_main_handler.advertiseService("update_controller", callbackUpdateController);

@@ -7,7 +7,7 @@
 class Controller : public Block{
 
 private:
-    block_id _name; 
+    block_id _id; 
     block_type _type;
 
 public:
@@ -20,6 +20,6 @@ public:
     virtual DataMessage* receive_msg_internal(DataMessage*) = 0;
     virtual void receive_msg_data(DataMessage* t_msg) = 0;
     
-    Controller(block_id t_name, block_type t_type);
+    Controller(block_id t_id, block_type t_type);
     ~Controller();
 };

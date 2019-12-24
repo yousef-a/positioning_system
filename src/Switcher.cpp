@@ -1,8 +1,7 @@
 #include "Switcher.hpp"
 
-Switcher::Switcher(string t_name, switcher_type t_type, control_system t_parent) {
+Switcher::Switcher(switcher_type t_type, control_system t_parent) {
     _type = t_type;
-    _name = t_name;
     _parent = t_parent;
     _active_block = nullptr;
 }
@@ -30,10 +29,6 @@ void Switcher::switchBlock(Block* from, Block* to){
 
 Block* Switcher::getActiveBlock(){
     return _active_block;
-}
-
-string Switcher::getID(){
-    return _name;
 }
 
 //TODO add reference block so the error can be calculated

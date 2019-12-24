@@ -14,7 +14,7 @@ class PIDController : public Controller{
     private:
         controller_type _controller_type;
         FloatMessage m_output_msg;
-        block_id _name;
+        block_id _id;
         //Chehadeh's code
         PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster
@@ -38,6 +38,6 @@ class PIDController : public Controller{
         //TODO Send a message to Switcher
         //TODO Receive a message from Switcher
 
-        PIDController(block_id t_name, block_type t_type);
+        PIDController(block_id t_id, block_type t_type);
         ~PIDController();
 };

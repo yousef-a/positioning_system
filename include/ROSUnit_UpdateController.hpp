@@ -12,7 +12,7 @@
 class ROSUnit_UpdateController :  public ROSUnit{
 
     private:
-        static control_system _name;
+        static control_system _id;
         static ROSUnit_UpdateController* _instance_ptr;
         static PID_parameters _update_controller_msg; 
         ros::ServiceServer _srv_update_controller;

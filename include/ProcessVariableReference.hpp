@@ -16,6 +16,6 @@ public:
       
     void setReferenceValue(float);
     DataMessage* receive_msg_internal(DataMessage*);
-    ProcessVariableReference(block_id t_name, block_type t_type);
+    ProcessVariableReference(block_id t_id, block_type t_type);
     ~ProcessVariableReference();
 };
