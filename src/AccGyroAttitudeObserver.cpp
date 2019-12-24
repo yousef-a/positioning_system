@@ -40,10 +40,12 @@ void AccGyroAttitudeObserver::loopInternal()
         //std::cout << " 2 " << std::endl;
     }
 
-    // std::cout << "Acc x: " << acc_data.x << std::endl;
-    // std::cout << "Acc y: " << acc_data.y << std::endl;
-    // std::cout << "Gyro x: " << gyro_data.x << std::endl;
-    // std::cout << "Gyro y: " << gyro_data.y << std::endl;
+    //std::cout << "Acc x: " << acc_data.x << std::endl;
+    //std::cout << "Acc y: " << acc_data.y << std::endl;
+    //std::cout << "Acc z: " << acc_data.z << std::endl;
+    //std::cout << "Gyro x: " << gyro_data.x << std::endl;
+    //std::cout << "Gyro y: " << gyro_data.y << std::endl;
+    //std::cout << "Gyro z: " << gyro_data.z << std::endl;
 
     m_filtered_attitude = m_filtered_attitude_temp;
 }

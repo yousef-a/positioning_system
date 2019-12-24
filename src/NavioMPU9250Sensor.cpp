@@ -47,6 +47,7 @@ void NAVIOMPU9250_sensor::updateReadings()
 		m_gyro.x = -1*m_gyro.x;
 		m_acc.x = -1* m_acc.x;
 		m_acc.y = -1* m_acc.y;
+		m_acc.z = -1* m_acc.z;
 		_timer.tick();
 	}
 }

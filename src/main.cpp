@@ -200,54 +200,53 @@ int main(int argc, char** argv) {
     //***********************SETTING PID INITIAL VALUES*****************************
 
     PID_parameters* pid_para_test = new PID_parameters;
-    pid_para_test->kp = 0.5;
+    pid_para_test->kp = 0.8;
     pid_para_test->ki = 0.0;
-    pid_para_test->kd = 0.1;
+    pid_para_test->kd = 0.6;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
     pid_para_test->en_pv_derivation = 1;
     X_ControlSystem->changePIDSettings(pid_para_test);
 
-    pid_para_test->kp = 5.0;
+    pid_para_test->kp = 0.8;
     pid_para_test->ki = 0.0;
-    pid_para_test->kd = 1.0;
-    pid_para_test->kdd = 0.0;
-    pid_para_test->anti_windup = 0;
-    pid_para_test->en_pv_derivation = 1;
-    Pitch_ControlSystem->changePIDSettings(pid_para_test);
-
-    pid_para_test->kp = 0.5;
-    pid_para_test->ki = 0.0;
-    pid_para_test->kd = 0.1;
+    pid_para_test->kd = 0.6;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
     pid_para_test->en_pv_derivation = 1;
     Y_ControlSystem->changePIDSettings(pid_para_test);
 
-    pid_para_test->kp = 5.0;
-    pid_para_test->ki = 0.0;
-    pid_para_test->kd = 1.0;
-    pid_para_test->kdd = 0.0;
-    pid_para_test->anti_windup = 0;
-    pid_para_test->en_pv_derivation = 1;
-    Roll_ControlSystem->changePIDSettings(pid_para_test);
-
-    pid_para_test->kp = 0.2;
-    pid_para_test->ki = 0.02;
-    pid_para_test->kd = 0.05;
+    pid_para_test->kp = 0.4;
+    pid_para_test->ki = 0.04;
+    pid_para_test->kd = 0.10;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
     pid_para_test->en_pv_derivation = 1;
     Z_ControlSystem->changePIDSettings(pid_para_test);
 
-    pid_para_test->kp = 0.2;
+    pid_para_test->kp = 0.3;
     pid_para_test->ki = 0.0;
-    pid_para_test->kd = 0.04;
+    pid_para_test->kd = 0.075;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 1;
+    Roll_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 0.3;
+    pid_para_test->ki = 0.0;
+    pid_para_test->kd = 0.075;
+    pid_para_test->kdd = 0.0;
+    pid_para_test->anti_windup = 0;
+    pid_para_test->en_pv_derivation = 1;
+    Pitch_ControlSystem->changePIDSettings(pid_para_test);
+
+    pid_para_test->kp = 0.8;
+    pid_para_test->ki = 0.0;
+    pid_para_test->kd = 0.08;
     pid_para_test->kdd = 0.0;
     pid_para_test->anti_windup = 0;
     pid_para_test->en_pv_derivation = 1;
     Yaw_ControlSystem->changePIDSettings(pid_para_test);
-    
 
     //***********************SETTING CONNECTIONS****************************
     //========                                                      =============

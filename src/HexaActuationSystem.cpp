@@ -25,9 +25,16 @@ void HexaActuationSystem::command(){
 
     //_movements (PID outputs) should be between 0 and 1. Thus, we have to adjust for the range 1000 to 2000 on _commands.
     //Normalize
+    //TODO fix this issue of motors spinning even though not armed
+    
     for(int i = 0; i < 6; i++){
-        _commands[i] = (_commands[i] * 1000) + 1000;
+	if(_armed){
+        _commands[i] = (_commands[i] * 850) + 1150;
+	}else{
+	_commands[i] = 1000;
+	}
     }
+    
 
     //Actuate with constrains
     for(int i = 0; i < 6; i++){
