@@ -44,13 +44,7 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
             this->emit_message((DataMessage*) &m_output_msg);
         }//TODO add the update parameters msg
         
-    }else if(t_msg->getType() == msg_type::UPDATECONTROLLER){
-
-        std::cout << "INSIDE " << (int)(this->getControlSystemType()) << std::endl;
-        PID_parameters* _pid_param_msg = (PID_parameters*)t_msg;
-        this->changePIDSettings(_pid_param_msg);
     }
-
 }
 
 control_system ControlSystem::getControlSystemType(){
@@ -65,14 +59,6 @@ void ControlSystem::getStatus(){
             // std::cout << "For switcher " << s->getID() << " the active block is " << s->getActiveBlock()->getID() << std::endl;
         }     
     }
-}
-
-Switcher* ControlSystem::getControllerSwitcher(){
-    return controllerSwitcher;
-}
-
-Switcher* ControlSystem::getReferenceSwitcher(){
-    return referenceSwitcher;
 }
 
 //TODO Provider msg_emitter, remove loopInternal
@@ -94,12 +80,4 @@ void ControlSystem::addBlock(Block* t_block){
     m_add_block_msg.setControlSystemMessage(control_system_msg_type::add_block, t_block);
 
     this->emit_message((DataMessage*) &m_add_block_msg);
-}
-
-void ControlSystem::changePIDSettings(PID_parameters* t_pid_para){ //TODO refactor through receive_msg, a remote msg should change the pid
-
-    t_pid_para->dt = _dt;
-    m_change_PID_msg.setControlSystemMessage(control_system_msg_type::change_PID_settings, t_pid_para);
-
-    this->emit_message((DataMessage*) &m_change_PID_msg);
 }

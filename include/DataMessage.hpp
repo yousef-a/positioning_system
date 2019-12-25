@@ -5,6 +5,7 @@
 #pragma once
 #include <list>
 #include "common_types.hpp"
+#include <iostream>
 
 class DataMessage {
 

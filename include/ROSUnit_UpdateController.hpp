@@ -8,13 +8,14 @@
 #include <positioning_system/PID_param.h>
 #include <positioning_system/Update_Controller.h>
 #include "common_types.hpp"
+#include "PID_ParametersMsg.hpp"
 
 class ROSUnit_UpdateController :  public ROSUnit{
 
     private:
         static control_system _id;
         static ROSUnit_UpdateController* _instance_ptr;
-        static PID_parameters _update_controller_msg; 
+        static PID_ParametersMsg _update_controller_msg; 
         ros::ServiceServer _srv_update_controller;
         static bool callbackUpdateController(positioning_system::Update_Controller::Request  &req, 
                                              positioning_system::Update_Controller::Response &res);

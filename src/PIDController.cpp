@@ -12,11 +12,12 @@ PIDController::~PIDController() {
 void PIDController::receive_msg_data(DataMessage* t_msg){
 
 	if(t_msg->getType() == msg_type::UPDATECONTROLLER){
-		PID_parameters* _params = (PID_parameters*)t_msg;
-
-		if(_params->id == this->_id){
-			this->initialize(_params);
+		PID_ParametersMsg* _pid_msg = (PID_ParametersMsg*)t_msg;
+		PID_parameters _params = _pid_msg->getPIDParam();
+		if(_params.id == this->_id){		
+			this->initialize(&_params);	
 		}
+		
 	}else if(t_msg->getType() == msg_type::RESETCONTROLLER){
 		ResetControllerMsg* reset_msg = (ResetControllerMsg*)t_msg;
 
