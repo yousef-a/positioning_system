@@ -21,6 +21,7 @@ add_service_files(
   Update_Controller.srv
   Reset_Controller.srv
   Update_Pose_Reference.srv
+  SwitchBlock.srv
 )
 
 generate_messages(
