@@ -10,12 +10,14 @@ private:
     reference_type _reference_type;
     float _reference_value;
     Vector3DMessage m_error_msg;
+    block_id _id;
 
 public:
     reference_type getReferenceType();
       
     void setReferenceValue(float);
     DataMessage* receive_msg_internal(DataMessage*);
-    ProcessVariableReference(block_id t_id, block_type t_type);
+    block_id getID(){ return _id; }
+    ProcessVariableReference(block_id t_id);
     ~ProcessVariableReference();
 };

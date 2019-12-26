@@ -1,9 +1,9 @@
 #include "ProcessVariableReference.hpp"
 
-ProcessVariableReference::ProcessVariableReference(block_id t_id, block_type t_type) : Reference(t_id, t_type) {
-    
+ProcessVariableReference::ProcessVariableReference(block_id t_id) {
     _reference_type = reference_type::process_variable_ref;
     _reference_value = 0.0;
+    _id = t_id;
 }
 
 ProcessVariableReference::~ProcessVariableReference() {
@@ -24,10 +24,6 @@ DataMessage* ProcessVariableReference::receive_msg_internal(DataMessage* t_msg){
     error.x = _reference_value - pos_msg->getData().x;
     error.y = 0.0 - pos_msg->getData().y ;
     error.z = 0.0 - pos_msg->getData().z;
-    //TODO for testing
-    // if(error.x < 0.05 && error.x > -0.05){
-    //     error.x = 0;
-    // }
   
     m_error_msg.setVector3DMessage(error);
 

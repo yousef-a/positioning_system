@@ -26,6 +26,7 @@
 #include "../include/ROSUnit_ResetController.hpp"
 #include "../include/ROSUnit_BroadcastData.hpp"
 #include "../include/PID_ParametersMsg.hpp"
+#include "../include/ROSUnit_SwitchBlock.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -45,6 +46,7 @@ int main(int argc, char** argv) {
     ROSUnit* myROSUpdateController = new ROSUnit_UpdateController(nh);
     ROSUnit* myROSResetController = new ROSUnit_ResetController(nh);
     ROSUnit* myROSBroadcastData = new ROSUnit_BroadcastData(nh);
+    ROSUnit* myROSSwitchBlock = new ROSUnit_SwitchBlock(nh);
 
     //*****************************LOGGER**********************************
     Logger::assignLogger(new StdLogger());
@@ -85,18 +87,18 @@ int main(int argc, char** argv) {
 
     //**************************SETTING BLOCKS**********************************
 
-    Block* PID_x = new PIDController(block_id::PID_X, block_type::controller);
-    Block* PID_pitch = new PIDController(block_id::PID_PITCH, block_type::controller);
-    Block* PV_Ref_x = new ProcessVariableReference(block_id::REF_X, block_type::reference);
-    Block* PV_Ref_pitch = new ProcessVariableReference(block_id::REF_PITCH, block_type::reference);
-    Block* PID_y = new PIDController(block_id::PID_Y, block_type::controller);
-    Block* PID_roll = new PIDController(block_id::PID_ROLL, block_type::controller);
-    Block* PV_Ref_y = new ProcessVariableReference(block_id::REF_Y, block_type::reference);
-    Block* PV_Ref_roll = new ProcessVariableReference(block_id::REF_ROLL, block_type::reference);
-    Block* PID_z = new PIDController(block_id::PID_Z, block_type::controller);
-    Block* PID_yaw = new PIDController(block_id::PID_YAW, block_type::controller);
-    Block* PV_Ref_z = new ProcessVariableReference(block_id::REF_Z, block_type::reference);
-    Block* PV_Ref_yaw = new ProcessVariableReference(block_id::REF_YAW, block_type::reference);
+    Block* PID_x = new PIDController(block_id::PID_X);
+    Block* PID_pitch = new PIDController(block_id::PID_PITCH);
+    Block* PV_Ref_x = new ProcessVariableReference(block_id::REF_X);
+    Block* PV_Ref_pitch = new ProcessVariableReference(block_id::REF_PITCH);
+    Block* PID_y = new PIDController(block_id::PID_Y);
+    Block* PID_roll = new PIDController(block_id::PID_ROLL);
+    Block* PV_Ref_y = new ProcessVariableReference(block_id::REF_Y);
+    Block* PV_Ref_roll = new ProcessVariableReference(block_id::REF_ROLL);
+    Block* PID_z = new PIDController(block_id::PID_Z);
+    Block* PID_yaw = new PIDController(block_id::PID_YAW);
+    Block* PV_Ref_z = new ProcessVariableReference(block_id::REF_Z);
+    Block* PV_Ref_yaw = new ProcessVariableReference(block_id::REF_YAW);
 
     //***********************SETTING CONTROL SYSTEMS***************************
 

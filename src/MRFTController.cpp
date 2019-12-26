@@ -1,6 +1,6 @@
 #include "MRFTController.hpp"
 
-MRFTController::MRFTController(block_id t_id, block_type t_type) : Controller(t_id, t_type) {  
+MRFTController::MRFTController(block_id t_id) {  
     _controller_type = controller_type::mrft;
 	_id = t_id;
 }
@@ -72,10 +72,6 @@ DataMessage* MRFTController::receive_msg_internal(DataMessage* t_msg){
     m_output_msg.setFloatMessage(command);
 
 	return (DataMessage*) &m_output_msg;
-}
-
-controller_type MRFTController::getControllerType(){
-	return _controller_type;
 }
 
 // Start of Chehadeh's Code

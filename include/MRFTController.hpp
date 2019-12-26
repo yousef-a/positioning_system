@@ -47,8 +47,9 @@ public:
 	void receive_msg_data(DataMessage* t_msg); 
     void reset();
 	DataMessage* receive_msg_internal(DataMessage*);
-    controller_type getControllerType();
+    controller_type getControllerType(){ return _controller_type; }
+    block_id getID(){ return _id; }
 
-    MRFTController(block_id t_id, block_type t_type);
+    MRFTController(block_id t_id);
     ~MRFTController();
 };

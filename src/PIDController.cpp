@@ -1,6 +1,6 @@
 #include "PIDController.hpp"
 
-PIDController::PIDController(block_id t_id, block_type t_type) : Controller(t_id, t_type){
+PIDController::PIDController(block_id t_id){
     _controller_type = controller_type::pid;
 	_id = t_id;
 }
@@ -33,7 +33,8 @@ void PIDController::receive_msg_data(DataMessage* t_msg){
 		ResetControllerMsg* reset_msg = (ResetControllerMsg*)t_msg;
 
 		if(static_cast<block_id>(reset_msg->getData()) == this->_id){
-			std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
+			//TODO make a Logger
+			//std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
 			this->reset();
 		}
 	}
@@ -54,10 +55,6 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
     m_output_msg.setFloatMessage(command);
 
 	return (DataMessage*) &m_output_msg;
-}
-
-controller_type PIDController::getControllerType(){
-	return _controller_type;
 }
 
 void PIDController::reset(){
