@@ -12,11 +12,14 @@ PIDController::~PIDController() {
 void PIDController::switchIn(DataMessage* data){
     //this->emit_message(data);
     //TODO implement
+	std::cout << "SWITCH IN PID CONTROLLER" << std::endl;
 }
 
 DataMessage* PIDController::switchOut(){
     //TODO implement
     DataMessage* msg;
+	std::cout << "SWITCH OUT PID CONTROLLER" << std::endl;
+
     return msg;
 } 
 
@@ -51,7 +54,7 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
     float command;
 	command = pid_direct(data.x, data.y, data.z);
 
-	// std::cout << "pid_output: " << command << std::endl;
+	std::cout << "pid_output: " << command << std::endl;
     m_output_msg.setFloatMessage(command);
 
 	return (DataMessage*) &m_output_msg;

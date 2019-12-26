@@ -12,10 +12,12 @@ MRFTController::~MRFTController() {
 void MRFTController::switchIn(DataMessage* data){
     //this->emit_message(data);
     //TODO implement
+	std::cout << "SWITCH IN MRFT CONTROLLER" << std::endl;
 }
 
 DataMessage* MRFTController::switchOut(){
     //TODO implement
+	std::cout << "SWITCH OUT MRFT CONTROLLER" << std::endl;
     DataMessage* msg;
     return msg;
 } 
@@ -70,6 +72,7 @@ DataMessage* MRFTController::receive_msg_internal(DataMessage* t_msg){
 	}
 
     m_output_msg.setFloatMessage(command);
+	std::cout << "mrft_output: " << command << std::endl;
 
 	return (DataMessage*) &m_output_msg;
 }

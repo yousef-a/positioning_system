@@ -16,9 +16,6 @@ const int ControlSystemMessage::getSize()
     return sizeof(this);
 }
 
-Block* ControlSystemMessage::getBlockToRemove(){
-    return _to_remove;
-}
 Block* ControlSystemMessage::getBlockToAdd(){
     return _to_add;
 }
@@ -39,13 +36,6 @@ float ControlSystemMessage::getData(){
 }
 Vector3D<float> ControlSystemMessage::getV3DData(){
     return _v3d_data;
-}
-
-void ControlSystemMessage::setControlSystemMessage(control_system_msg_type t_type, Block* t_to_remove, Block* t_to_add) {
-    _to_remove = t_to_remove;
-    _to_add = t_to_add;
-    _type = msg_type::control_system;
-    _control_system_msg_type = t_type;
 }
 
 void ControlSystemMessage::setControlSystemMessage(control_system_msg_type t_type, Block* t_to_add) {

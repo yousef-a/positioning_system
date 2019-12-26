@@ -13,6 +13,7 @@
 #include "AttitudeProvider.hpp"
 #include "ReferenceMessage.hpp"
 #include "logger.hpp"
+#include "SwitchBlockMsg.hpp"
 
 class Switcher : public msg_receiver, public msg_emitter{
 

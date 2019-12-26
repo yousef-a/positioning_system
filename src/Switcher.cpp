@@ -29,20 +29,7 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         ControlSystemMessage* control_system_msg = (ControlSystemMessage*)t_msg;
         Block* block_to_add = control_system_msg->getBlockToAdd();
         
-        //Considering the message is sent to all the Switchers, this checks if the block being altered belongs to that switcher
-        //(4)
-        if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::switch_in_out
-            && std::find(_blocks.begin(), _blocks.end(), block_to_add) != _blocks.end()){
-
-            Block* block_to_remove = control_system_msg->getBlockToRemove();                
-            //Check if blocks to switch are of the same type, because the message sent by the Control System will go to both swithcers (Controller
-            // and Reference)
-            if(block_to_remove->getType() == block_to_add->getType()){
-                block_to_add->switchIn(block_to_remove->switchOut());
-                _active_block = block_to_add;          
-            }
-        //(5)
-        } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::add_block
+        if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::add_block
                     && static_cast<int>(this->getType()) == static_cast<int>(block_to_add->getType())){ //TODO Refactor
                 
             Block* block_to_add = control_system_msg->getBlockToAdd();
@@ -87,6 +74,37 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
         m_out_switcher_msg.setSwitcherMessage(data->getData());
         
         this->emit_message((DataMessage*) &m_out_switcher_msg);
-    }
 
+    }else if(t_msg->getType() == msg_type::SWITCHBLOCK){
+        SwitchBlockMsg* switch_msg = (SwitchBlockMsg*)t_msg;
+
+        block_id block_in_id = static_cast<block_id>(switch_msg->getBlockToSwitchIn());
+        block_id block_out_id = static_cast<block_id>(switch_msg->getBlockToSwitchOut());
+
+        Block* block_in=nullptr;
+        Block* block_out=nullptr;
+
+        for (_it = _blocks.begin(); _it != _blocks.end(); ++_it){
+
+            block_id this_id = (*_it)->getID();
+
+            if(this_id == block_in_id || this_id == block_out_id){
+
+                if(this_id == block_in_id){
+                    block_in = *_it;
+                }else if(this_id == block_out_id){
+                    block_out = *_it;
+                }
+            }
+        }
+
+        if(block_in && block_out){
+
+            block_in->switchIn(block_out->switchOut());
+            _active_block = block_in;
+
+        }else{
+            //TODO make logger
+        }
+    }
 }

@@ -43,8 +43,13 @@ void ControlSystem::receive_msg_data(DataMessage* t_msg){
             m_output_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::SETREFERENCE, control_system_msg->getData());
             this->emit_message((DataMessage*) &m_output_msg);
         }//TODO add the update parameters msg
-        
+
+    }else if(t_msg->getType() == msg_type::SWITCHBLOCK){
+
+        SwitchBlockMsg* switch_msg = (SwitchBlockMsg*)t_msg;
+        this->emit_message((DataMessage*) switch_msg);
     }
+
 }
 
 control_system ControlSystem::getControlSystemType(){
@@ -55,8 +60,8 @@ void ControlSystem::getStatus(){
     
     for(Switcher* s : _switchers){
         if(s->getActiveBlock() != nullptr){
-            // std::cout << "For Control System " << static_cast<int>(_control_system) << std::endl;
-            // std::cout << "For switcher " << s->getID() << " the active block is " << s->getActiveBlock()->getID() << std::endl;
+            std::cout << "For Control System " << static_cast<int>(_control_system) << std::endl;
+            std::cout << "For switcher " << (int)(s->getType()) << " the active block is " << (int)(s->getActiveBlock()->getID()) << std::endl;
         }     
     }
 }
@@ -68,12 +73,6 @@ void ControlSystem::loopInternal(){
     m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::PROVIDER, data);
 
     this->emit_message((DataMessage*) &m_provider_data_msg);
-}
-
-void ControlSystem::switchBlock(Block* t_from, Block* t_to){
-    m_switch_msg.setControlSystemMessage(control_system_msg_type::switch_in_out, t_from, t_to);
-    
-    this->emit_message((DataMessage*) &m_switch_msg);
 }
 
 void ControlSystem::addBlock(Block* t_block){

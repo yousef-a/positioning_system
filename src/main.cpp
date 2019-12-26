@@ -27,6 +27,7 @@
 #include "../include/ROSUnit_BroadcastData.hpp"
 #include "../include/PID_ParametersMsg.hpp"
 #include "../include/ROSUnit_SwitchBlock.hpp"
+#include "../include/MRFTController.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -100,39 +101,36 @@ int main(int argc, char** argv) {
     Block* PV_Ref_z = new ProcessVariableReference(block_id::REF_Z);
     Block* PV_Ref_yaw = new ProcessVariableReference(block_id::REF_YAW);
 
+    Block* MRFT_x = new MRFTController(block_id::MRFT_X);
+
     //***********************SETTING CONTROL SYSTEMS***************************
 
     //TODO Expose switcher to the main, add blocks to the switcher, then make connections between switcher, then add them to the Control System
     ControlSystem* X_ControlSystem = new ControlSystem(control_system::x, myXPV, block_frequency::hz100);
     X_ControlSystem->addBlock(PID_x);
+    X_ControlSystem->addBlock(MRFT_x);
     X_ControlSystem->addBlock(PV_Ref_x);
-    X_ControlSystem->getStatus();
 
     ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, myPitchPV, block_frequency::hz1000);
     Pitch_ControlSystem->addBlock(PID_pitch);
     Pitch_ControlSystem->addBlock(PV_Ref_pitch);
-    Pitch_ControlSystem->getStatus();
 
     ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, myYPV, block_frequency::hz100);
     Y_ControlSystem->addBlock(PID_y);
     Y_ControlSystem->addBlock(PV_Ref_y);
-    Y_ControlSystem->getStatus();
 
     ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, myRollPV, block_frequency::hz1000);
     Roll_ControlSystem->addBlock(PID_roll);
     Roll_ControlSystem->addBlock(PV_Ref_roll);
-    Roll_ControlSystem->getStatus();
 
     ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, myZPV, block_frequency::hz100);
     Z_ControlSystem->addBlock(PID_z);
     Z_ControlSystem->addBlock(PV_Ref_z);
-    Z_ControlSystem->getStatus();
 
     //Yaw on Optitrack 100Hz
     ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, myYawPV, block_frequency::hz100);
     Yaw_ControlSystem->addBlock(PID_yaw);
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
-    Yaw_ControlSystem->getStatus();
 
     //*********************SETTING ACTUATION SYSTEMS************************
 
@@ -168,12 +166,13 @@ int main(int argc, char** argv) {
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
 
-    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_x);
-    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_y);
-    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_z);
-    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_roll);
-    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
-    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
+    //TODO after Switchers are exposed, connect ROSUnit_SwitchBlocks with them
+    myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
+    myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
+    myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)Z_ControlSystem);
+    myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)Roll_ControlSystem);
+    myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)Pitch_ControlSystem);
+    myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)Yaw_ControlSystem);
 
     myROSArm->add_callback_msg_receiver((msg_receiver*) myActuationSystem);
 

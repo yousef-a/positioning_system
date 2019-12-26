@@ -10,6 +10,7 @@
 #include "ReferenceMessage.hpp"
 #include "TimedBlock.hpp"
 #include "ROSMsg.hpp"
+#include "SwitchBlockMsg.hpp"
 
 class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver{
 
@@ -20,7 +21,7 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
         PVProvider* _providerProcessVariable;
         std::vector<Switcher*> _switchers;
         block_frequency _frequency;
-        // ControlSystem();
+
         ReferenceMessage m_ref_msg_x;
         ReferenceMessage m_ref_msg_y;
         ReferenceMessage m_ref_msg_z;
@@ -41,7 +42,6 @@ class ControlSystem : public TimedBlock, public msg_emitter, public msg_receiver
     public:
         void receive_msg_data(DataMessage* t_msg);
         void getStatus();
-        void switchBlock(Block* t_from, Block* t_to);
         void addBlock(Block* t_block);
         control_system getControlSystemType();
         void loopInternal();

@@ -7,7 +7,6 @@
 class ControlSystemMessage : public DataMessage{
 //TODO Refactor so there is only one type of ControlSystemMessage
 private:
-    Block* _to_remove;
     Block* _to_add;
     msg_type _type;
     control_system_msg_type _control_system_msg_type;
@@ -20,7 +19,6 @@ private:
 public:
     msg_type getType();
     const int getSize();
-    Block* getBlockToRemove();
     Block* getBlockToAdd();
     control_system_msg_type getControlSystemMsgType();
     PID_parameters* getPIDSettings();
@@ -31,7 +29,6 @@ public:
 
     ControlSystemMessage();
 
-    void setControlSystemMessage(control_system_msg_type, Block*, Block*);
     void setControlSystemMessage(control_system_msg_type, Block*);
     void setControlSystemMessage(control_system_msg_type, PID_parameters*);
     void setControlSystemMessage(control_system, control_system_msg_type, Vector3D<float>);
