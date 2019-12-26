@@ -28,10 +28,12 @@ class PIDController : public Controller{
         //Chehadeh's code
         float prev_err = 0, prev2_err = 0, prev_pv_rate = 0, accum_u = 0, accum_I = 0;
         void initialize(void*);
-        float pid_inc(float err, float pv_first,float pv_second=-1);
-        float pid_direct(float err, float pv_first,float pv_second=-1);
+        float pid_inc(float err, float pv_first, float pv_second=-1);
+        float pid_direct(float err, float pv_first, float pv_second=-1);
         void set_I_term(float);
         //---------------
+        void switchIn(DataMessage*);
+        DataMessage* switchOut();
         void receive_msg_data(DataMessage* t_msg); 
         void reset();
         DataMessage* receive_msg_internal(DataMessage*);

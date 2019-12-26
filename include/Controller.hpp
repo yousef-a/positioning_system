@@ -12,8 +12,8 @@ private:
 
 public:
 
-    void switchIn(DataMessage*);
-    DataMessage* switchOut();
+    virtual void switchIn(DataMessage*) = 0;
+    virtual DataMessage* switchOut() = 0;
     block_id getID();
     block_type getType();
     virtual controller_type getControllerType() = 0;

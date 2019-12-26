@@ -9,17 +9,6 @@ Controller::~Controller() {
 
 }
 
-void Controller::switchIn(DataMessage* data){
-    //this->emit_message(data);
-    //TODO implement
-}
-
-DataMessage* Controller::switchOut(){
-    //TODO implement
-    DataMessage* msg;
-    return msg;
-} 
-
 block_type Controller::getType(){
     return _type;
 }

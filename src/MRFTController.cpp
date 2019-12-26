@@ -9,6 +9,17 @@ MRFTController::~MRFTController() {
 
 }
 
+void MRFTController::switchIn(DataMessage* data){
+    //this->emit_message(data);
+    //TODO implement
+}
+
+DataMessage* MRFTController::switchOut(){
+    //TODO implement
+    DataMessage* msg;
+    return msg;
+} 
+
 void MRFTController::receive_msg_data(DataMessage* t_msg){
 
 	if(t_msg->getType() == msg_type::UPDATECONTROLLER){

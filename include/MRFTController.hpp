@@ -42,6 +42,8 @@ public:
 	float mrft_with_antilock(float, bool&, MRFT_bag&);
 	MRFT_bag _mrft_period;
     //---------------
+	void switchIn(DataMessage*);
+    DataMessage* switchOut();
 	void receive_msg_data(DataMessage* t_msg); 
     void reset();
 	DataMessage* receive_msg_internal(DataMessage*);

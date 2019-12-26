@@ -9,6 +9,17 @@ PIDController::~PIDController() {
 
 }
 
+void PIDController::switchIn(DataMessage* data){
+    //this->emit_message(data);
+    //TODO implement
+}
+
+DataMessage* PIDController::switchOut(){
+    //TODO implement
+    DataMessage* msg;
+    return msg;
+} 
+
 void PIDController::receive_msg_data(DataMessage* t_msg){
 
 	if(t_msg->getType() == msg_type::UPDATECONTROLLER){
