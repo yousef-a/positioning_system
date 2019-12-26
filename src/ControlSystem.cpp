@@ -3,8 +3,8 @@
 ControlSystem::ControlSystem(control_system t_control_system, PVProvider* t_pvprovider, block_frequency t_bf) : TimedBlock(t_bf) {
     _control_system = t_control_system;
     
-    controllerSwitcher = new Switcher(switcher_type::controller, _control_system);
-    referenceSwitcher = new Switcher(switcher_type::reference, _control_system);
+    controllerSwitcher = new Switcher(switcher_type::controller);
+    referenceSwitcher = new Switcher(switcher_type::reference);
     _providerProcessVariable = t_pvprovider;
     _switchers = {controllerSwitcher, referenceSwitcher};
     _frequency = t_bf;

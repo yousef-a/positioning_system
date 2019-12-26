@@ -21,7 +21,6 @@ class Switcher : public msg_receiver, public msg_emitter{
         std::list<Block*>::iterator _it;
         switcher_type _type;
         Block* _active_block;
-        control_system _parent;
         Vector3DMessage m_process_variable;
         SwitcherMessage m_reference_msg;
         SwitcherMessage m_out_switcher_msg;
@@ -30,11 +29,10 @@ class Switcher : public msg_receiver, public msg_emitter{
         void addBlock(Block* b);
         switcher_type getType();
         Block* getActiveBlock();
-        void switchBlock(Block* from, Block* to);
         void receive_msg_data(DataMessage* t_msg);
         void loopInternal();
         //TODO Send a message to Block
         //TODO Receive a message from Block
-        Switcher(switcher_type t_type, control_system t_parent);
+        Switcher(switcher_type t_type);
         ~Switcher();
 };

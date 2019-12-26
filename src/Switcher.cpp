@@ -1,8 +1,7 @@
 #include "Switcher.hpp"
 
-Switcher::Switcher(switcher_type t_type, control_system t_parent) {
+Switcher::Switcher(switcher_type t_type) {
     _type = t_type;
-    _parent = t_parent;
     _active_block = nullptr;
 }
 
@@ -10,21 +9,12 @@ Switcher::~Switcher() {
 
 }
 
-void Switcher::addBlock(Block* b){
-    
+void Switcher::addBlock(Block* b){   
     _blocks.push_back(b);
 }
 
-
 switcher_type Switcher::getType(){
     return _type;
-}
-
-void Switcher::switchBlock(Block* from, Block* to){
-    
-    DataMessage* msg;    
-    from->switchOut();
-    to->switchIn(msg);
 }
 
 Block* Switcher::getActiveBlock(){
