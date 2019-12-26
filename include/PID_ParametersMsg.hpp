@@ -1,6 +1,5 @@
 #pragma once
 #include "DataMessage.hpp"
-#include "common_types.hpp"
 #include "PID_values.hpp"
 
 class PID_ParametersMsg : public DataMessage{

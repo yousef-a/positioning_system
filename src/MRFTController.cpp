@@ -2,26 +2,65 @@
 
 MRFTController::MRFTController(block_id t_id, block_type t_type) : Controller(t_id, t_type) {  
     _controller_type = controller_type::mrft;
+	_id = t_id;
 }
 
 MRFTController::~MRFTController() {
 
 }
 
+void MRFTController::receive_msg_data(DataMessage* t_msg){
+
+	if(t_msg->getType() == msg_type::UPDATECONTROLLER){
+		MRFT_ParametersMsg* mrft_msg = (MRFT_ParametersMsg*)t_msg;
+		MRFT_parameters _params = mrft_msg->getMRFTParam();
+		if(_params.id == this->_id){		
+			this->initialize(&_params);	
+		}
+		
+	}else if(t_msg->getType() == msg_type::RESETCONTROLLER){
+		ResetControllerMsg* reset_msg = (ResetControllerMsg*)t_msg;
+
+		if(static_cast<block_id>(reset_msg->getData()) == this->_id){
+			std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
+			this->reset();
+		}
+	}
+
+}
+
+void MRFTController::reset(){
+	first_run = true;
+	prev_err = 0;
+	mem1 = false;
+	mem2 = 0;
+	minpeak_out = 0;
+	maxpeak_out = 0;
+}
+
 DataMessage* MRFTController::receive_msg_internal(DataMessage* t_msg){
         
-	// ControllerMessage* controller_msg = (ControllerMessage*)t_msg;
+	SwitcherMessage* controller_msg = (SwitcherMessage*)t_msg;
 
-    // PID_data* data = controller_msg->getData();
-    // // std::cout << "pid block receives msg: " << std::endl;
-	// // std::cout << "error: " << data->err << std::endl;
-	// // std::cout << "pv_first: " << data->pv_first << std::endl;
-	// // std::cout << "pv_second: " << data->pv_second << std::endl;
-    // float command = pid_direct(data->err, data->pv_first, data->pv_second);
-    // FloatMessage* output_msg = new FloatMessage(command);
+    Vector3D<float> data = controller_msg->getVector3DData();
+	
+	// data.x is Error
+	// data.y is PV_First
+	// data.z is PV_Second
 
-    // // std::cout << "SENDING COMMAND" << std::endl;
-	// return (DataMessage*)output_msg;
+    float command;
+	bool mrft_bag_ready=false;
+	
+	command = mrft_with_antilock(data.x, mrft_bag_ready, _mrft_period);
+	
+	if (mrft_bag_ready){
+		//local_comm.send_packet((void*)&mrft_period, sizeof(mrft_bag), local_comm.mrft_bag);
+		//TODO add a Warning
+	}
+
+    m_output_msg.setFloatMessage(command);
+
+	return (DataMessage*) &m_output_msg;
 }
 
 controller_type MRFTController::getControllerType(){
@@ -70,65 +109,69 @@ float MRFTController::minpeak(bool cntrl, float in){
 	return minpeak_out;
 }
 
-bool MRFTController::algorithm(float err, bool& mrft_bag_ready_para, mrft_bag& mrft_period){
+bool MRFTController::algorithm(float err, bool& mrft_bag_ready_para, MRFT_bag& mrft_period){
 	float buff1, outmin, outmax, outswitch;
 	bool op1, op2;
-	// if (mrft_bag_ready_para){
-	// 	mrft_bag_ready_para = false;
-	// }
-	// buff1 = ((-err) - (prev_err)) / _dt;//TODO: use Gyro
-	// prev_err = -err;
-	// if (buff1 >= 0)
-	// {
-	// 	op1 = true;
-	// }
-	// else
-	// {
-	// 	op1 = false;
-	// }
-	// op2 = ((!op1) && (mem1 ^ op1));
-	// outmax = maxpeak(op2, err);
-	// op2 = ((op1) && (mem1 ^ op1));
-	// outmin = minpeak(op2, err);
-	// if (op1 == true){
-	// 	outswitch = outmax;
-	// }
-	// else{
-	// 	outswitch = outmin;
-	// }
-	// buff1 = outswitch*parameters.beta + err;
-	// if (buff1 >= 0){
-	// 	op2 = true;
-	// }
-	// else{
-	// 	op2 = false;
-	// }
-	// if (mem2 != op2){
-	// 	if (op2)
-	// 	{
-	// 		mrft_period.amplitude = mrft_period.amplitude - outmin;
-	// 		mrft_period.duration = micros() - last_peak_micros;
-	// 		mrft_bag_ready_para = true;
-	// 		last_peak_micros = micros();
-	// 	}
-	// 	else
-	// 	{
-	// 		mrft_period.amplitude = outmax;
-	// 	}
-	// }
-	// mem1 = op1;
-	// mem2 = op2;
+	if (mrft_bag_ready_para){
+		mrft_bag_ready_para = false;
+	}
+	buff1 = ((-err) - (prev_err)) / _dt;//TODO: use Gyro
+	prev_err = -err;
+	if (buff1 >= 0)
+	{
+		op1 = true;
+	}
+	else
+	{
+		op1 = false;
+	}
+	op2 = ((!op1) && (mem1 ^ op1));
+	outmax = maxpeak(op2, err);
+	op2 = ((op1) && (mem1 ^ op1));
+	outmin = minpeak(op2, err);
+	if (op1 == true){
+		outswitch = outmax;
+	}
+	else{
+		outswitch = outmin;
+	}
+	buff1 = outswitch*parameters.beta + err;
+	if (buff1 >= 0){
+		op2 = true;
+	}
+	else{
+		op2 = false;
+	}
+	if (mem2 != op2){
+		if (op2)
+		{
+			mrft_period.amplitude = mrft_period.amplitude - outmin;
+			mrft_period.duration = _timer.tockMicroSeconds();
+			mrft_bag_ready_para = true;
+			_timer.tick();
+		}
+		else
+		{
+			mrft_period.amplitude = outmax;
+		}
+	}
+	mem1 = op1;
+	mem2 = op2;
 	return op2;
 }
 
-void MRFTController::initialize(MRFT_para* para){
+void MRFTController::initialize(MRFT_parameters* para){
 	parameters.beta = para->beta;
 	parameters.relay_amp = para->relay_amp;
 	parameters.bias = para->bias;
+	if(para->dt > 0){
+		_dt = para->dt;
+	}
+
 	//1;//Roll mrft, beta: {parameters.beta}, amp: {parameters.relay_amp}, bias: {parameters.bias}
 }
 
-float MRFTController::mrft_with_antilock(float err, bool& mrft_bag_ready_para, mrft_bag& mrft_period){
+float MRFTController::mrft_with_antilock(float err, bool& mrft_bag_ready_para, MRFT_bag& mrft_period){
 	bool mrft_res;
 	mrft_res = algorithm(err, mrft_bag_ready_para, mrft_period);
 	if (first_run){

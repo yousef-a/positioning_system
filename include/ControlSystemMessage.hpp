@@ -5,7 +5,7 @@
 #include "Vector3D.hpp"
 
 class ControlSystemMessage : public DataMessage{
-
+//TODO Refactor so there is only one type of ControlSystemMessage
 private:
     Block* _to_remove;
     Block* _to_add;

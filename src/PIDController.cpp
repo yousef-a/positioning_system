@@ -49,22 +49,21 @@ controller_type PIDController::getControllerType(){
 	return _controller_type;
 }
 
-
-// Start of Chehadeh's Code
-void PIDController::set_internal_sw(PID_parameters pid_para_x){ //This checks input parameters. If Kd or Ki<0 it means we do not use them
-		i_term = !(pid_para_x.ki <= 0);
-		d_term = !(pid_para_x.kd <= 0);
-		dd_term= !(pid_para_x.kdd <= 0);
-		en_anti_windup = !(pid_para_x.anti_windup <= 0); //Same check for Anti-Windup
-		en_pv_derivation = pid_para_x.en_pv_derivation;
-		if(pid_para_x.dt > 0){
-			_dt = pid_para_x.dt;
-		}
-	}
-
 void PIDController::reset(){
 	accum_u = 0; //This is important as it resets NaN condition
 	accum_I = 0;
+}
+
+// Start of Chehadeh's Code
+void PIDController::set_internal_sw(PID_parameters pid_para_x){ //This checks input parameters. If Kd or Ki<0 it means we do not use them
+	i_term = !(pid_para_x.ki <= 0);
+	d_term = !(pid_para_x.kd <= 0);
+	dd_term= !(pid_para_x.kdd <= 0);
+	en_anti_windup = !(pid_para_x.anti_windup <= 0); //Same check for Anti-Windup
+	en_pv_derivation = pid_para_x.en_pv_derivation;
+	if(pid_para_x.dt > 0){
+		_dt = pid_para_x.dt;
+	}
 }
 
 void PIDController::initialize(void* para){ //Refer to example 1 on how to initialize
