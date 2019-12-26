@@ -60,41 +60,21 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
                 _active_block = block_to_add;
             }
             this->addBlock(block_to_add);
-        //(6)
-        } else if (control_system_msg->getControlSystemMsgType() == control_system_msg_type::change_PID_settings){ //TODO Refactor to change_Controller_sett
-            //TODO send to all the blocks, so we can update before switching
-            if(_active_block->getType() == block_type::controller){
-                Controller* controller_block = (Controller*)_active_block; //TODO refactor
-                if(controller_block->getControllerType() == controller_type::pid){
-                    PIDController* pid_block = (PIDController*)controller_block;
-                    pid_block->initialize(control_system_msg->getPIDSettings());
-                    // std::cout << "Active Block: " << controller_block->getID() << std::endl;
-                    // std::cout << "CHANGING PID PARAMETERS" << std::endl;
-                } //TODO else if MRFT
-            } 
         //(7)
-        } else if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::provider_data){
+        } else if(control_system_msg->getControlSystemMsgType() == control_system_msg_type::PROVIDER){
             
             Vector3D<float> data_provided = control_system_msg->getV3DData();
             
             if(_active_block->getType() == block_type::reference){
+                
                 Reference* reference_block = (Reference*)_active_block;
 
-                if(reference_block->getReferenceType() == reference_type::process_variable_ref){
-                    ProcessVariableReference* pv_ref_block = (ProcessVariableReference*)reference_block;
-                    //TODO remove Vector3DMessage 
-                    m_process_variable.setVector3DMessage(data_provided);
+                m_process_variable.setVector3DMessage(data_provided);
+                DataMessage* ref_output_msg = reference_block->receive_msg_internal((DataMessage*) &m_process_variable);
+                Vector3DMessage* v3d_ref_output_msg = (Vector3DMessage*)ref_output_msg;
 
-                    DataMessage* output_from_reference = pv_ref_block->receive_msg_internal((DataMessage*) &m_process_variable);
-
-                    m_process_variable.setVector3DMessage(((Vector3DMessage*)output_from_reference)->getData());
-
-                    m_reference_msg.setSwitcherMessage(m_process_variable.getData());
-                    
-                    this->emit_message((DataMessage*) &m_reference_msg);
-
-                }//TODO add other references as else if
-
+                m_reference_msg.setSwitcherMessage(v3d_ref_output_msg->getData()); 
+                this->emit_message((DataMessage*) &m_reference_msg);
             }
         
         //(9)
@@ -103,7 +83,6 @@ void Switcher::receive_msg_data(DataMessage* t_msg){
             if(_active_block->getType() == block_type::reference){
                 Reference* _reference_block = (Reference*)_active_block;
                 _reference_block->setReferenceValue(reference);
-                //std::cout << "........................Setting Process variable " << reference << std::endl;
             }
         }
 

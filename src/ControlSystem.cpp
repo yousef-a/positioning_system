@@ -65,7 +65,7 @@ void ControlSystem::getStatus(){
 //(10)
 void ControlSystem::loopInternal(){
     Vector3D<float> data = _providerProcessVariable->getProcessVariable();
-    m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::provider_data, data);
+    m_provider_data_msg.setControlSystemMessage(this->getControlSystemType(), control_system_msg_type::PROVIDER, data);
 
     this->emit_message((DataMessage*) &m_provider_data_msg);
 }
