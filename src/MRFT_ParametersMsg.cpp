@@ -23,7 +23,6 @@ void MRFT_ParametersMsg::setMRFTParam(MRFT_parameters t_param){
     _params.relay_amp = t_param.relay_amp;
     _params.bias = t_param.bias;
     _params.id = t_param.id;
-    std::cout << "SET MRFT CONTROLLER: " << _params.beta << std::endl;
     
 }
 

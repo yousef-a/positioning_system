@@ -25,9 +25,10 @@ DataMessage* MRFTController::switchOut(){
 void MRFTController::receive_msg_data(DataMessage* t_msg){
 
 	if(t_msg->getType() == msg_type::UPDATECONTROLLER){
-		MRFT_ParametersMsg* mrft_msg = (MRFT_ParametersMsg*)t_msg;
+		ControllerMessage* mrft_msg = (ControllerMessage*)t_msg;
 		MRFT_parameters _params = mrft_msg->getMRFTParam();
-		if(_params.id == this->_id){		
+
+		if(mrft_msg->getID() == this->_id){		
 			this->initialize(&_params);	
 		}
 		
@@ -169,14 +170,22 @@ bool MRFTController::algorithm(float err, bool& mrft_bag_ready_para, MRFT_bag& m
 }
 
 void MRFTController::initialize(MRFT_parameters* para){
+	
 	parameters.beta = para->beta;
 	parameters.relay_amp = para->relay_amp;
 	parameters.bias = para->bias;
+	parameters.id = para->id;
 	if(para->dt > 0){
 		_dt = para->dt;
 	}
 
-	//1;//Roll mrft, beta: {parameters.beta}, amp: {parameters.relay_amp}, bias: {parameters.bias}
+	std::cout << "MRFT SETTINGS: " << std::endl;
+	std::cout << "Beta: " << parameters.beta << std::endl;
+	std::cout << "Relay_amp: " << parameters.relay_amp << std::endl;
+	std::cout << "Bias: " << parameters.bias << std::endl;
+	std::cout << "ID Term: " << static_cast<int>(parameters.id) << std::endl;
+	std::cout << "dt: " << _dt << std::endl;
+
 }
 
 float MRFTController::mrft_with_antilock(float err, bool& mrft_bag_ready_para, MRFT_bag& mrft_period){

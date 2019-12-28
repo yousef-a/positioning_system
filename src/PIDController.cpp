@@ -26,9 +26,10 @@ DataMessage* PIDController::switchOut(){
 void PIDController::receive_msg_data(DataMessage* t_msg){
 
 	if(t_msg->getType() == msg_type::UPDATECONTROLLER){
-		PID_ParametersMsg* _pid_msg = (PID_ParametersMsg*)t_msg;
+		ControllerMessage* _pid_msg = (ControllerMessage*)t_msg;
 		PID_parameters _params = _pid_msg->getPIDParam();
-		if(_params.id == this->_id){		
+		
+		if(_pid_msg->getID() == this->_id){		
 			this->initialize(&_params);	
 		}
 		

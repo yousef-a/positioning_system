@@ -16,11 +16,11 @@ class MRFT_parameters {
 
 public:
 
-	float beta;
-	float relay_amp;
-	float bias;
-	float dt = -1;
-	block_id id;
+	float beta=0;
+	float relay_amp=0;
+	float bias=0;
+	float dt=-1;
+	block_id id = block_id::NULL_ID;
 	   
 };
 

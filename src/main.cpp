@@ -28,6 +28,9 @@
 #include "../include/PID_ParametersMsg.hpp"
 #include "../include/ROSUnit_SwitchBlock.hpp"
 #include "../include/MRFTController.hpp"
+#include "../include/MRFT_values.hpp"
+#include "../include/MRFT_ParametersMsg.hpp"
+#include "../include/ControllerMessage.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 
@@ -170,6 +173,7 @@ int main(int argc, char** argv) {
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
 
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_x);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_x);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_y);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_z);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_roll);
@@ -212,76 +216,49 @@ int main(int argc, char** argv) {
 
     //TODO remove this after adding to FlightScenario
     //TODO find a better way to pass dt to the controllers
-    PID_ParametersMsg pid_msg;
-    PID_parameters pid_para_test;
-    // pid_para_test.kp = 0.8;
-    // pid_para_test.ki = 0.0;
-    // pid_para_test.kd = 0.6;
-    // pid_para_test.kdd = 0.0;
-    // pid_para_test.anti_windup = 0;
-    // pid_para_test.en_pv_derivation = 1;
-    pid_para_test.id = block_id::PID_X;
-    pid_msg.setPIDParam(pid_para_test);
-    pid_msg.set_dt(X_ControlSystem->get_dt());
-    myROSUpdateController->emit_message((DataMessage*) &pid_msg);
+    ControllerMessage ctrl_msg;
+    PID_parameters pid_para_init;
 
-    // pid_para_test.kp = 0.8;
-    // pid_para_test.ki = 0.0;
-    // pid_para_test.kd = 0.6;
-    // pid_para_test.kdd = 0.0;
-    // pid_para_test.anti_windup = 0;
-    // pid_para_test.en_pv_derivation = 1;
-    pid_para_test.id = block_id::PID_Y;
-    pid_msg.setPIDParam(pid_para_test);
-    pid_msg.set_dt(Y_ControlSystem->get_dt());
-    myROSUpdateController->emit_message((DataMessage*) &pid_msg);
+    pid_para_init.id = block_id::PID_X;
+    ctrl_msg.setPIDParam(pid_para_init);
+    ctrl_msg.set_dt(X_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
 
-    // pid_para_test.kp = 0.4;
-    // pid_para_test.ki = 0.04;
-    // pid_para_test.kd = 0.10;
-    // pid_para_test.kdd = 0.0;
-    // pid_para_test.anti_windup = 0;
-    // pid_para_test.en_pv_derivation = 1;
-    pid_para_test.id = block_id::PID_Z;
-    pid_msg.setPIDParam(pid_para_test);
-    pid_msg.set_dt(Z_ControlSystem->get_dt());
-    myROSUpdateController->emit_message((DataMessage*) &pid_msg);
+    pid_para_init.id = block_id::PID_Y;
+    ctrl_msg.setPIDParam(pid_para_init);
+    ctrl_msg.set_dt(Y_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
 
-    // pid_para_test.kp = 0.3;
-    // pid_para_test.ki = 0.0;
-    // pid_para_test.kd = 0.075;
-    // pid_para_test.kdd = 0.0;
-    // pid_para_test.anti_windup = 0;
-    // pid_para_test.en_pv_derivation = 1;
-    pid_para_test.id = block_id::PID_ROLL;
-    pid_msg.setPIDParam(pid_para_test);
-    pid_msg.set_dt(Roll_ControlSystem->get_dt());
-    myROSUpdateController->emit_message((DataMessage*) &pid_msg);
+    pid_para_init.id = block_id::PID_Z;
+    ctrl_msg.setPIDParam(pid_para_init);
+    ctrl_msg.set_dt(Z_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
 
-    // pid_para_test.kp = 0.3;
-    // pid_para_test.ki = 0.0;
-    // pid_para_test.kd = 0.075;
-    // pid_para_test.kdd = 0.0;
-    // pid_para_test.anti_windup = 0;
-    // pid_para_test.en_pv_derivation = 1;
-    pid_para_test.id = block_id::PID_PITCH;
-    pid_msg.setPIDParam(pid_para_test);
-    pid_msg.set_dt(Pitch_ControlSystem->get_dt());
-    myROSUpdateController->emit_message((DataMessage*) &pid_msg);
+    pid_para_init.id = block_id::PID_ROLL;
+    ctrl_msg.setPIDParam(pid_para_init);
+    ctrl_msg.set_dt(Roll_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
 
-    // pid_para_test.kp = 0.8;
-    // pid_para_test.ki = 0.0;
-    // pid_para_test.kd = 0.08;
-    // pid_para_test.kdd = 0.0;
-    // pid_para_test.anti_windup = 0;
-    // pid_para_test.en_pv_derivation = 1;
-    pid_para_test.id = block_id::PID_YAW;
-    pid_para_test.dt = Yaw_ControlSystem->get_dt();
-    pid_msg.setPIDParam(pid_para_test);
-    pid_msg.set_dt(Yaw_ControlSystem->get_dt());
-    myROSUpdateController->emit_message((DataMessage*) &pid_msg);
+    pid_para_init.id = block_id::PID_PITCH;
+    ctrl_msg.setPIDParam(pid_para_init);
+    ctrl_msg.set_dt(Pitch_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
 
-    //***********************SETTING CONNECTIONS****************************
+    pid_para_init.id = block_id::PID_YAW;
+    ctrl_msg.setPIDParam(pid_para_init);
+    ctrl_msg.set_dt(Yaw_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
+
+    //***********************SETTING MRFT INITIAL VALUES*****************************
+
+    MRFT_parameters mrft_para_init;
+
+    mrft_para_init.id = block_id::MRFT_X;
+    ctrl_msg.setMRFTParam(mrft_para_init);
+    ctrl_msg.set_dt(X_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
+
+    //****************************SETTING CONNECTIONS********************************
     //========                                                      =============
     //|      |----->X_Control_System----->Roll_Control_System------>|           |
     //| USER |----->Y_Control_System----->Pitch_Control_System----->| Actuation |      
