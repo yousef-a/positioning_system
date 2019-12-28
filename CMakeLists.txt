@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
   FILES
-  PID_param.msg
+  Controller_param.msg
   Waypoint.msg
 )
 

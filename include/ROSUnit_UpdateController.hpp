@@ -5,7 +5,7 @@
 #include "UpdatePoseMessage.hpp"
 #include "Vector3D.hpp"
 #include "PID_values.hpp"
-#include <positioning_system/PID_param.h>
+#include <positioning_system/Controller_param.h>
 #include <positioning_system/Update_Controller.h>
 #include "common_types.hpp"
 #include "PID_ParametersMsg.hpp"

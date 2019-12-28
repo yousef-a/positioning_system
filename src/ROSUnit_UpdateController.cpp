@@ -6,7 +6,7 @@ ControllerMessage ROSUnit_UpdateController::_update_controller_msg;
 control_system ROSUnit_UpdateController::_id;
 
 ROSUnit_UpdateController::ROSUnit_UpdateController(ros::NodeHandle& t_main_handler) : ROSUnit(t_main_handler) {
-    _srv_update_controller = t_main_handler.advertiseService("update_controller/pid", callbackUpdateController);
+    _srv_update_controller = t_main_handler.advertiseService("update_controller", callbackUpdateController);
     _instance_ptr = this;
 }   
 
@@ -22,16 +22,25 @@ void ROSUnit_UpdateController::receive_msg_data(DataMessage* t_msg){
 bool ROSUnit_UpdateController::callbackUpdateController(positioning_system::Update_Controller::Request  &req, 
                                                         positioning_system::Update_Controller::Response &res){
 
-    PID_parameters data;
-    data.kp = req.parameters.kp;
-    data.ki = req.parameters.ki;
-    data.kd = req.parameters.kd;
-    data.kdd = req.parameters.kdd;
-    data.anti_windup = req.parameters.anti_windup;
-    data.en_pv_derivation = req.parameters.en_pv_derivation;
-    data.id = static_cast<block_id>((int)req.parameters.id);
+    block_id _id = static_cast<block_id>((int)req.controller_parameters.id);
+    
+    PID_parameters pid_data;
+    pid_data.kp = req.controller_parameters.pid_kp;
+    pid_data.ki = req.controller_parameters.pid_ki;
+    pid_data.kd = req.controller_parameters.pid_kd;
+    pid_data.kdd = req.controller_parameters.pid_kdd;
+    pid_data.anti_windup = req.controller_parameters.pid_anti_windup;
+    pid_data.en_pv_derivation = req.controller_parameters.pid_en_pv_derivation;
+    pid_data.id = _id;
 
-    _update_controller_msg.setPIDParam(data);
+    MRFT_parameters mrft_data;
+    mrft_data.beta = req.controller_parameters.mrft_beta;
+    mrft_data.relay_amp = req.controller_parameters.mrft_relay_amp;
+    mrft_data.bias = req.controller_parameters.mrft_bias;
+    mrft_data.id = _id;
+
+    _update_controller_msg.setPIDParam(pid_data);
+    _update_controller_msg.setMRFTParam(mrft_data);
     _instance_ptr->emit_message((DataMessage*) &_update_controller_msg);
     
     return true;
