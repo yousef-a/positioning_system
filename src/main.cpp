@@ -173,12 +173,18 @@ int main(int argc, char** argv) {
     myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
 
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_x);
-    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_x);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_y);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_z);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_roll);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
+
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_x);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_y);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_z);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_roll);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_pitch);
+    myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_yaw);
 
     //TODO after Switchers are exposed, connect ROSUnit_SwitchBlocks with them
     myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
@@ -256,6 +262,31 @@ int main(int argc, char** argv) {
     mrft_para_init.id = block_id::MRFT_X;
     ctrl_msg.setMRFTParam(mrft_para_init);
     ctrl_msg.set_dt(X_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
+
+    mrft_para_init.id = block_id::MRFT_Y;
+    ctrl_msg.setMRFTParam(mrft_para_init);
+    ctrl_msg.set_dt(Y_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
+
+    mrft_para_init.id = block_id::MRFT_Z;
+    ctrl_msg.setMRFTParam(mrft_para_init);
+    ctrl_msg.set_dt(Z_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
+
+    mrft_para_init.id = block_id::MRFT_ROLL;
+    ctrl_msg.setMRFTParam(mrft_para_init);
+    ctrl_msg.set_dt(Roll_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
+
+    mrft_para_init.id = block_id::MRFT_PITCH;
+    ctrl_msg.setMRFTParam(mrft_para_init);
+    ctrl_msg.set_dt(Pitch_ControlSystem->get_dt());
+    myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
+
+    mrft_para_init.id = block_id::MRFT_YAW;
+    ctrl_msg.setMRFTParam(mrft_para_init);
+    ctrl_msg.set_dt(Yaw_ControlSystem->get_dt());
     myROSUpdateController->emit_message((DataMessage*) &ctrl_msg);
 
     //****************************SETTING CONNECTIONS********************************
