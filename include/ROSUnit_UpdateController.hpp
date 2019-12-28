@@ -8,7 +8,6 @@
 #include <positioning_system/Controller_param.h>
 #include <positioning_system/Update_Controller.h>
 #include "common_types.hpp"
-#include "PID_ParametersMsg.hpp"
 #include "ControllerMessage.hpp"
 
 class ROSUnit_UpdateController :  public ROSUnit{

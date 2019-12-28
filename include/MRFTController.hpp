@@ -4,7 +4,6 @@
 #include "FloatMessage.hpp"
 #include "MRFT_values.hpp"
 #include "Controller.hpp"
-#include "MRFT_ParametersMsg.hpp"
 #include "ResetControllerMsg.hpp"
 #include "Timer.hpp"
 #include "SwitcherMessage.hpp"

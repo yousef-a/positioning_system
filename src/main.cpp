@@ -25,11 +25,9 @@
 #include "../include/ROSUnit_UpdateController.hpp"
 #include "../include/ROSUnit_ResetController.hpp"
 #include "../include/ROSUnit_BroadcastData.hpp"
-#include "../include/PID_ParametersMsg.hpp"
 #include "../include/ROSUnit_SwitchBlock.hpp"
 #include "../include/MRFTController.hpp"
 #include "../include/MRFT_values.hpp"
-#include "../include/MRFT_ParametersMsg.hpp"
 #include "../include/ControllerMessage.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);

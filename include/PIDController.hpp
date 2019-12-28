@@ -8,7 +8,6 @@
 #include "SwitcherMessage.hpp"
 #include "FloatMessage.hpp"
 #include "ResetControllerMsg.hpp"
-#include "PID_ParametersMsg.hpp"
 
 class PIDController : public Controller{
 
