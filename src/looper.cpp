@@ -22,7 +22,7 @@ void* Looper::Loop1KHz(void *vargp)
         _loop_timer->tick();
         pthread_mutex_lock(&lock); 
         for (TimedBlock* const& i : _instance_ptr->_timed_blocks){
-            if(i->getLoopTime() == block_frequency::hz1000){
+            if(i->getLoopTime() == block_frequency::hz200){
                 i->loopInternal();
                 j++;
             }
@@ -53,7 +53,7 @@ void* Looper::hardwareLoop1KHz(void *vargp)
         _loop_timer->tick();
         pthread_mutex_lock(&lock); 
         for (TimedBlock* const& i : _instance_ptr->_timed_blocks){
-            if(i->getLoopTime() == block_frequency::hhz1000){
+            if(i->getLoopTime() == block_frequency::hhz200){
                 i->loopInternal();
                 j++;
             }

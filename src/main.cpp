@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
     
     // AccGyroAttitudeObserver myAttObserver((BodyAccProvider*) myIMU->getAcc(), 
     //                                       (BodyRateProvider*) myIMU->getGyro(),
-    //                                       block_frequency::hhz1000);
+    //                                       block_frequency::hhz200);
 
     
     
@@ -102,6 +102,11 @@ int main(int argc, char** argv) {
     Block* PV_Ref_yaw = new ProcessVariableReference(block_id::REF_YAW);
 
     Block* MRFT_x = new MRFTController(block_id::MRFT_X);
+    Block* MRFT_y = new MRFTController(block_id::MRFT_Y);
+    Block* MRFT_z = new MRFTController(block_id::MRFT_Z);
+    Block* MRFT_roll = new MRFTController(block_id::MRFT_ROLL);
+    Block* MRFT_pitch = new MRFTController(block_id::MRFT_PITCH);
+    Block* MRFT_yaw = new MRFTController(block_id::MRFT_YAW);
 
     //***********************SETTING CONTROL SYSTEMS***************************
 
@@ -111,25 +116,30 @@ int main(int argc, char** argv) {
     X_ControlSystem->addBlock(MRFT_x);
     X_ControlSystem->addBlock(PV_Ref_x);
 
-    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, myPitchPV, block_frequency::hz1000);
+    ControlSystem* Pitch_ControlSystem = new ControlSystem(control_system::pitch, myPitchPV, block_frequency::hz200);
     Pitch_ControlSystem->addBlock(PID_pitch);
+    Pitch_ControlSystem->addBlock(MRFT_pitch);
     Pitch_ControlSystem->addBlock(PV_Ref_pitch);
 
     ControlSystem* Y_ControlSystem = new ControlSystem(control_system::y, myYPV, block_frequency::hz100);
     Y_ControlSystem->addBlock(PID_y);
+    Y_ControlSystem->addBlock(MRFT_y);
     Y_ControlSystem->addBlock(PV_Ref_y);
 
-    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, myRollPV, block_frequency::hz1000);
+    ControlSystem* Roll_ControlSystem = new ControlSystem(control_system::roll, myRollPV, block_frequency::hz200);
     Roll_ControlSystem->addBlock(PID_roll);
+    Roll_ControlSystem->addBlock(MRFT_roll);
     Roll_ControlSystem->addBlock(PV_Ref_roll);
 
     ControlSystem* Z_ControlSystem = new ControlSystem(control_system::z, myZPV, block_frequency::hz100);
     Z_ControlSystem->addBlock(PID_z);
+    Z_ControlSystem->addBlock(MRFT_z);
     Z_ControlSystem->addBlock(PV_Ref_z);
 
     //Yaw on Optitrack 100Hz
     ControlSystem* Yaw_ControlSystem = new ControlSystem(control_system::yaw, myYawPV, block_frequency::hz100);
     Yaw_ControlSystem->addBlock(PID_yaw);
+    Yaw_ControlSystem->addBlock(MRFT_yaw);
     Yaw_ControlSystem->addBlock(PV_Ref_yaw);
 
     //*********************SETTING ACTUATION SYSTEMS************************

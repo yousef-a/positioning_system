@@ -72,8 +72,6 @@ DataMessage* MRFTController::receive_msg_internal(DataMessage* t_msg){
 	}
 
     m_output_msg.setFloatMessage(command);
-	std::cout << "mrft_output: " << command << std::endl;
-
 	return (DataMessage*) &m_output_msg;
 }
 

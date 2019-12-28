@@ -15,9 +15,9 @@ class ROSUnit_SwitchBlock :  public ROSUnit{
         ros::ServiceServer _srv_switch;
         static bool callbackSwitchBlocks(positioning_system::SwitchBlock::Request  &req,
                                          positioning_system::SwitchBlock::Response &res);
-        void receive_msg_data(DataMessage* t_msg);  
-
+    
     public:
+        void receive_msg_data(DataMessage* t_msg); 
         ROSUnit_SwitchBlock(ros::NodeHandle&);
         ~ROSUnit_SwitchBlock();
 };
