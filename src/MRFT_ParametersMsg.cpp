@@ -26,3 +26,10 @@ void MRFT_ParametersMsg::setMRFTParam(MRFT_parameters t_param){
     std::cout << "SET MRFT CONTROLLER: " << _params.beta << std::endl;
     
 }
+
+void MRFT_ParametersMsg::set_dt(float t_dt){
+
+    _type = msg_type::UPDATECONTROLLER;
+    _params.dt = t_dt;
+    
+}

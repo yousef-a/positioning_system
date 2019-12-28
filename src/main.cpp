@@ -211,66 +211,74 @@ int main(int argc, char** argv) {
     //***********************SETTING PID INITIAL VALUES*****************************
 
     //TODO remove this after adding to FlightScenario
+    //TODO find a better way to pass dt to the controllers
     PID_ParametersMsg pid_msg;
     PID_parameters pid_para_test;
-    pid_para_test.kp = 0.8;
-    pid_para_test.ki = 0.0;
-    pid_para_test.kd = 0.6;
-    pid_para_test.kdd = 0.0;
-    pid_para_test.anti_windup = 0;
-    pid_para_test.en_pv_derivation = 1;
+    // pid_para_test.kp = 0.8;
+    // pid_para_test.ki = 0.0;
+    // pid_para_test.kd = 0.6;
+    // pid_para_test.kdd = 0.0;
+    // pid_para_test.anti_windup = 0;
+    // pid_para_test.en_pv_derivation = 1;
     pid_para_test.id = block_id::PID_X;
     pid_msg.setPIDParam(pid_para_test);
+    pid_msg.set_dt(X_ControlSystem->get_dt());
     myROSUpdateController->emit_message((DataMessage*) &pid_msg);
 
-    pid_para_test.kp = 0.8;
-    pid_para_test.ki = 0.0;
-    pid_para_test.kd = 0.6;
-    pid_para_test.kdd = 0.0;
-    pid_para_test.anti_windup = 0;
-    pid_para_test.en_pv_derivation = 1;
+    // pid_para_test.kp = 0.8;
+    // pid_para_test.ki = 0.0;
+    // pid_para_test.kd = 0.6;
+    // pid_para_test.kdd = 0.0;
+    // pid_para_test.anti_windup = 0;
+    // pid_para_test.en_pv_derivation = 1;
     pid_para_test.id = block_id::PID_Y;
     pid_msg.setPIDParam(pid_para_test);
+    pid_msg.set_dt(Y_ControlSystem->get_dt());
     myROSUpdateController->emit_message((DataMessage*) &pid_msg);
 
-    pid_para_test.kp = 0.4;
-    pid_para_test.ki = 0.04;
-    pid_para_test.kd = 0.10;
-    pid_para_test.kdd = 0.0;
-    pid_para_test.anti_windup = 0;
-    pid_para_test.en_pv_derivation = 1;
+    // pid_para_test.kp = 0.4;
+    // pid_para_test.ki = 0.04;
+    // pid_para_test.kd = 0.10;
+    // pid_para_test.kdd = 0.0;
+    // pid_para_test.anti_windup = 0;
+    // pid_para_test.en_pv_derivation = 1;
     pid_para_test.id = block_id::PID_Z;
     pid_msg.setPIDParam(pid_para_test);
+    pid_msg.set_dt(Z_ControlSystem->get_dt());
     myROSUpdateController->emit_message((DataMessage*) &pid_msg);
 
-    pid_para_test.kp = 0.3;
-    pid_para_test.ki = 0.0;
-    pid_para_test.kd = 0.075;
-    pid_para_test.kdd = 0.0;
-    pid_para_test.anti_windup = 0;
-    pid_para_test.en_pv_derivation = 1;
+    // pid_para_test.kp = 0.3;
+    // pid_para_test.ki = 0.0;
+    // pid_para_test.kd = 0.075;
+    // pid_para_test.kdd = 0.0;
+    // pid_para_test.anti_windup = 0;
+    // pid_para_test.en_pv_derivation = 1;
     pid_para_test.id = block_id::PID_ROLL;
     pid_msg.setPIDParam(pid_para_test);
+    pid_msg.set_dt(Roll_ControlSystem->get_dt());
     myROSUpdateController->emit_message((DataMessage*) &pid_msg);
 
-    pid_para_test.kp = 0.3;
-    pid_para_test.ki = 0.0;
-    pid_para_test.kd = 0.075;
-    pid_para_test.kdd = 0.0;
-    pid_para_test.anti_windup = 0;
-    pid_para_test.en_pv_derivation = 1;
+    // pid_para_test.kp = 0.3;
+    // pid_para_test.ki = 0.0;
+    // pid_para_test.kd = 0.075;
+    // pid_para_test.kdd = 0.0;
+    // pid_para_test.anti_windup = 0;
+    // pid_para_test.en_pv_derivation = 1;
     pid_para_test.id = block_id::PID_PITCH;
     pid_msg.setPIDParam(pid_para_test);
+    pid_msg.set_dt(Pitch_ControlSystem->get_dt());
     myROSUpdateController->emit_message((DataMessage*) &pid_msg);
 
-    pid_para_test.kp = 0.8;
-    pid_para_test.ki = 0.0;
-    pid_para_test.kd = 0.08;
-    pid_para_test.kdd = 0.0;
-    pid_para_test.anti_windup = 0;
-    pid_para_test.en_pv_derivation = 1;
+    // pid_para_test.kp = 0.8;
+    // pid_para_test.ki = 0.0;
+    // pid_para_test.kd = 0.08;
+    // pid_para_test.kdd = 0.0;
+    // pid_para_test.anti_windup = 0;
+    // pid_para_test.en_pv_derivation = 1;
     pid_para_test.id = block_id::PID_YAW;
+    pid_para_test.dt = Yaw_ControlSystem->get_dt();
     pid_msg.setPIDParam(pid_para_test);
+    pid_msg.set_dt(Yaw_ControlSystem->get_dt());
     myROSUpdateController->emit_message((DataMessage*) &pid_msg);
 
     //***********************SETTING CONNECTIONS****************************

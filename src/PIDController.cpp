@@ -95,6 +95,7 @@ void PIDController::initialize(void* para){ //Refer to example 1 on how to initi
 	std::cout << "Anti Windup Term: " << parameters.anti_windup << std::endl;
 	std::cout << "en_pv_derivation Term: " << static_cast<int>(parameters.en_pv_derivation) << std::endl;
 	std::cout << "ID Term: " << static_cast<int>(parameters.id) << std::endl;
+	std::cout << "dt: " << _dt << std::endl;
 
 }
 

@@ -13,6 +13,7 @@ public:
 	msg_type getType();
     const int getSize();
 	void setPIDParam(PID_parameters);
+    void set_dt(float);
     PID_parameters getPIDParam(){return _params;}
 
     PID_ParametersMsg();

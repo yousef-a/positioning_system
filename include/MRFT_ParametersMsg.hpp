@@ -13,6 +13,7 @@ public:
     msg_type getType();
     const int getSize();
 	void setMRFTParam(MRFT_parameters);
+    void set_dt(float);
     MRFT_parameters getMRFTParam(){return _params;}
 
     MRFT_ParametersMsg();

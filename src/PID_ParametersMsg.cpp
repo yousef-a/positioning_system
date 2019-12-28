@@ -26,6 +26,12 @@ void PID_ParametersMsg::setPIDParam(PID_parameters t_param){
     _params.anti_windup = t_param.anti_windup;
     _params.en_pv_derivation = t_param.en_pv_derivation;
     _params.id = t_param.id;
-    // std::cout << "SETPID CONTROLLER: " << _params.kp << std::endl;
+    
+}
+
+void PID_ParametersMsg::set_dt(float t_dt){
+
+    _type = msg_type::UPDATECONTROLLER;
+    _params.dt = t_dt;
     
 }
