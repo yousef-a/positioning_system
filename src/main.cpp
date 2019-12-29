@@ -29,6 +29,10 @@
 #include "../include/MRFTController.hpp"
 #include "../include/MRFT_values.hpp"
 #include "../include/ControllerMessage.hpp"
+#include "../include/ROSUnit_UpdateReferenceX.hpp"
+#include "../include/ROSUnit_UpdateReferenceY.hpp"
+#include "../include/ROSUnit_UpdateReferenceZ.hpp"
+#include "../include/ROSUnit_UpdateReferenceYaw.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
 void setInitialPose(PositioningProvider*, HeadingProvider*);
@@ -44,7 +48,10 @@ int main(int argc, char** argv) {
     ros::Rate rate(300);
 
     ROSUnit* myROSOptitrack = new ROSUnit_Optitrack(nh);
-    ROSUnit* myROSUpdateReference = new ROSUnit_UpdateReference(nh);
+    ROSUnit* myROSUpdateReferenceX = new ROSUnit_UpdateReferenceX(nh);
+    ROSUnit* myROSUpdateReferenceY = new ROSUnit_UpdateReferenceY(nh);
+    ROSUnit* myROSUpdateReferenceZ = new ROSUnit_UpdateReferenceZ(nh);
+    ROSUnit* myROSUpdateReferenceYaw = new ROSUnit_UpdateReferenceYaw(nh);
     ROSUnit* myROSArm = new ROSUnit_Arm(nh);
     ROSUnit* myROSUpdateController = new ROSUnit_UpdateController(nh);
     ROSUnit* myROSResetController = new ROSUnit_ResetController(nh);
@@ -166,10 +173,10 @@ int main(int argc, char** argv) {
 
     //Forward is negative pitch, Right is positive roll, CCW is positive yaw, Upwards is positive Z
 
-    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myX_UserRef);
-    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myY_UserRef);
-    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
-    myROSUpdateReference->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
+    myROSUpdateReferenceX->add_callback_msg_receiver((msg_receiver*)myX_UserRef);
+    myROSUpdateReferenceY->add_callback_msg_receiver((msg_receiver*)myY_UserRef);
+    myROSUpdateReferenceZ->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
+    myROSUpdateReferenceYaw->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
 
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_x);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)PID_y);

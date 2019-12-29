@@ -21,6 +21,10 @@ add_service_files(
   Update_Controller.srv
   Reset_Controller.srv
   Update_Pose_Reference.srv
+  Update_X_Reference.srv
+  Update_Y_Reference.srv
+  Update_Z_Reference.srv
+  Update_Yaw_Reference.srv
   SwitchBlock.srv
 )
 

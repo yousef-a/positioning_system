@@ -9,7 +9,7 @@ X_UserReference::~X_UserReference() {
 }
 
 void X_UserReference::receive_msg_data(DataMessage* t_msg){
-
+//TODO remove checks for msg_type_reference because they are connected directly
     if(t_msg->getType() == msg_type::USERREFERENCE){   
         UpdatePoseMessage* user_msg = (UpdatePoseMessage*)t_msg;
         if(user_msg->getRefType() == msg_type_reference::X){
