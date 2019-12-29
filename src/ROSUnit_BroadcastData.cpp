@@ -35,7 +35,7 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
             geometry_msgs::PointStamped msg;
             msg.header.seq = ++_seq_pos;
             msg.header.stamp = ros::Time::now();
-            msg.header.frame_id = "body";
+            msg.header.frame_id = "body x y z";
             msg.point.x = pos.x;
             msg.point.y = pos.y;
             msg.point.z = pos.z;
@@ -52,7 +52,7 @@ void ROSUnit_BroadcastData::receive_msg_data(DataMessage* t_msg){
             geometry_msgs::PointStamped msg;
             msg.header.seq = ++_seq_ori;
             msg.header.stamp = ros::Time::now();
-            msg.header.frame_id = "body";
+            msg.header.frame_id = "body roll pitch yaw";
             msg.point.x = _att.roll;
             msg.point.y = _att.pitch;
             msg.point.z = _head.yaw;
