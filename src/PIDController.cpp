@@ -38,7 +38,7 @@ void PIDController::receive_msg_data(DataMessage* t_msg){
 
 		if(static_cast<block_id>(reset_msg->getData()) == this->_id){
 			//TODO make a Logger
-			//std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
+			std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
 			this->reset();
 		}
 	}

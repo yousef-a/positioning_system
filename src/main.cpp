@@ -192,6 +192,20 @@ int main(int argc, char** argv) {
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_pitch);
     myROSUpdateController->add_callback_msg_receiver((msg_receiver*)MRFT_yaw);
 
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_x);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_y);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_z);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_roll);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_pitch);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)PID_yaw);
+
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)MRFT_x);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)MRFT_y);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)MRFT_z);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)MRFT_roll);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)MRFT_pitch);
+    myROSResetController->add_callback_msg_receiver((msg_receiver*)MRFT_yaw);
+
     //TODO after Switchers are exposed, connect ROSUnit_SwitchBlocks with them
     myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)X_ControlSystem);
     myROSSwitchBlock->add_callback_msg_receiver((msg_receiver*)Y_ControlSystem);
@@ -349,27 +363,6 @@ int main(int argc, char** argv) {
 
     //******************************PERFORM CALIBRATION********************************
      //performCalibration(myIMU);
-
-    //******************************SET INITIAL POSE***********************************
-     
-    msg_emitter* set_initial_pose = new msg_emitter();
-
-    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myX_UserRef);
-    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myY_UserRef);
-    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
-    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
-
-    PositionMsg current_pos =  myXPV->getPosition();
-    HeadingMsg current_head = myYawPV->getHeading();
-    UpdatePoseMessage set_initial_pose_msg;
-    set_initial_pose_msg.setPoseX(current_pos.x);
-    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
-    set_initial_pose_msg.setPoseY(current_pos.y);
-    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
-    set_initial_pose_msg.setPoseZ(current_pos.z);
-    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
-    set_initial_pose_msg.setPoseYaw(current_head.yaw);
-    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
 
     
     while(ros::ok()){
