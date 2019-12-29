@@ -10,5 +10,5 @@ public:
 	msg_type getType();
 	const int getSize();
 
-	float yaw;	 
+	float yaw=0;	 
 };

@@ -11,5 +11,5 @@ public:
 	msg_type getType();
 	const int getSize();
 
-	float pitch, roll;
+	float pitch=0, roll=0;
 };
