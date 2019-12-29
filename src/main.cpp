@@ -31,6 +31,7 @@
 #include "../include/ControllerMessage.hpp"
 
 void performCalibration(NAVIOMPU9250_sensor*);
+void setInitialPose(PositioningProvider*, HeadingProvider*);
 
 int main(int argc, char** argv) {
     // std::cout << "Hello Easy C++ project!" << std::endl;
@@ -339,8 +340,31 @@ int main(int argc, char** argv) {
          std::cout << "Unsuccessful in setting thread realtime prior " << ret << std::endl;
      }
 
+    //******************************PERFORM CALIBRATION********************************
      //performCalibration(myIMU);
 
+    //******************************SET INITIAL POSE***********************************
+     
+    msg_emitter* set_initial_pose = new msg_emitter();
+
+    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myX_UserRef);
+    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myY_UserRef);
+    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myZ_UserRef);
+    set_initial_pose->add_callback_msg_receiver((msg_receiver*)myYaw_UserRef);
+
+    PositionMsg current_pos =  myXPV->getPosition();
+    HeadingMsg current_head = myYawPV->getHeading();
+    UpdatePoseMessage set_initial_pose_msg;
+    set_initial_pose_msg.setPoseX(current_pos.x);
+    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
+    set_initial_pose_msg.setPoseY(current_pos.y);
+    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
+    set_initial_pose_msg.setPoseZ(current_pos.z);
+    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
+    set_initial_pose_msg.setPoseYaw(current_head.yaw);
+    set_initial_pose->emit_message((DataMessage*) &set_initial_pose_msg);
+
+    
     while(ros::ok()){
 
         ros::spinOnce();
@@ -388,5 +412,11 @@ void performCalibration(NAVIOMPU9250_sensor* t_imu){
     while(consumed_time < 5000){
         consumed_time = _calib_timer->tockMilliSeconds();    
     }
+
+}
+
+void setInitialPose(PositioningProvider* t_pos_prov, HeadingProvider* t_head_prov){
+
+    
 
 }

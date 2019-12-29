@@ -7,6 +7,7 @@ class ReferenceMessage : public DataMessage {
 private:
     msg_type _type;
     float _data;
+    msg_type_reference _ref_type;
 
 public:
 
@@ -14,11 +15,8 @@ public:
     const int getSize();
     float getData();
     
-    ReferenceMessage(Vector3D<float>);
-    ReferenceMessage(float);
     ReferenceMessage();
 
-    void setReferenceMessage(Vector3D<float>);
     void setReferenceMessage(float);
 
     ~ReferenceMessage();

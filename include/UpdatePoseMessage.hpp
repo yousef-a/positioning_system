@@ -6,6 +6,7 @@ class UpdatePoseMessage : public DataMessage{
 private:
     float _x, _y, _z, _yaw;
     msg_type _type;
+    msg_type_reference _ref_type;
 
 public:
 
@@ -16,6 +17,11 @@ public:
     msg_type getType();
     const int getSize();
     void setPoseMessage(float, float, float, float);
+    void setPoseX(float);
+    void setPoseY(float);
+    void setPoseZ(float);
+    void setPoseYaw(float);
+    msg_type_reference getRefType();
     
     UpdatePoseMessage(float,float,float,float);
     UpdatePoseMessage();
