@@ -7,6 +7,7 @@
 #include "ResetControllerMsg.hpp"
 #include "Timer.hpp"
 #include "SwitcherMessage.hpp"
+#include "SwitchOutMsg.hpp"
 
 class MRFTController : public Controller{
 

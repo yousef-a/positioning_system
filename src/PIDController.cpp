@@ -16,11 +16,11 @@ void PIDController::switchIn(DataMessage* data){
 }
 
 DataMessage* PIDController::switchOut(){
-    //TODO implement
-    DataMessage* msg;
+
+    m_switchout_msg.setSwitchOutMsg(_filter_y);
 	std::cout << "SWITCH OUT PID CONTROLLER" << std::endl;
 
-    return msg;
+    return (DataMessage*)&m_switchout_msg;
 } 
 
 void PIDController::receive_msg_data(DataMessage* t_msg){
@@ -56,8 +56,8 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 	_command = pid_direct(data.x, data.y, data.z);
 	_filter_y = _filter.perform(_command);
 
-	std::cout << "pid_output: " << _command << std::endl;
-	std::cout << "filter_output: " << _filter_y << std::endl;
+	// std::cout << "pid_output: " << _command << std::endl;
+	// std::cout << "filter_output: " << _filter_y << std::endl;
     m_output_msg.setFloatMessage(_command);
 
 	return (DataMessage*) &m_output_msg;

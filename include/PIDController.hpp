@@ -9,12 +9,14 @@
 #include "FloatMessage.hpp"
 #include "ResetControllerMsg.hpp"
 #include "ButterFilter_2nd_200Hz.hpp"
+#include "SwitchOutMsg.hpp"
 
 class PIDController : public Controller{
 
     private:
         controller_type _controller_type;
         FloatMessage m_output_msg;
+        SwitchOutMsg m_switchout_msg;
         block_id _id;
         float _command;
         ButterFilter_2nd_200Hz _filter;

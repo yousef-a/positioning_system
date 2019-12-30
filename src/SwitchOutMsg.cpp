@@ -1,6 +1,7 @@
 #include "SwitchOutMsg.hpp"
 
 SwitchOutMsg::SwitchOutMsg() {
+	_type = msg_type::SWITCHOUT;
 
 }
 
@@ -16,4 +17,12 @@ msg_type SwitchOutMsg::getType()
 const int SwitchOutMsg::getSize()
 {
 	return sizeof(this);
+}
+
+void SwitchOutMsg::setSwitchOutMsg(float t_data){
+	_data = t_data;
+}
+
+float SwitchOutMsg::getSwitchOutMsg(){
+	return _data;
 }
