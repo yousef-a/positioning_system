@@ -21,7 +21,6 @@ Block* Switcher::getActiveBlock(){
     return _active_block;
 }
 
-//TODO add reference block so the error can be calculated
 void Switcher::receive_msg_data(DataMessage* t_msg){
     
     if(t_msg->getType() == msg_type::control_system){

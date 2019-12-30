@@ -8,6 +8,7 @@
 #include "SwitcherMessage.hpp"
 #include "FloatMessage.hpp"
 #include "ResetControllerMsg.hpp"
+#include "ButterFilter_2nd_200Hz.hpp"
 
 class PIDController : public Controller{
 
@@ -15,6 +16,9 @@ class PIDController : public Controller{
         controller_type _controller_type;
         FloatMessage m_output_msg;
         block_id _id;
+        float _command;
+        ButterFilter_2nd_200Hz _filter;
+        float _filter_y;
         //Chehadeh's code
         PID_parameters parameters;
         bool i_term, d_term, dd_term; //Comparing against booleans is faster
@@ -31,6 +35,7 @@ class PIDController : public Controller{
         float pid_direct(float err, float pv_first, float pv_second=-1);
         void set_I_term(float);
         //---------------
+        
         void switchIn(DataMessage*);
         DataMessage* switchOut();
         void receive_msg_data(DataMessage* t_msg); 

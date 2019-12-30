@@ -30,3 +30,4 @@ enum class ack_msg_type { raw_packet, payload, nozzle, obstacle, mission,ack,int
 enum class ros_msg_type {POSITION, ORIENTATION, X_PV, Y_PV, Z_PV, ROLL_PV, PITCH_PV, YAW_PV, CONTROLSYSTEM, ACTUATION};
 enum class block_frequency {hz100 = 100, hz200 = 200, hhz200 = 201};
 enum class msg_type_reference {X, Y, Z, YAW, NULL_TYPE};
+const float coeff_200Hz_2nd_butter[5] = { -1.97779f, 0.97803f, 6.1006e-05f, 1.2201e-04f, 6.1006e-05f };

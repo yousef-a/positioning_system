@@ -52,11 +52,13 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 	// std::cout << "error: " << data.x << std::endl;
 	// std::cout << "pv_first: " << data.y << std::endl;
 	// std::cout << "pv_second: " << data.z << std::endl;
-    float command;
-	command = pid_direct(data.x, data.y, data.z);
 
-	// std::cout << "pid_output: " << command << std::endl;
-    m_output_msg.setFloatMessage(command);
+	_command = pid_direct(data.x, data.y, data.z);
+	_filter_y = _filter.perform(_command);
+
+	std::cout << "pid_output: " << _command << std::endl;
+	std::cout << "filter_output: " << _filter_y << std::endl;
+    m_output_msg.setFloatMessage(_command);
 
 	return (DataMessage*) &m_output_msg;
 }
