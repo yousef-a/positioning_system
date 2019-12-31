@@ -18,7 +18,7 @@ private:
 	FloatMessage m_output_msg;
 	float _dt;
     //Chehadeh's code
-	const uint8_t iterations_lock_count = 5;
+	const uint8_t iterations_lock_count = 20; //TODO add to MRFT parameters
 	bool prev_res, first_run = true;
 	float prev_err = 0;
 	/*
