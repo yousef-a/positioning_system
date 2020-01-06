@@ -181,7 +181,7 @@ void MRFTController::initialize(MRFT_parameters* para){
 	if(para->dt > 0){
 		_dt = para->dt;
 	}
-
+	//TODO use logger
 	std::cout << "MRFT SETTINGS: " << std::endl;
 	std::cout << "Beta: " << parameters.beta << std::endl;
 	std::cout << "Relay_amp: " << parameters.relay_amp << std::endl;
