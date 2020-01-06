@@ -7,7 +7,6 @@
 #include "ResetControllerMsg.hpp"
 #include "Timer.hpp"
 #include "SwitcherMessage.hpp"
-#include "SwitchOutMsg.hpp"
 
 class MRFTController : public Controller{
 
@@ -18,7 +17,7 @@ private:
 	FloatMessage m_output_msg;
 	float _dt;
     //Chehadeh's code
-	const uint8_t iterations_lock_count = 20; //TODO add to MRFT parameters
+	const uint8_t iterations_lock_count = 5;
 	bool prev_res, first_run = true;
 	float prev_err = 0;
 	/*

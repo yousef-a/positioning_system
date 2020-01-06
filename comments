@@ -1,0 +1,7 @@
+1. common_types.h --> added 2 message types
+2. adding dot and multiplication of matrices in Vector3D class
+3. 
+
+
+
+todo: create rosunits to subscribe to body_position and body_orientation.

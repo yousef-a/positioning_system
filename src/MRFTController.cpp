@@ -9,13 +9,10 @@ MRFTController::~MRFTController() {
 
 }
 
-void MRFTController::switchIn(DataMessage* t_msg){
+void MRFTController::switchIn(DataMessage* data){
     //this->emit_message(data);
-    if(t_msg->getType() == msg_type::SWITCHOUT){
-		SwitchOutMsg* switch_out_msg = (SwitchOutMsg*)t_msg;
-		parameters.bias = -switch_out_msg->getSwitchOutMsg();
-	}
-	std::cout << "SWITCH IN MRFT CONTROLLER - Bias: " << parameters.bias << std::endl;
+    //TODO implement
+	std::cout << "SWITCH IN MRFT CONTROLLER" << std::endl;
 }
 
 DataMessage* MRFTController::switchOut(){
@@ -181,7 +178,7 @@ void MRFTController::initialize(MRFT_parameters* para){
 	if(para->dt > 0){
 		_dt = para->dt;
 	}
-	//TODO use logger
+
 	std::cout << "MRFT SETTINGS: " << std::endl;
 	std::cout << "Beta: " << parameters.beta << std::endl;
 	std::cout << "Relay_amp: " << parameters.relay_amp << std::endl;

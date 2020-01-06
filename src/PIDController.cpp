@@ -16,11 +16,11 @@ void PIDController::switchIn(DataMessage* data){
 }
 
 DataMessage* PIDController::switchOut(){
-
-    m_switchout_msg.setSwitchOutMsg(_filter_y);
+    //TODO implement
+    DataMessage* msg;
 	std::cout << "SWITCH OUT PID CONTROLLER" << std::endl;
 
-    return (DataMessage*)&m_switchout_msg;
+    return msg;
 } 
 
 void PIDController::receive_msg_data(DataMessage* t_msg){
@@ -38,7 +38,7 @@ void PIDController::receive_msg_data(DataMessage* t_msg){
 
 		if(static_cast<block_id>(reset_msg->getData()) == this->_id){
 			//TODO make a Logger
-			std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
+			//std::cout << "RESET CONTROLLER: " << (int)this->_id << std::endl;
 			this->reset();
 		}
 	}
@@ -52,13 +52,11 @@ DataMessage* PIDController::receive_msg_internal(DataMessage* t_msg){
 	// std::cout << "error: " << data.x << std::endl;
 	// std::cout << "pv_first: " << data.y << std::endl;
 	// std::cout << "pv_second: " << data.z << std::endl;
+    float command;
+	command = pid_direct(data.x, data.y, data.z);
 
-	_command = pid_direct(data.x, data.y, data.z);
-	_filter_y = _filter.perform(_command);
-
-	// std::cout << "pid_output: " << _command << std::endl;
-	// std::cout << "filter_output: " << _filter_y << std::endl;
-    m_output_msg.setFloatMessage(_command);
+	// std::cout << "pid_output: " << command << std::endl;
+    m_output_msg.setFloatMessage(command);
 
 	return (DataMessage*) &m_output_msg;
 }
