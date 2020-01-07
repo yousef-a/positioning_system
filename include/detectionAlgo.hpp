@@ -2,7 +2,7 @@
 #include "Vector3D.hpp"
 #include "MsgReceiver.hpp"
 #include "MsgEmitter.hpp"
-#include "AttitudeMsg.hpp"
+//#include "AttitudeMsg.hpp"
 #include "HeadingMsg.hpp"
 #include "PositionMsg.hpp"
 #include "DarknetMessage.hpp"
@@ -20,16 +20,17 @@ class detectionAlgo : public msg_emitter , public msg_receiver {
 
 private:
     //static detectionAlgo* _instance_ptr;
-    AttitudeMsg _att_msg;
+    //AttitudeMsg _att_msg;
     HeadingMsg _heading_msg;
     PositionMsg _position_msg;
     DarknetMessage _darknet_msg;
     FireLineDescription _fire_line;
-    Vector3D<float>  intersectPoint(Vector3D<float>, Vector3D<float> , Vector3D<float> , Vector3D<float> );
+    //Vector3D<float>  intersectPoint(Vector3D<float>, Vector3D<float> , Vector3D<float> , Vector3D<float> );
     void detection_algo();
     Vector3D<float> curr_position;
     float yaw=0;
-    float pitch=0, roll=0;
+    //float pitch=0;
+    //float roll=0;
 
     float hztl_fov = 69.4;
     float vrtl_fov = 42.5;
